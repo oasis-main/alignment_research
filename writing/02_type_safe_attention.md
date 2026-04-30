@@ -440,7 +440,7 @@ print(weights)
 ## Try It
 
 ```bash
-cd ai_research/topics/ontological_induction_sequence_modeling
+cd alignment_research/ontological_embeddings
 source venv/bin/activate
 
 # Run the attention demo

@@ -22,8 +22,8 @@ Let's build an auditable AI for an e-commerce support system.
 
 ```bash
 # Clone the repository
-git clone https://github.com/MikeHLee/ai_research
-cd ai_research/topics/ontological_induction_sequence_modeling
+git clone https://github.com/MikeHLee/alignment_research
+cd alignment_research/ontological_embeddings
 
 # Create virtual environment
 python -m venv venv
@@ -752,4 +752,4 @@ uvicorn>=0.21
 ---
 
 **← Previous**: [From Proofs to Programs to... Text?](./03_proofs_to_text.md)  
-**GitHub**: [ai_research/topics/ontological_induction_sequence_modeling](https://github.com/MikeHLee/ai_research)
+**GitHub**: [alignment_research/ontological_embeddings](https://github.com/MikeHLee/alignment_research)

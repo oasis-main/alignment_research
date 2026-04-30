@@ -267,8 +267,8 @@ This blog introduced the *what* and *why*. Coming up:
 ## Try It Yourself
 
 ```bash
-git clone https://github.com/MikeHLee/ai_research
-cd ai_research/topics/ontological_induction_sequence_modeling
+git clone https://github.com/MikeHLee/alignment_research
+cd alignment_research/ontological_embeddings
 
 # Install dependencies
 python -m venv venv && source venv/bin/activate

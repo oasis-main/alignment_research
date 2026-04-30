@@ -450,7 +450,7 @@ By induction over all claims in T, the theorem holds. ∎
 ## Try It
 
 ```bash
-cd ai_research/topics/ontological_induction_sequence_modeling
+cd alignment_research/ontological_embeddings
 source venv/bin/activate
 
 # See proof-guided generation in action
