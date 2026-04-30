@@ -1,0 +1,17 @@
+{
+  "stages_completed": [
+    "hodge_analysis",
+    "visualization"
+  ],
+  "h1_overall": 2.471452061873939,
+  "standard_mean": 0.8131868131868133,
+  "hodge_mean": 0.27273202987488704,
+  "figures": {
+    "fig1": "/results/figures/fig1_constitutional_gradient_field.html",
+    "fig2": "/results/figures/fig2_alignment_boundary_topology.html",
+    "fig3": "/results/figures/fig3_sgpo_trajectory_avoidance.html",
+    "fig4": "/results/figures/fig4_hodge_decomposition.html",
+    "fig5": "/results/figures/fig5_hodge_filtering_comparison.html"
+  },
+  "elapsed_seconds": 1250.0313212871552
+}
