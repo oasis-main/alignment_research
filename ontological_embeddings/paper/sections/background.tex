@@ -30,8 +30,10 @@ configurations---which is exactly the structural inconsistency signal we
 want.
 
 \subsection{Hyperdimensional Computing for KG Embeddings}
-Hyperdimensional Computing (HDC) represents entities and relations as
-high-dimensional bipolar vectors. We use non-commutative binding (fixed
-random shifts per relation) so that directed edges are distinguishable
-from their reverses, following standard practice. Embedding dimension is
-4096 throughout.
+Hyperdimensional Computing (HDC)~\cite{kanerva2009hdc} represents entities
+and relations as high-dimensional bipolar ($\pm 1$) vectors composed by
+algebraic binding and bundling operations; our encoder follows the
+holographic reduced representation family~\cite{plate1995hrr}. We bind
+each relation by a fixed random circular shift (a permutation), making the
+binding non-commutative so that a directed edge is distinguishable from
+its reverse. Embedding dimension is 4096 throughout.

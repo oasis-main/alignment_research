@@ -147,12 +147,13 @@ The system has four components, each a separate module in the public
 code release (Appendix~\ref{app:compute}).
 
 \paragraph{HDC encoder.} Entities and relations are encoded as
-4096-dimensional bipolar ($\pm 1$) hypervectors. Relation application
-uses non-commutative binding: each relation $r$ is assigned a fixed
-random circular shift $\sigma_r$, so that $\sigma_r(h) \neq
-\sigma_r^{-1}(h)$ and a directed edge $h \xrightarrow{r} t$ is
-distinguishable from its reverse. This is the standard construction for
-encoding directed relational structure in hyperdimensional computing.
+4096-dimensional bipolar ($\pm 1$) hypervectors~\cite{kanerva2009hdc}.
+Relation application uses non-commutative binding: each relation $r$ is
+assigned a fixed random circular shift $\sigma_r$, so that $\sigma_r(h)
+\neq \sigma_r^{-1}(h)$ and a directed edge $h \xrightarrow{r} t$ is
+distinguishable from its reverse. The circular-shift (permutation)
+binding follows the holographic reduced representation
+family~\cite{plate1995hrr}.
 
 \paragraph{Typed attention (B).} The (B) layer adds a precomputed mask
 $M$ to the pre-softmax attention scores, with $M_{ij} = 0$ if
