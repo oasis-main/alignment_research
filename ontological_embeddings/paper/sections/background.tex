@@ -1,0 +1,37 @@
+\section{Background}
+\label{sec:background}
+
+\subsection{Ontology Logs (Ologs)}
+An Olog $\mathcal{O} = (T, R, \circ)$ is a small category whose objects $T$
+are types and whose morphisms $R$ are typed relations, closed under
+composition $\circ$. We assume a finite, acyclic Olog throughout the main
+body; cyclic Ologs are treated as a stress test in
+\S\ref{sec:experiments}.
+
+\subsection{Cellular Sheaves on KGs}
+A cellular sheaf $\mathcal{F}$ on a graph $G = (V, E)$ assigns a vector
+space (stalk) $\mathcal{F}(v) = \mathbb{R}^d$ to each vertex and
+$\mathcal{F}(e) = \mathbb{R}^d$ to each edge, together with linear
+restriction maps $\mathcal{F}_{v \blacktriangleleft e}$ relating each
+stalk to its incident edge spaces. A coboundary operator
+$\delta_0: C^0 \to C^1$ measures how much a global vertex assignment
+fails to be consistent across edges; its kernel $\ker \delta_0$ is the
+space of globally consistent (harmonic) sections. The first cohomology
+$H^1 = \ker \delta_1 / \mathrm{im}\,\delta_0$ captures locally
+consistent but globally incompatible configurations. Full construction
+in Appendix~\ref{app:sheaf}.
+
+\subsection{First Cohomology as Inconsistency}
+$H^1(\mathcal{F}) = \ker \delta_1 / \mathrm{im}\,\delta_0$. A 1-cocycle is a
+collection of edge values that locally agrees on every vertex; a
+1-coboundary is one that arises from a global vertex assignment. Their
+quotient measures the dimension of locally-consistent-but-globally-incompatible
+configurations---which is exactly the structural inconsistency signal we
+want.
+
+\subsection{Hyperdimensional Computing for KG Embeddings}
+Hyperdimensional Computing (HDC) represents entities and relations as
+high-dimensional bipolar vectors. We use non-commutative binding (fixed
+random shifts per relation) so that directed edges are distinguishable
+from their reverses, following standard practice. Embedding dimension is
+4096 throughout.

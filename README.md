@@ -35,6 +35,7 @@ that makes dangerous policy regions geometrically unreachable rather than merely
 
 ### 2. Ontological Embeddings
 **Directory**: [`ontological_embeddings/`](ontological_embeddings/)
+**Paper**: [*Interpretable Knowledge Graph Reasoning via Sheaf Cohomology*](ontological_embeddings/paper/main.pdf) (arXiv, cs.LG)
 
 Bridging symbolic and statistical AI using *Ologs* (category-theoretic knowledge
 representations). Core claim: transformer attention implicitly implements categorical semantics,
@@ -55,10 +56,13 @@ hallucination and makes reasoning auditable.
 | File | Role |
 |------|------|
 | `olog_core.py` | Category-theoretic knowledge graph: types, morphisms, commutativity |
-| `ontological_attention.py` | Attention heads parameterized by Olog structure |
-| `baseline_benchmarks.py` | TransE / RotatE / DistMult / ComplEx baselines on FB15K-237, WN18RR |
+| `ghrr_encoder.py` | Hyperdimensional (HDC) encoder with non-commutative relation binding |
+| `ontology_sheaf.py` | Cellular sheaf over an Olog; H⁰/H¹ cohomology for inconsistency detection |
+| `ontological_attention.py` | Attention heads gated by Olog reachability (the (B) locus) |
 | `proof_objects.py` | Formal proof objects for logical verification |
-| `proof_guided_generation.py` | Prove-then-generate pipeline (hallucination-free by construction) |
+| `proof_guided_generation.py` | Prove-then-generate pipeline with the constrained decoder (the (D) locus) |
+| `hdc_sheaf_pipeline.py` | End-to-end HDC/Sheaf link-prediction and cohomology pipeline |
+| `baseline_benchmarks.py` | TransE / RotatE / DistMult / ComplEx baselines on FB15K-237, WN18RR |
 
 ---
 
@@ -84,7 +88,7 @@ the analysis scripts; training requires GPU.
 
 ```bash
 # Clone and set up
-git clone https://github.com/MikeHLee/alignment_research
+git clone https://github.com/oasis-main/alignment_research
 cd alignment_research
 python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt   # coming soon
@@ -93,10 +97,12 @@ pip install -r requirements.txt   # coming soon
 cd hodge_preference_geometry
 python discrete_hodge_rank.py     # generates decomposition, prints H¹ score
 
-# Reproduce conflict detection
+# Reproduce the Olog thread
 cd ../ontological_embeddings
 python olog_core.py               # builds graph, runs sheaf cohomology
-python baseline_benchmarks.py     # runs TransE/RotatE/etc. on WN18RR
+python hdc_sheaf_pipeline.py      # HDC/Sheaf link prediction + H¹ conflict detection
+python attention_ablation_experiment.py --epochs 300 --embed-dim 64 --lr 0.003   # typed-attention ablation
+python baseline_benchmarks.py     # TransE / RotatE / etc. on WN18RR
 ```
 
 ---
@@ -105,4 +111,5 @@ python baseline_benchmarks.py     # runs TransE/RotatE/etc. on WN18RR
 
 See [METHODS.md](METHODS.md) for the mathematical foundations and citations.
 
-Venue targets: ICML 2026 (Hodge thread), NeurIPS 2026 (Olog thread).
+Venue targets: ICML 2026 (Hodge thread). The Olog thread is being posted to
+arXiv (cs.LG) — see [`ontological_embeddings/paper/`](ontological_embeddings/paper/).

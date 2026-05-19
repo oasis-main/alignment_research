@@ -1,0 +1,42 @@
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Neural knowledge graph embeddings.}
+TransE~\cite{transe2013}, DistMult~\cite{distmult2015}, ComplEx~\cite{complex2016},
+ConvE~\cite{conve2018}, and RotatE~\cite{rotate2019} established the standard
+link-prediction setup on FB15K-237 and WN18RR.
+None of these models expose a structural notion of consistency, and none
+emit a derivation for predictions.
+
+\paragraph{LLM-based KG reasoning.}
+KG-BERT~\cite{yao2019kgbert} reframes link prediction as triple
+classification with a pretrained language model. KGT5~\cite{saxena2022sequence}
+casts it as sequence-to-sequence over verbalized triples, achieving
+MRR~$0.300$ on FB15K-237. SimKGC~\cite{wang2022simkgc} adds contrastive
+training over LM-encoded entity descriptions, reaching MRR~$0.336$. These
+methods improve raw retrieval accuracy but provide no structural signal
+when their predictions are inconsistent with the underlying ontology---a
+gap our sheaf-cohomology layer directly addresses.
+
+\paragraph{Sheaves and topology in machine learning.}
+Sheaf neural networks~\cite{bodnar2022sheaf, hansen2020sheaf} and topological
+data analysis have established the toolkit; we apply it to KG
+inconsistency rather than message passing or persistence.
+
+\paragraph{Categorical knowledge representation.}
+Ologs~\cite{spivak2012olog} provide the syntactic substrate for our sheaf
+construction. The broader Olog-as-category-of-types perspective belongs to
+applied category theory~\cite{fongspivak2019}, where structure-preserving
+functors between categories are the standard tool for relating
+representations --- the same lens we apply in treating a KG as a sheaf
+over an Olog.
+
+\paragraph{Constrained decoding.}
+Constrained decoding restricts the output distribution at sampling time
+to a domain-specified admissible set. Relevant lines include
+grammar-constrained generation~\cite{geng2023flexiblegrammar} and
+schema-constrained generation~\cite{willard2023outlines}. Our (D) component
+specializes this to Olog-derived admissible sets per generation step.
+The novel contribution is the \emph{architectural separation} between (B)
+information-flow constraints at attention and (D) output-validity
+constraints at decoding, with the proof object as their shared interface.

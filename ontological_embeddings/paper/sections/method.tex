@@ -1,0 +1,171 @@
+\section{Method}
+\label{sec:method}
+
+\subsection{Two-locus type safety: information flow vs output validity}
+\label{sec:method:two_loci}
+
+A type-safe reasoner over an Olog $\mathcal{O}$ has two distinct correctness
+properties to enforce, and they live at different layers of the
+architecture.
+
+\textbf{(B) Information-flow correctness} (attention layer): the model
+should not internally mix information across token pairs whose types are
+unrelated under $\mathcal{O}$. This is enforced by gating attention
+weights by Olog reachability (\S\ref{sec:method:attention}).
+
+\textbf{(D) Output validity} (sampling boundary): the model's emitted
+labels at each generation step should be admissible under $\delta_\mathcal{O}$,
+the typed transition relation given by the Olog's morphisms. This is
+enforced by a constrained decoder that masks the output distribution at
+each step to the admissible-label set (\S\ref{sec:method:decoder}).
+
+The distinction matters: (B) restricts internal representations; (D)
+restricts emissions. (B) without (D) is information-flow-clean but does
+not guarantee trajectory soundness, because attention reachability admits
+the eventual destination type without requiring each step to correspond
+to an Olog edge from the current type. (D) without (B) is sound at the
+sampling boundary but the internal representations the model learns may
+still mix unrelated types. The composition (B)+(D) gives both
+information-flow cleanliness and trajectory soundness.
+
+\subsection{(B) Ontology-Typed Attention}
+\label{sec:method:attention}
+
+Standard self-attention computes weights $a_{ij} \propto \exp(q_i^\top
+k_j)$ over all token pairs. We type each token with an Olog object (or
+$\bot$ for untyped tokens) and mask attention by Olog reachability:
+\begin{equation}
+\tilde{a}_{ij} = a_{ij} \cdot \mathbb{1}[\tau(j) \in
+\mathrm{Reach}_{\mathcal{O}}(\tau(i))],
+\label{eq:typed_attention}
+\end{equation}
+where $\tau(\cdot)$ is the Olog type assignment and
+$\mathrm{Reach}_{\mathcal{O}}(t)$ is the set of Olog objects reachable from
+$t$ under composition of morphisms. Untyped tokens are unrestricted on
+either side. Eq.~(\ref{eq:typed_attention}) is the (B) configuration.
+
+\paragraph{What (B) buys, and what it does not.} Reachability is a
+transitive closure: from a current type $t$, (B) admits attention to any
+type $t'$ such that there exists a composition of Olog morphisms
+$t \to \cdots \to t'$. This is the right primitive for representation
+hygiene: information flows only along type-respecting paths inside the
+model. It is the wrong primitive for output emission: a destination
+$t'$ may be many morphisms away from $t$, and the next emitted label
+must correspond to an edge $t \to t''$ in the Olog, not just any type
+reachable from $t$. Without (D), a (B)-only system can still emit
+trajectories that violate $\delta_\mathcal{O}$.
+
+\subsection{(D) Constrained Decoder}
+\label{sec:method:decoder}
+
+At each generation step, given the current type $t$ and the proof step
+$(t, r, t')$ recommended by the prover, the decoder constructs the
+admissible-label set $\mathcal{A}(t, r, t')$ as the union of (i) the
+target type $t'$, (ii) the relation token $r$, and (iii) function words
+admissible regardless of type (articles, prepositions, punctuation). The
+output logits are then masked:
+\begin{equation}
+\tilde{\ell}_v = \begin{cases}
+\ell_v & v \in \mathcal{A}(t, r, t') \\
+-\infty & \text{otherwise.}
+\end{cases}
+\end{equation}
+This is the (D) configuration; the implementation is the
+\texttt{ConstrainedDecoder} of Appendix~\ref{app:impl}. The decoder
+operates on logits, not on hidden states, and is independent of (B);
+they compose without interference.
+
+\subsection{Sheaf Cohomology of a KG}
+\label{sec:method:sheaf}
+
+We model the KG as a cellular sheaf $\mathcal{F}$ over the underlying
+multigraph (\S\ref{sec:background}, full construction in
+Appendix~\ref{app:sheaf}). The first cohomology $H^1(\mathcal{F})$ is the
+quotient $\ker \delta_1 / \mathrm{im}\,\delta_0$; non-trivial classes
+correspond to inconsistency that cannot be resolved by adjusting vertex
+values alone. We compute $\dim H^1$ via the sheaf Laplacian and the
+ranks of the boundary operators (Appendix~\ref{app:sheaf}).
+
+\begin{theorem}[Conflict Sensitivity, informal]
+\label{thm:conflict_sensitivity}
+Let $\mathcal{F}$ be a cellular sheaf on a KG and $\mathcal{F}'$ the same
+sheaf with $k$ injected conflicts (edges whose restriction maps disagree
+on their endpoints). Then $\dim H^1(\mathcal{F}') \geq \dim
+H^1(\mathcal{F}) + c$ for some $c \leq k$ depending on conflict
+locality.
+\end{theorem}
+The proof and full hypotheses are deferred to
+Appendix~\ref{app:conflict_proof}.
+
+\subsection{Proof-Guided Generation}
+\label{sec:method:proof}
+Each prediction $(h, r, t)$ is accompanied by a derivation
+$\pi: h \xrightarrow{r_1} \cdots \xrightarrow{r_n} t$ in the Olog. The
+\emph{prove-then-emit} procedure runs in three steps:
+\begin{enumerate}
+\item \textbf{Prove.} Search the Olog for a morphism path
+$\pi = (r_1, \ldots, r_n)$ from $\tau(h)$ to a goal type compatible
+with $r$, by breadth-first search over the morphism set
+($O(|T| + |R|)$). If no path exists, abstain.
+\item \textbf{Check.} Test whether the candidate triple closes a
+non-trivial class in $H^1(\mathcal{F})$ (\S\ref{sec:method:sheaf}); if
+so, flag the prediction as structurally inconsistent.
+\item \textbf{Emit.} For each step $(t, r_i, t')$ along $\pi$, the (D)
+decoder restricts the output logits to the admissible-label set
+$\mathcal{A}(t, r_i, t')$ (\S\ref{sec:method:decoder}) and samples the
+next label.
+\end{enumerate}
+The proof object $\pi$ is the shared interface that drives both the
+sheaf consistency check (step~2) and the constrained decoder (step~3),
+and is also the artifact returned to the user as the derivation behind
+the prediction.
+
+\subsection{Pipeline}
+\label{sec:method:pipeline}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  >={Stealth[length=2.2mm]},
+  every node/.style={font=\small},
+  box/.style={draw, rounded corners, align=center,
+              minimum height=11mm, minimum width=21mm, inner sep=3pt},
+  stage/.style={box, fill=blue!7},
+  io/.style={box, fill=black!6},
+  art/.style={box, fill=orange!16},
+]
+\node[io]    (q)   {Query $(h,r)$};
+\node[stage] (b)   [right=7mm of q]  {(B) typed\\attention};
+\node[stage] (pv)  [right=7mm of b]  {Olog prover\\(BFS)};
+\node[stage] (d)   [right=7mm of pv] {(D) constrained\\decoder};
+\node[io]    (out) [right=7mm of d]  {$(h,r,t)$\\$+$ derivation};
+\node[art]   (pf)  [below=10mm of pv] {proof object $\pi$};
+\node[stage] (sh)  [below=10mm of d]  {sheaf $H^1$\\check};
+\draw[->] (q)  -- (b);
+\draw[->] (b)  -- (pv);
+\draw[->] (pv) -- (d);
+\draw[->] (d)  -- (out);
+\draw[->] (pv) -- (pf);
+\draw[->] (pf) -- (sh);
+\draw[->] (pf) -- (d);
+\draw[->] (sh) -- (out);
+\end{tikzpicture}
+\caption{\textbf{The prove-then-emit pipeline.} A query passes through
+(B) typed attention (an information-flow restriction inside the model),
+an Olog prover that produces the proof object $\pi$, and the (D)
+constrained decoder (an output-validity restriction at the sampling
+boundary). The proof object is the shared interface: it drives both the
+constrained decoder and the sheaf $H^1$ consistency check, which can
+flag a structurally inconsistent prediction or route it to an abstain
+head. (B) and (D) act at different loci and compose without
+interference.}
+\label{fig:pipeline}
+\end{figure}
+
+Figure~\ref{fig:pipeline} shows the full pipeline; a query $(h, r)$ is
+processed in four stages.
+(i)~The entity-token sequence is encoded under (B) typed attention, restricting information flow to Olog-reachable type pairs.
+(ii)~A prover constructs the derivation $\pi: h \xrightarrow{r_1} \cdots \xrightarrow{r_n} t$, which serves as the proof object for subsequent stages.
+(iii)~The sheaf consistency check tests whether the candidate triple $(h, r, t)$ induces a non-trivial cohomology class; predictions that do are flagged as structurally inconsistent or routed to an abstain head.
+(iv)~The (D) constrained decoder restricts output logits at each step to the admissible-label set $\mathcal{A}(t, r, t')$ derived from the proof object.
+The proof object is the single shared interface between stages (ii)--(iv); it makes the pipeline end-to-end verifiable.

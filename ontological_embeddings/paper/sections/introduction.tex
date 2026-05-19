@@ -1,0 +1,71 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Knowledge graphs (KGs) underpin question answering, search, and decision
+support, and the dominant way to extend them is \emph{link prediction}:
+given a head entity $h$ and a relation $r$, rank candidate tail entities
+$t$ for a missing fact $(h, r, t)$. Progress is measured on two standard
+benchmarks---FB15K-237, a 14.5K-entity subset of the Freebase knowledge
+base, and WN18RR, a 41K-entity subset of the WordNet lexical
+database---under two metrics. Mean Reciprocal Rank (MRR) averages
+$1/\mathrm{rank}$ of the correct tail across test queries, so a score of
+$1.0$ means the correct answer was always ranked first; Hits@$k$ is the
+fraction of queries whose correct tail falls within the top $k$ candidates.
+Both metrics reward placing the right \emph{entity} near the top of the
+list. Neither asks whether the predicted fact is \emph{type-consistent}
+with the ontology behind the graph. A model can earn a confident,
+well-ranked score for predicting that a \texttt{Payment} \texttt{triggers}
+a \texttt{Customer}, or---in a medical KG---that a drug \texttt{treats} a
+condition for which it is contraindicated: locally plausible, globally
+incoherent, and entirely invisible to MRR and Hits@$k$.
+
+This is the gap we address. KG reasoning has converged on an evaluation
+loop that says nothing about \emph{why} a prediction is or is not
+trustworthy: two systems with identical Hits@10 can have wildly different
+failure modes, and the standard benchmarks cannot tell them apart.
+
+We argue that KG reasoning needs a \emph{structural} layer of evaluation
+that sits orthogonal to accuracy: a quantitative answer to ``does this
+prediction respect the ontology, and where in the graph does inconsistency
+live?''. We further argue that delivering type-safe predictions requires
+\emph{two} mechanisms that current architectures conflate: an attention-layer
+mask~(B) that constrains information flow inside the model, and a
+constrained decoder~(D) that constrains the output distribution. Empirically,
+(B) alone is insufficient---it is necessary for clean internal
+representations but does not guarantee that generated trajectories are
+admissible under the ontology---and (D) alone is sufficient for trajectory
+soundness but operates only at the sampling boundary. The two are
+complementary, and we make the distinction explicit.
+
+\paragraph{Contributions.}
+\begin{enumerate}
+\item \textbf{Sheaf-cohomological inconsistency detection.} We model a KG
+as a cellular sheaf over an Olog and show that injecting 76 conflicts
+into a clean sheaf raises $\dim H^1$ from 5 to 58 (+53), giving a
+calibrated structural inconsistency signal (\S\ref{sec:experiments}).
+We prove a sensitivity bound (Theorem~\ref{thm:conflict_sensitivity}).
+\item \textbf{Two-locus type-safety: (B) typed attention $+$ (D)
+constrained decoder.} We separate information-flow correctness from
+output validity. Typed attention~(B), parameterized by Olog
+reachability, drives invalid attention weight from $0.295$ to $0.000$
+(\S\ref{sec:method:attention}); constrained decoding~(D), driven by a
+proof object, restricts the logit distribution to admissible labels at
+each step (\S\ref{sec:method:decoder}). We characterize what each buys
+on its own and what their composition guarantees.
+\item \textbf{Proof-guided generation.} A prove-then-emit pipeline that
+attaches a derivation to each prediction. The proof object is the
+shared interface between the sheaf consistency check, the typed
+attention mask, and the constrained decoder.
+\item \textbf{Topology contrast.} On WN18RR (tree ontology) our
+consistency score is $0.633$; on FB15K-237 (multi-relational web) it
+drops to $0.292$, correctly reflecting the structural difference rather
+than treating both graphs as equivalent.
+\end{enumerate}
+
+\paragraph{What we do not claim.} We do not claim state-of-the-art link
+prediction; our MRR is on par with KG-BERT-class baselines but not modern
+KGT5 successors. We do not claim hallucination elimination in closed form;
+the (B)+(D) composition is empirically sound on the trajectories we test
+but a theoretical completeness statement is left open. We do not claim
+multi-scale persistence; the present paper is single-scale by design
+(\S\ref{sec:conclusion}).

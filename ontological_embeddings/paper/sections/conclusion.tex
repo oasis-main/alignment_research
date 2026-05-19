@@ -1,0 +1,75 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+We presented a sheaf-theoretic framework for interpretable knowledge graph
+reasoning. At a single scale (the type graph), cellular sheaf cohomology
+gives a quantitative inconsistency signal: $\dim H^1$ rises by $+53$ when
+76 conflicts are injected into a clean graph, with roughly 70\% of
+injected conflicts producing linearly independent cohomology classes
+(Theorem~\ref{thm:conflict_sensitivity_full}). On top of this, ontology-typed
+attention drives invalid attention weight to zero by construction, and
+proof-guided generation emits a derivation alongside each prediction. Link
+prediction performance on FB15K-237 is on par with KG-BERT, KGT5, and
+SimKGC; our contribution is the structural and verifiable layer that none
+of these baselines provide.
+
+\paragraph{From a controlled environment to a deployable system.}
+The results above are established in a deliberately controlled
+environment: hand-built Ologs of $\leq 100$ types, a 7-type e-commerce
+schema, synthetic label priors, and single-seed runs. This is the right
+setting for isolating the mechanisms---it lets us measure $H^1$, the
+(B)/(D) separation, and the topology contrast without confounds---but it
+is not yet a system competitive with state-of-the-art neural KG
+reasoners. Four research blockers stand between the present work and
+that goal, each pointing to a concrete next step.
+\begin{enumerate}
+\item \textbf{Cohomology at entity scale.} Cellular sheaf cohomology with
+non-trivial restriction maps runs in $O((nd)^3)$ (dense rank on the
+boundary operators). This is why $H^1$ is reported on the type graph
+($n \leq 100$) and only the cheaper $O(n+m)$ Betti number on the
+entity graph. \emph{Blocker:} a sparse-Krylov sheaf-cohomology
+algorithm exploiting block structure. Until it exists, the calibrated
+$H^1$ signal cannot be computed directly on a full KG.
+\item \textbf{From synthetic priors to trained models.} The (B$'$)/(D)
+trajectory results use hand-crafted label priors and a structural audit
+of the production attention layer, not an end-to-end trained language
+model with a learned label head. \emph{Blocker:} a trained projection
+head from attention output to label distribution, which would also
+unlock the four-cell (A / B / D / B+D) ablation needed to settle what
+(B) contributes when (D) is present (Appendix~\ref{app:b_vs_d}).
+\item \textbf{From hand-built Ologs to learned ontological structure.}
+Every Olog in this paper is hand-authored, and the entity embeddings and
+tokenization are kept deliberately simple. A deployable system needs
+ontologies induced from text or data at scale, \emph{and} embeddings and
+a tokenization that faithfully encode the Olog's type structure rather
+than merely fit a link-prediction objective. \emph{Blocker:} both are
+open problems. Reliable automated Olog extraction would remove the
+hand-authoring bottleneck; ontology-faithful representation
+learning---in our view the harder of the two, and a central open problem
+for this line of work---would let the type structure \emph{shape} the
+embedding geometry rather than be imposed only as an external attention
+mask, as it is here.
+\item \textbf{Multi-scale unification.} We report two disconnected
+topological measurements---sheaf $H^1$ on the type graph and graph
+$b_1$ on the entity graph. \emph{Blocker:} a sheaf morphism across
+scale, or a persistent sheaf cohomology over a filtration that merges
+relations within an $\epsilon$-radius, unifying both into a single
+multi-scale statement that subsumes the present work as the
+single-scale special case.
+\end{enumerate}
+
+\paragraph{Toward auditable reasoning.}
+The objective behind this work is not a higher MRR. Knowledge graphs
+increasingly feed decisions in medicine, finance, and science, where a
+confident but ontologically incoherent prediction is not a ranking error
+but a safety failure---and one that accuracy metrics are structurally
+blind to. Our aim is to give KG reasoning a layer that can be
+\emph{audited}: a quantitative inconsistency signal that says where in
+the graph coherence breaks down, and a generation pipeline in which every
+prediction either carries a derivation or is flagged as unfounded. That
+shifts the question a practitioner can ask of a model from ``is it
+accurate on average?'' to ``can this specific prediction be trusted, and
+can I see why?''. We see the sheaf-cohomological and two-locus
+constructions here as a first, deliberately small step toward reasoning
+systems that are verifiable by construction rather than trusted by
+reputation.

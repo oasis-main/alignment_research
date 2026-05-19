@@ -267,7 +267,7 @@ This blog introduced the *what* and *why*. Coming up:
 ## Try It Yourself
 
 ```bash
-git clone https://github.com/MikeHLee/alignment_research
+git clone https://github.com/oasis-main/alignment_research
 cd alignment_research/ontological_embeddings
 
 # Install dependencies

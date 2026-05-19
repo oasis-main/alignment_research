@@ -1,0 +1,323 @@
+\section{Full Sheaf Construction}
+\label{app:sheaf}
+
+Let $G = (V, E)$ be a finite directed multigraph encoding a knowledge graph,
+and let $\mathcal{O} = (T, R)$ be an Olog with type assignment
+$\tau: V \to T$ and relation assignment $\rho: E \to R$. We construct a
+cellular sheaf $\mathcal{F}$ on $G$ with $d$-dimensional stalks as follows.
+
+\paragraph{Stalks.} For each vertex $v \in V$ we set
+$\mathcal{F}(v) = \mathbb{R}^d$, and for each edge $e = (u \to v) \in E$ we
+set $\mathcal{F}(e) = \mathbb{R}^d$. Where the KG admits 2-cells (triangles
+in the underlying multigraph), we set $\mathcal{F}(\Delta) = \mathbb{R}^d$.
+
+\paragraph{Restriction maps.} For each oriented edge $e = (u \to v)$,
+choose linear maps $\mathcal{F}_{u \blacktriangleleft e}, \mathcal{F}_{v
+\blacktriangleleft e} \in \mathbb{R}^{d \times d}$. We instantiate
+$\mathcal{F}_{v \blacktriangleleft e}$ as the identity and
+$\mathcal{F}_{u \blacktriangleleft e}$ as the relation embedding for
+$\rho(e)$ (HDC binding under non-commutative random shifts; see
+Appendix~\ref{app:impl}).
+
+\paragraph{Cochain complex.} Set
+\[
+C^0 = \bigoplus_{v \in V} \mathcal{F}(v), \qquad
+C^1 = \bigoplus_{e \in E} \mathcal{F}(e), \qquad
+C^2 = \bigoplus_{\Delta} \mathcal{F}(\Delta).
+\]
+The coboundary $\delta_0: C^0 \to C^1$ is defined edge-wise by
+$(\delta_0 x)_e = \mathcal{F}_{v \blacktriangleleft e} x_v -
+\mathcal{F}_{u \blacktriangleleft e} x_u$. The coboundary
+$\delta_1: C^1 \to C^2$ is the alternating sum of edge values around each
+triangle $\Delta = (e_1, e_2, e_3)$.
+
+\paragraph{Cohomology.}
+\[
+H^0(\mathcal{F}) = \ker \delta_0, \qquad
+H^1(\mathcal{F}) = \ker \delta_1 / \mathrm{im}\,\delta_0.
+\]
+Standard arguments (see e.g.\ Hansen \& Gebhart, \cite{hansen2020sheaf})
+verify $\delta_1 \delta_0 = 0$, so $H^1$ is well-defined.
+
+\paragraph{Implementation and complexity.} We compute $\dim H^0$ as the
+multiplicity of the zero eigenvalue of the sheaf Laplacian
+$L = \delta_0^\top \delta_0 + \delta_1 \delta_1^\top$ within tolerance
+$10^{-6}$ via dense symmetric eigensolve (\texttt{numpy.linalg.eigvalsh}),
+and $\dim H^1 = \dim \ker \delta_1 - \mathrm{rank}\, \delta_0$ via dense
+rank computation on the boundary matrices. With $n$ vertices and stalk
+dimension $d$, this is $O((nd)^3)$ time and $O((nd)^2)$ space; tractable
+for the type-graph view we use in our experiments ($n \leq 100$ Olog
+objects per ontology), but not for the full entity-level KG. We note the
+implementation uses sparse Krylov diffusion
+(\texttt{scipy.sparse.linalg.expm\_multiply}) for query-time heat
+propagation, but cohomology computation itself remains dense. A sparse
+sheaf-cohomology algorithm via simultaneous Krylov-subspace methods on
+$\delta_0$ and $\delta_1$ is a natural extension we leave to future work;
+the cleaner alternative (computing the alternating sum
+$\chi = \dim H^0 - \dim H^1 + \dim H^2$ via Euler characteristic in
+$O(n + m)$) yields only the alternating sum, not individual Betti numbers,
+when restriction maps are non-trivial.
+
+\section{Proof of Theorem~\ref{thm:conflict_sensitivity}}
+\label{app:conflict_proof}
+
+We restate Theorem~\ref{thm:conflict_sensitivity} formally.
+
+\begin{theorem}[Conflict Sensitivity, full statement]
+\label{thm:conflict_sensitivity_full}
+Let $\mathcal{F}$ be the cellular sheaf on $G = (V, E)$ defined in
+Appendix~\ref{app:sheaf}. A \emph{conflict injection} of size $k$ is a set
+$E^* = \{e^*_1, \ldots, e^*_k\}$ of additional edges with restriction maps
+$\{(\mathcal{F}^*_{u_i \blacktriangleleft e^*_i}, \mathcal{F}^*_{v_i
+\blacktriangleleft e^*_i})\}$ chosen so that for each $i$, no global section
+$x \in \ker \delta_0$ of $\mathcal{F}$ satisfies
+$\mathcal{F}^*_{v_i \blacktriangleleft e^*_i} x_{v_i} =
+\mathcal{F}^*_{u_i \blacktriangleleft e^*_i} x_{u_i}$. Let $\mathcal{F}'$
+denote the resulting sheaf on $G' = (V, E \cup E^*)$. Then
+\begin{equation}
+\dim H^1(\mathcal{F}') \;\geq\; \dim H^1(\mathcal{F}) + c,
+\label{eq:conflict_sensitivity}
+\end{equation}
+where $c$ is the dimension of the subspace of $\bigoplus_{i=1}^{k}
+\mathcal{F}(e^*_i)$ spanned by the conflict residuals
+$r_i = \mathcal{F}^*_{v_i \blacktriangleleft e^*_i} x_{v_i} -
+\mathcal{F}^*_{u_i \blacktriangleleft e^*_i} x_{u_i}$ evaluated on any
+$\delta_0$-section, modulo $\mathrm{im}\,\delta'_0 + \mathrm{im}\,\delta'^\top_2$. Trivially, $c \leq k$.
+\end{theorem}
+
+\begin{proof}
+The cochain spaces decompose as
+\[
+C^{0\prime} = C^0, \qquad
+C^{1\prime} = C^1 \oplus \bigoplus_{i=1}^{k} \mathcal{F}(e^*_i), \qquad
+C^{2\prime} = C^2 \oplus C^2_*
+\]
+where $C^2_*$ collects any new 2-cells closed by injected edges
+(possibly empty).
+
+Write $\delta'_0: C^{0\prime} \to C^{1\prime}$ in block form:
+\[
+\delta'_0 \;=\; \begin{pmatrix} \delta_0 \\ A \end{pmatrix},
+\]
+where $A: C^0 \to \bigoplus_i \mathcal{F}(e^*_i)$ is the restriction-map
+contribution from the conflict edges, $A x = (r_1(x), \ldots, r_k(x))$.
+
+The conflict hypothesis is precisely $A|_{\ker \delta_0} \neq 0$, i.e.\ there
+is no $x \in \ker \delta_0$ with $A x = 0$ unless we shrink to a strict
+subspace. Equivalently, $\ker \delta'_0 \subsetneq \ker \delta_0$, and
+$\dim \ker \delta'_0 = \dim \ker \delta_0 - r_A$ where
+$r_A = \mathrm{rank}\, A|_{\ker \delta_0}$.
+
+By rank--nullity for $\delta'_0$:
+\[
+\mathrm{rank}\, \delta'_0 \;=\; \dim C^{0\prime} - \dim \ker \delta'_0
+\;=\; \mathrm{rank}\, \delta_0 + r_A.
+\]
+
+For $H^1$:
+\[
+\dim H^1(\mathcal{F}') \;=\; \dim \ker \delta'_1 - \mathrm{rank}\, \delta'_0.
+\]
+We have $\dim \ker \delta'_1 \geq \dim \ker \delta_1 + k - \dim
+\mathrm{im}\, \delta'^\top_2$ because each new edge contributes a new
+generator to $C^{1\prime}$, which is killed by $\delta'_1$ unless it
+participates in a new 2-cell relation in $C^2_*$.
+
+Combining,
+\begin{align*}
+\dim H^1(\mathcal{F}') &\;\geq\; \dim \ker \delta_1 + k - \dim
+\mathrm{im}\, \delta'^\top_2 - \mathrm{rank}\, \delta_0 - r_A \\
+&\;=\; \dim H^1(\mathcal{F}) + (k - r_A - \dim \mathrm{im}\, \delta'^\top_2).
+\end{align*}
+Setting $c = k - r_A - \dim \mathrm{im}\, \delta'^\top_2$ gives
+inequality~(\ref{eq:conflict_sensitivity}). The bound $c \leq k$ is
+immediate.
+\end{proof}
+
+\paragraph{Empirical alignment.} Our experiment (Table~\ref{tab:conflicts})
+gives $\Delta H^1 = +53$ for $k = 76$, hence $c/k \approx 0.70$. Roughly 70\%
+of injected conflicts contribute linearly independent classes to $H^1$;
+the remainder are absorbed by $\mathrm{im}\,\delta_0$ (i.e.\ correctable by
+a global section adjustment) or by 2-cell boundaries.
+
+\section{Implementation Details}
+\label{app:impl}
+
+The system has four components, each a separate module in the public
+code release (Appendix~\ref{app:compute}).
+
+\paragraph{HDC encoder.} Entities and relations are encoded as
+4096-dimensional bipolar ($\pm 1$) hypervectors. Relation application
+uses non-commutative binding: each relation $r$ is assigned a fixed
+random circular shift $\sigma_r$, so that $\sigma_r(h) \neq
+\sigma_r^{-1}(h)$ and a directed edge $h \xrightarrow{r} t$ is
+distinguishable from its reverse. This is the standard construction for
+encoding directed relational structure in hyperdimensional computing.
+
+\paragraph{Typed attention (B).} The (B) layer adds a precomputed mask
+$M$ to the pre-softmax attention scores, with $M_{ij} = 0$ if
+$\tau(j) \in \mathrm{Reach}_\mathcal{O}(\tau(i))$ and $M_{ij} = -\infty$
+otherwise (in practice $-10^9$). The mask is built once per Olog from the
+transitive closure of the morphism set.
+
+\paragraph{Constrained decoder (D).} At each generation step the decoder
+queries the proof object for the recommended step $(t, r, t')$,
+constructs the admissible-label set $\mathcal{A}(t, r, t')$, and applies
+a logit mask of $-\infty$ to every vocabulary entry outside it. The
+decoder is stateless across steps apart from the proof object and
+composes with (B) without interference.
+
+\paragraph{Sheaf cohomology.} The cohomology module builds the boundary
+operators $\delta_0, \delta_1$ from the restriction maps of
+Appendix~\ref{app:sheaf} (identity on the head side, relation embedding
+on the tail side) and computes $\dim H^1$ by dense rank on the boundary
+matrices for the type-graph view, and by the $O(n+m)$ sparse
+connected-components route for the entity-graph consistency score of
+Table~\ref{tab:topology}.
+
+\paragraph{Training configuration.} The attention ablation
+(Table~\ref{tab:attention_ablation_b}, Figure~\ref{fig:typed_attention})
+uses a two-head, 64-dimensional attention model trained 300 epochs with
+Adam (learning rate 0.003) on next-type prediction over 23 types drawn
+from four hand-built domain Ologs (business, academic, healthcare,
+e-commerce). The HDC/Sheaf link-prediction model
+(Table~\ref{tab:link_prediction}) uses 4096-dimensional embeddings
+trained 50 epochs at batch size 512. All runs use seed 42.
+
+\section{Hyperparameter Sweep}
+\label{app:sweep}
+
+We ran a 10-configuration sweep over HDC embedding dimension, learning
+rate, and query-time diffusion time on FB15K-237, capped at 30 epochs
+per configuration for rapid iteration (Table~\ref{tab:sweep}).
+
+\begin{table}[t]
+\centering
+\caption{HDC/Sheaf hyperparameter sweep on FB15K-237, 30 epochs per
+configuration, ranked by MRR. Diffusion time is a query-time heat-kernel
+parameter and does not enter training; rows 3--6 (identical except for
+diffusion time $\in \{0.5, 1.5, 3.0, 5.0\}$) produce identical ranking
+metrics, confirming that retrieval accuracy is decoupled from the
+diffusion parameter. The 30-epoch cap depresses absolute MRR relative to
+the 50-epoch headline run of Table~\ref{tab:link_prediction} (0.346);
+the sweep is for relative comparison only.}
+\label{tab:sweep}
+\begin{tabular}{clccc}
+\toprule
+Rank & HDC Dim / LR / Diff.\ Time & MRR & Hits@10 & Note \\
+\midrule
+1   & 1024 / 0.001 / 1.5      & \textbf{0.2284} & 0.3966 & best MRR \\
+2   & 2048 / 0.001 / 1.5      & 0.2276 & \textbf{0.4024} & best Hits@10 \\
+3--6 & 4096 / 0.001 / \{0.5--5.0\} & 0.2264 & 0.3989 & diffusion-invariant \\
+7   & 4096 / 0.003 / 1.5      & 0.2259 & 0.3958 & \\
+8   & 4096 / 0.0001 / 1.5     & 0.2257 & 0.3948 & lr too low \\
+9   & 4096 / 0.010 / 1.5      & 0.2097 & 0.3742 & lr instability \\
+10  & 8192 / 0.001 / 1.5      & 0.2096 & 0.3807 & underfit at 30 ep.\ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two findings. First, at a 30-epoch budget the lower dimensions
+(1024--2048) converge faster and edge out 4096+, while 8192 underfits ---
+larger hypervector spaces need more epochs to populate. Second, query
+diffusion time has no effect on ranking metrics: it governs only the
+heat-kernel spread used for path retrieval, not the embedding geometry.
+Learning rate 0.001 is the stable choice; 0.01 induces optimization
+instability and 0.0001 is too conservative.
+
+\section{Cyclic Olog Stress Test}
+\label{app:cyclic}
+
+The cyclic stress test (Table~\ref{tab:b_prime_vs_d}, second row) takes
+the 7-type e-commerce Olog and adds back-edges
+(Delivery~$\to$~Customer, Item~$\to$~Customer) that close the otherwise
+acyclic schema into a cycle. The effect is structural: with the cycle
+present, every type can reach every other type, so the reachability
+relation $\mathrm{Reach}_\mathcal{O}$ becomes the universal relation
+(reachability rises from 34.7\% of type pairs to 100\%).
+
+Because (B$'$) admits any next label whose target type is reachable, a
+universal reachability relation makes the (B$'$) mask admit everything:
+(B$'$) GOOD soundness falls from 65.0\% to 8.0\% and (B$'$) BAD from
+3.9\% to 0.0\%, both within roughly one point of the unconstrained (A)
+baseline (6.9\% / 0.0\%). The reachability mask is, at that point, doing
+no work. The (D) constrained decoder is unaffected --- it masks to the
+direct-edge admissible set $\mathcal{A}(t,r,t')$, which does not grow
+when the Olog gains a cycle --- and remains at 100\% trajectory
+soundness on both priors. This is the predicted topological limit:
+reachability masking degrades to no-constraint as Olog connectivity
+grows, whereas direct-edge masking is invariant to topology.
+
+\section{Compute and Reproducibility}
+\label{app:compute}
+
+\paragraph{Hardware and runtime.} The HDC/Sheaf link-prediction model
+trains on a single A100-40GB GPU (Modal), 50 epochs at batch size 512,
+$\approx$30\,s/epoch ($\approx$25\,min end-to-end). The attention
+ablation runs on CPU, $\approx$5\,min per model for 300 epochs. The loci
+and cyclic-stress trajectory experiments run on CPU in seconds
+($N=1000$ trajectories per cell). Type-graph sheaf cohomology is a
+dense $O((nd)^3)$ computation but tractable at $n \leq 100$; the
+entity-graph consistency score uses the $O(n+m)$ sparse route.
+
+\paragraph{Code and seeds.} The implementation --- HDC encoder, typed
+attention, constrained decoder, and the \texttt{compute\_cohomology}
+routine --- is available at
+\url{https://github.com/oasis-main/alignment_research} under
+\texttt{ontological\_embeddings/}. All experiments use seed 42; the
+attention ablation is reported single-seed and a multi-seed re-run is
+noted as pending in \S\ref{sec:experiments}. Panel~(a) of
+Figure~\ref{fig:typed_attention} is computed deterministically from the
+Olog reachability closure; panel~(b) is read directly from the
+attention-ablation results of Table~\ref{tab:attention_ablation_b}.
+
+\section{(B) vs (D) --- Empirical Detail and Open Question}
+\label{app:b_vs_d}
+
+\paragraph{Empirical setup.} (B$'$), the sampling-time projection of (B),
+admits a next label $\ell$ if its target type is reachable from the
+current state under the Olog's morphism closure. We compare (A)
+unconstrained, (B$'$) reachability-projected, (C) in-FFN compilation
+(applicable only on functional sub-fragments), and (D) constrained
+decoding on synthetic trajectories from the e-commerce Olog under both
+GOOD and BAD label priors. Trajectory soundness is the fraction of
+generated trajectories that decode to admissible $\delta_\mathcal{O}$-paths.
+
+\paragraph{Result.} See Table~\ref{tab:b_prime_vs_d} in the main body
+for the full numbers. Headlines: under acyclic Olog, (B$'$) GOOD reaches
+65.0\% trajectory soundness vs (A) GOOD's 48.1\% and (D)'s 100\%;
+under BAD prior (B$'$) sits at 3.9\% vs (A)'s 4.2\%, no meaningful
+improvement. Under cyclic Olog (Delivery~$\to$~Customer added),
+reachability becomes 100\% universal and (B$'$) collapses to 8.0\% GOOD
+/ 0.0\% BAD, within a point of (A); (D) remains 100\%.
+
+\paragraph{Open question (the curiosity case).} If (D) alone achieves
+100\% trajectory soundness, what does (B) buy when (D) is also present?
+Three hypotheses, none yet tested:
+(i) \emph{representation prior:} (B) restricts information flow during
+training, so the residual stream carries cleaner type information; (D)
+alone leaves the residual unconstrained even if outputs are valid.
+(ii) \emph{efficiency:} (B) reduces effective attention bandwidth during
+forward pass, potentially saving compute on long sequences in exchange
+for the per-layer mask cost.
+(iii) \emph{robustness under decoder failure:} if (D) is removed (e.g.\
+during research probing), a (B)-trained model degrades more gracefully
+than a (B)-free one.
+A four-cell ablation (A / B / D / B+D) trained from scratch on the same
+data, with both downstream task accuracy and trajectory soundness
+measured at convergence, would discriminate. We leave this to follow-up
+work; the present paper reports (B) and (D) separately and does not
+claim a Pareto win for (B)+(D) without it.
+
+\paragraph{Implementation pointers.} (B) is the typed attention layer
+described in \S\ref{sec:method:attention}; the production reference is
+\texttt{OntologicalAttention} in
+\texttt{ontological\_attention.py} (line 661,
+\texttt{run\_slot\_ablation}). (D) is implemented in
+\texttt{ConstrainedDecoder} of \texttt{proof\_guided\_generation.py}
+(line 475). The decoder constructs the admissible-label set per
+generation step from the proof object and applies a logit mask of
+$-\infty$ to non-admissible vocabulary entries. Sheaf cohomology is
+computed by the \texttt{compute\_cohomology} method of
+\texttt{ontology\_sheaf.py} (line 219), which is now vendored into the
+public repository.

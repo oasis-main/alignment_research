@@ -54,7 +54,7 @@ We ran a 10-configuration systematic sweep over HDC dimensions, learning rates, 
 
 ## 3. Sheaf Cohomology Topological Analysis
 
-We evaluated the sheaf cohomology of the full training graphs for both standard benchmarks to quantify their topological consistency. We replaced the naive O(n³) dense eigendecomposition with an exact O(n+m) sparse connected components algorithm (computing the first Betti number via Euler characteristic).
+We evaluated the topological structure of the full training graphs for both standard benchmarks. **Note**: the H¹ values reported here are the first Betti number `b₁ = m − n + b₀` of the underlying directed multigraph (computed in O(n+m) via connected components and Euler characteristic), *not* the cohomology of a non-trivial cellular sheaf. This reflects pure graph topology — independent cycles — rather than sheaf-theoretic inconsistency. The latter (e.g. the 5 → 58 conflict-detection experiment in `week4_evaluation_report.md`) uses the actual `compute_cohomology` routine in `ontology_sheaf.py`, which runs dense `np.linalg.eigvalsh` + rank computation in O((nd)³) on the smaller type-graph.
 
 **Results**:
 
@@ -73,10 +73,9 @@ We evaluated the sheaf cohomology of the full training graphs for both standard 
 
 Based on the pipeline implementation, we established the following formal bounds:
 
-- **Sheaf Cohomology (H⁰, H¹)**: O(n + m) time, O(m) space using sparse BFS. *Status: Solved, scales arbitrarily.*
+- **First Betti number of underlying graph (b₁)**: O(n + m) time, O(m) space using sparse BFS / Euler characteristic. *Status: Solved, scales arbitrarily.* Used for the topology-contrast results above.
+- **Cellular sheaf cohomology (dim H⁰, dim H¹) with non-trivial restriction maps**: O((nd)³) time, O((nd)²) space via dense `np.linalg.eigvalsh` and matrix rank. *Status: Tractable for type graphs (n ≤ ~100), not for entity-level KGs.* A sparse Krylov-subspace algorithm for sheaf cohomology is open future work; pure Euler characteristic gives only the alternating sum χ = dim H⁰ − dim H¹ + dim H², not individual Betti numbers, when restriction maps are non-trivial.
 - **Proof Engine Search**: O(n + m) via BFS on Olog. *Status: Solved, highly efficient for enterprise domain sizes.*
 - **Model Training**: O(T·k·d) per epoch. *Status: Solved, runs at ~30s/epoch on A100.*
-- **Exact Vector Search**: O(V·d). **Critical Bottleneck**. For 40M entities (Freebase), exact cosine similarity requires 160B ops per query.
-  - *Mitigation deployed*: Move to **Qdrant** (Rust-based, HNSW index, up to 65,536 dims) to drop search to O(d·log V).
-- **Sheaf Laplacian Diffusion**: O(n³) dense exp(-tL). **Critical Bottleneck**.
-  - *Mitigation planned*: Replace `expm` with `expm_multiply` (Krylov subspace method) to drop to O(k·m).
+- **Exact Vector Search**: O(V·d). **Critical Bottleneck** for 40M-entity Freebase. *Mitigation deployed*: Qdrant HNSW, O(d·log V).
+- **Sheaf Laplacian Diffusion (query-time heat propagation)**: *Mitigation deployed*: `scipy.sparse.linalg.expm_multiply` (Krylov subspace), O(k·m). See `ontology_sheaf.py:467`.

@@ -1,0 +1,24 @@
+\begin{abstract}
+Knowledge graph (KG) reasoning systems are typically evaluated on link-prediction
+accuracy alone, leaving inconsistency between facts both undetected and
+undiagnosable. We introduce a sheaf-theoretic framework that treats a KG as a
+cellular sheaf over an ontology log (Olog), making logical inconsistency
+\emph{quantifiable} as the dimension of the first cohomology group $H^1$.
+On top of this, we factor type-safe reasoning into two complementary
+mechanisms: a typed attention layer~(B) that gates information flow by Olog
+reachability, and a constrained decoder~(D) that restricts the output
+distribution to admissible labels. We show empirically and theoretically
+that (B) is necessary but not sufficient for trajectory soundness, and that
+(B) and (D) target distinct correctness properties: information-flow
+correctness inside the model and output validity at the sampling boundary.
+On FB15K-237 we obtain MRR \textbf{0.346} and Hits@10 \textbf{0.524}, on
+par with KG-BERT, KGT5 ($0.300$), and SimKGC ($0.336$), while adding two
+guarantees they lack: (i) a quantitative inconsistency signal---injecting
+76 conflicts into a clean graph raises $H^1$ by \textbf{+53}---and (ii) a
+typed (B)+(D) pipeline that drives invalid attention weight to zero and
+provides a derivation alongside each prediction. WN18RR's tree-structured
+ontology yields a sheaf consistency score of \textbf{0.633} versus
+\textbf{0.292} on Freebase, correctly reflecting the underlying topology.
+Our contribution is interpretability and verifiability of KG reasoning,
+not raw accuracy.
+\end{abstract}

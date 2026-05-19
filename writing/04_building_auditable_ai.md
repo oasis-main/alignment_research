@@ -22,7 +22,7 @@ Let's build an auditable AI for an e-commerce support system.
 
 ```bash
 # Clone the repository
-git clone https://github.com/MikeHLee/alignment_research
+git clone https://github.com/oasis-main/alignment_research
 cd alignment_research/ontological_embeddings
 
 # Create virtual environment
@@ -752,4 +752,4 @@ uvicorn>=0.21
 ---
 
 **← Previous**: [From Proofs to Programs to... Text?](./03_proofs_to_text.md)  
-**GitHub**: [alignment_research/ontological_embeddings](https://github.com/MikeHLee/alignment_research)
+**GitHub**: [alignment_research/ontological_embeddings](https://github.com/oasis-main/alignment_research)
