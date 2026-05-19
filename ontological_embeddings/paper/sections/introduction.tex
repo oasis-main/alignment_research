@@ -37,6 +37,18 @@ admissible under the ontology---and (D) alone is sufficient for trajectory
 soundness but operates only at the sampling boundary. The two are
 complementary, and we make the distinction explicit.
 
+\paragraph{Scope.} We evaluate on knowledge graphs because they come with
+standard benchmarks, but nothing in the construction is specific to them.
+The framework takes as input an Olog---a category of types and typed
+relations---together with a graph of instances over it; the cellular
+sheaf, its cohomology, the typed attention mask, and the constrained
+decoder are all defined from that data alone. A database
+entity-relationship diagram, a build-dependency graph, or a causal
+diagram is the same formal object: a typed graph over an ontology. The
+knowledge graph is the instantiation for which public link-prediction
+benchmarks exist, not a limit of the method; we return to this in
+\S\ref{sec:conclusion}.
+
 \paragraph{Contributions.}
 \begin{enumerate}
 \item \textbf{Sheaf-cohomological inconsistency detection.} We model a KG
@@ -68,4 +80,6 @@ KGT5 successors. We do not claim hallucination elimination in closed form;
 the (B)+(D) composition is empirically sound on the trajectories we test
 but a theoretical completeness statement is left open. We do not claim
 multi-scale persistence; the present paper is single-scale by design
-(\S\ref{sec:conclusion}).
+(\S\ref{sec:conclusion}). We do not claim empirical validation beyond
+knowledge graphs; the cross-domain instantiations sketched in
+\S\ref{sec:conclusion} are stated as directions, not results.

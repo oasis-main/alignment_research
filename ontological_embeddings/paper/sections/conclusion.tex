@@ -21,7 +21,8 @@ setting for isolating the mechanisms---it lets us measure $H^1$, the
 (B)/(D) separation, and the topology contrast without confounds---but it
 is not yet a system competitive with state-of-the-art neural KG
 reasoners. Four research blockers stand between the present work and
-that goal, each pointing to a concrete next step.
+that goal; a fifth direction points outward, generalizing the framework
+beyond knowledge graphs altogether.
 \begin{enumerate}
 \item \textbf{Cohomology at entity scale.} Cellular sheaf cohomology with
 non-trivial restriction maps runs in $O((nd)^3)$ (dense rank on the
@@ -56,7 +57,35 @@ scale, or a persistent sheaf cohomology over a filtration that merges
 relations within an $\epsilon$-radius, unifying both into a single
 multi-scale statement that subsumes the present work as the
 single-scale special case.
+\item \textbf{Beyond knowledge graphs.} The framework takes any
+Olog-typed graph as input, which invites instantiation well beyond KG
+reasoning---though the targets are not equally close. A database
+entity-relationship diagram is a near-direct fit: an ERD \emph{is} a
+schema, its instances \emph{are} typed graphs, and referential-integrity
+or constraint violations are the kind of inconsistency the sheaf $H^1$
+already measures. Causal diagrams and Bayesian
+networks~\cite{pearl2009causality} are a genuine stretch: their edges
+carry interventional and conditional-dependence semantics, and the
+inconsistency that matters there---d-separation violations, incoherent
+probability mass---is not the same object as restriction maps
+disagreeing. \emph{Blocker:} a sheaf whose stalks and restriction maps
+encode distributional, not merely type, structure---with a corresponding
+cohomological notion of inconsistency---has to be worked out before the
+method transfers to the probabilistic targets.
 \end{enumerate}
+
+\paragraph{Structure before correlation.} This pattern is not new.
+Pearl's program for causal inference rests on one premise: intervention
+and counterfactual reasoning cannot be recovered from a joint
+distribution alone---they require a structural model supplied from
+outside the data~\cite{pearl2009causality}. Our claim is the same move
+along a different axis: consistency and verifiability cannot be
+recovered from a link-prediction objective alone; they require the
+ontology, supplied as an explicit object the system reasons over.
+Accuracy measures how well a model fits the data it was given and is
+structurally silent on whether a prediction respects the schema behind
+that data. Making the Olog explicit is what gives that question a place
+to live.
 
 \paragraph{Toward auditable reasoning.}
 The objective behind this work is not a higher MRR. Knowledge graphs
