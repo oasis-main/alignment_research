@@ -1,0 +1,32 @@
+# Dependencies for the public alignment_research repo.
+# Grounded in the actual imports across hodge_preference_geometry/,
+# ontological_embeddings/, and peer_consistency_geometry/.
+# NOTE: the LLM-dependent steps (counterfactual generation) are pre-cached;
+# `anthropic` is intentionally NOT required to reproduce the published results.
+
+# Core scientific stack
+numpy>=1.24.0
+scipy>=1.10.0
+scikit-learn>=1.2.0
+
+# Models / embeddings — peer-consistency panel + KGE baselines
+torch>=2.0.0
+transformers>=4.36.0
+datasets>=2.0.0
+pykeen>=1.10.0
+
+# Geometry / graphs
+networkx>=3.0
+
+# Data validation & utilities
+pydantic>=2.0.0
+pandas>=2.0.0
+tqdm>=4.65.0
+
+# Visualization (figure regeneration)
+matplotlib>=3.7.0
+
+# Optional — GPU re-embedding of the 7–9B panel on Modal.
+# Only needed to re-run peer_consistency_geometry/modal/embed_panel.py;
+# the cached embeddings + result JSONs reproduce all figures without it.
+# modal>=0.64

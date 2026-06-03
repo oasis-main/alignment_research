@@ -1,0 +1,60 @@
+{
+  "experiment": "E6 7-9B panel (SGB-021)",
+  "config": "insider-trading",
+  "n_per_class": 1000,
+  "panel": [
+    {
+      "name": "Yi-1.5-9B",
+      "hf_id": "01-ai/Yi-1.5-9B-Chat"
+    },
+    {
+      "name": "Zephyr-7B",
+      "hf_id": "HuggingFaceH4/zephyr-7b-beta"
+    },
+    {
+      "name": "Qwen2.5-7B",
+      "hf_id": "Qwen/Qwen2.5-7B-Instruct"
+    }
+  ],
+  "raw": {
+    "auc_mean": 0.6820223999999999,
+    "auc_std": 0.027832975619577618,
+    "cohens_d_mean": 0.46083279473877814,
+    "p_seed0": 2.8708948448924957e-09,
+    "per_edge": {
+      "Yi-1.5-9B->Zephyr-7B": 0.7546240000000001,
+      "Yi-1.5-9B->Qwen2.5-7B": 0.766968,
+      "Zephyr-7B->Yi-1.5-9B": 0.759344,
+      "Zephyr-7B->Qwen2.5-7B": 0.7469359999999999,
+      "Qwen2.5-7B->Yi-1.5-9B": 0.7697560000000001,
+      "Qwen2.5-7B->Zephyr-7B": 0.759268
+    },
+    "per_model": {
+      "Yi-1.5-9B": 0.762673,
+      "Zephyr-7B": 0.755043,
+      "Qwen2.5-7B": 0.7607320000000001
+    }
+  },
+  "length_matched": {
+    "auc_mean": 0.6239303092813145,
+    "auc_std": 0.023574466673596795,
+    "cohens_d_mean": 0.28563371001273735,
+    "p_seed0": 0.0028395828467113952,
+    "per_edge": {
+      "Yi-1.5-9B->Zephyr-7B": 0.6844223706056969,
+      "Yi-1.5-9B->Qwen2.5-7B": 0.6899280523830402,
+      "Zephyr-7B->Yi-1.5-9B": 0.6881239712784538,
+      "Zephyr-7B->Qwen2.5-7B": 0.6759769710125135,
+      "Qwen2.5-7B->Yi-1.5-9B": 0.7060138432677587,
+      "Qwen2.5-7B->Zephyr-7B": 0.6797576350006109
+    },
+    "per_model": {
+      "Yi-1.5-9B": 0.6921220593837374,
+      "Zephyr-7B": 0.6820702369743188,
+      "Qwen2.5-7B": 0.6879191254159809
+    },
+    "n_per_class": 745,
+    "dec_len_mean": 891.0778523489932,
+    "hon_len_mean": 849.255033557047
+  }
+}

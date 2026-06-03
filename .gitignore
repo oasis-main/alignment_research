@@ -16,3 +16,6 @@ venv/
 *.fls
 *.fdb_latexmk
 **/paper/*.log
+
+# Internal swarm coordination — not for public release
+.swarm/

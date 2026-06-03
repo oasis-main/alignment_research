@@ -1,0 +1,32 @@
+{
+  "experiment": "SGB-023 subsample variance (7-9B, length-matched)",
+  "note": "4 subsample seeds x 5 cal/eval split-seeds each. AUC of ||delta1c||, deceptive vs honest. Corrects an earlier batch run that read torn npy during a concurrent --force volume pull.",
+  "convincing-game": {
+    "per_subsample_seed": [
+      0.662,
+      0.672,
+      0.644,
+      0.668
+    ],
+    "mean": 0.661,
+    "std": 0.011,
+    "range": [
+      0.644,
+      0.672
+    ]
+  },
+  "insider-trading": {
+    "per_subsample_seed": [
+      0.637,
+      0.635,
+      0.606,
+      0.624
+    ],
+    "mean": 0.625,
+    "std": 0.012,
+    "range": [
+      0.606,
+      0.637
+    ]
+  }
+}

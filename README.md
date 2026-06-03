@@ -1,6 +1,6 @@
 # Alignment Research
 
-Geometric and structural methods for AI alignment. Two research threads, documented with
+Geometric and structural methods for AI alignment. Three research threads, documented with
 reproducible experiments and concrete results.
 
 ---
@@ -66,6 +66,38 @@ hallucination and makes reasoning auditable.
 
 ---
 
+### 3. Peer-Consistency Geometry
+**Directory**: [`peer_consistency_geometry/`](peer_consistency_geometry/)
+**Writeup**: [*Cross-Model Representational Divergence on Deceptive Responses*](writing/peer_consistency_deception_divergence.md)
+
+Treating a panel of independently-trained instruct LMs as the cover of a cellular sheaf over
+the space of model outputs, and using the cocycle obstruction ‖δ¹c‖ to detect strategic
+deception and alignment-faking reasoning. The signal is *relative* (a comparison of conceptual
+geometry across models, not an absolute deception verdict) and **emerges with model capacity**.
+
+**Key results** (7–9B panel: Yi-1.5-9B-Chat, Zephyr-7B-beta, Qwen2.5-7B-Instruct, length-matched,
+5 split-seeds × 4 subsample seeds):
+
+- **Persuasion** deception (LIARS'-BENCH convincing-game): AUC **0.661 ± 0.011**, p=2.5e−6
+- **Agentic/strategic** deception (LIARS'-BENCH insider-trading): AUC **0.625 ± 0.012**, p=8e−8
+- **Alignment-faking reasoning** (Anthropic alignment-faking-rl): AUC **0.384 ± 0.006**, p=5.9e−8 —
+  sign-flipped (faking is *more* peer-consistent; honest refusal diverges); held at **0.391 ± 0.023**
+  after stripping train/deploy lexical cues
+- **Selective**: weak/null on flat instructed lies (AUC 0.528) and templated refusals
+- **Where the construct lives**: separates *actions* on action-labeled datasets, *reasoning* on
+  reasoning-labeled datasets — supports a unified "the panel disagrees on a different manifold
+  for deceptive vs honest content" reading
+
+**Core modules:**
+| File | Role |
+|------|------|
+| `src/peer_sheaf.py` | Affine restriction maps (ridge), per-pair residuals, lossiness `L(x)` |
+| `src/peer_hodge.py` | `PeerComplex`, δ⁰ + δ¹ coboundaries, full-rank and low-rank Hodge decompositions |
+| `modal/embed_panel.py` | Modal A100 runner (HH-RLHF + LIARS'-BENCH text-driven embeds) |
+| `experiments/E6_7B_panel.py` | SVD-free `cocycle_blockwise` analysis; `--texts-json` length-match |
+
+---
+
 ## Writing
 
 [`writing/`](writing/) contains five articles explaining the work for a general technical audience.
@@ -111,5 +143,6 @@ python baseline_benchmarks.py     # TransE / RotatE / etc. on WN18RR
 
 See [METHODS.md](METHODS.md) for the mathematical foundations and citations.
 
-Venue targets: ICML 2026 (Hodge thread). The Olog thread is being posted to
-arXiv (cs.LG) — see [`ontological_embeddings/paper/`](ontological_embeddings/paper/).
+Venue targets: ICML 2026 (Hodge thread); NeurIPS 2026 Workshops — SafeML / ATTRIB / SoLaR —
+(Peer-consistency thread). The Olog thread is being posted to arXiv (cs.LG) — see
+[`ontological_embeddings/paper/`](ontological_embeddings/paper/).
