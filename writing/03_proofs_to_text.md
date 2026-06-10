@@ -450,7 +450,7 @@ By induction over all claims in T, the theorem holds. ∎
 ## Try It
 
 ```bash
-cd alignment_research/ontological_embeddings
+cd ai_research/topics/structure_of_clear_thinking
 source venv/bin/activate
 
 # See proof-guided generation in action

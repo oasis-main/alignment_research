@@ -1,0 +1,41 @@
+{
+  "schema": "tlts_compilation.audit_certificate",
+  "schema_version": "0.1",
+  "timestamp": "2026-05-05T23:09:37Z",
+  "tlts_fingerprint": "10f492def2f14a63",
+  "enforcement_locus": "pre_decoder",
+  "seed": 42,
+  "start_state": "Customer",
+  "steps": [
+    {
+      "step": 0,
+      "state_in": "Customer",
+      "label": "has",
+      "state_out": "Cart",
+      "in_delta": true,
+      "prior_argmax": "has",
+      "forced": false,
+      "masked_kl": 0.22314355131420976
+    },
+    {
+      "step": 1,
+      "state_in": "Cart",
+      "label": "contains",
+      "state_out": "Item",
+      "in_delta": true,
+      "prior_argmax": "contains",
+      "forced": false,
+      "masked_kl": 0.22314355131420976
+    }
+  ],
+  "soundness_passed": true,
+  "failed_at_step": null,
+  "failure_reason": "",
+  "summary": {
+    "trajectory_length": 2,
+    "all_steps_in_delta": true,
+    "forced_step_count": 0,
+    "mean_masked_kl": 0.22314355131420976,
+    "log_p_under_prior": -1.1394342831883648
+  }
+}

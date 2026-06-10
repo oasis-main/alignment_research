@@ -98,9 +98,43 @@ geometry across models, not an absolute deception verdict) and **emerges with mo
 
 ---
 
+### 4. TLTS-Compilation
+**Directory**: [`tlts_compilation/`](tlts_compilation/)
+**Paper**: [*TLTS-Compilation: A Neurosymbolic Framework for Type-Safe and Verifiable Transformers*](tlts_compilation/main.pdf) (NeSy 2026 submission, double-blind)
+
+A neurosymbolic framework that unifies two recent threads — type-safe (ontology-gated)
+attention and program-compiled transformers — as one construction: compile a typed labeled
+transition system (TLTS) into a transformer. The framework names three inference-time loci
+where the domain rule can be enforced (in-FFN gates, pre-decoder logit masks, post-hoc audit),
+and ships a JSON certificate format that a third party can re-check without model weights.
+
+**Key results** (synthetic harness, 7-type e-commerce Olog, N=1000 trajectories):
+
+- Pre-decoder masking (D) and FFN-hybrid (C) achieve **100% soundness** under both well-aligned
+  and adversarially misaligned priors; unconstrained baseline (A) collapses to **4.2%** under a
+  misaligned prior
+- **Non-obvious finding**: attention-layer reachability masking alone is *insufficient* — (B′)
+  variant scores 4.3% / 61.5% (BAD/GOOD prior), barely above (A). The decoder must also enforce
+  direct-edge admissibility, not just reachability to the destination type
+- **Latency**: (C) wins by ~30% over (D) when the functional fragment of the Olog is large
+  (deterministic forward steps skip sampling); crossover at fn-ratio ≈ 0.2
+- **Audit certificates** (JSON) catch all tampered traces in the demo; verifier needs only the
+  TLTS spec, no model weights or PyTorch
+
+**Core artifacts:**
+| File | Role |
+|------|------|
+| `supplementary/experiment_loci_comparison.py` | The four-locus framework's headline soundness/fluency numbers |
+| `supplementary/experiment_real_attention_b.py` | Production-attention mask audit (66.7% of mass on reachable-but-not-δ pairs) |
+| `supplementary/experiment_topology_sweep.py` | Functional-fragment ablation; deployment heuristic for (C)/(D) choice |
+| `supplementary/verification_certificate.py` | Emit + verify the audit certificate |
+| `supplementary/sample_audit_certificate.json` | Reference certificate format |
+
+---
+
 ## Writing
 
-[`writing/`](writing/) contains five articles explaining the work for a general technical audience.
+[`writing/`](writing/) contains six articles explaining the work for a general technical audience.
 These were written to accompany the research, not summarize it after the fact.
 
 | Article | Subject |
@@ -109,6 +143,7 @@ These were written to accompany the research, not summarize it after the fact.
 | [02 — Attention, But Make It Type-Safe](writing/02_type_safe_attention.md) | Ontological constraints in transformer attention |
 | [03 — From Proofs to Text](writing/03_proofs_to_text.md) | Curry-Howard correspondence extended to NLG |
 | [04 — Building an Auditable AI](writing/04_building_auditable_ai.md) | Full walkthrough: ontology to deployment |
+| [05 — Compiling Programs Into Attention](writing/05_compiling_programs_into_attention.md) | TLTS-compilation as the procedural cousin of type-safe attention |
 | [Stigmergy and the Architecture of Autonomy](writing/stigmergy-coordination.md) | Decentralized multi-agent coordination via environmental signals |
 
 ---

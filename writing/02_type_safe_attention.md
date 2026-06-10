@@ -48,7 +48,7 @@ The mask `M` is derived from the ontology's **reachability relation**.
 
 ## Building the Reachability Matrix
 
-Given an Olog (ontology log), we compute which types can "reach" which other types via directed paths:
+Given an Olog (the categorical knowledge-representation formalism of [Spivak and Kent, 2012](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0024274)), we compute which types can "reach" which other types via directed paths:
 
 ```python
 def compute_reachability(olog):
@@ -364,18 +364,54 @@ The ontological attention **respects the direction of relations**.
 
 ---
 
-## Hallucination Reduction
+## Hallucination Reduction — What the Numbers Actually Show
 
-In our benchmarks, ontological attention reduces hallucination rates:
+"Hallucination" in the type-safe-generation setting has a precise
+meaning: producing a token sequence whose corresponding (state, label,
+state) triples are not in the domain's transition relation δ. A
+generation that respects δ everywhere is **sound**; one that breaks δ
+anywhere is unsound.
 
-| Model | Hallucination Rate |
-|-------|-------------------|
-| Standard Transformer | 23.4% |
-| + Ontological Mask (inference) | 12.1% |
-| + Ontological Mask (training) | 8.7% |
-| + Proof-Guided Decoding | 2.3% |
+Our synthetic-prior harness ([`experiment_loci_comparison.py`](../papers/nesy_submission/supplementary/experiment_loci_comparison.py),
+N=1000 trajectories on a 7-type e-commerce Olog, run 2026-05-05) gives
+the soundness rate by enforcement locus and prior quality:
 
-The combination of ontological attention + proof-guided decoding achieves the lowest hallucination rate.
+| Enforcement                                         | GOOD prior | BAD prior |
+|-----------------------------------------------------|-----------:|----------:|
+| (A) None — standard sampling from prior             |    48.1%   |    4.2%   |
+| (B′) Attention-layer reachability masking only      |    61.5%   |    4.3%   |
+| (C) FFN-hybrid (deterministic where δ is functional)|   100.0%   |  100.0%   |
+| (D) Pre-decoder logit masking                       |   100.0%   |  100.0%   |
+
+Three things to take from this:
+
+1. **Without architectural enforcement, soundness tracks prior
+   alignment.** A model whose prior happens to concentrate mass on
+   admissible labels lucks into ~48% sound trajectories; a misaligned
+   prior crashes to ~4%. The "behavior is mostly fine if the model is
+   good" intuition is exactly as fragile as it sounds.
+2. **Attention masking alone is not enough.** Variant (B′) — admit
+   any label whose target type is reachable from the current state —
+   barely improves over (A) under the BAD prior. Reachability admits
+   the *destination*; it does not require the *path step* to exist as
+   a δ-edge. The model can sample a label whose target is reachable
+   but whose direct edge is missing.
+3. **(C) and (D) are sound by construction.** Under both prior
+   regimes. The remaining engineering question is the fluency cost,
+   discussed at length in our [NeSy 2026 paper](../papers/nesy_submission/main.pdf)
+   §5 — TL;DR: ~5.5 nats/trajectory of log-likelihood is the price of
+   soundness when the prior is badly misaligned, and ~0 when the
+   prior already concentrates on admissible labels.
+
+These are synthetic-prior numbers, not trained-model numbers. Real
+LLM hallucination-rate measurement against an end-to-end TLTS pipeline
+is the next experiment. For external evidence that this regime
+generalizes to learned distributions, [Willard and Louf (2023, Outlines)](https://arxiv.org/abs/2307.09702)
+report near-100% structural validity from grammar-constrained
+decoding across model sizes — the (D) locus applied to JSON/regex
+schemas rather than δ-edges, but the same architectural mechanism.
+
+It's worth pausing on what these numbers replace. Recent work characterizing how current LMs actually do binding ([Gur-Arieh, Geva, and Geiger 2025](https://arxiv.org/abs/2510.06182)) finds three mechanisms operating in parallel — *positional*, *lexical*, and *reflexive* — that degrade with context length and disagree with each other in the middle of longer inputs. Our ontological mask doesn't merely *improve* one of these mechanisms; it replaces the heterogeneous fallback chain with one structurally-derived mask whose admissibility is determined by the Olog, not by which subsystem happened to win. That's the architectural shift, not the percentage points in the table above.
 
 ---
 
@@ -440,7 +476,7 @@ print(weights)
 ## Try It
 
 ```bash
-cd alignment_research/ontological_embeddings
+cd ai_research/topics/structure_of_clear_thinking
 source venv/bin/activate
 
 # Run the attention demo
