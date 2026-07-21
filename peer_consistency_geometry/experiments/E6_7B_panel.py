@@ -26,6 +26,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
+from scipy import stats
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -95,9 +96,22 @@ def analyze(feats_dec, feats_hon, n, models, split_seeds, ridge):
     for m in models:
         inc = [v for k, v in per_edge.items() if k.split("->")[0] == m or k.split("->")[1] == m]
         per_model[m] = float(np.mean(inc))
+    # Persist EVERY split's p, not just the first. `p_seed0` alone is one split's
+    # p-value printed beside a multi-seed mean AUC — the two have different
+    # denominators, and for insider-trading the per-seed spread reaches five
+    # orders of magnitude. Keeping the full vector lets downstream reporting
+    # aggregate (Fisher/Stouffer) or quote a range instead of one draw.
+    # `p_seed0` is retained for backward compatibility with existing result JSONs.
+    ps = np.array([r[0]["p"] for r in runs], dtype=float)
+    chi2 = float(-2.0 * np.log(np.clip(ps, 1e-300, None)).sum())
+    p_fisher = float(stats.chi2.sf(chi2, 2 * len(ps)))
     return {
         "auc_mean": float(aucs.mean()), "auc_std": float(aucs.std()),
         "cohens_d_mean": float(ds.mean()), "p_seed0": runs[0][0]["p"],
+        "p_per_split": [float(x) for x in ps],
+        "p_split_max": float(ps.max()),
+        "p_fisher_over_splits": p_fisher,
+        "split_seeds": [int(s) for s in split_seeds],
         "per_edge": per_edge, "per_model": per_model,
     }
 
@@ -170,7 +184,9 @@ def main() -> int:
 
     for tag, r in [("RAW", raw), ("LENGTH-MATCHED", matched)]:
         print(f"\n[modal-an] {args.config}  {tag}")
-        print(f"  δ¹c AUC={r['auc_mean']:.3f}±{r['auc_std']:.3f}  d={r['cohens_d_mean']:+.3f}  p(seed0)={r['p_seed0']:.2e}")
+        print(f"  δ¹c AUC={r['auc_mean']:.3f}±{r['auc_std']:.3f}  d={r['cohens_d_mean']:+.3f}")
+        print(f"  p: Fisher-combined over {len(r['p_per_split'])} splits={r['p_fisher_over_splits']:.2e}  "
+              f"worst split={r['p_split_max']:.2e}  (seed0={r['p_seed0']:.2e})")
         print("  per-model incident-edge AUC: " +
               "  ".join(f"{m}={v:.3f}" for m, v in sorted(r['per_model'].items(), key=lambda kv: -kv[1])))
     return 0

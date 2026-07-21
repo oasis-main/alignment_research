@@ -225,9 +225,30 @@ span five orders of magnitude:
 
 Seed 0 is the *first* seed, not a selected one — the code takes `runs[0]`
 structurally, so this is an unrepresentative default rather than a cherry-pick.
-But the published `p=8e−8` is the most favourable of the four by a wide margin,
-and a reader should know the range is `[8.1e−8, 1.6e−2]`. convincing-game is
-better behaved: `2.5e−6, 3.7e−5, 6.3e−4, 9.0e−7`.
+But the published `p=8e−8` is the most favourable of the four by a wide margin.
+convincing-game is better behaved: `2.5e−6, 3.7e−5, 6.3e−4, 9.0e−7`.
+
+**Aggregated p-values (replacing the single-seed figure).** Combining the four
+subsample seeds by Fisher's method, and quoting the worst individual seed as a
+conservative bound:
+
+| config | AUC (aggregate) | Fisher-combined p | worst single seed |
+|---|---|---|---|
+| convincing-game | 0.661 ± 0.012 | 8.0e−16 | 6.3e−4 |
+| insider-trading | 0.625 ± 0.014 | 2.4e−12 | 1.6e−2 |
+
+**Read these as a bracket, not a point.** Fisher's method assumes independent
+tests; the four subsample seeds draw from the same underlying pool, so they are
+positively dependent and the combined value is **anti-conservative** (too small).
+The worst-seed column is the conservative end. The truthful statement is that the
+evidence sits between those bounds. Reporting both is deliberate — neither alone
+is honest here.
+
+`experiments/E6_7B_panel.py` now persists `p_per_split`, `p_split_max` and
+`p_fisher_over_splits` for every run, so future results can aggregate over the
+split axis too rather than storing one draw. The values above aggregate only over
+the *subsample* axis, because the per-split p-values from the original runs were
+computed and then discarded.
 
 **Multiple comparisons.** Nine configurations have committed results
 (convincing-game, insider-trading, instructed-deception, gender-secret,
@@ -244,12 +265,20 @@ Bonferroni α = 0.05/9 = 5.6e−3:
 - Comfortably null either way: instructed-deception (0.32), gender-secret (0.91),
   insider-trading-reasoning (0.92).
 
-**One compound caveat.** Findings interact: if insider-trading's *worst* subsample
-seed (p=0.0155) is used instead of the published seed-0 value, it no longer clears
-the corrected threshold. The headline result is robust in AUC across all four
-seeds (0.606–0.637, all well above chance) but its *significance under correction*
-depends on which subsample seed is quoted. Aggregating p across seeds — rather
-than reporting one — is the right fix and has not yet been done.
+**One compound caveat.** Findings interact. Against Bonferroni α = 5.6e−3:
+
+| config | Fisher-combined | survives? | worst seed | survives? |
+|---|---|---|---|---|
+| convincing-game | 8.0e−16 | ✅ | 6.3e−4 | ✅ |
+| insider-trading | 2.4e−12 | ✅ | **1.6e−2** | ❌ |
+
+convincing-game clears correction at **both** ends of the bracket, so it is
+unambiguously significant. Insider-trading clears it on the aggregate but not on
+its worst seed. Its AUC is robust across all four seeds (0.606–0.637, all well
+above chance); what is seed-dependent is only whether its *p* clears a corrected
+threshold. Stated plainly: **convincing-game is the more securely established of
+the two positives**, which is the opposite of the impression given by the
+previously published `p=8e−8` for insider-trading.
 
 None of this affects the paper's central claim, which is about **selectivity**:
 the strong positives and the sign-flip survive every correction above, and the

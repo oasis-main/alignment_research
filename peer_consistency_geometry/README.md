@@ -13,11 +13,15 @@ via a sign-flipped convergence signal (AUC **0.384 ± 0.006**, split-seed;
 **0.391 ± 0.023** after cue redaction). Selectivity, length-control,
 scale-gating, and the reasoning-vs-output split are the methodological spine.
 
-> Quoted `p` values elsewhere in this repo are **split-seed 0 only**
-> (`experiments/E6_7B_panel.py:100`) and do not pair with the aggregated AUCs
-> above. Nine configs were tested; under Bonferroni the strong positives and the
-> sign-flip survive, alignment-faking-*output* (p=0.045) does not. Full accounting
-> in [`../writing/peer_consistency_deception_divergence.md`](../writing/peer_consistency_deception_divergence.md) §4.1c.
+> **p-values are a bracket, not a point.** Fisher-combined over subsample seeds
+> (anti-conservative — the subsamples overlap) … worst single seed (conservative):
+> convincing-game `8.0e−16 … 6.3e−4`, insider-trading `2.4e−12 … 1.6e−2`. Nine
+> configs were tested; at Bonferroni α = 5.6e−3 convincing-game clears at both
+> ends, insider-trading clears on the aggregate but not its worst seed, and
+> alignment-faking-*output* (p=0.045) does not survive. `E6_7B_panel.py` now
+> persists `p_per_split` / `p_fisher_over_splits`; older result JSONs store only
+> `p_seed0`. Full accounting in
+> [`../writing/peer_consistency_deception_divergence.md`](../writing/peer_consistency_deception_divergence.md) §4.1c.
 
 ---
 
