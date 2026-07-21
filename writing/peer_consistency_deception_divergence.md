@@ -19,10 +19,20 @@ geometry on a deception label (never predicting it as a target), we find that on
 deceptive content — but only after two confounds are controlled: (1) response
 length, which at first inflated the effect, and (2) model capacity, which gates
 whether the effect appears at all. At a 7–9B panel, length-matched divergence is
-robust for both **persuasion** deception (AUC 0.662, p=2.5e−6) and
-**agentic/strategic** deception (AUC 0.637, p=8e−8), stable across seeds. The
+robust for both **persuasion** deception (AUC **0.661 ± 0.012**) and
+**agentic/strategic** deception (AUC **0.625 ± 0.014**), stable across seeds. The
 signal is **relative** (a comparison of conceptual geometry across models), not
 an absolute deception detector.
+
+> **Reporting convention (added 2026-07-21).** Headline AUCs throughout are the
+> **subsample aggregate**: the mean over 4 subsample seeds of a value that is
+> itself a mean over 5 cal/eval split-seeds, so the ± varies over *both* nuisance
+> axes. An earlier version headlined the **split-seed** estimator (subsample seed 0
+> only): convincing-game 0.662 ± 0.033, insider-trading 0.637 ± 0.006. Both are
+> correctly computed, but the two were published side by side across different
+> documents without being distinguished. The aggregate is the more conservative
+> claim and is now canonical everywhere. See §4.1c for p-values, which do **not**
+> share this convention.
 
 ---
 
@@ -164,16 +174,18 @@ sub-2B **recover at 7–9B** under the *same* length control:
 
 | config | type | small panel (len-matched) | **7–9B panel (len-matched)** |
 |---|---|---|---|
-| convincing-game | persuasion | 0.678 ± 0.034 | **0.662 ± 0.033** (p=2.5e−6) |
-| insider-trading | strategic/agentic | 0.555 (n.s.) | **0.637 ± 0.006** (p=8e−8) |
+| convincing-game | persuasion | 0.678 ± 0.034 | **0.661 ± 0.012** |
+| insider-trading | strategic/agentic | 0.555 (n.s.) | **0.625 ± 0.014** |
 
 convincing-game **holds** across scale; insider-trading **recovers**.
 
 **Subsample robustness (4 subsample seeds × 5 split-seeds).** The 7–9B
 length-matched AUCs are stable across *which examples are sampled*, not just the
-cal/eval split: convincing-game **0.661 ± 0.011** (range 0.644–0.672),
-insider-trading **0.625 ± 0.012** (range 0.606–0.637). The headlines are not
-lucky draws. So the
+cal/eval split: convincing-game **0.661 ± 0.012** (range 0.644–0.672),
+insider-trading **0.625 ± 0.014** (range 0.606–0.637). These aggregates are the
+headline figures quoted throughout (see the reporting-convention note in the
+Abstract); the narrower split-seed-only values they replaced sat within these
+ranges, so the headlines were not lucky draws either way. So the
 sub-2B collapse was a *capacity* limit, not proof the signal was length. Larger
 models represent strategic deception with a length-independent cross-model
 divergence.
@@ -183,12 +195,67 @@ divergence.
 Extending to two more deception types sharpens the claim. Full 7–9B,
 length-matched scoreboard (‖δ¹c‖ AUC, deceptive vs honest, 5 split-seeds):
 
-| config | deception type | 7–9B len-matched AUC | |
-|---|---|---|---|
-| convincing-game | persuasion | **0.662 ± 0.033** (p=2.5e−6) | strong |
-| insider-trading | agentic/strategic | **0.637 ± 0.006** (p=8e−8) | strong |
-| instructed-deception | overt instructed lie | 0.528 ± 0.016 (p=0.32) | **weak / n.s.** |
-| gender-secret | templated secret-keeping | 0.442 ± 0.033 (p=0.91) | n.s. (artifact) |
+| config | deception type | 7–9B len-matched AUC | p (split-seed 0) | |
+|---|---|---|---|---|
+| convincing-game | persuasion | **0.661 ± 0.012** | 2.5e−6 | strong |
+| insider-trading | agentic/strategic | **0.625 ± 0.014** | 8.1e−8 | strong |
+| instructed-deception | overt instructed lie | 0.528 ± 0.016 | 0.32 | **weak / n.s.** |
+| gender-secret | templated secret-keeping | 0.442 ± 0.033 | 0.91 | n.s. (artifact) |
+
+### 4.1c Statistical reporting — what the p-values are, and correction
+
+*Added 2026-07-21 during the cross-track results audit. No result changes; these
+are disclosures about how the published statistics were computed.*
+
+**Every p-value in this document is a single split's p, not an aggregate.**
+`experiments/E6_7B_panel.py:100` stores `"p_seed0": runs[0][0]["p"]` — the
+Mann–Whitney p of split-seed 0 at subsample seed 0. It is printed beside an AUC
+that *is* a multi-seed mean. The two quantities have different denominators and
+should not be read as a matched pair.
+
+This matters most for **insider-trading**, where the per-subsample-seed p-values
+span five orders of magnitude:
+
+| subsample seed | AUC | p |
+|---|---|---|
+| 0 (**published**) | 0.6369 | **8.1e−8** |
+| 1 | 0.6347 | 8.1e−5 |
+| 2 | 0.6063 | **0.0155** |
+| 3 | 0.6239 | 2.8e−3 |
+
+Seed 0 is the *first* seed, not a selected one — the code takes `runs[0]`
+structurally, so this is an unrepresentative default rather than a cherry-pick.
+But the published `p=8e−8` is the most favourable of the four by a wide margin,
+and a reader should know the range is `[8.1e−8, 1.6e−2]`. convincing-game is
+better behaved: `2.5e−6, 3.7e−5, 6.3e−4, 9.0e−7`.
+
+**Multiple comparisons.** Nine configurations have committed results
+(convincing-game, insider-trading, instructed-deception, gender-secret,
+alignment-faking reasoning / output / reasoning-redacted, insider-trading
+reasoning / action). No correction was applied anywhere previously. At
+Bonferroni α = 0.05/9 = 5.6e−3:
+
+- **Survive comfortably**: insider-trading (8.1e−8), alignment-faking-reasoning
+  (5.9e−8), convincing-game (2.5e−6), insider-trading-action (3.8e−6),
+  alignment-faking-reasoning-redacted (8.9e−5).
+- **Does not survive**: **alignment-faking-output, p=0.045**. This document and
+  the top-level README already describe it as weak; it should be read as *not
+  surviving multiple-comparison correction*, not as a weak positive.
+- Comfortably null either way: instructed-deception (0.32), gender-secret (0.91),
+  insider-trading-reasoning (0.92).
+
+**One compound caveat.** Findings interact: if insider-trading's *worst* subsample
+seed (p=0.0155) is used instead of the published seed-0 value, it no longer clears
+the corrected threshold. The headline result is robust in AUC across all four
+seeds (0.606–0.637, all well above chance) but its *significance under correction*
+depends on which subsample seed is quoted. Aggregating p across seeds — rather
+than reporting one — is the right fix and has not yet been done.
+
+None of this affects the paper's central claim, which is about **selectivity**:
+the strong positives and the sign-flip survive every correction above, and the
+nulls become *more* credible once the number of tests is disclosed.
+
+---
 
 Two negatives are as informative as the positives. **Overt instructed lying does
 not recover at scale** (unlike insider-trading) — "just state the false thing"

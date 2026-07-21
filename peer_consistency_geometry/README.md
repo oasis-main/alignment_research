@@ -7,10 +7,17 @@ alignment-relevant content. Companion artifact for the paper draft at
 **Headline.** Across a panel of three independently-trained 7–9B instruct LMs
 (Yi-1.5-9B-Chat, Zephyr-7B-beta, Qwen2.5-7B-Instruct), the cocycle violation
 ‖δ¹c‖ of a peer-consistency sheaf detects strategic deception in model outputs
-(AUC 0.62–0.66, length-controlled, p ≤ 1e−6) and detects alignment-faking
-*reasoning* via a sign-flipped convergence signal (AUC 0.38, p=5.9e−8;
-0.39 after cue redaction). Selectivity, length-control, scale-gating, and the
-reasoning-vs-output split are the methodological spine.
+(AUC **0.625 ± 0.014** insider-trading, **0.661 ± 0.012** convincing-game;
+length-controlled, subsample aggregate) and detects alignment-faking *reasoning*
+via a sign-flipped convergence signal (AUC **0.384 ± 0.006**, split-seed;
+**0.391 ± 0.023** after cue redaction). Selectivity, length-control,
+scale-gating, and the reasoning-vs-output split are the methodological spine.
+
+> Quoted `p` values elsewhere in this repo are **split-seed 0 only**
+> (`experiments/E6_7B_panel.py:100`) and do not pair with the aggregated AUCs
+> above. Nine configs were tested; under Bonferroni the strong positives and the
+> sign-flip survive, alignment-faking-*output* (p=0.045) does not. Full accounting
+> in [`../writing/peer_consistency_deception_divergence.md`](../writing/peer_consistency_deception_divergence.md) §4.1c.
 
 ---
 

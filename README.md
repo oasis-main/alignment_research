@@ -9,16 +9,24 @@ reproducible experiments and concrete results.
 
 ### 1. Hodge Preference Geometry
 **Directory**: [`hodge_preference_geometry/`](hodge_preference_geometry/)
+**Paper**: [*Hodge-Decomposed Preference Optimization*](hodge_preference_geometry/paper/main.pdf)
 
 Using combinatorial Hodge theory to decompose LLM preference feedback into transitive
 (trustworthy) and cyclic (inconsistent) components — and building a Riemannian safety geometry
 that makes dangerous policy regions geometrically unreachable rather than merely penalized.
 
-**Key results:**
-- Hodge-filtered reward signal (gradient component mean: **0.273**) vs. unfiltered baseline
-  (**0.813**) — a 3× reduction in cyclic noise entering training
-- First cohomology H¹ score of **2.47** on the HH-RLHF dataset, quantifying the degree of
-  preference inconsistency
+**Key results (paper):**
+- **28% of the preference structure in Anthropic's HH-RLHF dataset is irreducibly cyclic**
+  (harmonic component of the Hodge decomposition) — a Condorcet-style residual that no scalar
+  reward function can represent
+- **Hodge-DPO: 0.9999** exploit resistance vs. **0.940** for standard Direct Preference
+  Optimization (+6.3%, Cohen's *d* = 6.52, *p* < 0.0001, 30 seeds)
+- **Hodge-KTO: 0.9964** vs. **0.800** for Kahneman-Tversky Optimization (+24.5%, *d* = 16.47,
+  *p* < 0.0001)
+- **Ceiling effect on strong baselines**: GRPO already saturates at 1.000, HodgePO adds no gain
+  where the base optimizer already handles cyclic contamination
+
+**Additional exploratory results (this directory):**
 - Conformal safety barriers validated against adversarial jailbreak trajectories — policies
   trained with the conformal metric stay within the safe manifold; CPO-trained baselines escape
 - Sandbagging v2: policy robustness experiment across 4 seeds × 6 training checkpoints,
@@ -78,12 +86,20 @@ geometry across models, not an absolute deception verdict) and **emerges with mo
 **Key results** (7–9B panel: Yi-1.5-9B-Chat, Zephyr-7B-beta, Qwen2.5-7B-Instruct, length-matched,
 5 split-seeds × 4 subsample seeds):
 
-- **Persuasion** deception (LIARS'-BENCH convincing-game): AUC **0.661 ± 0.011**, p=2.5e−6
-- **Agentic/strategic** deception (LIARS'-BENCH insider-trading): AUC **0.625 ± 0.012**, p=8e−8
-- **Alignment-faking reasoning** (Anthropic alignment-faking-rl): AUC **0.384 ± 0.006**, p=5.9e−8 —
-  sign-flipped (faking is *more* peer-consistent; honest refusal diverges); held at **0.391 ± 0.023**
-  after stripping train/deploy lexical cues
+- **Persuasion** deception (LIARS'-BENCH convincing-game): AUC **0.661 ± 0.012** *(subsample aggregate)*
+- **Agentic/strategic** deception (LIARS'-BENCH insider-trading): AUC **0.625 ± 0.014** *(subsample aggregate)*
+- **Alignment-faking reasoning** (Anthropic alignment-faking-rl): AUC **0.384 ± 0.006** *(split-seed only —
+  no subsample sweep for this config)* — sign-flipped (faking is *more* peer-consistent; honest refusal
+  diverges); held at **0.391 ± 0.023** after stripping train/deploy lexical cues
 - **Selective**: weak/null on flat instructed lies (AUC 0.528) and templated refusals
+
+> **Statistical conventions.** AUC ± is the *subsample aggregate* (mean over 4 subsample seeds of a
+> value already averaged over 5 cal/eval split-seeds) wherever a subsample sweep exists; otherwise the
+> split-seed mean, labelled as such. **p-values are omitted here deliberately**: the stored `p` is
+> split-seed 0 only (`E6_7B_panel.py:100`), so it does not pair with an aggregated mean. For
+> insider-trading the per-subsample-seed p ranges `8.1e−8 … 1.6e−2`. Across the 9 tested configs,
+> Bonferroni α = 5.6e−3: the strong positives and the sign-flip survive; **alignment-faking-output
+> (p=0.045) does not**. See `writing/peer_consistency_deception_divergence.md` §4.1c.
 - **Where the construct lives**: separates *actions* on action-labeled datasets, *reasoning* on
   reasoning-labeled datasets — supports a unified "the panel disagrees on a different manifold
   for deceptive vs honest content" reading
