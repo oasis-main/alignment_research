@@ -26,6 +26,25 @@ that makes dangerous policy regions geometrically unreachable rather than merely
 - **Ceiling effect on strong baselines**: GRPO already saturates at 1.000, HodgePO adds no gain
   where the base optimizer already handles cyclic contamination
 
+> **What "exploit resistance" is — and is not.** It is **reward-model ranking accuracy over a
+> fixed list of preference pairs, at the embedding level**. There is no environment, no
+> generation step and no verifier anywhere in this pipeline, so it does *not* measure reward
+> hacking under optimization pressure, which is what the name suggests. The paper states this in
+> its Limitations; the summary above should not be read without it. Two related cautions: the
+> metric **saturates** (GRPO sits at exactly 1.000, Hodge-DPO at 0.9999, so the reported DPO gain
+> occupies the 6% of headroom below the ceiling), and the genuine-vs-exploitable cycle split is
+> decided by dataset **annotation labels** (BeaverTails harm flags, TRACE `is_hacked`, HH-RLHF
+> split), not by any independent check.
+>
+> **Method history worth knowing.** The originally published formulation — a batch harmonic
+> penalty on in-batch rewards — is **identically zero for a scalar reward model**, because scalar
+> predictions are always gradient-consistent. Three earlier 30-seed runs correctly measured it as
+> a no-op, with every Hodge variant numerically identical to its base method. The results above
+> come from a later potential-alignment regulariser. That within-run comparison is sound (same 30
+> seeds, same graph, all 30 paired differences positive), but the preference graph changed in the
+> same revision, so *why* the earlier version was inert and this one is not has not been isolated.
+> Full provenance: `shape_of_good_behavior/shared/results/README.md`.
+
 **Additional exploratory results (this directory):**
 - Conformal safety barriers validated against adversarial jailbreak trajectories — policies
   trained with the conformal metric stay within the safe manifold; CPO-trained baselines escape
