@@ -23,10 +23,17 @@ RESULTS = HERE.parent / "results"
 
 
 def load_auc(stem: str, kind: str = "length_matched") -> tuple[float, float]:
-    """Return (mean, std) of δ¹c AUC from a results JSON."""
+    """Return (mean, std) of δ¹c AUC from a 7-9B panel results JSON."""
     r = json.loads((RESULTS / f"peer_sheaf_e6_modal_{stem}.json").read_text())
     block = r[kind]
     return float(block["auc_mean"]), float(block["auc_std"])
+
+
+def load_small_auc(cfg: str) -> tuple[float, float]:
+    """Return (mean, std) of δ¹c AUC across splits from a small-panel JSON."""
+    r = json.loads((RESULTS / f"peer_sheaf_e6_small_{cfg}_lenmatch.json").read_text())
+    auc = r["delta1c"]["across_splits"]["auc"]
+    return float(auc["mean"]), float(auc["std"])
 
 
 # ---------------------------------------------------------------------------
@@ -117,22 +124,18 @@ def fig1_sheaf_complex(out_png: Path, out_pdf: Path):
 # Figure 2 — AUC scoreboard
 # ---------------------------------------------------------------------------
 
-# Small-panel length-matched numbers come from the upstream SGB-019/020 sweep
-# (ai_research/.../shared/results/peer_sheaf_e6_<cfg>_lenmatch.json). They are
-# inlined here as constants because the small-panel JSONs are not vendored — the
-# 7-9B JSONs are the source-of-truth for the paper. Re-derive via the upstream
-# script `experiments/E6_liars.py --length-match` if needed.
-SMALL_LENMATCH = {
-    "convincing-game":      (0.678, 0.034),
-    "insider-trading":      (0.555, 0.008),
-    "instructed-deception": (0.536, 0.013),
-}
+# Small-panel (SmolLM2-360M / Qwen2.5-0.5B / TinyLlama-1.1B) length-matched
+# numbers from the upstream SGB-019/020 sweep. The source JSONs are vendored
+# into results/ as peer_sheaf_e6_small_<cfg>_lenmatch.json and read directly,
+# so every plotted number is traceable to a committed file. Re-derive via
+# `experiments/E6_liars.py --length-match` if needed.
+SMALL_CFGS = ["convincing-game", "insider-trading", "instructed-deception"]
 
 
 def fig2_auc_scoreboard(out_png: Path, out_pdf: Path):
-    cfgs = ["convincing-game", "insider-trading", "instructed-deception"]
+    cfgs = SMALL_CFGS
     labels = ["convincing-game\n(persuasion)", "insider-trading\n(strategic)", "instructed-deception\n(overt lie)"]
-    small = [SMALL_LENMATCH[c] for c in cfgs]
+    small = [load_small_auc(c) for c in cfgs]
     big   = [load_auc(c, "length_matched") for c in cfgs]
 
     af_r, af_r_std = load_auc("alignment-faking-reasoning", "length_matched")
@@ -152,9 +155,10 @@ def fig2_auc_scoreboard(out_png: Path, out_pdf: Path):
     bars2 = axL.bar(x + w/2, [m for m, _ in big],   w,
                     yerr=[s for _, s in big],   capsize=3,
                     label="7–9B panel",          color="#3b6e8f", edgecolor="#1f3d52")
-    axL.axhline(0.5, color="#666666", linestyle="--", lw=0.8, alpha=0.7)
-    axL.text(len(cfgs) - 0.55, 0.503, "chance (AUC = 0.5)", fontsize=8,
-             color="#666666", va="bottom", ha="right")
+    # Charted as a legend entry rather than inline text: at y=0.503 every x is
+    # occupied by a bar, so an inline caption necessarily overlaps one.
+    axL.axhline(0.5, color="#666666", linestyle="--", lw=0.8, alpha=0.7,
+                label="chance (AUC = 0.5)")
     axL.set_ylim(0.45, 0.78)
     axL.set_xticks(x)
     axL.set_xticklabels(labels, fontsize=10)
@@ -163,7 +167,8 @@ def fig2_auc_scoreboard(out_png: Path, out_pdf: Path):
                   fontsize=11, pad=8, color="#2c3e50")
     axL.legend(loc="upper right", fontsize=9.5, frameon=False)
 
-    axL.annotate("n.s.", xy=(1 - w/2, small[1][0] + small[1][1] + 0.005),
+    # Sits above the bar's own value label (which is drawn at m + 0.012).
+    axL.annotate("n.s.", xy=(1 - w/2, small[1][0] + small[1][1] + 0.030),
                  ha="center", va="bottom", fontsize=8.5, color="#a04040", weight="bold")
 
     for bars, vals in [(bars1, small), (bars2, big)]:
