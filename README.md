@@ -9,37 +9,23 @@ reproducible experiments and concrete results.
 
 ### 1. Hodge Preference Geometry
 **Directory**: [`hodge_preference_geometry/`](hodge_preference_geometry/)
-**Paper**: [*Hodge-Decomposed Preference Optimization*](hodge_preference_geometry/paper/main.pdf) (self-published preprint; corrected 2026-09-18 — see [`paper/README.md`](hodge_preference_geometry/paper/README.md))
+**Paper**: [*Hodge Potential Alignment for Preference Optimization: A Negative Result and Three Evaluation Pitfalls*](hodge_preference_geometry/paper/main.pdf) (self-published preprint, 2026-09-18 — see [`paper/README.md`](hodge_preference_geometry/paper/README.md))
 
-Using the combinatorial Hodge decomposition of a preference graph to separate a cycle-free
-(gradient) ranking from the cyclic remainder, and using that ranking as a training target for
-standard preference optimizers.
+Tests whether the cycle-free (gradient) potential of a preference graph, from the combinatorial
+Hodge decomposition, is a useful training target for standard preference optimizers.
 
-**Key results (paper) — in-sample, embedding level, 500 HH-RLHF harmless-base pairs, 30 seeds:**
-- **Hodge-DPO: 0.9999** ranking accuracy vs. **0.940** for DPO (Cohen's *d* = 6.52; all 30
-  paired seed differences positive)
-- **Hodge-KTO: 0.9964** vs. **0.800** for KTO (*d* = 16.47; all 30 positive)
-- **Ceiling**: GRPO and Hodge-GRPO both score exactly 1.000 on every seed
+**Result: no benefit on held-out data.** On 500 HH-RLHF harmless-base pairs (5 train/held-out
+splits × 30 seeds), Hodge-DPO scores 0.537 held-out vs DPO 0.550, and Hodge-KTO 0.543 vs KTO 0.542;
+no split-level paired difference is significant (p ≥ 0.34). Every method, including a linear probe,
+scores 0.52–0.59 held-out (chance 0.50).
 
-> **Read before citing.** (1) The metric is computed on the **training pairs**, not held-out
-> pairs. (2) The regularizer's target is derived from the same labels the metric scores, so the
-> gain may come from stronger in-sample supervision rather than from removing cyclic noise; the
-> separating ablation has not been run. (3) All cyclic structure in the graph comes from
-> similarity edges whose probabilities are **fixed formulas of embedding similarity**, not human
-> judgments — this benchmark does **not** measure how cyclic human preference data is. An
-> earlier version of this README stated that "28% of HH-RLHF is irreducibly cyclic"; no result
-> file supports that figure, and it has been withdrawn. (4) The code calls the metric "exploit
-> resistance", but there is no environment, no generation, and no verifier, so it does *not*
-> measure reward hacking under optimization pressure.
->
-> **Method history worth knowing.** The originally published formulation — a batch harmonic
-> penalty on in-batch rewards — is **identically zero for a scalar reward model**, because scalar
-> predictions are always gradient-consistent. Three earlier 30-seed runs correctly measured it as
-> a no-op, with every Hodge variant numerically identical to its base method. The results above
-> come from a later potential-alignment regulariser. That within-run comparison is sound (same 30
-> seeds, same graph, all 30 paired differences positive), but the preference graph changed in the
-> same revision, so *why* the earlier version was inert and this one is not has not been isolated.
-> Full provenance: `shape_of_good_behavior/shared/results/README.md`.
+> **Correction notice.** Earlier versions of this README and of the paper reported Hodge-DPO
+> 0.9999 vs 0.940 and Hodge-KTO 0.9964 vs 0.800, and that "28% of HH-RLHF is irreducibly cyclic".
+> Those figures were in-sample ranking accuracy; a margin control with no pair-specific Hodge
+> information reproduces the whole gain; the original run gave each sample another pair's Hodge
+> target; and the 28% figure has no supporting result file. Do not cite them as evidence for the
+> method. The paper now documents the negative result and the three evaluation pitfalls behind
+> the original claim. Full history: `shape_of_good_behavior/shared/results/README.md`.
 
 **Conformal safety geometry — negative result.** In a 50-seed multi-step continuous-control
 test (`shape_of_good_behavior/results/safety/murky_drone_multistep.json`; 200 episodes; every
