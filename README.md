@@ -9,32 +9,28 @@ reproducible experiments and concrete results.
 
 ### 1. Hodge Preference Geometry
 **Directory**: [`hodge_preference_geometry/`](hodge_preference_geometry/)
-**Paper**: [*Hodge-Decomposed Preference Optimization*](hodge_preference_geometry/paper/main.pdf)
+**Paper**: [*Hodge-Decomposed Preference Optimization*](hodge_preference_geometry/paper/main.pdf) (self-published preprint; corrected 2026-09-18 — see [`paper/README.md`](hodge_preference_geometry/paper/README.md))
 
-Using combinatorial Hodge theory to decompose LLM preference feedback into transitive
-(trustworthy) and cyclic (inconsistent) components — and building a Riemannian safety geometry
-that makes dangerous policy regions geometrically unreachable rather than merely penalized.
+Using the combinatorial Hodge decomposition of a preference graph to separate a cycle-free
+(gradient) ranking from the cyclic remainder, and using that ranking as a training target for
+standard preference optimizers.
 
-**Key results (paper):**
-- **28% of the preference structure in Anthropic's HH-RLHF dataset is irreducibly cyclic**
-  (harmonic component of the Hodge decomposition) — a Condorcet-style residual that no scalar
-  reward function can represent
-- **Hodge-DPO: 0.9999** exploit resistance vs. **0.940** for standard Direct Preference
-  Optimization (+6.3%, Cohen's *d* = 6.52, *p* < 0.0001, 30 seeds)
-- **Hodge-KTO: 0.9964** vs. **0.800** for Kahneman-Tversky Optimization (+24.5%, *d* = 16.47,
-  *p* < 0.0001)
-- **Ceiling effect on strong baselines**: GRPO already saturates at 1.000, HodgePO adds no gain
-  where the base optimizer already handles cyclic contamination
+**Key results (paper) — in-sample, embedding level, 500 HH-RLHF harmless-base pairs, 30 seeds:**
+- **Hodge-DPO: 0.9999** ranking accuracy vs. **0.940** for DPO (Cohen's *d* = 6.52; all 30
+  paired seed differences positive)
+- **Hodge-KTO: 0.9964** vs. **0.800** for KTO (*d* = 16.47; all 30 positive)
+- **Ceiling**: GRPO and Hodge-GRPO both score exactly 1.000 on every seed
 
-> **What "exploit resistance" is — and is not.** It is **reward-model ranking accuracy over a
-> fixed list of preference pairs, at the embedding level**. There is no environment, no
-> generation step and no verifier anywhere in this pipeline, so it does *not* measure reward
-> hacking under optimization pressure, which is what the name suggests. The paper states this in
-> its Limitations; the summary above should not be read without it. Two related cautions: the
-> metric **saturates** (GRPO sits at exactly 1.000, Hodge-DPO at 0.9999, so the reported DPO gain
-> occupies the 6% of headroom below the ceiling), and the genuine-vs-exploitable cycle split is
-> decided by dataset **annotation labels** (BeaverTails harm flags, TRACE `is_hacked`, HH-RLHF
-> split), not by any independent check.
+> **Read before citing.** (1) The metric is computed on the **training pairs**, not held-out
+> pairs. (2) The regularizer's target is derived from the same labels the metric scores, so the
+> gain may come from stronger in-sample supervision rather than from removing cyclic noise; the
+> separating ablation has not been run. (3) All cyclic structure in the graph comes from
+> similarity edges whose probabilities are **fixed formulas of embedding similarity**, not human
+> judgments — this benchmark does **not** measure how cyclic human preference data is. An
+> earlier version of this README stated that "28% of HH-RLHF is irreducibly cyclic"; no result
+> file supports that figure, and it has been withdrawn. (4) The code calls the metric "exploit
+> resistance", but there is no environment, no generation, and no verifier, so it does *not*
+> measure reward hacking under optimization pressure.
 >
 > **Method history worth knowing.** The originally published formulation — a batch harmonic
 > penalty on in-batch rewards — is **identically zero for a scalar reward model**, because scalar
@@ -45,11 +41,16 @@ that makes dangerous policy regions geometrically unreachable rather than merely
 > same revision, so *why* the earlier version was inert and this one is not has not been isolated.
 > Full provenance: `shape_of_good_behavior/shared/results/README.md`.
 
-**Additional exploratory results (this directory):**
-- Conformal safety barriers validated against adversarial jailbreak trajectories — policies
-  trained with the conformal metric stay within the safe manifold; CPO-trained baselines escape
-- Sandbagging v2: policy robustness experiment across 4 seeds × 6 training checkpoints,
-  tracking metric-field evolution
+**Conformal safety geometry — negative result.** In a 50-seed multi-step continuous-control
+test (`shape_of_good_behavior/results/safety/murky_drone_multistep.json`; 200 episodes; every
+method sees only noisy observations and a scalar cost), mean safety violations per seed were:
+**CPO 180.7** (safest), SGPO-barrier 274.8, PPO 471.9, SGPO-scale 508.0. The repository's SGPO
+formulation (`advantage/sqrt(g)`) is statistically indistinguishable from unconstrained PPO
+(p = 0.68). The barrier variant beats PPO but loses to CPO: on this test the geometry adds
+nothing over a Lagrangian on the same cost signal. An earlier version of this README claimed
+that conformal-metric policies stay safe while CPO baselines escape; that claim came from
+single-step bandit harnesses where the result was arithmetically forced, and it has been
+withdrawn.
 
 **Core modules:**
 | File | Role |
@@ -62,7 +63,7 @@ that makes dangerous policy regions geometrically unreachable rather than merely
 
 ### 2. Ontological Embeddings
 **Directory**: [`ontological_embeddings/`](ontological_embeddings/)
-**Paper**: [*Interpretable Knowledge Graph Reasoning via Sheaf Cohomology*](ontological_embeddings/paper/main.pdf) (arXiv, cs.LG)
+**Paper**: [*Interpretable Knowledge Graph Reasoning via Sheaf Cohomology*](ontological_embeddings/paper/main.pdf) (preprint; intended for arXiv cs.LG)
 
 Bridging symbolic and statistical AI using *Ologs* (category-theoretic knowledge
 representations). Core claim: transformer attention implicitly implements categorical semantics,
@@ -145,7 +146,7 @@ geometry across models, not an absolute deception verdict) and **emerges with mo
 
 ### 4. TLTS-Compilation
 **Directory**: [`tlts_compilation/`](tlts_compilation/)
-**Paper**: [*TLTS-Compilation: A Neurosymbolic Framework for Type-Safe and Verifiable Transformers*](tlts_compilation/main.pdf) (NeSy 2026 submission, double-blind)
+**Paper**: [*TLTS-Compilation: A Neurosymbolic Framework for Type-Safe and Verifiable Transformers*](tlts_compilation/main.pdf) (self-published preprint)
 
 A neurosymbolic framework that unifies two recent threads — type-safe (ontology-gated)
 attention and program-compiled transformers — as one construction: compile a typed labeled
@@ -223,6 +224,6 @@ python baseline_benchmarks.py     # TransE / RotatE / etc. on WN18RR
 
 See [METHODS.md](METHODS.md) for the mathematical foundations and citations.
 
-Venue targets: ICML 2026 (Hodge thread); NeurIPS 2026 Workshops — SafeML / ATTRIB / SoLaR —
-(Peer-consistency thread). The Olog thread is being posted to arXiv (cs.LG) — see
-[`ontological_embeddings/paper/`](ontological_embeddings/paper/).
+Publication: the Hodge and TLTS-Compilation papers are self-published preprints (neither was
+submitted to its original venue — ICML 2026 and NeSy 2026 respectively). The Olog thread is
+being posted to arXiv (cs.LG) — see [`ontological_embeddings/paper/`](ontological_embeddings/paper/).

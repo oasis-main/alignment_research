@@ -1,6 +1,8 @@
 \documentclass{article}
 
-\usepackage[accepted]{icml2026}
+% Self-published preprint. This paper was not accepted at (or submitted to)
+% ICML 2026; the ICML style file is used for formatting only.
+\usepackage[preprint]{icml2026}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{graphicx}
 \usepackage{booktabs}
@@ -21,27 +23,25 @@
 \begin{document}
 
 \twocolumn[
-\icmltitle{Hodge-Decomposed Preference Optimization:\\Detecting and Filtering Cyclic Inconsistencies\\in Reward Learning}
-
-\icmlsetsymbol{equal}{*}
+\icmltitle{Hodge-Decomposed Preference Optimization:\\Using the Cycle-Free Component of a Preference Graph\\as a Training Target}
 
 \begin{icmlauthorlist}
-\icmlauthor{Michael Lee}{equal,anon}
+\icmlauthor{Michael Lee}{anon}
 \end{icmlauthorlist}
 
 \icmlaffiliation{anon}{Anonymous}
 
 \icmlcorrespondingauthor{Michael Lee}{anonymous@example.com}
 
-\icmlkeywords{preference optimization, Hodge decomposition, reward hacking, cyclic preferences, DPO, RLHF, AI alignment}
+\icmlkeywords{preference optimization, Hodge decomposition, cyclic preferences, DPO, KTO, RLHF}
 
 \vskip 0.3in
 ]
 
-\printAffiliationsAndNotice{\icmlEqualContribution}
+\printAffiliationsAndNotice{}
 
 \begin{abstract}
-Human preference data used to train reward models is inherently noisy and can contain cyclic inconsistencies---where $A \succ B \succ C \succ A$---that no scalar reward function can faithfully represent. Standard preference optimizers (DPO, KTO, GRPO) train on all preferences equally, including cycles that reward-hacking policies can exploit. We propose \textbf{Hodge-Decomposed Preference Optimization (HodgePO)}, a family of preference optimizers that use the combinatorial Hodge decomposition to separate globally consistent preference signals from cyclic noise. HodgePO operates through two mechanisms: (1)~per-sample weights derived from node-level cycle participation that downweight cyclically contaminated training pairs, and (2)~a \emph{Hodge potential-alignment regularizer} that encourages the model's reward predictions to match the globally consistent gradient potential from the Hodge decomposition. In a 30-seed benchmark on Anthropic's HH-RLHF dataset, Hodge-DPO achieves $\mathbf{0.9999}$ exploit resistance versus $0.940$ for standard DPO ($+6.3\%$, Cohen's $d = 6.52$, $p < 0.0001$), and Hodge-KTO achieves $\mathbf{0.9964}$ versus $0.800$ for KTO ($+24.5\%$, $d = 16.47$, $p < 0.0001$). These improvements are statistically significant across all 30 seeds, demonstrating that topological filtering of preference data substantially improves robustness to reward hacking.
+Pairwise preference data can contain cycles ($A \succ B \succ C \succ A$) that no scalar reward function can represent. We propose \textbf{Hodge-Decomposed Preference Optimization (HodgePO)}, which applies the combinatorial Hodge decomposition to a preference graph and uses the result in two ways: (1)~per-sample weights from how much each response participates in cyclic flow, and (2)~a \emph{potential-alignment regularizer} that pulls the model's reward differences toward the cycle-free (gradient) component of the graph. We evaluate HodgePO at the embedding level on 500 preference pairs from the harmless-base split of Anthropic's HH-RLHF dataset, over 30 seeds. On ranking accuracy (the fraction of pairs where the preferred response receives the higher reward), Hodge-DPO reaches $0.9999$ versus $0.940$ for DPO (Cohen's $d = 6.52$) and Hodge-KTO reaches $0.9964$ versus $0.800$ for KTO ($d = 16.47$); in both families all 30 paired seed differences are positive. GRPO already reaches the metric ceiling ($1.000$). We state three limits of this evidence plainly. The accuracy is measured on the training pairs, not on held-out pairs. The cycles in our graph come from similarity-derived edges that we construct, not from observed human judgments. The regularizer's target is derived from the same labels the metric scores. The result therefore shows that the Hodge gradient potential is an effective in-sample training target. It does not yet show better generalization, and it does not measure robustness to reward hacking.
 \end{abstract}
 
 %% ====================================================================
@@ -49,22 +49,17 @@ Human preference data used to train reward models is inherently noisy and can co
 \label{sec:intro}
 %% ====================================================================
 
-Preference optimization methods---Direct Preference Optimization (DPO)~\citep{rafailov2023direct}, Kahneman-Tversky Optimization (KTO)~\citep{ethayarajh2024kto}, Group Relative Policy Optimization (GRPO)~\citep{shao2024deepseekmath}, and Odds Ratio Preference Optimization (ORPO)~\citep{hong2024orpo}---have become the dominant approach for aligning language models with human intent. These methods sidestep explicit reward modeling by directly optimizing a policy from pairwise preference data.
+Preference optimization methods---Direct Preference Optimization (DPO)~\citep{rafailov2023direct}, Kahneman-Tversky Optimization (KTO)~\citep{ethayarajh2024kto}, Group Relative Policy Optimization (GRPO)~\citep{shao2024deepseekmath}, and Odds Ratio Preference Optimization (ORPO)~\citep{hong2024orpo}---are widely used to align language models with pairwise preference data.
 
-However, human preferences are not always globally consistent. The Condorcet paradox~\citep{condorcet1785essai} demonstrates that pairwise majority preferences can be cyclic even when individual preferences are transitive---a phenomenon generalized by Arrow's impossibility theorem~\citep{arrow1950difficulty}. When preference data contains such cycles, \emph{no scalar reward function can faithfully represent the full preference structure}~\citep{jiang2011statistical}. Standard optimizers treat all preference pairs equally, forcing the model to fit contradictory signals. This creates exploitable inconsistencies that reward-hacking policies can discover and leverage~\citep{anthropic2025shortcuts, moskovitz2024confronting}.
+Pairwise preferences are not always globally consistent. The Condorcet paradox~\citep{condorcet1785essai} shows that majority preferences can be cyclic even when every individual preference is transitive, a phenomenon generalized by Arrow's impossibility theorem~\citep{arrow1950difficulty}. When preference data contains such cycles, no scalar reward function can represent the full preference structure~\citep{jiang2011statistical}. \citet{liu2025impossibility} prove that preferences among LLM responses are representable by a reward model if and only if they contain no Condorcet cycle, and that such cycles arise with probability approaching one under a Luce model. Scalar-reward optimizers must fit such data with some compromise.
 
-\paragraph{Key insight.} The combinatorial Hodge decomposition~\citep{hodge1941harmonic, jiang2011statistical} provides an exact decomposition of preference data into:
-\begin{itemize}
-    \item \textbf{Gradient component}: globally consistent preferences explainable by a scalar potential (a ``true'' reward)
-    \item \textbf{Harmonic component}: irreducible cyclic inconsistencies that no scalar reward can capture
-\end{itemize}
-By computing this decomposition on the preference graph and using it to modulate training, we can teach preference optimizers to learn from the consistent signal while discounting cyclic noise.
+\paragraph{Approach.} The combinatorial Hodge decomposition~\citep{hodge1941harmonic, jiang2011statistical} splits an edge flow on a graph into a gradient component, which a scalar potential explains exactly, and a cyclic remainder, which no potential explains. We compute this decomposition once on a preference graph and use the gradient potential as a training target for standard preference optimizers.
 
 \paragraph{Contributions.}
 \begin{enumerate}
-    \item We introduce \textbf{Hodge-Decomposed Preference Optimization (HodgePO)}, a principled framework that augments any pairwise preference optimizer with cycle-aware training signals derived from the Hodge decomposition (Section~\ref{sec:method}).
-    \item We identify and address two technical challenges: (a)~cross-pair graph connectivity is essential for non-trivial Hodge structure (Section~\ref{sec:graph_construction}), and (b)~the Hodge potential convention requires sign correction for use as a regularization target (Section~\ref{sec:potential_alignment}).
-    \item We validate HodgePO across four base methods (DPO, KTO, GRPO, ORPO) in a statistically rigorous 30-seed benchmark on HH-RLHF, demonstrating significant improvements in exploit resistance for DPO ($+6.3\%$) and KTO ($+24.5\%$) with large effect sizes (Section~\ref{sec:experiments}).
+    \item \textbf{HodgePO}, a method that augments a pairwise preference optimizer with per-sample cycle-participation weights and a Hodge potential-alignment regularizer (Section~\ref{sec:method}).
+    \item Two practical observations: (a)~a preference graph with one edge per training pair has no cycles, so cross-pair edges are required for a non-trivial decomposition (Section~\ref{sec:graph_construction}); and (b)~a batch-level Hodge penalty on the predictions of a scalar reward model is identically zero, so the decomposition must be computed on the data, not on the model's outputs (Appendix~\ref{app:batch_penalty}).
+    \item A 30-seed embedding-level benchmark across seven optimizers (Section~\ref{sec:experiments}), reported together with the limits that constrain its interpretation (Section~\ref{sec:discussion}).
 \end{enumerate}
 
 %% ====================================================================
@@ -81,104 +76,91 @@ Given a dataset of preference pairs $\mathcal{D} = \{(x, y_w, y_l)\}$ where $y_w
 \end{equation}
 KTO~\citep{ethayarajh2024kto} operates on individual samples rather than pairs, using prospect-theoretic loss weighting. GRPO~\citep{shao2024deepseekmath} uses group-relative advantages with a clipped surrogate objective.
 
-All these methods assume preferences are generated by a latent reward function via the Bradley-Terry model~\citep{bradley1952rank}: $P(y_w \succ y_l) = \sigma(r^*(y_w) - r^*(y_l))$. This assumption fails when preferences contain irreducible cycles.
+These methods assume preferences are generated by a latent reward function via the Bradley-Terry model~\citep{bradley1952rank}: $P(y_w \succ y_l) = \sigma(r^*(y_w) - r^*(y_l))$. This assumption fails when preferences contain cycles.
 
 \subsection{Combinatorial Hodge Theory}
 \label{sec:hodge_background}
 
-The Hodge decomposition on graphs~\citep{jiang2011statistical} generalizes the classical Helmholtz decomposition to discrete settings. Given a weighted directed graph $G = (V, E, w)$ with edge flow $f: E \to \mathbb{R}$:
+Let $G = (V, E, w)$ be a weighted graph with an orientation on each edge, and let $K$ be its clique complex (triangles of $G$ are its 2-cells). An edge flow is a 1-cochain $f \in C^1$. Let $d_0: C^0 \to C^1$ be the coboundary, $(d_0 \phi)_{ij} = \phi(j) - \phi(i)$, and $d_1: C^1 \to C^2$ the curl, $(d_1 f)_{ijk} = f_{ij} + f_{jk} + f_{ki}$.
 
 \begin{theorem}[Hodge Decomposition~\citep{jiang2011statistical}]
 \label{thm:hodge}
-Any edge flow $f$ on a graph $G$ decomposes uniquely as:
+Every edge flow $f$ decomposes uniquely and orthogonally as
 \begin{equation}
-    f = \underbrace{d_0 \phi}_{\text{gradient}} + \underbrace{\delta_1 \psi}_{\text{curl}} + \underbrace{h}_{\text{harmonic}}
+    f = \underbrace{d_0 \phi}_{\text{gradient}} + \underbrace{d_1^{*} \psi}_{\text{curl}} + \underbrace{h}_{\text{harmonic}},
 \end{equation}
-where $d_0$ is the coboundary operator, $\delta_1$ is the adjoint boundary operator, $\phi: V \to \mathbb{R}$ is a node potential, $\psi$ is a 2-chain, and $h \in \ker(d_0^* d_0 + \delta_1 \delta_1^*)$ is the harmonic component.
+with $\phi \in C^0$, $\psi \in C^2$, and $h \in \ker \Delta_1$, where $\Delta_1 = d_0 d_0^{*} + d_1^{*} d_1$ is the Hodge Laplacian on 1-cochains.
 \end{theorem}
 
-The gradient component $d_0 \phi$ captures globally consistent rankings: for edge $(i, j)$, $(d_0 \phi)_{ij} = \phi(j) - \phi(i)$. The harmonic component $h$ captures irreducible cycles---preferences that cannot be explained by \emph{any} global ranking. In social choice theory, $h \neq 0$ corresponds to Condorcet cycles~\citep{condorcet1785essai}.
+The gradient component $d_0 \phi$ is the part of the flow that a global ranking explains. The curl and harmonic components are the cyclic remainder: the curl part consists of inconsistencies local to triangles, and the harmonic part of inconsistencies around longer loops. The first Betti number $\beta_1 = \dim \ker \Delta_1$ is the dimension of the harmonic space.
 
-The \textbf{first Betti number} $\beta_1 = \dim(\ker \Delta_1)$, where $\Delta_1 = d_0^* d_0 + \delta_1 \delta_1^*$ is the Hodge Laplacian, measures the dimension of the harmonic space. When $\beta_1 > 0$, the preference data contains irreducible cyclic structure.
-
-For preference optimization, we use the HodgeRank formulation~\citep{jiang2011statistical}: the gradient potential $\phi^*$ is the least-squares solution
+We use the HodgeRank formulation~\citep{jiang2011statistical}: the gradient potential $\phi^*$ is the least-squares solution
 \begin{equation}
-    \phi^* = \arg\min_\phi \sum_{(i,j) \in E} w_{ij} \left(f_{ij} - (\phi(j) - \phi(i))\right)^2
+    \phi^* = \arg\min_\phi \sum_{(i,j) \in E} \left(f_{ij} - (\phi(j) - \phi(i))\right)^2 .
 \end{equation}
-which gives the globally consistent reward ranking that best explains the observed preferences.
+Our implementation adds no 2-cells, so it computes only $\phi^*$ and the cyclic remainder $r = f - d_0\phi^*$, which contains both the curl and the harmonic parts. Each edge's flow is the log-odds of its preference probability, clipped to $[-10, 10]$.
 
 %% ====================================================================
 \section{Hodge-Decomposed Preference Optimization}
 \label{sec:method}
 %% ====================================================================
 
-HodgePO augments any base preference optimizer with two Hodge-derived mechanisms.
+HodgePO augments a base preference optimizer with two mechanisms derived from a one-time decomposition of a preference graph.
 
 \subsection{Preference Graph Construction}
 \label{sec:graph_construction}
 
-The choice of graph structure is critical. A naive preference graph with only direct edges (one per training pair) produces a perfect matching---a bipartite graph with \emph{zero cycles} and trivial Hodge decomposition ($h = 0$ everywhere). This was a key failure mode in early experiments.
+A graph with only one direct edge per training pair is a perfect matching when every response appears in exactly one pair. A matching has no cycles, so its decomposition is trivial: the cyclic remainder is zero. All cyclic structure in our graph therefore comes from edges we add between pairs.
 
-To obtain meaningful Hodge structure, we construct a denser preference graph:
-
-\begin{definition}[Cross-Pair Preference Graph]
-Given $N$ preference pairs embedded as $\{(\mathbf{e}_w^{(i)}, \mathbf{e}_l^{(i)})\}_{i=1}^N$ in $\mathbb{R}^d$, the cross-pair preference graph $G$ has:
+\begin{definition}[Cross-pair preference graph]
+Given $N$ preference pairs with response embeddings $\{(\mathbf{e}_w^{(i)}, \mathbf{e}_l^{(i)})\}_{i=1}^N$, the graph $G$ has:
 \begin{itemize}
-    \item \textbf{Direct edges}: $(w_i, l_i)$ with weight $P(y_w^{(i)} \succ y_l^{(i)})$ for each training pair $i$.
-    \item \textbf{Cross-pair edges}: For each response embedding $\mathbf{e}$, connect to its $k$ nearest neighbors from \emph{other} pairs via cosine similarity, with preference direction determined by a lightweight reward model. We use $k = 5$.
+    \item \textbf{Direct edges}: $(w_i, l_i)$ for each training pair, with preference probability equal to the pair's annotation confidence.
+    \item \textbf{Similarity edges}: for each preferred response $w_i$, its $k = 5$ nearest preferred responses $w_j$ (cosine similarity $s_{ij}$) from other pairs. For each such neighbour we add an edge $w_i \to w_j$ with probability $\mathrm{clip}(0.5 + 0.2(s_{ij} - 0.5),\,0.1,\,0.9)$ and an edge $w_i \to l_j$ with probability $\mathrm{clip}(0.7 + 0.2(1 - s'_{ij}),\,0.55,\,0.95)$, where $s'_{ij}$ is the cosine similarity between $w_i$ and $l_j$.
 \end{itemize}
 \end{definition}
 
-Cross-pair edges create shared nodes between different preference pairs, enabling cycles. In our experiments, 300 direct edges produce 0 cycles, while adding cross-pair edges yields $\sim$1,500 total edges with $\beta_1 > 0$ and $28\%$ harmonic energy fraction.
+The similarity-edge probabilities are fixed functions of embedding similarity chosen by us. They are not human or model judgments. Because the edge $w_i \to w_j$ is added from every node toward each of its nearest neighbours, two mutual nearest neighbours receive edges in both directions with probability above $0.5$ whenever their similarity exceeds $0.5$. The cyclic structure that the decomposition finds is therefore partly a property of this construction. Section~\ref{sec:discussion} discusses the consequences.
 
 \subsection{Node-Level Cycle Participation Weights}
 
-After computing the Hodge decomposition on $G$, we derive per-sample training weights based on how much each response participates in cyclic preference patterns.
-
-For each node $v \in V$, define the \textbf{harmonic participation score}:
+For each node $v$, define the cyclic participation score $s(v) = \sum_{e \ni v} |r_e|$, where $r = f - d_0\phi^*$ is the cyclic remainder on edge $e$. For training pair $i$:
 \begin{equation}
-    s(v) = \sum_{e \ni v} |h_e|
+    \text{cycle\_score}(i) = \frac{s(w_i) + s(l_i)}{\max_j \left(s(w_j) + s(l_j)\right)} \in [0, 1],
 \end{equation}
-where the sum is over all edges incident to $v$ and $h_e$ is the harmonic component on edge $e$. For each training pair $i$ with preferred response node $w_i$ and dispreferred node $l_i$:
+and the training weight is
 \begin{equation}
-    \text{cycle\_score}(i) = \frac{s(w_i) + s(l_i)}{2 \cdot \max_j \frac{s(w_j) + s(l_j)}{2}}
-\end{equation}
-normalized to $[0, 1]$. The training weight is:
-\begin{equation}
-    \alpha_i = 1 - \lambda_\text{damp} \cdot \text{cycle\_score}(i), \quad \alpha_i \in [0.2, 1.0]
+    \alpha_i = 1 - \lambda_\text{damp} \cdot \text{cycle\_score}(i), \quad \alpha_i \in [0.4, 1.0],
 \label{eq:weights}
 \end{equation}
-with $\lambda_\text{damp} = 0.6$. Pairs where both responses participate heavily in cycles receive lower weight.
+with $\lambda_\text{damp} = 0.6$. Pairs whose responses carry more cyclic flow receive lower weight.
 
 \subsection{Hodge Potential-Alignment Regularization}
 \label{sec:potential_alignment}
 
-The second and more impactful mechanism is a regularization loss that encourages the model's implicit reward predictions to align with the Hodge gradient potential---the globally consistent ranking.
-
-The gradient potential $\phi^*$ from the Hodge decomposition assigns each node a score reflecting its position in the cycle-free global ranking. For training pair $i$:
+The second mechanism is a regularizer that pulls the model's reward differences toward the gradient potential. For training pair $i$:
 \begin{equation}
-    \Delta\phi_i = \phi^*(l_i) - \phi^*(w_i)
+    \Delta\phi_i = \phi^*(l_i) - \phi^*(w_i).
 \label{eq:potential_diff}
 \end{equation}
 
-\paragraph{Sign convention.} In the Hodge framework, positive edge flow from $w_i$ to $l_i$ means $w_i$ is preferred. The gradient component satisfies $f_{w_i l_i}^\text{grad} = \phi^*(l_i) - \phi^*(w_i)$. For a consistent preference ($w_i \succ l_i$), positive flow implies $\phi^*(l_i) > \phi^*(w_i)$, so $\Delta\phi_i > 0$. This convention is critical: using $\phi^*(w_i) - \phi^*(l_i)$ instead produces negative targets that catastrophically reverse the learning signal.
+\paragraph{Sign convention.} In our flow convention, positive flow on the edge $w_i \to l_i$ encodes $w_i \succ l_i$, and the gradient component on that edge is $\phi^*(l_i) - \phi^*(w_i)$. For a preference consistent with the global ranking, $\Delta\phi_i > 0$. Using $\phi^*(w_i) - \phi^*(l_i)$ instead gives targets of the wrong sign and trains the model to rank dispreferred responses higher. We note this because it is an easy error to make and it silently inverts the learning signal.
 
-Given the model's implicit reward predictions $r_\theta(w_i)$ and $r_\theta(l_i)$, the potential-alignment loss is:
+Given the model's rewards $r_\theta(w_i)$ and $r_\theta(l_i)$, the potential-alignment loss is
 \begin{equation}
-    \mathcal{L}_\text{Hodge} = \frac{1}{B} \sum_{i \in \text{batch}} \left(r_\theta(w_i) - r_\theta(l_i) - \Delta\phi_i\right)^2
+    \mathcal{L}_\text{Hodge} = \frac{1}{B} \sum_{i \in \text{batch}} \left(r_\theta(w_i) - r_\theta(l_i) - \Delta\phi_i\right)^2 ,
 \label{eq:hodge_loss}
 \end{equation}
-
-The total HodgePO loss for any base method $\mathcal{L}_\text{base}$ is:
+and the total loss for a base method is
 \begin{equation}
-    \mathcal{L}_\text{HodgePO} = \mathcal{L}_\text{base}(\alpha) + \lambda_\text{Hodge} \cdot \mathcal{L}_\text{Hodge}
+    \mathcal{L}_\text{HodgePO} = \mathcal{L}_\text{base}(\alpha) + \lambda_\text{Hodge} \cdot \mathcal{L}_\text{Hodge},
 \label{eq:total_loss}
 \end{equation}
-where $\mathcal{L}_\text{base}(\alpha)$ denotes the base loss with per-sample weights $\alpha_i$ from Eq.~\ref{eq:weights}, and $\lambda_\text{Hodge}$ controls regularization strength.
+where $\mathcal{L}_\text{base}(\alpha)$ is the base loss with per-sample weights $\alpha_i$.
 
-\paragraph{Why not batch-level Hodge penalty?} An alternative approach computes the Hodge decomposition on \emph{in-batch} reward predictions. However, a scalar reward model produces rewards $r_\theta(x)$ that are always globally consistent by construction: any set of scalar values $\{r_1, \dots, r_n\}$ defines a total order with zero harmonic component. The batch-level Hodge penalty is therefore identically zero for scalar reward models---mathematically incapable of providing a training signal.
+\paragraph{Note on supervision.} The graph contains each training pair's own direct edge, so $\Delta\phi_i$ carries information from that pair's label. $\mathcal{L}_\text{Hodge}$ is therefore a second supervision signal on the training labels, in addition to $\mathcal{L}_\text{base}$, not only a filter on cyclic noise.
 
-\paragraph{Intuition.} The potential-alignment regularizer tells the model: ``your reward differences should approximate the cycle-free global ranking.'' For training pairs involved in cycles, the Hodge potential difference $\Delta\phi_i$ is smaller (the cycle component has been removed), creating a softer target. For pairs in cycle-free regions, $\Delta\phi_i$ matches the raw preference, reinforcing the original signal. The regularizer thus selectively moderates learning on cyclically contaminated data.
+\paragraph{Why not a batch-level Hodge penalty?} A penalty on the cyclic energy of in-batch reward predictions is identically zero for a scalar reward model, because any set of scalar values defines a consistent ranking (Appendix~\ref{app:batch_penalty}). The decomposition must be computed on the data.
 
 \begin{algorithm}[t]
 \caption{HodgePO Training}
@@ -186,15 +168,13 @@ where $\mathcal{L}_\text{base}(\alpha)$ denotes the base loss with per-sample we
 \begin{algorithmic}[1]
 \REQUIRE Preference pairs $\mathcal{D}$, base optimizer (DPO/KTO/GRPO), $\lambda_\text{Hodge}$, $\lambda_\text{damp}$
 \STATE Embed all responses: $\{\mathbf{e}_w^{(i)}, \mathbf{e}_l^{(i)}\}$
-\STATE Construct cross-pair preference graph $G$ (Section~\ref{sec:graph_construction})
-\STATE Compute Hodge decomposition: gradient potential $\phi^*$, harmonic $h$
-\STATE Compute per-sample weights $\alpha_i$ via Eq.~\ref{eq:weights}
-\STATE Compute potential diffs $\Delta\phi_i$ via Eq.~\ref{eq:potential_diff}
+\STATE Construct the cross-pair preference graph $G$ (Section~\ref{sec:graph_construction})
+\STATE Compute the Hodge decomposition: potential $\phi^*$, cyclic remainder $r$
+\STATE Compute per-sample weights $\alpha_i$ (Eq.~\ref{eq:weights})
+\STATE Compute potential differences $\Delta\phi_i$ (Eq.~\ref{eq:potential_diff})
 \FOR{each training epoch}
     \FOR{each mini-batch $B$}
-        \STATE $\mathcal{L}_\text{base} \leftarrow$ base loss with weights $\alpha_i$
-        \STATE $\mathcal{L}_\text{Hodge} \leftarrow$ Eq.~\ref{eq:hodge_loss}
-        \STATE $\mathcal{L} \leftarrow \mathcal{L}_\text{base} + \lambda_\text{Hodge} \cdot \mathcal{L}_\text{Hodge}$
+        \STATE $\mathcal{L} \leftarrow \mathcal{L}_\text{base}(\alpha) + \lambda_\text{Hodge} \cdot \mathcal{L}_\text{Hodge}$
         \STATE Update model parameters via $\nabla \mathcal{L}$
     \ENDFOR
 \ENDFOR
@@ -208,119 +188,109 @@ where $\mathcal{L}_\text{base}(\alpha)$ denotes the base loss with per-sample we
 
 \subsection{Setup}
 
-\paragraph{Dataset.} We use Anthropic's HH-RLHF dataset~\citep{bai2022training}, sampling 2,268 preference pairs from the \texttt{harmless-base} split. Responses are embedded using \texttt{all-MiniLM-L6-v2} (384-dim). The cross-pair preference graph has 2,268 direct edges and $\sim$1,030 cross-pair $k$-NN edges (3,298 total), with a global harmonic energy fraction of $H^1 = 0.284$.
+\paragraph{Dataset.} We use 500 preference pairs from the harmless-base split of Anthropic's HH-RLHF dataset~\citep{bai2022training}. For each pair, the chosen response is the preferred response and the rejected response is the dispreferred response. Every pair has annotation confidence $1.0$. Prompts and responses are embedded with \texttt{all-MiniLM-L6-v2} (384 dimensions). The graph is built as in Section~\ref{sec:graph_construction}; all pairs fall in one category, so no other cross-pair edges are added. The final edge count was not recorded with the results.
 
-\paragraph{Methods.} We compare seven optimizers:
-\begin{itemize}
-    \item \textbf{DPO}, \textbf{KTO}, \textbf{GRPO}, \textbf{ORPO}: Standard implementations at embedding level.
-    \item \textbf{Hodge-DPO}, \textbf{Hodge-KTO}, \textbf{Hodge-GRPO}: HodgePO variants with $\lambda_\text{Hodge} = 0.05$, $\lambda_\text{damp} = 0.6$.
-\end{itemize}
+\paragraph{Methods.} DPO, KTO, GRPO, ORPO, and the HodgePO variants Hodge-DPO, Hodge-KTO, Hodge-GRPO with $\lambda_\text{Hodge} = 0.05$ and $\lambda_\text{damp} = 0.6$. All methods use the same model (a 2-layer MLP over the frozen embeddings, hidden dimension 64), learning rate $10^{-3}$, batch size 32, and 50 epochs.
 
-All methods use identical architecture (2-layer MLP, hidden dim 64), learning rate $10^{-3}$, batch size 32, and 50 training epochs.
+\paragraph{Metric.} \textbf{Ranking accuracy}: the fraction of the 500 pairs for which the trained model assigns a higher reward to the preferred response than to the dispreferred one. In our code this quantity is named ``exploit resistance'', because the dispreferred responses in harmless-base are harmful. \emph{The metric is computed on the same 500 pairs used for training.} It is an in-sample measure of fit. It does not measure generalization to unseen pairs, and it does not measure reward hacking under optimization pressure: there is no environment, no text generation, and no policy optimization against the learned reward.
 
-\paragraph{Metric.} \textbf{Exploit resistance}: the fraction of held-out test pairs where the trained model assigns higher reward to the preferred response than the dispreferred one. This measures robustness to reward hacking---a model that has learned to exploit cyclic inconsistencies will misrank some pairs.
+\paragraph{Statistics.} Each method runs 30 seeds (seeds $0$--$29$) on the same data; the Hodge variants share one precomputed graph. We report means, standard deviations, 95\% confidence intervals, Welch's $t$-tests, and Cohen's $d$. Because the Hodge variant and its base method share seeds, we also report the paired seed differences.
 
-\paragraph{Statistical rigor.} Each method runs across \textbf{30 independent seeds}. We report means, standard deviations, 95\% confidence intervals, and pairwise comparisons via Welch's $t$-test with Cohen's $d$ effect sizes.
-
-\subsection{Main Results}
+\subsection{Results}
 
 \begin{table}[t]
 \centering
-\caption{Exploit resistance across 7 preference optimizers, 30 seeds each. Hodge-DPO and Hodge-KTO significantly outperform their base methods. $^{***}p < 0.0001$.}
+\caption{Ranking accuracy on the 500 training pairs (in-sample), 30 seeds per method. ``Rel.'' is the relative change versus the base method.}
 \label{tab:main_results}
 \vskip 0.1in
 \begin{tabular}{@{}lcccl@{}}
 \toprule
-\textbf{Method} & \textbf{Mean} & \textbf{Std} & \textbf{95\% CI} & \textbf{vs.\ Base} \\
+\textbf{Method} & \textbf{Mean} & \textbf{Std} & \textbf{95\% CI} & \textbf{Rel.} \\
 \midrule
-Hodge-DPO  & $\mathbf{0.9999}$ & $0.001$ & $\pm 0.000$ & $+6.3\%^{***}$ \\
-DPO        & $0.940$ & $0.013$ & $\pm 0.005$ & --- \\
+Hodge-DPO  & $0.9999$ & $0.0005$ & $\pm 0.0002$ & $+6.3\%$ \\
+DPO        & $0.9403$ & $0.0129$ & $\pm 0.0048$ & --- \\
 \midrule
-Hodge-KTO  & $\mathbf{0.9964}$ & $0.003$ & $\pm 0.001$ & $+24.5\%^{***}$ \\
-KTO        & $0.800$ & $0.017$ & $\pm 0.006$ & --- \\
+Hodge-KTO  & $0.9964$ & $0.0026$ & $\pm 0.0010$ & $+24.5\%$ \\
+KTO        & $0.8004$ & $0.0166$ & $\pm 0.0062$ & --- \\
 \midrule
-Hodge-GRPO & $1.000$ & $0.000$ & $\pm 0.000$ & $=$ \\
+Hodge-GRPO & $1.000$ & $0.000$ & $\pm 0.000$ & $0$ \\
 GRPO       & $1.000$ & $0.000$ & $\pm 0.000$ & --- \\
 \midrule
-ORPO       & $0.622$ & $0.080$ & $\pm 0.030$ & --- \\
+ORPO       & $0.6217$ & $0.0803$ & $\pm 0.0300$ & --- \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \begin{table}[t]
 \centering
-\caption{Pairwise statistical tests (Hodge variants vs.\ base methods).}
+\caption{Hodge variants versus base methods (Welch's $t$-test, 30 seeds each).}
 \label{tab:pairwise}
 \vskip 0.1in
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{@{}lcccc@{}}
 \toprule
-\textbf{Comparison} & \textbf{$\Delta$} & \textbf{Cohen's $d$} & \textbf{$p$-value} & \textbf{Effect} \\
+\textbf{Comparison} & \textbf{$\Delta$ (abs.)} & \textbf{Cohen's $d$} & \textbf{$p$} & \textbf{Paired diffs $>0$} \\
 \midrule
-Hodge-DPO vs.\ DPO & $+0.060$ & $6.52$ & $< 0.0001$ & Large \\
-Hodge-KTO vs.\ KTO & $+0.196$ & $16.47$ & $< 0.0001$ & Large \\
-Hodge-GRPO vs.\ GRPO & $-0.001$ & $1.03$ & $0.18$ & --- \\
+Hodge-DPO vs.\ DPO & $+0.060$ & $6.52$ & $2.5 \times 10^{-21}$ & 30/30 \\
+Hodge-KTO vs.\ KTO & $+0.196$ & $16.47$ & $5.3 \times 10^{-34}$ & 30/30 \\
+Hodge-GRPO vs.\ GRPO & $0.000$ & --- & --- & 0/30 \\
 \bottomrule
 \end{tabular}%
 }
 \end{table}
 
-Table~\ref{tab:main_results} presents the main results. Two findings stand out:
+Table~\ref{tab:main_results} and Table~\ref{tab:pairwise} give the results.
 
-\paragraph{1. Large, statistically significant improvements.} Hodge-DPO achieves $0.9999$ exploit resistance versus $0.940$ for standard DPO ($+6.3\%$, $d = 6.52$, $p < 0.0001$). Hodge-KTO improves from $0.800$ to $0.9964$ ($+24.5\%$, $d = 16.47$, $p < 0.0001$). Both effect sizes are ``large'' by conventional standards~($d > 0.8$); in fact, they are enormous, indicating essentially non-overlapping distributions between Hodge and non-Hodge variants.
+\paragraph{Hodge-DPO and Hodge-KTO fit the training pairs better than their base methods.} Hodge-DPO reaches $0.9999$ versus $0.9403$ for DPO (absolute $+0.060$, $d = 6.52$). Hodge-KTO reaches $0.9964$ versus $0.8004$ for KTO (absolute $+0.196$, $d = 16.47$). The paired differences are positive for all 30 seeds in both families (DPO family: minimum $+0.038$, mean $+0.060$; KTO family: minimum $+0.158$, mean $+0.196$).
 
-\paragraph{2. Ceiling effects bound gains for strong methods.} GRPO already achieves $1.000$ resistance, leaving no room for Hodge improvement. This suggests HodgePO is most valuable for methods with intermediate baseline performance---precisely the regime where reward hacking exploits exist.
+\paragraph{GRPO is at the ceiling.} GRPO and Hodge-GRPO both score exactly $1.000$ on every seed. The two cannot be distinguished, and no test is defined for two constant samples. The DPO gain lies in the 6\% of headroom below this ceiling.
 
-\subsection{Analysis: Why Does HodgePO Help?}
+\paragraph{Ranking of methods.} By mean accuracy: GRPO $=$ Hodge-GRPO $\geq$ Hodge-DPO $>$ Hodge-KTO $>$ DPO $>$ KTO $>$ ORPO. GRPO versus Hodge-DPO is not significant ($p = 0.16$, $d = 0.37$). All other adjacent differences have $p < 10^{-7}$.
 
-\paragraph{Cross-pair edges are essential.} Without cross-pair $k$-NN edges, the preference graph is a perfect matching with $H^1 = 0$ (zero harmonic energy). The Hodge decomposition is trivial, and Hodge variants are identical to base methods. With cross-pair edges, $H^1 = 0.284$---$28\%$ of preference flow is cyclic. This is the signal HodgePO exploits.
+\subsection{Analysis}
 
-\paragraph{Potential-alignment dominates weighting.} In ablations, removing the potential-alignment regularizer ($\lambda_\text{Hodge} = 0$) and keeping only per-sample weights produces $< 1\%$ improvement. The weights have narrow variance ($\sigma = 0.015$) because all nodes participate similarly in cycles on this homogeneous dataset. The regularizer is the primary driver.
+\paragraph{Cross-pair edges are necessary.} Without cross-pair edges, the graph is a matching, the cyclic remainder is zero, $\Delta\phi_i$ equals the flow on pair $i$'s own edge, and the cycle weights carry no information.
 
-\paragraph{Regularization strength matters.} $\lambda_\text{Hodge} = 0.5$ catastrophically collapses exploit resistance to near-zero by overwhelming the base loss. $\lambda_\text{Hodge} = 0.05$ provides the optimal balance---strong enough to regularize cyclic noise, weak enough to preserve the base optimization signal.
-
-\paragraph{Sign convention is critical.} The Hodge gradient potential assigns higher values to nodes that \emph{receive} more preference flow (``sinks'' in the preference graph), not to higher-quality responses. Using $\phi^*(w_i) - \phi^*(l_i)$ as the regularization target produces negative targets that teach the model to rank dispreferred responses higher---a subtle but catastrophic bug. The correct convention is $\Delta\phi_i = \phi^*(l_i) - \phi^*(w_i) > 0$ for consistent pairs.
-
-\subsection{Method Ranking}
-
-Across all 30-seed comparisons, the full ranking by exploit resistance is:
-
-\begin{center}
-Hodge-GRPO $=$ GRPO $>$ Hodge-DPO $>$ Hodge-KTO $>$ DPO $>$ KTO $>$ ORPO
-\end{center}
-
-All adjacent pairwise differences are statistically significant ($p < 0.05$) except Hodge-GRPO vs.\ GRPO (both at ceiling). ORPO's high variance ($\sigma = 0.080$) suggests instability without a reference model.
+\paragraph{What we did not test.} We did not run a controlled ablation that separates the two mechanisms, and we did not run one that separates the effect of the Hodge projection from the effect of adding a second label-derived target (Section~\ref{sec:potential_alignment}). We therefore make no claim about which mechanism produces the gain.
 
 %% ====================================================================
 \section{Related Work}
 \label{sec:related}
 %% ====================================================================
 
-\paragraph{Preference optimization.} DPO~\citep{rafailov2023direct} reformulated RLHF as a classification problem; KTO~\citep{ethayarajh2024kto}, GRPO~\citep{shao2024deepseekmath}, and ORPO~\citep{hong2024orpo} offer alternatives with different trade-offs. Nash Learning from Human Feedback~\citep{munos2023nash} addresses intransitivity via game-theoretic equilibria but doesn't decompose the preference structure.
+\paragraph{Preference optimization beyond scalar rewards.} DPO~\citep{rafailov2023direct}, KTO~\citep{ethayarajh2024kto}, GRPO~\citep{shao2024deepseekmath}, and ORPO~\citep{hong2024orpo} assume, explicitly or implicitly, a scalar reward. Nash Learning from Human Feedback~\citep{munos2023nash} and the minimax-winner approach of \citet{swamy2024minimaximalist} replace the scalar reward with a preference model and a game-theoretic solution concept, which handles intransitive preferences without decomposing them. The general preference model of \citet{zhang2025gpm} represents cyclic preferences explicitly. \citet{liu2025impossibility} prove that a reward model exists if and only if the preferences have no Condorcet cycle.
 
-\paragraph{Reward hacking.} \citet{moskovitz2024confronting} constrain RLHF with KL bounds; \citet{coste2024reward} use reward model ensembles. These defend against overoptimization of a fixed reward model, not against cyclic structure in the preference data itself.
+\paragraph{Closest work.} \citet{huang2026transitivity} decompose preferences into orthogonal transitive (scalar) and cyclic (vector) components for LLM alignment, building on the game decomposition of \citet{balduzzi2019open}. Our work uses a related transitive/cyclic split. It differs in using the combinatorial Hodge decomposition of an explicit preference graph and in using the gradient potential as a regularization target for existing optimizers. The potential/harmonic decomposition of games~\citep{candogan2011flows} is the game-theoretic counterpart of the decomposition we use.
 
-\paragraph{Hodge theory in ML.} HodgeRank~\citep{jiang2011statistical} introduced Hodge decomposition for ranking from pairwise comparisons. Neural sheaf diffusion~\citep{bodnar2022neural} uses sheaf theory for GNNs. \citet{ayzenberg2025sheaf} survey sheaf-theoretic deep learning. To our knowledge, HodgePO is the first application of Hodge decomposition to preference optimization training.
+\paragraph{Hodge theory in ranking and ML.} HodgeRank~\citep{jiang2011statistical} introduced the combinatorial Hodge decomposition for ranking from pairwise comparisons. Sheaf-theoretic methods appear in graph neural networks~\citep{bodnar2022neural}; \citet{ayzenberg2025sheaf} survey sheaf theory in deep learning.
 
-\paragraph{Cyclic preferences.} The Condorcet paradox~\citep{condorcet1785essai} and Arrow's theorem~\citep{arrow1950difficulty} establish that cyclic preferences are fundamental, not anomalous. \citet{zhu2023principled} provide PAC bounds for RLHF but assume a BTL model. HodgePO directly addresses the regime where BTL fails.
+\paragraph{Reward overoptimization.} \citet{moskovitz2024confronting} address reward model overoptimization with constrained RLHF over composite reward models, and \citet{coste2024reward} use reward model ensembles. These methods address overoptimization of a learned reward during policy optimization, which our benchmark does not include.
 
 %% ====================================================================
-\section{Discussion}
+\section{Discussion and Limitations}
 \label{sec:discussion}
 %% ====================================================================
 
-\paragraph{Limitations.} (1)~Our experiments operate at the embedding level rather than on full language model fine-tuning. The exploit resistance metric measures reward model accuracy, not downstream generation quality. (2)~Cross-pair edge construction requires $k$-NN search in embedding space, adding $O(N^2)$ preprocessing (mitigated by approximate NN). (3)~HodgePO's benefit scales with the harmonic energy fraction---on perfectly consistent data ($H^1 = 0$), it provides no advantage.
+The following limits apply to every result in Section~\ref{sec:experiments}.
 
-\paragraph{When does HodgePO help most?} The improvement is largest for methods with intermediate baseline performance (KTO: $+24.5\%$, DPO: $+6.3\%$) and absent at the ceiling (GRPO: no change). This suggests HodgePO is a ``consistency amplifier'': it filters noise that weaker methods are susceptible to, but cannot improve methods that already handle it.
+\paragraph{1. In-sample evaluation.} The metric is computed on the training pairs. A method can raise it by fitting the training labels more closely without generalizing.
 
-\paragraph{Broader impact.} Cyclic preferences are endemic in human feedback data: our HH-RLHF analysis shows $28\%$ harmonic energy. As AI systems are trained on increasingly large and diverse preference datasets, the prevalence of cycles will only grow. HodgePO provides a principled, mathematically grounded approach to handling this irreducible structure---complementary to existing defenses like KL constraints and reward model ensembles.
+\paragraph{2. The regularizer uses the labels it is scored on.} $\Delta\phi_i$ is computed from a graph that contains pair $i$'s own direct edge. HodgePO therefore trains with an additional label-derived target, and the metric then scores the same labels. Points 1 and 2 together allow a gain that comes from stronger in-sample supervision rather than from removing cyclic noise. A held-out evaluation, and a baseline given an equivalent label-derived target without the Hodge projection, are needed to separate these explanations.
+
+\paragraph{3. The cycles are constructed.} Each direct edge connects two responses that appear in no other pair, so the direct edges contain no cycles. All cyclic structure comes from similarity edges whose probabilities are fixed functions of embedding similarity (Section~\ref{sec:graph_construction}). The benchmark therefore does not measure how much cyclic structure exists in human preference data, and we make no such claim.
+
+\paragraph{4. Scope.} One dataset split, 500 pairs, one embedding model, and a small MLP over frozen embeddings. There is no language-model fine-tuning, no text generation, and no reward-hacking evaluation. The metric saturates (GRPO at $1.000$).
+
+\paragraph{5. Method history.} An earlier formulation used a batch-level Hodge penalty, which is identically zero for scalar reward models (Appendix~\ref{app:batch_penalty}); three earlier 30-seed runs correctly measured it as a no-op. The version reported here changed the regularizer and the graph construction in the same revision, so the reason the earlier version was inert and this one is not has not been isolated beyond the zero-penalty argument.
+
+\paragraph{Next steps.} (i)~Re-run the benchmark with held-out pairs. (ii)~Add a baseline with a label-derived regression target but no Hodge projection. (iii)~Measure cyclic structure on data with genuine repeated comparisons (the same response compared with several others by annotators), where cycles are observed rather than constructed. (iv)~Evaluate at the language-model level.
 
 %% ====================================================================
 \section{Conclusion}
 \label{sec:conclusion}
 %% ====================================================================
 
-We introduced Hodge-Decomposed Preference Optimization (HodgePO), a framework that uses the combinatorial Hodge decomposition to detect and filter cyclic inconsistencies in preference training data. The key technical insight is that the Hodge gradient potential provides a globally consistent reward ranking target that can be used as a differentiable regularizer, while scalar reward predictions always have zero in-batch harmonic energy and thus require a global decomposition. In a 30-seed benchmark, Hodge-DPO and Hodge-KTO achieve near-perfect exploit resistance with massive effect sizes over their base methods. The approach is method-agnostic, computationally lightweight (the Hodge decomposition is a one-time $O(|E|^2)$ preprocessing step), and requires no changes to model architecture.
+HodgePO uses the combinatorial Hodge decomposition of a preference graph to produce a cycle-free potential, and uses that potential as a regularization target for standard preference optimizers. In an embedding-level benchmark on 500 HH-RLHF pairs, the regularizer raises in-sample ranking accuracy for DPO and KTO on every one of 30 seeds. The evidence does not yet separate cycle filtering from added supervision, and it does not address generalization or reward hacking; Section~\ref{sec:discussion} lists the experiments that would. We also record two practical points for anyone applying Hodge methods to preference data: a graph with one edge per pair has no cycles, and a Hodge penalty on the outputs of a scalar reward model is identically zero.
 
 \bibliography{references}
 \bibliographystyle{icml2026}
@@ -329,42 +299,25 @@ We introduced Hodge-Decomposed Preference Optimization (HodgePO), a framework th
 \newpage
 \appendix
 
-\section{Proof of Hodge Decomposition (Theorem~\ref{thm:hodge})}
+\section{Proof Sketch of the Hodge Decomposition (Theorem~\ref{thm:hodge})}
 \label{app:hodge_proof}
 
-The Hodge decomposition on graphs follows from the orthogonality of the image and kernel of the graph Laplacians. Define the \textbf{boundary operators}:
-\begin{itemize}
-    \item $d_0: C^0(V) \to C^1(E)$, the coboundary (gradient): $(d_0 \phi)_{ij} = \phi(j) - \phi(i)$
-    \item $d_1: C^1(E) \to C^2(T)$, the curl: $(d_1 f)_{ijk} = f_{ij} + f_{jk} + f_{ki}$ for triangle $(i,j,k)$
-\end{itemize}
-
-The \textbf{Hodge Laplacian} on 1-chains is $\Delta_1 = d_0 d_0^* + d_1^* d_1$, where $^*$ denotes the weighted adjoint. By the Hodge theorem:
+With the weighted inner product $\langle f, g \rangle = \sum_e w_e f_e g_e$ on $C^1$ and the adjoints $d_0^{*}$, $d_1^{*}$ taken with respect to it, $d_1 d_0 = 0$ implies that $\operatorname{im} d_0$ and $\operatorname{im} d_1^{*}$ are orthogonal. The finite-dimensional Hodge theorem then gives
 \begin{equation}
-    C^1(E) = \text{im}(d_0) \oplus \text{im}(d_1^*) \oplus \ker(\Delta_1)
+    C^1 = \operatorname{im}(d_0) \oplus \operatorname{im}(d_1^{*}) \oplus \ker(\Delta_1), \qquad \Delta_1 = d_0 d_0^{*} + d_1^{*} d_1 .
 \end{equation}
-These three subspaces are mutually orthogonal under the edge inner product $\langle f, g \rangle = \sum_e w_e f_e g_e$.
-
-The gradient potential $\phi^*$ is obtained by solving the normal equations $d_0^* d_0 \phi = d_0^* f$, which has a unique solution (up to additive constant) when $G$ is connected. We regularize with $10^{-4} I$ for numerical stability.
+The gradient potential solves the normal equations $d_0^{*} d_0 \phi = d_0^{*} f$. The solution is unique up to an additive constant on each connected component; we add a ridge term $10^{-4} I$ for numerical stability.
 
 \section{Implementation Details}
 \label{app:implementation}
 
-\subsection{Preference Graph Construction}
-
 \begin{enumerate}
-    \item Embed all responses using the \texttt{all-MiniLM-L6-v2} sentence-transformer (384-dim).
-    \item Create direct edges: for each preference pair $(y_w, y_l)$, add edge $(w, l)$ with weight equal to the preference probability.
-    \item Create cross-pair edges: for each response node, find its $k=5$ nearest neighbors (cosine similarity) from other pairs. Preference direction is determined by the dot product of embeddings with the prompt embedding.
-    \item Total graph: $N$ direct edges + $\sim 0.45N$ cross-pair edges (varies by dataset).
+    \item Embed prompts and responses with \texttt{all-MiniLM-L6-v2} (384 dimensions).
+    \item Add one direct edge per pair, preferred $\to$ dispreferred, with probability equal to the pair's confidence.
+    \item Add similarity edges as in Section~\ref{sec:graph_construction} ($k = 5$ nearest preferred responses by cosine similarity).
+    \item Convert each edge probability to a log-odds flow (clipped to $[-10, 10]$) and solve the least-squares problem for $\phi^*$ once, before training.
+    \item Train a 2-layer MLP $(384 \to 64 \to 1)$ that maps prompt--response embeddings to a scalar reward. This is not language-model fine-tuning.
 \end{enumerate}
-
-\subsection{Hodge Decomposition}
-
-We solve the normal equations $B^\top B \phi = B^\top f$ where $B$ is the $|E| \times |V|$ boundary operator. For our largest experiment ($|V| = 4536$, $|E| = 3298$), this takes $< 2$ seconds on CPU.
-
-\subsection{Training}
-
-All preference optimizers operate at the embedding level: a 2-layer MLP $(384 \to 64 \to 1)$ maps prompt-response embedding pairs to scalar rewards. This is not language model fine-tuning but rather an isolated evaluation of the preference optimization algorithm's ability to learn consistent reward rankings.
 
 \begin{table}[h]
 \centering
@@ -385,47 +338,48 @@ GRPO group size & 8 \\
 ORPO $\lambda$ & 0.5 \\
 $\lambda_\text{Hodge}$ & 0.05 \\
 $\lambda_\text{damp}$ & 0.6 \\
-$k$-NN cross-pair edges & 5 \\
+$k$ (nearest neighbours) & 5 \\
 Seeds & 30 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\section{Why Batch Harmonic Penalty Fails}
+\section{Why a Batch Harmonic Penalty Is Zero}
 \label{app:batch_penalty}
 
-A natural alternative to the potential-alignment regularizer is a \textbf{batch harmonic penalty}: compute the Hodge decomposition on the complete graph of in-batch reward predictions and penalize the harmonic energy fraction.
-
-Given batch rewards $\{r_1, \dots, r_{2B}\}$ (B chosen + B rejected), form the complete graph with edge flow $f_{ij} = r_j - r_i$ for all $i < j$. The gradient potential is $\phi_i = r_i$ (the rewards themselves), giving gradient flow $f_{ij}^\text{grad} = r_j - r_i = f_{ij}$. Therefore:
+Given batch rewards $\{r_1, \dots, r_{2B}\}$, form the complete graph with edge flow $f_{ij} = r_j - r_i$. The potential $\phi_i = r_i$ reproduces every edge exactly: $(d_0\phi)_{ij} = r_j - r_i = f_{ij}$. The cyclic remainder is therefore
 \begin{equation}
-    h_{ij} = f_{ij} - f_{ij}^\text{grad} = 0 \quad \forall (i,j)
+    f_{ij} - (d_0\phi)_{ij} = 0 \quad \forall (i,j).
 \end{equation}
-
-\textbf{The harmonic component is identically zero for any set of scalar predictions.} This is because scalar values on nodes always define a consistent ranking with no cycles. The Hodge decomposition can only detect cycles in \emph{exogenous} edge flows (human preferences), not in \emph{endogenous} predictions from a scalar model.
-
-This observation motivated our shift to the precomputed potential-alignment approach (Section~\ref{sec:potential_alignment}), which uses the \emph{global} Hodge decomposition of human preference data as an external regularization target.
+Any flow induced by scalar predictions is a pure gradient. The decomposition can detect cycles only in flows that come from outside the model, such as preference data.
 
 \section{Full Pairwise Comparison Matrix}
 \label{app:pairwise}
 
 \begin{table}[h]
 \centering
-\caption{Cohen's $d$ for all method pairs (30 seeds). Bold indicates $p < 0.05$.}
+\caption{$|$Cohen's $d|$ for all method pairs (30 seeds each), from the same result file as Table~\ref{tab:main_results}. Bold: Welch's $p < 0.05$. GRPO and Hodge-GRPO are both constant at $1.000$, so no test is defined between them.}
 \resizebox{\columnwidth}{!}{
 \begin{tabular}{@{}lccccccc@{}}
 \toprule
  & DPO & H-DPO & GRPO & H-GRPO & KTO & H-KTO & ORPO \\
 \midrule
-DPO    & --- & $\mathbf{6.52}$ & $\mathbf{6.53}$ & $\mathbf{86.6}$ & $\mathbf{10.3}$ & $\mathbf{6.37}$ & $\mathbf{5.54}$ \\
-H-DPO  &     & ---   & $\mathbf{1.03}$ & $\mathbf{1.03}$ & $\mathbf{16.5}$ & $\mathbf{1.67}$ & $\mathbf{6.67}$ \\
-GRPO   &     &       & ---   & $1.03$         & $\mathbf{16.5}$ & $\mathbf{1.67}$ & $\mathbf{6.67}$ \\
-H-GRPO &     &       &       & ---            & $\mathbf{86.6}$ & $\mathbf{1.03}$ & $\mathbf{6.67}$ \\
-KTO    &     &       &       &                & ---   & $\mathbf{16.5}$ & $\mathbf{2.77}$ \\
-H-KTO  &     &       &       &                &       & ---   & $\mathbf{6.57}$ \\
-ORPO   &     &       &       &                &       &       & --- \\
+DPO    & --- & $\mathbf{6.52}$ & $\mathbf{6.54}$ & $\mathbf{6.54}$ & $\mathbf{9.40}$ & $\mathbf{6.02}$ & $\mathbf{5.54}$ \\
+H-DPO  &     & --- & $0.37$ & $0.37$ & $\mathbf{16.96}$ & $\mathbf{1.82}$ & $\mathbf{6.66}$ \\
+GRPO   &     &     & --- & --- & $\mathbf{16.98}$ & $\mathbf{1.92}$ & $\mathbf{6.66}$ \\
+H-GRPO &     &     &     & --- & $\mathbf{16.98}$ & $\mathbf{1.92}$ & $\mathbf{6.66}$ \\
+KTO    &     &     &     &     & --- & $\mathbf{16.47}$ & $\mathbf{3.08}$ \\
+H-KTO  &     &     &     &     &     & --- & $\mathbf{6.60}$ \\
+ORPO   &     &     &     &     &     &     & --- \\
 \bottomrule
 \end{tabular}
 }
 \end{table}
+
+\section{Provenance}
+\label{app:provenance}
+
+{\sloppy
+Every number in Section~\ref{sec:experiments} and Appendix~\ref{app:pairwise} is taken from the file \url{shared/results/optimizer_comparison_hodge_v3_30seed.json} in the \texttt{shape\_of\_good\_behavior} repository (fields \texttt{method\_stats}, \texttt{pairwise\_tests}, and \texttt{all\_results}; \texttt{config.n\_samples} $= 500$). The training pairs are in \url{shared/results/counterfactual_pairs.json} (500 rows, source \texttt{hh\_rlhf\_direct}, category \texttt{harmless-base}). The graph construction is in \url{shared/src/preference_mapper.py}. The evaluation is the function \texttt{evaluate\_exploit\_resistance} in \url{shared/src/preference_optimizers.py}, which is called on the training samples.\par}
 
 \end{document}

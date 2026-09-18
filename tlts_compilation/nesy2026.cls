@@ -13,17 +13,32 @@
   \finalsubmissionfalse
 }{}
 
+\@ifundefined{ifpreprintsubmission}{
+  \newif\ifpreprintsubmission
+  \preprintsubmissionfalse
+}{}
+
 \DeclareOption{anon}{\anonsubmissiontrue}
 \DeclareOption{final}{\finalsubmissiontrue}
+% Self-published preprint: no venue, volume, or editor in the header.
+\DeclareOption{preprint}{\preprintsubmissiontrue}
 \ProcessOptions\relax
 
 \LoadClass[pmlr]{jmlr}
 
-\jmlrvolume{vol 284}
-\jmlryear{2026}
-\jmlrproceedings{PMLR}{Proceedings of Machine Learning Research}
+\ifpreprintsubmission
+ \jmlrvolume{}
+ \jmlryear{2026}
+ \jmlrproceedings{}{Preprint}
+\else
+ \jmlrvolume{vol 284}
+ \jmlryear{2026}
+ \jmlrproceedings{PMLR}{Proceedings of Machine Learning Research}
+\fi
 
-\ifanonsubmission
+\ifpreprintsubmission
+ \newcommand{\clearauthor}[1]{\author{#1}}
+\else\ifanonsubmission
  \newcommand{\clearauthor}[1]{}
  \author{Author names withheld}
  \editor{Under Review for NeSy 2026}
@@ -35,6 +50,6 @@
   \editors{Alessandra Mileo, Andrea Passerini and Cogan Shimizu}
   \jmlrworkshop{20th Conference on Neurosymbolic Learning and Reasoning}
  \fi
-\fi
+\fi\fi
 
 

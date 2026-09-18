@@ -11,7 +11,7 @@ program-compiled transformers.
 
 | File | Purpose |
 |------|---------|
-| [`main.pdf`](main.pdf) | The 9-page paper (NeSy 2026 submission, double-blind anonymous) |
+| [`main.pdf`](main.pdf) | The 9-page paper (self-published preprint) |
 | [`main.tex`](main.tex) | LaTeX source |
 | [`references.bib`](references.bib) | Bibliography |
 | [`supplementary/`](supplementary/) | Code, experimental results, sample audit certificate |
@@ -90,8 +90,11 @@ certificates — is documented in the public blog series:
 
 ## Status
 
-- **Venue:** NeSy 2026 (Main Track Phase 2)
-- **Anonymization:** PDF is anonymous; this README and the supplementary
-  README are public-facing
-- **Camera-ready:** Author block, acknowledgments, and de-anonymized
-  `constrained_decoding` reference are filled in upon acceptance
+- **Self-published preprint.** The paper was prepared for NeSy 2026 but was
+  never submitted: the OpenReview upload failed and the organizers did not
+  respond. The PDF was rebuilt on 2026-09-18 with the class file's `preprint`
+  option, which removes the former "Under Review for NeSy 2026" and PMLR
+  proceedings header. The NeSy/PMLR class is used for formatting only.
+- **Scope note.** This preprint predates the constraint-aware fine-tuning
+  results (trained-model evaluation is listed as future work in the abstract).
+  Those results live in the `structure_of_clear_thinking` repository.

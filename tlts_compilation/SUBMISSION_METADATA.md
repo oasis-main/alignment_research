@@ -1,5 +1,11 @@
 # NeSy 2026 Submission — Metadata for OpenReview Upload
 
+> **CLOSED 2026-09-18 — not submitted.** The OpenReview upload failed for
+> technical reasons and the organizers did not respond; the NeSy 2026 cycle
+> ended (notifications 2026-07-08). The paper is now a self-published
+> preprint, and `main.tex` uses the class file's `preprint` option. This file
+> is kept as a record only; do not follow the upload steps below.
+
 > Use this document when filling out the OpenReview submission form.
 > The PDF and supplementary zip are ready in this directory. The
 > human/agent doing the upload should copy the fields below into the
