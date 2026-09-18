@@ -130,7 +130,7 @@ Decisive results are in; what's left is robustness, not central findings.
 ## Authorship and attribution
 
 Per the [`repo_publication_split`] memory, this repo is the canonical public
-artifact. Lead author: **Michael Lee** (`michael@oasis-x.io`). If any of the
+artifact. Lead author: **Mike H Lee** (O-X, `mike@oasis-x.io`). If any of the
 SGB-016→031 arc was co-author-able, declare contributions in a footnote.
 
 ## Logistics: submission day
