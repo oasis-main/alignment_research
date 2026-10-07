@@ -106,10 +106,89 @@ the newest pass, whether anyone keeps **backups** that survive defeat. We
 change one setting at a time and record how often the game ends in a
 successful grab.
 
-**What we deliberately left out.** Lying, coalitions, negotiation and
-institutions are not in the model. We omitted them so that every result can
-be traced to a cause. A later pass can add them; a model that includes
-everything from the start cannot be checked.
+**What we deliberately left out.** Lying, negotiation and institutions are not
+in the model. We omitted them so that every result can be traced to a cause. A
+later pass can add them; a model that includes everything from the start cannot
+be checked.
+
+---
+
+## Who actually decides what: the decision framework
+
+This section exists because the question "how does an agent decide to become an
+attacker, or to ally?" has an uncomfortable answer in the current model: **it
+doesn't.** Both are assigned by us before the run starts. Being explicit about
+which things are chosen and which are imposed is the difference between a
+result and an assumption wearing a result's clothes.
+
+### The one genuine decision
+
+Exactly one thing in this model is optimised by an agent. A potential attacker
+compares, every round:
+
+> (its estimated chance of winning × the prize) − (chance of losing × the cost)
+> **versus** the value of simply continuing the ordinary game
+
+Its estimate of the odds comes from a simulation it runs in its own head, using
+noisy readings of everyone's strength — including, in some runs, its own. The
+"value of continuing" is measured from its own recent payoffs, so an attacker
+that is being punished has less to lose and becomes bolder. Patience enters
+here: a patient agent values the continuing game more, so it needs better odds
+before moving. **Every headline result about patience, detection, ruin and
+backups is driven by this single comparison.**
+
+In later passes the same agent also chooses *which* operation to run: scout
+first if it has no current intelligence on the target, otherwise attempt a
+seizure if its estimated chance of success exceeds one half. That one-half
+threshold is a constant we chose, and it is the kind of constant that burned us
+once already (see concern 7). It is declared, not swept.
+
+### Everything else is assigned
+
+| Question | How the model answers it |
+|---|---|
+| Who is a potential attacker? | **Set by us before the run.** A fixed list. Nobody becomes one, and nobody stops being one. |
+| How patient is an attacker? | Set by us per attacker. |
+| Who defends? | **Everyone, automatically.** An ordinary player always joins the response if it noticed. It cannot decline, hold back, or free-ride. |
+| Do rival attackers defend the order against each other? | A premise we set to one of three values. It is not a decision, and it swings the outcome from perfect stability to near-certain collapse (see concern 2). |
+| How much strength does the response combine? | A rule we set: everyone who noticed, only the strongest one who noticed, or the top few. Coordination failure is *imposed*, not chosen. |
+| Who joins a defensive raid? | The strongest available suspicious parties, up to a depth we set. No consent, no bargaining, no defecting from the group. |
+| How are joint spoils and losses split? | Gains in proportion to strength contributed; losses charged to each member individually. **This asymmetry is our choice and it generates the defender deaths in pass 5.** |
+| How does anyone behave in the everyday game? | A fixed strategy assigned at birth — Tit-for-Tat, Grim, Always-Defect and so on — plus one rule we added: everyone defects against a player caught raiding. |
+
+### What this means for reading the results
+
+Three consequences, and we would rather state them than have them found.
+
+**1. "Coordination is load-bearing" is a premise, not a discovery.** We impose
+how much strength the defence can combine. The model shows the *consequences*
+of poor coordination being severe. It does not show that coordination fails,
+and it cannot, because no agent ever decides whether to contribute.
+
+**2. Defending is never tested for being worth it.** Since ordinary players
+always resist and never count the cost, the model cannot produce free-riding,
+appeasement, or a defender who concludes that resisting is a bad deal. Those
+are the central failure modes of real collective defence, and they are
+assumed away here. Our stability numbers are therefore an **upper bound** on
+stability: a world where defence is automatic is the friendliest possible case.
+
+**3. The model cannot answer the question Mike asked.** *Would* a rational
+agent choose to become an attacker? Is defending incentive-compatible? Do
+coalitions form, hold, and get betrayed? None of these are addressed, because
+in every pass so far the roles are inputs. What the model does instead is
+conditional: **given** someone is positioned to defect, here is what deters
+them.
+
+### The version that would fix this
+
+The natural next model has no roles at all. Every agent, each round, chooses
+from the same menu — cooperate, scout, seize, prepare a takeover, contribute to
+a response, or invest in growth — paying for each from one shared budget.
+Attacker and defender then become *behaviours that emerge*, and the questions
+above become answerable: whether anyone picks the attacker path, whether
+defence pays for itself, and whether a coalition survives first contact with
+its members' incentives. That is a substantially harder model, and the
+results in this README are what we would be checking it against.
 
 ---
 
@@ -378,6 +457,114 @@ representation of the cyber arms race.
 
 ---
 
+## Pass 5: defenders who act — catch-up, counter-raids, coalitions, recon
+
+Pass 4 left defenders passive: they absorbed raids and did nothing with the
+time their backups bought them. Pass 5 gives them agency in four ways, and
+splits a raid into the two stages real counterintelligence uses. Full results:
+[`RESULTS_V5_2026-10-07.md`](RESULTS_V5_2026-10-07.md).
+
+**1. Growth parity is the strongest stabiliser in the whole study — and the
+only one defenders control by themselves.**
+
+We let defenders grow their own capability at a rate we set, against an
+attacker compounding at its own rate. The prediction was registered in the
+pass-4 writeup *before* the run: the order holds if and only if defenders grow
+at least as fast as the attacker. It held exactly.
+
+| attacker growth → | defenders don't grow | +1%/round | +2%/round | +5%/round |
+|---|---|---|---|---|
+| **2%/round** | ends, round 29 | ends, round **55** | **never ends** | never ends |
+| **5%/round** | ends, round 13 | ends, round 17 | ends, round 22 | **never ends** |
+
+The boundary is exactly at parity, with no in-between region. Growing *slower*
+does not partly hold the line; it only postpones the end. And the defenders
+start **behind** here, so matching the attacker's growth rate is enough even
+from a deficit — you do not need to be ahead, only to stop falling behind.
+
+This matters because every other stabiliser we found is conditional on
+something you don't control: detection needs a threshold cleared, near-peer
+deterrence needs a near-peer to exist, patience is a property of the attacker.
+Growth parity is an investment rate.
+
+**2. Letting defenders raid on suspicion changes a standoff into a death
+sentence — for the attacker.**
+
+In the static case pass 4 described as an indefinite stalemate, allowing
+defenders to strike first at a *suspected* attacker destroys it in **57% of
+runs** (up from 0%). Where growth is nearly adequate, counter-raiding cuts the
+chance of the game ending from 1.00 to 0.78. Where growth is badly inadequate,
+it changes nothing. **Counter-raiding complements catch-up investment; it does
+not substitute for it.**
+
+**3. The "Catan bandit" idea fails — and the reason is the most important
+finding in this pass.**
+
+The hope was that raids on the leader would damp compounding, the way the
+bandit in Catan slows whoever is ahead. We varied how much a raid transfers,
+from pure destruction to theft worth more to the taker than to the loser. **It
+made no measurable difference.** What mattered was only whether anyone raids at
+all.
+
+The mechanism: **defensive raids require suspicion, and suspicion requires the
+attacker to have been caught already or seen preparing. An attacker that
+simply grows quietly generates neither.** In those runs the defenders manage
+two or three raids across 83 rounds of compounding.
+
+So the bandit doesn't slow the leader, because it never gets pointed at him.
+The quiet accumulator is the case the entire apparatus is structurally blind
+to — not because detection is weak, but because *cause for action* never
+arises. That generalises past this model, and it is the thing we would most
+want checked against real counterintelligence practice.
+
+**4. Locking arms buys time rather than safety.**
+
+Defenders raiding together, pooling their strength:
+
+| defenders raiding together | game ends | ends at round | defender deaths |
+|---|---|---|---|
+| none | 1.00 | 27.8 | 0.00 |
+| 1 | 0.95 | 28.2 | 0.00 |
+| 3 | 0.95 | 35.3 | 1.43 |
+| 5 | 0.90 | **45.2** | **3.12** |
+
+Deeper coalitions push the endgame from round 28 to round 45 but barely change
+whether it arrives. The deaths are *defenders*. **Caveat that is ours, not the
+model's:** we charged a failed joint raid against each member's own strength
+while splitting gains in proportion to contribution. That asymmetry is a design
+choice, and it is what kills the small members of a large coalition. Shared
+losses would remove it. The delay is robust; the deaths are not yet.
+
+**5. Pooled backups buy a fixed number of rounds, exactly as the pass-4 formula
+predicts.**
+
+If backups must be cleared collectively rather than one at a time, the endgame
+moves from round 28 to round **77**. The pass-4 invariant predicts 47.7 extra
+rounds; we observed 48.6. Pooling backups sits on the same logarithmic footing
+as hardening them: **it buys time, and only growth parity changes the
+destination.**
+
+**6. On reconnaissance: how *valuable* information is matters; how likely you
+are to be caught collecting it barely does.**
+
+We split raids into scouting (covert, might be detected, yields intelligence)
+and seizure (overt, always detected, success depends on what scouting found).
+Varying the chance of being caught scouting from 10% to 60% moved almost
+nothing. Raising the *value* of an intelligence advantage took the endgame from
+certain down to 0.90 and tripled the number of defender raids.
+
+The asymmetry is instructive: **better intelligence helps whichever side raids
+more, and here that is the defenders**, because they have triggers to act on
+while the attacker prefers to sit and grow. Intelligence multiplies activity;
+it does not create it.
+
+**What we would run next, following directly from finding 3:** give defenders
+**standing collection** — the option to monitor the capability leader with no
+cause at all — and see whether it catches the quiet accumulator. The current
+model says that is the gap, and it has an obvious policy analogue.
+
+---
+
 ## Limits — read this before citing anything
 
 This is an **abstract simulation**, not a calibrated model of any real domain.
@@ -430,28 +617,59 @@ python3 probe_jitter.py                  # the undeclared-constant investigation
 python3 probe_deadlock.py                # the multipolar deadlock probe (concern 2)
 python3 tournament4.py --selftest        # pass 4 reproduces pass 3 when backups are off
 python3 tournament4.py 40 E              # pass 4: the raid ratchet
+python3 tournament5.py --selftest        # pass 5 reproduces pass 4 when its features are off
+python3 tournament5.py 40 A              # pass 5: the defender catch-up grid
 ```
 
 | file | contents |
 |---|---|
+| `tournament5.py` | pass 5: defender growth, transferring raids, defensive counter-raids, coalitions, recon/seizure; imports pass 4 unchanged |
 | `tournament4.py` | pass 4: survivable defection / backups; imports pass 3 unchanged, `--selftest` checks it reproduces pass 3 exactly |
 | `tournament3.py` | pass 3 harness; 119 cells, bootstrap CIs, censored cooperation metric |
 | `tournament2.py`, `tournament.py` | earlier passes, frozen so superseded numbers stay auditable |
 | `probe_*.py` | targeted mechanism probes |
+| `RESULTS_V5_2026-10-07.md` | pass 5: defender agency, coalitions, the suspicion-gating result |
+| `RESULTS_V4_2026-10-07.md` | pass 4: backups, the raiding regime, the time-to-endgame invariant |
 | `RESULTS_V3_2026-10-06.md` | full technical results, including every correction to passes 1–2 |
 | `RESULTS_V2_2026-10-06.md`, `RESULTS_PRELIM_2026-10-06.md` | earlier writeups, superseded but kept |
-| `results_v3_*.json`, `sweep_v3_*.txt` | raw output |
+| `raw/` | every JSON result file and console log, all passes |
 
-The three writeups are kept in sequence deliberately: passes 1 and 2 contain claims that
-pass 3 overturned, and the sequence is the audit trail.
+The writeups are kept in sequence deliberately: passes 1 and 2 contain claims that
+pass 3 overturned, and the sequence is the audit trail. Each harness keeps the
+previous one callable and asserts in its own `--selftest` that it reproduces it
+exactly when the new features are switched off, so no pass silently restates an
+earlier number.
 
 ---
 
 ## Status
 
-Base tournament complete; pass 4 (backups) complete. Next for pass 4: victim losses,
-defender catch-up, and investable hardness. Not yet built, in intended order: endogenous capability growth,
-public-signal/display games, markets, and candidate stabilising configurations.
+Passes 1–5 complete: base tournament, backups/survivable defection, and defender
+agency (catch-up growth, transferring raids, counter-raids, coalitions,
+recon/seizure).
+
+Next, in intended order:
+
+1. **Standing collection** — let defenders monitor the capability leader without
+   cause. Pass 5's finding 3 says suspicion-gating is what makes the quiet
+   accumulator invisible, so this is the experiment with the most at stake.
+2. **Coalition loss-sharing** — separates pass 5's real delay result from the
+   defender-death artifact of our own cost-charging choice.
+3. **Endogenous backup hardness** — both sides invest, which turns the model
+   into a direct representation of the cyber offence/defence balance.
+4. **A shared budget** — defender growth is currently free. Making catch-up
+   compete with everything else is what decides whether pass 5's strongest
+   result is affordable.
+5. **Roles as choices rather than assignments** — see [the decision
+   framework](#who-actually-decides-what-the-decision-framework). This is the
+   structural rewrite, and the one that would let the model answer whether
+   anyone *becomes* an attacker and whether defending pays for itself.
+
+Still not built: public-signal/display games and markets.
+
+Two questions remain blocked on judgement rather than compute, and both are
+claims about the world rather than about code: whether rival powers resist each
+other, and the correct reading of response-speed semantics.
 
 Two questions are blocked on judgement rather than compute, and both are claims about the
 world rather than about code: whether rival powers resist each other, and the correct
