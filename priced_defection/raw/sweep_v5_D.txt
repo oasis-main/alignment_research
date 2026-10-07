@@ -1,0 +1,13 @@
+
+=== D. recon: is the two-stage op better than blind repo? ===
+D_recon1_d0.1            lead0=  1.26->   2.21 END=0.97[0.93,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.9/0.7   took=   1.7 tEnd=  28.2
+D_recon1_d0.3            lead0=  1.26->   2.17 END=0.95[0.88,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  1.5/1.3   took=   2.8 tEnd=  28.2
+D_recon1_d0.6            lead0=  1.26->   2.17 END=0.95[0.88,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  1.5/1.3   took=   2.8 tEnd=  28.2
+D_recon0_d0.1            lead0=  1.26->   2.27 END=1.00[1.00,1.00] died=0.00 mRepo=  1.0/0.7   dRepo=  0.1/0.0   took=   0.9 tEnd=  26.9
+D_recon0_d0.3            lead0=  1.26->   2.27 END=1.00[1.00,1.00] died=0.00 mRepo=  1.0/0.7   dRepo=  0.1/0.0   took=   0.9 tEnd=  26.9
+D_recon0_d0.6            lead0=  1.26->   2.27 END=1.00[1.00,1.00] died=0.00 mRepo=  1.0/0.7   dRepo=  0.1/0.0   took=   0.9 tEnd=  26.9
+D_info0.0                lead0=  1.26->   2.25 END=1.00[1.00,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.4 tEnd=  29.6
+D_info0.5                lead0=  1.26->   2.17 END=0.95[0.88,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  1.5/1.3   took=   2.8 tEnd=  28.2
+D_info1.0                lead0=  1.26->   2.55 END=0.90[0.78,0.97] died=0.10 mRepo=  0.5/0.3   dRepo=  3.4/2.7   took=   7.7 tEnd=  39.9
+
+wrote 9 cells -> raw/results_v5_D.json
