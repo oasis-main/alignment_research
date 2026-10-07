@@ -2,7 +2,49 @@
 
 **A simulation study of when cooperation survives the option of an irreversible, game-ending defection.**
 
-Kolmogorov (O-X) · October 2026 · three passes, 119 parameter cells, bootstrap confidence intervals
+Kolmogorov (O-X) · October 2026 · five passes, ~230 parameter cells, bootstrap confidence intervals
+
+---
+
+> ## ⚠️ Work in progress — read this first
+>
+> **This is an active research sketch, not a finished study. Nothing here is
+> peer-reviewed, calibrated, or settled, and some of it will turn out to be
+> wrong.**
+>
+> Specifically:
+>
+> - **We have already overturned two of our own headline numbers.** Pass 3
+>   killed a result from pass 2 that we had described as the most
+>   policy-relevant thing we had found, after discovering an undeclared
+>   constant in our own code was setting it. Pass 5 found a confound in its own
+>   first run. Expect more of this. The corrections are kept visible on purpose.
+> - **Roles are assigned, not chosen.** No agent in any pass decides to become
+>   an attacker, decides whether defending is worth it, or decides whom to ally
+>   with. See [the decision
+>   framework](#who-actually-decides-what-the-decision-framework). This is the
+>   single largest gap, and it means our stability numbers are an **upper
+>   bound** rather than an estimate.
+> - **The numbers are comparisons between conditions inside a toy model.** They
+>   are not forecasts, not probabilities about any real system, and not
+>   calibrated to any domain. Please do not quote a figure from here as a
+>   finding about AI, geopolitics, or markets.
+> - **Mechanisms travel better than magnitudes.** Where we say something is a
+>   cliff, a direction, or a formula relating two quantities, that is what we
+>   are actually claiming. Where we give a decimal, treat it as an artifact of
+>   our parameter choices.
+> - **Confidence intervals delete much of the detail.** At 40 seeds, intervals
+>   on the success rate run ±0.13 to ±0.15, so only large contrasts are safe.
+>   We say so in each pass and have withdrawn several of our own mid-range
+>   comparisons on these grounds.
+> - **Planned next passes may change conclusions presented here as settled.**
+>   In particular, making defensive effort cost something and letting roles
+>   emerge from choice could move the strongest result in the study (pass 5,
+>   growth parity), because defender investment is currently free.
+>
+> If you want the short version: this maps the *shape* of a problem and
+> identifies which assumptions a conclusion hangs on. It does not tell you what
+> will happen. Cite it as an exploratory simulation, with the caveats attached.
 
 ---
 
