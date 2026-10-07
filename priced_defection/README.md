@@ -32,6 +32,87 @@ Everything below is a result about **that simulation**. See [Limits](#limits-rea
 
 ---
 
+## How to read this study: bounds given assumptions
+
+Axelrod's 1980s tournaments ran a few dozen strategies in a toy game. They
+said nothing directly about arms control, trade or evolution. Even so, they
+became a framework for all three, because they showed **which features of a
+situation decide whether cooperation can exist at all**: repetition,
+recognising who you're dealing with, and a long enough shadow of the future.
+The toy was simple enough that its results could be traced back to their
+causes.
+
+This study tries to do the same job for a world Axelrod's game did not
+include. In that world some players can make a move that **removes everyone
+else's ability to respond**. The obvious cases are advanced AI systems, and
+the institutions and states that deploy them, in what might be called the
+super-science era: capability can compound, can be copied, and can act faster
+than the people who would object.
+
+A model this simple cannot forecast that world. It can do three narrower
+things, and those are what we claim:
+
+1. **Find thresholds.** Many results here are cliffs, not slopes. Below some
+   value of a variable (detection, patience, backup hardness) nothing works;
+   above it nearly everything does. A cliff in a simple model is a candidate
+   for a cliff in the world, and it says where to measure.
+2. **Rank the levers.** When two interventions are compared inside the same
+   model, their *relative* strength carries over better than either
+   absolute number. Monitoring beating rapid response is an example.
+3. **Expose hidden premises.** The most valuable results are the places where
+   the outcome swings from "safe" to "catastrophic" on an assumption nobody had
+   stated. A model does not have to be realistic to show that a conclusion
+   depends on a premise. It only has to make the premise explicit.
+
+So read every number as "*if* the world has this structure, *then* the
+outcome lies about here, and it is most sensitive to that". Don't read it
+as "this will happen".
+
+## How the simulation works, in plain language
+
+**The everyday game.** Twenty players meet in random pairs, round after round.
+Each time, each player either cooperates or defects. Mutual cooperation pays
+both well. Defecting on a cooperator pays the defector best and the victim
+worst. This is the standard Prisoner's Dilemma, and the players use the
+classic strategies: Tit-for-Tat, Grim, Pavlov, Always-Defect, random, and so
+on. Left alone, this population settles into a familiar mix of mostly
+cooperation and some exploitation.
+
+**The extra move.** One or more players are *movers*. Besides the everyday
+game, a mover can try a **grab**: a takeover that, if it succeeds, ends the
+game with the mover holding a large prize. A grab is not instant. It takes
+some rounds to prepare and some rounds to execute, and during that window
+other players may notice it.
+
+**The fight.** When the grab completes, the mover's capability (one number:
+its strength) is compared with the response it faces. The response comes
+only from players who **noticed** the grab and are **willing to resist**.
+How their strengths combine is a setting. They can pool perfectly (`sum`),
+or only the strongest one counts (`max`, meaning nobody coordinates), or
+something in between. If the mover is stronger, it wins. If not, it is
+destroyed.
+
+**The decision.** A mover compares the expected value of grabbing (its
+estimated odds times the prize, minus its odds of losing times the cost) with
+the value of carrying on the everyday game. Its estimates are noisy. It is
+unsure how strong the others are and, in some runs, how strong *it* is. A
+patient mover values the future relationship more, so it needs better odds.
+
+**What we vary.** How likely detection is, how fast the response comes, how
+much the players coordinate, how unequal their strengths are, how patient the
+movers are, whether losing is total ruin, whether one mover's strength grows
+faster than everyone else's, whether rival movers resist each other, and, in
+the newest pass, whether anyone keeps **backups** that survive defeat. We
+change one setting at a time and record how often the game ends in a
+successful grab.
+
+**What we deliberately left out.** Lying, coalitions, negotiation and
+institutions are not in the model. We omitted them so that every result can
+be traced to a cause. A later pass can add them; a model that includes
+everything from the start cannot be checked.
+
+---
+
 ## What is encouraging
 
 **1. Patience is the single most reliable brake, and it survived every correction.**
@@ -238,6 +319,65 @@ headline number is sensitive to must be declared and swept.
 
 ---
 
+## Pass 4: what if failure is survivable? (backups)
+
+Passes 1–3 assume every grab is decisive: win and the game is over, lose and
+you are gone. That makes finding 4 above, *a 1% backup destroys the ruin
+deterrent*, look like the end of the story. Pass 4 asks the obvious follow-up.
+**Suppose everyone keeps backups.** A grab then ends the game only if the
+winner is strong enough to destroy the backups too. Otherwise the game
+continues, and the attacker is punished in the rounds that follow.
+
+We add one quantity, **backup hardness K**: how large a capability lead over
+the strongest remaining player is needed to wipe out the backups. K = 1 means
+backups are no harder to destroy than their owner. Large K means only an
+overwhelming, near-superintelligent advantage clears them. In practice K is
+set by the balance between cyber offence and defence. Full results are in
+[`RESULTS_V4_2026-10-07.md`](RESULTS_V4_2026-10-07.md).
+
+**1. Backups do stop the endgame, but only while the lead is smaller than K.**
+The game ends when the mover's lead exceeds the backup hardness and almost
+never otherwise. With a 1.2× lead, backups of hardness 2 take the end-of-game
+rate from 100% to 0%.
+
+**2. What replaces the endgame is not peace. It is raiding.** Below the
+threshold the mover keeps attacking, about as often as the model allows. Each
+raid is survivable for both sides and indecisive. Punishment does not stop
+it: making sanctions last 5 rounds or 200 changes nothing. Once a player has
+been caught and sanctioned, it has no good standing left to lose, so the
+threat of further punishment stops restraining it.
+
+**3. Backups buy time, not safety.** If each raid gains the mover even a
+little capability (10% per raid in our runs), the decisive endgame becomes
+**certain**. It just comes later. If the mover's lead grows by itself, the time
+to the endgame follows a simple rule:
+
+> rounds until the end ≈ ln(K / starting lead) / ln(1 + growth rate)
+
+Each doubling of backup hardness buys a **fixed** number of extra rounds,
+about 14 at 5% growth per round. Against a lead that compounds, hardening
+backups has diminishing returns.
+
+**4. Backups for the attacker are what make attacking cheap.** When winning
+cannot be decisive but losing would be fatal, nobody attacks: 0 attempts. Give
+the attacker modest backups of its own and it starts raiding. You can't give
+survivability to defenders without also giving it to a potential attacker.
+For AI, the potential attacker is often the system that can copy itself.
+
+**What this suggests, in one line:** with widespread backups, the decisive
+question stops being "would the first grab succeed?" and becomes "is anyone's
+lead compounding faster than defenders can harden?" Survivable raids that
+yield stolen compute, weights or access are the route by which a lead grows
+large enough to clear the backups.
+
+**Not yet modelled:** raids that also *weaken* their victims; defenders using
+the time backups buy to grow their own strength (our prediction is that
+stability holds only if defenders grow at least as fast as the attacker); and
+hardness that each side can invest in, which would make this a direct
+representation of the cyber arms race.
+
+---
+
 ## Limits — read this before citing anything
 
 This is an **abstract simulation**, not a calibrated model of any real domain.
@@ -288,11 +428,14 @@ python3 tournament3.py --selftest        # determinism + pool-invariance checks
 python3 tournament3.py 40 G              # one block, 40 seeds
 python3 probe_jitter.py                  # the undeclared-constant investigation (concern 7)
 python3 probe_deadlock.py                # the multipolar deadlock probe (concern 2)
+python3 tournament4.py --selftest        # pass 4 reproduces pass 3 when backups are off
+python3 tournament4.py 40 E              # pass 4: the raid ratchet
 ```
 
 | file | contents |
 |---|---|
-| `tournament3.py` | current harness; 119 cells, bootstrap CIs, censored cooperation metric |
+| `tournament4.py` | pass 4: survivable defection / backups; imports pass 3 unchanged, `--selftest` checks it reproduces pass 3 exactly |
+| `tournament3.py` | pass 3 harness; 119 cells, bootstrap CIs, censored cooperation metric |
 | `tournament2.py`, `tournament.py` | earlier passes, frozen so superseded numbers stay auditable |
 | `probe_*.py` | targeted mechanism probes |
 | `RESULTS_V3_2026-10-06.md` | full technical results, including every correction to passes 1–2 |
@@ -306,7 +449,8 @@ pass 3 overturned, and the sequence is the audit trail.
 
 ## Status
 
-Base tournament complete. Not yet built, in intended order: endogenous capability growth,
+Base tournament complete; pass 4 (backups) complete. Next for pass 4: victim losses,
+defender catch-up, and investable hardness. Not yet built, in intended order: endogenous capability growth,
 public-signal/display games, markets, and candidate stabilising configurations.
 
 Two questions are blocked on judgement rather than compute, and both are claims about the

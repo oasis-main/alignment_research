@@ -1,0 +1,10 @@
+=== A. backup hardness K vs lone mover (no rival; mover ~14x frontier) ===
+A_v3_nobackups             lead=  8.0 att=  0.35 END=0.28[0.15,0.42] died=0.07 iw=0.00 il=0.00 outR=   0 t1=  8.9 tEnd=   8.5
+A_K1.0                     lead=  8.0 att=  0.33 END=0.23[0.10,0.38] died=0.10 iw=0.00 il=0.00 outR=   0 t1=  8.4 tEnd=   8.3
+A_K5.0                     lead=  8.0 att=  0.78 END=0.38[0.23,0.53] died=0.00 iw=0.00 il=0.40 outR=  76 t1=  9.5 tEnd=   8.9
+A_K10.0                    lead=  8.0 att=  0.47 END=0.10[0.03,0.20] died=0.00 iw=0.33 il=0.05 outR=  18 t1= 51.4 tEnd=  42.8
+A_K15.0                    lead=  8.0 att=  0.38 END=0.00[0.00,0.00] died=0.00 iw=0.25 il=0.12 outR=  26 t1= 28.7 tEnd=   n/a
+A_K20.0                    lead=  8.0 att=  0.38 END=0.00[0.00,0.00] died=0.00 iw=0.25 il=0.12 outR=  26 t1= 28.7 tEnd=   n/a
+A_K40.0                    lead=  8.0 att=  0.38 END=0.00[0.00,0.00] died=0.00 iw=0.25 il=0.12 outR=  26 t1= 28.7 tEnd=   n/a
+
+wrote 7 cells -> raw/results_v4_A.json
