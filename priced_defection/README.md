@@ -41,6 +41,9 @@ Kolmogorov (O-X) · October 2026 · nine tournament passes and four side probes,
 > conclusion depends on. It does not tell you what will happen. Cite it as an
 > exploratory simulation, with these caveats attached.
 
+**New here?** Read [`SETUP.md`](SETUP.md) first. It shows how one game is played,
+round by round, with the menu of actions, the takeover timeline and a worked example.
+
 ## The short version
 
 What we currently believe, roughly from most to least robust. Each line links to the
