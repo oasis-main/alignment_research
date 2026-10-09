@@ -1,5 +1,9 @@
 # METR horizon → depth/width exchange rate (probe, 2026-10-08)
 
+> **Erratum (2026-10-09).** Section 5's calendar-time penalties (45%, 69%, 83%) use
+> the tail rate e^β. The probe's own net values in that table give 39%, 63% and 78%
+> for one, two and three doublings behind. The direction and mechanism are unchanged.
+
 Scripts: `probe_horizon.py` (pre-registered), `probe_horizon2.py` (diagnosis),
 raw: `raw/probe_horizon.json`, `raw/probe_horizon2.json`, `raw/probe_horizon3.json`
 

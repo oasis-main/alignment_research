@@ -1,0 +1,98 @@
+{
+  "N1_noshare": {
+    "att": 18.2,
+    "dw": 0.9,
+    "dl": 0.0,
+    "n_grow": 2.2666666666666666,
+    "n_post": 341.1666666666667,
+    "n_scout": 0.0,
+    "n_seize": 0.0,
+    "n_prep": 20.533333333333335,
+    "n_idle": 0.0,
+    "acts": 363.96666666666664,
+    "n_share": 0.0,
+    "n_bluff": 0.0,
+    "n_call": 0.0,
+    "sharers": 0.0,
+    "bluffers": 0.0,
+    "callers": 0.0,
+    "share_moved": 0.0,
+    "bluff_rounds": 0.0,
+    "bluff_tested": 0.0,
+    "calls_right": 0.0,
+    "calls_wrong": 0.0,
+    "bluff_collapsed": 0.0,
+    "deaths": 0.0,
+    "dw_ci": [
+      0.7666666666666667,
+      1.0
+    ],
+    "end": 9.407407407407407,
+    "lead0": 3.0,
+    "lead_end": 3.871480685720999,
+    "post_share": 0.7666893939393941,
+    "share_share": 0.0,
+    "bluff_share": 0.0,
+    "call_share": null,
+    "app_ratio": 1.0,
+    "rep_mean": 0.0,
+    "call_precision": null,
+    "call_lag": null,
+    "lead_end_ci": [
+      3.4649999999999985,
+      4.470613485041
+    ],
+    "post_ci": [
+      0.7206136363636364,
+      0.802615909090909
+    ]
+  },
+  "N4_share_priced_out": {
+    "att": 18.2,
+    "dw": 0.9,
+    "dl": 0.0,
+    "n_grow": 2.2666666666666666,
+    "n_post": 341.1666666666667,
+    "n_scout": 0.0,
+    "n_seize": 0.0,
+    "n_prep": 20.533333333333335,
+    "n_idle": 0.0,
+    "acts": 363.96666666666664,
+    "n_share": 0.0,
+    "n_bluff": 0.0,
+    "n_call": 0.0,
+    "sharers": 0.0,
+    "bluffers": 0.0,
+    "callers": 0.0,
+    "share_moved": 0.0,
+    "bluff_rounds": 0.0,
+    "bluff_tested": 0.0,
+    "calls_right": 0.0,
+    "calls_wrong": 0.0,
+    "bluff_collapsed": 0.0,
+    "deaths": 0.0,
+    "dw_ci": [
+      0.7666666666666667,
+      1.0
+    ],
+    "end": 9.407407407407407,
+    "lead0": 3.0,
+    "lead_end": 3.871480685720999,
+    "post_share": 0.7666893939393941,
+    "share_share": 0.0,
+    "bluff_share": 0.0,
+    "call_share": null,
+    "app_ratio": 1.0,
+    "rep_mean": 0.0,
+    "call_precision": null,
+    "call_lag": null,
+    "lead_end_ci": [
+      3.4649999999999985,
+      4.470613485041
+    ],
+    "post_ci": [
+      0.7206136363636364,
+      0.802615909090909
+    ]
+  }
+}
