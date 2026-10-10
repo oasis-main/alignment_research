@@ -76,6 +76,7 @@ PRE-REGISTERED PREDICTIONS
 Exactness: every new feature off delegates to v7 (and thence v6, v5).
 """
 import math
+import os
 import random
 import json
 import sys
@@ -568,7 +569,7 @@ if __name__ == "__main__":
                sharing=True, share_scope="public", rep_value=0.3,
                share_eff=se, post_shield=0.2, **SM)
 
-    out = f"raw/results_v8{'' if block == 'all' else '_' + block}.json"
+    out = f"{os.environ.get('PD_RAW', 'raw')}/results_v8{'' if block == 'all' else '_' + block}.json"
     with open(out, "w") as fh:
         json.dump(res, fh, indent=1)
     print(f"\nwrote {len(res)} cells -> {out}")

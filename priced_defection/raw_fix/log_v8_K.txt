@@ -1,0 +1,20 @@
+=== K. S2: HARD ACCESS GATE vs smooth scale economies ===
+--- K1: controls (pass 7 replication) at lead0=3.0 ---
+K1_smooth_ps0_cg0.1            END=0.07[0.00,0.17] lead=3.00->  6.38[3.73,9.48] grow= 180.0 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  37.0
+K1_smooth_ps1_cg0.1            END=0.03[0.00,0.10] lead=3.00->  4.99[2.78,7.28] grow= 135.6 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  11.0
+K1_smooth_ps0_cg0.6            END=0.07[0.00,0.17] lead=3.00->  3.46[3.07,3.97] grow=   1.0 shr=   0.0 blf= 0.000 app= 1.000 tEnd= 175.5
+K1_smooth_ps1_cg0.6            END=0.00[0.00,0.00] lead=3.00-> 57.66[55.25,60.03] grow=  29.5 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   n/a
+--- K2: hard gate -- laggards cannot buy at any price ---
+K2_step_th0.5_cg0.1            END=0.00[0.00,0.00] lead=3.00-> 57.66[55.25,60.03] grow=  29.5 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   n/a
+K2_step_th0.8_cg0.1            END=0.00[0.00,0.00] lead=3.00-> 57.66[55.25,60.03] grow=  29.5 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   n/a
+K2_step_th0.95_cg0.1           END=0.00[0.00,0.00] lead=3.00-> 57.66[55.25,60.03] grow=  29.5 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   n/a
+K2_step_th0.5_cg0.6            END=0.07[0.00,0.17] lead=3.00->  3.46[3.07,3.97] grow=   1.0 shr=   0.0 blf= 0.000 app= 1.000 tEnd= 175.5
+K2_step_th0.8_cg0.6            END=0.07[0.00,0.17] lead=3.00->  3.46[3.07,3.97] grow=   1.0 shr=   0.0 blf= 0.000 app= 1.000 tEnd= 175.5
+K2_step_th0.95_cg0.6           END=0.07[0.00,0.17] lead=3.00->  3.46[3.07,3.97] grow=   1.0 shr=   0.0 blf= 0.000 app= 1.000 tEnd= 175.5
+--- K3: gate softness (penalty), cheap capability ---
+K3_pen2                        END=0.00[0.00,0.00] lead=3.00->  6.10[4.19,8.38] grow= 135.7 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   n/a
+K3_pen10                       END=0.00[0.00,0.00] lead=3.00-> 57.66[55.25,60.03] grow=  29.5 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   n/a
+K3_pen100                      END=0.00[0.00,0.00] lead=3.00-> 57.66[55.25,60.03] grow=  29.5 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   n/a
+K3_pen1e+06                    END=0.00[0.00,0.00] lead=3.00-> 57.66[55.25,60.03] grow=  29.5 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   n/a
+
+wrote 14 cells -> raw_fix/results_v8_K.json

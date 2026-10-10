@@ -98,6 +98,7 @@ PRE-REGISTERED PREDICTIONS (written before the first v9 run)
 Exactness: every v9 feature off delegates to v8 (and thence 7, 6, 5).
 """
 import math
+import os
 import random
 import json
 import sys
@@ -794,7 +795,7 @@ if __name__ == "__main__":
                    bluff_len=bl, pi_call=pc, call_bounty=0.3, c_bluff=0.05,
                    post_shield=0.2, **SM)
 
-    out = f"raw/results_v9{'' if block == 'all' else '_' + block}.json"
+    out = f"{os.environ.get('PD_RAW', 'raw')}/results_v9{'' if block == 'all' else '_' + block}.json"
     with open(out, "w") as fh:
         json.dump(res, fh, indent=1)
     print(f"\nwrote {len(res)} cells -> {out}")

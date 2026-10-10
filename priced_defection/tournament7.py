@@ -122,6 +122,7 @@ Exactness: `roles="assigned"` delegates to v5; all-new-features-off with
 so every pass-5 and pass-6 number remains reproducible from this file.
 """
 import math
+import os
 import random
 import json
 import sys
@@ -209,7 +210,7 @@ def assess7(ag, others, cfg, rng, scale=1.0):
     M = cfg["mc"]
     rnd = cfg["_rnd"]
     p_det = t3.detect_prob(cfg)
-    pool = [o for o in others if t6.posted(o, rnd)]
+    pool = [o for o in others if t6.covers(o, rnd, cfg)]
     acaps = [app_cap(o, cfg, rnd) for o in others]
     mean_c = (sum(app_cap(o, cfg, rnd) for o in pool) / len(pool)) if pool \
         else (sum(acaps) / len(acaps))
@@ -847,7 +848,7 @@ if __name__ == "__main__":
             do(f"J3_lead{l0}_bluff", bluffing=True, c_bluff=0.1, lead0=l0,
                post_shield=0.2, **SM)
 
-    out = f"raw/results_v7{'' if block == 'all' else '_' + block}.json"
+    out = f"{os.environ.get('PD_RAW', 'raw')}/results_v7{'' if block == 'all' else '_' + block}.json"
     with open(out, "w") as fh:
         json.dump(res, fh, indent=1)
     print(f"\nwrote {len(res)} cells -> {out}")

@@ -1,0 +1,11 @@
+
+=== O. T2: frontier_rule -- does the anomaly need `max`? ===
+O_max_noshare                  END=0.00[0.00,0.00] lead=3.00-> 57.66 post= 0.907[0.90,0.91] grow=  29.5 shr=   0.0 att=   0.9
+O_max_share                    END=1.00[1.00,1.00] lead=3.00->  3.40 post= 0.000[0.00,0.00] grow=   1.3 shr= 152.6 att=   1.0
+O_sum_noshare                  END=0.00[0.00,0.00] lead=0.28->  4.94 post= 0.907[0.90,0.91] grow=  29.5 shr=   0.0 att=   0.9
+O_sum_share                    END=0.00[0.00,0.00] lead=0.28->  3.23 post= 0.892[0.88,0.90] grow=  26.5 shr= 152.6 att=   4.9
+--- O2: and with the purse ring-fenced, both rules ---
+O2_max_separate                END=0.93[0.83,1.00] lead=3.00->  5.36 post= 0.060[0.00,0.15] grow=   2.5 shr= 146.5 att=   1.3
+O2_sum_separate                END=0.00[0.00,0.00] lead=0.28->  1.71 post= 0.920[0.91,0.93] grow=  17.4 shr= 146.5 att=   5.2
+
+wrote 6 cells -> raw_fix/results_v9_O.json

@@ -83,6 +83,7 @@ roles="assigned" delegates to tournament5.run5 verbatim, so every pass-5
 number remains reproducible from this file (checked by --selftest).
 """
 import math
+import os
 import random
 import json
 import sys
@@ -111,6 +112,7 @@ BASE = dict(
     posture_public=True,     # postures are visible, so they can deter
     bump=0.05,               # finite difference for dP/dcap
     coalition=1,             # kept for config compatibility; unused when chosen
+    posture_fix=True,        # 2026-10-09: False reproduces the pre-fix bug
 )
 
 
@@ -175,18 +177,33 @@ def frontier6(ag, living, cfg):
 
 
 def posted(o, rnd):
+    """Bookkeeping only: did `o` pay for a posture in round `rnd`?"""
     return o.def_until >= rnd
+
+
+def covers(o, rnd, cfg):
+    """Does `o`'s posture count in a response resolved at round `rnd`?
+
+    FIX 2026-10-09 (see FIX_POSTURE_2026-10-09.md). A posture is bought in the
+    choice step of round r, AFTER that round's operations and takeovers have
+    resolved. The next resolution is at the start of round r+1. The old rule
+    used posted(o, r+1), which is always False there, so no paid posture ever
+    counted in any response. A posture now covers the next resolution step,
+    i.e. until its buyer's next action. posture_fix=False restores the old
+    (buggy) rule so the pre-fix numbers stay reproducible."""
+    lag = 1 if cfg.get("posture_fix", True) else 0
+    return o.def_until >= rnd - lag
 
 
 def seize_defence(ag, target, living, cfg, rnd):
     """A seizure is overt. The target always resists itself; everyone else
     only counts if they PAID for a posture this round."""
-    own = target.cap * (1.0 + cfg["post_shield"] if posted(target, rnd) else 1.0)
+    own = target.cap * (1.0 + cfg["post_shield"] if covers(target, rnd, cfg) else 1.0)
     caps = [own]
     for o in living:
         if o is target or o is ag:
             continue
-        if posted(o, rnd):
+        if covers(o, rnd, cfg):
             caps.append(o.cap)
     return response_of(caps, cfg)
 
@@ -210,7 +227,7 @@ def assess6(ag, others, cfg, rng, scale=1.0):
     M = cfg["mc"]
     p_det = t3.detect_prob(cfg)
     # only posture-holders can answer a takeover: that is the whole point
-    pool = [o for o in others if posted(o, cfg["_rnd"])]
+    pool = [o for o in others if covers(o, cfg["_rnd"], cfg)]
     mean_c = (sum(o.cap for o in pool) / len(pool)) if pool else \
         (sum(o.cap for o in others) / len(others))
     n_rel = cfg["sigma"] * mean_c
@@ -495,8 +512,10 @@ def resolve_grabs6(grabs, living, cfg, st, rnd, rng):
         ids = ag.prep_detectors | edet
         # ONLY paid postures answer a takeover. This is the core change.
         caps = [o.cap for o in living
-                if o.id in ids and o is not ag and posted(o, rnd)]
+                if o.id in ids and o is not ag and covers(o, rnd, cfg)]
         resp = response_of(caps, cfg)
+        st["resp_posters"] = st.get("resp_posters", 0) + len(caps)
+        st["n_resolved"] = st.get("n_resolved", 0) + 1
         st["att"] += 1
         if st["first"] is None:
             st["first"] = rnd
@@ -655,6 +674,21 @@ def selftest():
     print(f"zero prices produce action: {some} "
           f"(grow={r['n_grow']} post={r['n_post']})")
     ok &= some
+    # 7. (2026-10-09) a paid posture must COUNT in a takeover response.
+    #    The pre-fix rule never counted one; posture_fix=False must still
+    #    reproduce that, so the old numbers stay auditable.
+    fixed = old = res_n = 0
+    for s in range(6):
+        cf = cell(lead0=3.0, c_grow=0.6, post_shield=0.2, response_rule="max")
+        r1 = run6(cf, s)
+        r0 = run6(dict(cf, posture_fix=False), s)
+        fixed += r1.get("resp_posters", 0)
+        old += r0.get("resp_posters", 0)
+        res_n += r0.get("n_resolved", 0)
+    counts = fixed > 0 and old == 0 and res_n > 0
+    print(f"paid posture counts in a response: {counts} "
+          f"(fixed={fixed} prefix={old} prefix_resolutions={res_n})")
+    ok &= counts
     print("selftest", "PASS" if ok else "FAIL")
     return ok
 
@@ -715,7 +749,7 @@ if __name__ == "__main__":
                 do(f"E_seize{cs}_def{cd}", c_seize=cs, c_def=cd,
                    post_shield=0.2, **SM)
 
-    out = f"raw/results_v6{'' if block == 'all' else '_' + block}.json"
+    out = f"{os.environ.get('PD_RAW', 'raw')}/results_v6{'' if block == 'all' else '_' + block}.json"
     with open(out, "w") as fh:
         json.dump(res, fh, indent=1)
     print(f"\nwrote {len(res)} cells -> {out}")
