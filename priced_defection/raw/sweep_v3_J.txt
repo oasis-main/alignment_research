@@ -1,0 +1,12 @@
+
+=== J. H4 forgiveness, movers that actually get punished ===
+J_tft_forg1                  att=  0.35 succ=  0.28  [0.15,0.42] ruin=0.214 coop=0.664 coopH=0.742 rH=0.82 pf=0.203 calib=-0.098 t1=   8.9
+J_tft_forg1_max              att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=0.000 t1=   8.0
+J_tft_forg0                  att=  0.35 succ=  0.28  [0.15,0.42] ruin=0.214 coop=0.654 coopH=0.741 rH=0.82 pf=0.203 calib=-0.098 t1=   8.9
+J_tft_forg0_max              att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=0.000 t1=   8.0
+J_alld_forg1                 att=  0.35 succ=  0.30  [0.17,0.45] ruin=0.143 coop=0.606 coopH=0.691 rH=0.82 pf=0.381 calib=-0.170 t1=  13.0
+J_alld_forg1_max             att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.696 coopH= n/a rH=0.00 pf=0.304 calib=0.000 t1=   8.0
+J_alld_forg0                 att=  0.35 succ=  0.30  [0.17,0.45] ruin=0.143 coop=0.598 coopH=0.690 rH=0.82 pf=0.381 calib=-0.170 t1=  13.0
+J_alld_forg0_max             att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.695 coopH= n/a rH=0.00 pf=0.304 calib=0.000 t1=   8.0
+
+wrote 8 cells -> results_v3_J.json

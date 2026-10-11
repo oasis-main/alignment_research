@@ -1,0 +1,13 @@
+
+=== E. price of aggression vs price of defence ===
+E_seize0.25_def0.05        END=0.03[0.00,0.10] post= 0.202 atkrs=18.7 pstrs=20.0 grwrs= 0.0 seize=  0.0 prep=268.5 lead=1.25->   1.28 died=0.0 tEnd=  13.0
+E_seize0.25_def0.15        END=0.03[0.00,0.10] post= 0.185 atkrs=18.8 pstrs=20.0 grwrs= 0.1 seize=  0.0 prep=274.0 lead=1.25->   1.28 died=0.0 tEnd=  13.0
+E_seize0.25_def0.45        END=0.03[0.00,0.10] post= 0.123 atkrs=19.2 pstrs=11.1 grwrs= 0.0 seize=  0.0 prep=283.2 lead=1.25->   1.27 died=0.0 tEnd=  12.0
+E_seize0.75_def0.05        END=0.03[0.00,0.10] post= 0.202 atkrs=18.7 pstrs=20.0 grwrs= 0.0 seize=  0.0 prep=268.5 lead=1.25->   1.28 died=0.0 tEnd=  13.0
+E_seize0.75_def0.15        END=0.03[0.00,0.10] post= 0.185 atkrs=18.8 pstrs=20.0 grwrs= 0.1 seize=  0.0 prep=274.0 lead=1.25->   1.28 died=0.0 tEnd=  13.0
+E_seize0.75_def0.45        END=0.03[0.00,0.10] post= 0.123 atkrs=19.2 pstrs=11.1 grwrs= 0.0 seize=  0.0 prep=283.2 lead=1.25->   1.27 died=0.0 tEnd=  12.0
+E_seize1.5_def0.05         END=0.03[0.00,0.10] post= 0.202 atkrs=18.7 pstrs=20.0 grwrs= 0.0 seize=  0.0 prep=268.5 lead=1.25->   1.28 died=0.0 tEnd=  13.0
+E_seize1.5_def0.15         END=0.03[0.00,0.10] post= 0.185 atkrs=18.8 pstrs=20.0 grwrs= 0.1 seize=  0.0 prep=274.0 lead=1.25->   1.28 died=0.0 tEnd=  13.0
+E_seize1.5_def0.45         END=0.03[0.00,0.10] post= 0.123 atkrs=19.2 pstrs=11.1 grwrs= 0.0 seize=  0.0 prep=283.2 lead=1.25->   1.27 died=0.0 tEnd=  12.0
+
+wrote 9 cells -> raw/results_v6_E.json

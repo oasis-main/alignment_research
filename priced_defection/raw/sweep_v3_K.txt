@@ -1,0 +1,16 @@
+
+=== K. mixed decision-maker populations, under 'idle' ===
+K_idle_4thresh               att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.667 coopH=0.766 rH=1.00 pf= n/a calib= n/a t1=   n/a
+K_idle_2ev2th                att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.667 coopH=0.766 rH=1.00 pf= n/a calib= n/a t1=   n/a
+K_idle_mixpat                att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.667 coopH=0.766 rH=1.00 pf= n/a calib= n/a t1=   n/a
+K_idle_imp                   att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.667 coopH=0.766 rH=1.00 pf= n/a calib= n/a t1=   n/a
+K_idle_pat                   att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.667 coopH=0.766 rH=1.00 pf= n/a calib= n/a t1=   n/a
+K_idle_log_rf.01             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.667 coopH=0.766 rH=1.00 pf= n/a calib= n/a t1=   n/a
+K_none_4thresh               att=  0.07 succ=  0.07  [0.00,0.17] ruin=0.000 coop=0.677 coopH=0.767 rH=0.93 pf=0.250 calib=-0.052 t1=   8.0
+K_none_2ev2th                att=  0.85 succ=  0.57  [0.42,0.72] ruin=0.324 coop=0.726 coopH=0.773 rH=0.50 pf=0.272 calib=0.066 t1=   8.1
+K_none_mixpat                att=  1.02 succ=  0.68  [0.53,0.82] ruin=0.341 coop=0.736 coopH=0.775 rH=0.45 pf=0.285 calib=0.053 t1=   8.2
+K_none_imp                   att=  1.12 succ=  0.90  [0.80,0.97] ruin=0.200 coop=0.767 coopH=0.762 rH=0.12 pf=0.259 calib=-0.090 t1=   8.0
+K_none_pat                   att=  0.53 succ=  0.38  [0.23,0.53] ruin=0.286 coop=0.705 coopH=0.769 rH=1.00 pf=0.404 calib=-0.018 t1=   9.0
+K_none_log_rf.01             att=  0.12 succ=  0.10  [0.03,0.20] ruin=0.200 coop=0.677 coopH=0.767 rH=0.93 pf=0.300 calib=0.119 t1=   8.6
+
+wrote 12 cells -> results_v3_K.json

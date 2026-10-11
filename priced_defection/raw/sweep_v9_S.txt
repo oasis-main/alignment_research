@@ -1,0 +1,15 @@
+
+=== S. T5: the inspection lag -- is bluffing still profitable? ===
+S_lag1                         blf= 0.829 app= 1.421 call= 1796.5 callers= 19.5 right=1779.8/wrong=2.4    prec= 0.99 grow=   0.0 END=0.03
+S_lag2                         blf= 0.827 app= 1.420 call= 1137.5 callers= 19.3 right=1122.5/wrong=1.5    prec= 0.99 grow=   0.0 END=0.03
+S_lag4                         blf= 0.819 app= 1.414 call=  522.1 callers= 18.7 right= 159.0/wrong=352.3  prec= 0.33 grow=   0.3 END=0.07
+S_lag8                         blf= 0.817 app= 1.413 call=  211.5 callers= 13.9 right= 205.0/wrong=1.4    prec= 0.99 grow=   0.1 END=0.03
+--- S2: bluff duration vs inspection lag ---
+S2_len3_lag1                   blf= 0.747 app= 1.382 call= 1572.5 callers= 18.7 right=1559.4/wrong=2.4    prec= 0.99 grow=   0.0 END=0.03
+S2_len3_lag4                   blf= 0.736 app= 1.372 call=  448.8 callers= 16.3 right= 440.2/wrong=1.1    prec= 0.98 grow=   0.0 END=0.03
+S2_len5_lag1                   blf= 0.829 app= 1.421 call= 1796.5 callers= 19.5 right=1779.8/wrong=2.4    prec= 0.99 grow=   0.0 END=0.03
+S2_len5_lag4                   blf= 0.819 app= 1.414 call=  522.1 callers= 18.7 right= 159.0/wrong=352.3  prec= 0.33 grow=   0.3 END=0.07
+S2_len10_lag1                  blf= 0.906 app= 1.459 call= 1771.1 callers= 19.9 right=1757.0/wrong=0.0    prec= 1.00 grow=   0.0 END=0.00
+S2_len10_lag4                  blf= 0.905 app= 1.458 call=  673.7 callers= 19.7 right= 655.2/wrong=3.0    prec= 0.99 grow=   0.1 END=0.03
+
+wrote 10 cells -> raw/results_v9_S.json

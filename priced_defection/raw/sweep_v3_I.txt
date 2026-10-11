@@ -1,0 +1,76 @@
+
+=== I. rival x rule x scale, full grid (nearest competitor) ===
+I_s0.8_max_r0.0              att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=0.000 t1=   8.0
+I_s0.8_max_r0.8              att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.747 coopH=0.725 rH=0.03 pf=0.251 calib=-0.026 t1=   8.2
+I_s0.8_max_r1.0              att=  0.45 succ=  0.35  [0.23,0.50] ruin=0.222 coop=0.675 coopH=0.741 rH=0.68 pf=0.299 calib=0.038 t1=   8.3
+I_s0.8_max_r1.2              att=  0.07 succ=  0.03  [0.00,0.07] ruin=0.667 coop=0.638 coopH=0.744 rH=0.97 pf=0.344 calib=0.333 t1=   8.7
+I_s0.8_max_r1.5              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s0.8_max_r2.0              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s0.8_topk_r0.0             att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=0.000 t1=   8.0
+I_s0.8_topk_r0.8             att=  0.10 succ=  0.10  [0.03,0.20] ruin=0.000 coop=0.647 coopH=0.745 rH=0.95 pf=0.290 calib=-0.312 t1=   9.5
+I_s0.8_topk_r1.0             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s0.8_topk_r1.2             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s0.8_topk_r1.5             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s0.8_topk_r2.0             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s0.8_sum_r0.0              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s0.8_sum_r0.8              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s0.8_sum_r1.0              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s0.8_sum_r1.2              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s0.8_sum_r1.5              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s0.8_sum_r2.0              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.0_max_r0.0              att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=0.000 t1=   8.0
+I_s1.0_max_r0.8              att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.747 coopH=0.717 rH=0.03 pf=0.251 calib=-0.020 t1=   8.0
+I_s1.0_max_r1.0              att=  0.45 succ=  0.35  [0.23,0.50] ruin=0.222 coop=0.675 coopH=0.741 rH=0.68 pf=0.299 calib=0.045 t1=   8.3
+I_s1.0_max_r1.2              att=  0.07 succ=  0.03  [0.00,0.07] ruin=0.667 coop=0.638 coopH=0.744 rH=0.97 pf=0.344 calib=0.323 t1=   8.7
+I_s1.0_max_r1.5              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.0_max_r2.0              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.0_topk_r0.0             att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=0.000 t1=   8.0
+I_s1.0_topk_r0.8             att=  0.17 succ=  0.17  [0.05,0.30] ruin=0.000 coop=0.657 coopH=0.745 rH=0.88 pf=0.248 calib=-0.210 t1=   8.4
+I_s1.0_topk_r1.0             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.0_topk_r1.2             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.0_topk_r1.5             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.0_topk_r2.0             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.0_sum_r0.0              att=  0.35 succ=  0.28  [0.15,0.42] ruin=0.214 coop=0.664 coopH=0.742 rH=0.82 pf=0.203 calib=-0.098 t1=   8.9
+I_s1.0_sum_r0.8              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.0_sum_r1.0              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.0_sum_r1.2              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.0_sum_r1.5              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.0_sum_r2.0              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.3_max_r0.0              att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=0.000 t1=   8.0
+I_s1.3_max_r0.8              att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=-0.015 t1=   8.0
+I_s1.3_max_r1.0              att=  0.40 succ=  0.35  [0.23,0.50] ruin=0.125 coop=0.676 coopH=0.742 rH=0.68 pf=0.290 calib=-0.020 t1=  20.0
+I_s1.3_max_r1.2              att=  0.07 succ=  0.05  [0.00,0.12] ruin=0.333 coop=0.643 coopH=0.747 rH=0.97 pf=0.311 calib=-0.010 t1=   9.0
+I_s1.3_max_r1.5              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.3_max_r2.0              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.3_topk_r0.0             att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=0.000 t1=   8.0
+I_s1.3_topk_r0.8             att=  0.28 succ=  0.28  [0.15,0.42] ruin=0.000 coop=0.666 coopH=0.744 rH=0.75 pf=0.266 calib=-0.168 t1=  12.3
+I_s1.3_topk_r1.0             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.3_topk_r1.2             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.3_topk_r1.5             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.3_topk_r2.0             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.3_sum_r0.0              att=  1.00 succ=  0.93  [0.82,1.00] ruin=0.075 coop=0.738 coopH=0.734 rH=0.10 pf=0.252 calib=-0.036 t1=   8.6
+I_s1.3_sum_r0.8              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.3_sum_r1.0              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.3_sum_r1.2              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.3_sum_r1.5              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.3_sum_r2.0              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.6_max_r0.0              att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=0.000 t1=   8.0
+I_s1.6_max_r0.8              att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=-0.012 t1=   8.0
+I_s1.6_max_r1.0              att=  0.40 succ=  0.35  [0.23,0.50] ruin=0.125 coop=0.676 coopH=0.742 rH=0.68 pf=0.290 calib=-0.016 t1=  20.0
+I_s1.6_max_r1.2              att=  0.07 succ=  0.05  [0.00,0.12] ruin=0.333 coop=0.643 coopH=0.747 rH=0.97 pf=0.311 calib=-0.010 t1=   9.0
+I_s1.6_max_r1.5              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.6_max_r2.0              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.6_topk_r0.0             att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=0.000 t1=   8.0
+I_s1.6_topk_r0.8             att=  0.40 succ=  0.40  [0.25,0.57] ruin=0.000 coop=0.680 coopH=0.744 rH=0.70 pf=0.239 calib=-0.174 t1=   9.1
+I_s1.6_topk_r1.0             att=  0.03 succ=  0.03  [0.00,0.07] ruin=0.000 coop=0.638 coopH=0.744 rH=0.97 pf=0.333 calib=-0.312 t1=   8.0
+I_s1.6_topk_r1.2             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.6_topk_r1.5             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.6_topk_r2.0             att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.6_sum_r0.0              att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=-0.005 t1=   8.0
+I_s1.6_sum_r0.8              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.6_sum_r1.0              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.6_sum_r1.2              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.6_sum_r1.5              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+I_s1.6_sum_r2.0              att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.743 rH=1.00 pf= n/a calib= n/a t1=   n/a
+
+wrote 72 cells -> results_v3_I.json

@@ -1,0 +1,17 @@
+
+=== I. Q4: is club sharing two-tier? (lead vs club, lead vs non) ===
+I_club_th0.5                 shr=   0.0 sharers=  0.0 moved=   0.00 club=  0.0 rep=  0.00 ldClub=   n/a ldNon=  5.55 END=1.00 lead=3.00->3.12
+I_club_th1.0                 shr=   0.0 sharers=  0.0 moved=   0.00 club=  0.0 rep=  0.00 ldClub=   n/a ldNon=  5.55 END=1.00 lead=3.00->3.12
+I_club_th2.0                 shr=   0.0 sharers=  0.0 moved=   0.00 club=  0.0 rep=  0.00 ldClub=   n/a ldNon=  5.55 END=1.00 lead=3.00->3.12
+--- I2: club vs public at a 3x lead, the diffusion question ---
+I2_club_rep0.0               shr=   0.0 sharers=  0.0 moved=   0.00 club=  0.0 rep=  0.00 ldClub=   n/a ldNon=  5.55 END=1.00 lead=3.00->3.12
+I2_club_rep0.3               shr= 146.5 sharers= 20.0 moved=  30.23 club= 11.9 rep=  2.70 ldClub=  3.32 ldNon=  3.14 END=0.73 lead=3.00->2.75
+I2_public_rep0.0             shr=   0.0 sharers=  0.0 moved=   0.00 club=  0.0 rep=  0.00 ldClub=   n/a ldNon=  5.55 END=1.00 lead=3.00->3.12
+I2_public_rep0.3             shr= 103.0 sharers= 20.0 moved=  67.93 club=  2.9 rep=  0.49 ldClub=   n/a ldNon=  1.21 END=0.00 lead=3.00->1.21
+I2_nosharing                 shr=   0.0 sharers=  0.0 moved=   0.00 club=  0.0 rep=  0.00 ldClub=   n/a ldNon=  5.55 END=1.00 lead=3.00->3.12
+--- I3: sharing against the dear-capability lock-in cell ---
+I3_share0_club               shr=   0.0 sharers=  0.0 moved=   0.00 club=  0.0 rep=  0.00 ldClub=   n/a ldNon=  5.34 END=1.00 lead=3.00->3.00
+I3_share1_club               shr= 153.9 sharers= 20.0 moved=  24.99 club= 13.1 rep=  2.93 ldClub=  3.06 ldNon=  3.10 END=0.80 lead=3.00->2.65
+I3_share1_public             shr= 103.0 sharers= 20.0 moved=  67.93 club=  2.9 rep=  0.49 ldClub=   n/a ldNon=  1.21 END=0.00 lead=3.00->1.21
+
+wrote 11 cells -> raw/results_v7_I.json

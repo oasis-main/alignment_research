@@ -1,0 +1,14 @@
+=== F. Q1: did the reprice revive `seize`? (pass 6: never, ever) ===
+F_cseize0.05                 END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+F_cseize0.25                 END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+F_cseize0.75                 END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+F_cseize1.5                  END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+--- F2: with raiding made worthwhile (take_frac=0.4) ---
+F2_cseize0.05                END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.4 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+F2_cseize0.25                END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+F2_cseize0.75                END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+--- F3: endogenous vs exogenous prize, the unit fix itself ---
+F3_endogenous                END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+F3_exogenous                 END=0.00[0.00,0.00] lead=1.25->   1.43 grow=   0.6 seize=  0.0 prep=  0.2 post= 1.000 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   n/a
+
+wrote 9 cells -> raw/results_v7_F.json

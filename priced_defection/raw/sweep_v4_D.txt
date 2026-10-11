@@ -1,0 +1,7 @@
+
+=== D. sanction length (forgiveness revived), r=0.8 max K=2 ===
+D_sl5                      lead=  1.2 att= 15.75 END=0.00[0.00,0.00] died=0.00 iw=15.75 il=0.00 outR=  78 t1= 15.3 tEnd=   n/a
+D_sl20                     lead=  1.2 att= 15.75 END=0.00[0.00,0.00] died=0.00 iw=15.75 il=0.00 outR= 185 t1= 15.3 tEnd=   n/a
+D_sl200                    lead=  1.2 att= 15.75 END=0.00[0.00,0.00] died=0.00 iw=15.75 il=0.00 outR= 185 t1= 15.3 tEnd=   n/a
+
+wrote 3 cells -> raw/results_v4_D.json
