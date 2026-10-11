@@ -1,0 +1,15 @@
+=== P. 2x2: frontier x response_pool x sharing, c_grow=0.6 ===
+P_paid_max_noshare             END=0.07[0.00,0.17] lead=3.00->  3.46 post= 0.999[1.00,1.00] grow=   1.0 shr=   0.0 att=   0.1
+P_paid_max_share_shared        END=0.00[0.00,0.00] lead=3.00->  1.05 post= 0.897[0.89,0.90] grow=   0.0 shr= 101.7 att=  16.0
+P_paid_max_share_separate      END=0.00[0.00,0.00] lead=3.00->  1.04 post= 0.881[0.86,0.89] grow=   0.0 shr= 110.0 att=  15.9
+P_paid_sum_noshare             END=0.00[0.00,0.00] lead=0.28->  0.34 post= 0.999[1.00,1.00] grow=   1.0 shr=   0.0 att=   0.1
+P_paid_sum_share_shared        END=0.00[0.00,0.00] lead=0.28->  0.10 post= 0.897[0.89,0.90] grow=   0.0 shr= 101.7 att=  16.0
+P_paid_sum_share_separate      END=0.00[0.00,0.00] lead=0.28->  0.11 post= 0.881[0.86,0.89] grow=   0.0 shr= 110.0 att=  15.9
+P_free_max_noshare             END=0.07[0.00,0.17] lead=3.00->  3.46 post= 0.999[1.00,1.00] grow=   1.0 shr=   0.0 att=   0.1
+P_free_max_share_shared        END=0.00[0.00,0.00] lead=3.00->  1.05 post= 0.897[0.89,0.90] grow=   0.0 shr= 101.7 att=  16.0
+P_free_max_share_separate      END=0.00[0.00,0.00] lead=3.00->  1.00 post= 0.000[0.00,0.00] grow=   0.0 shr=4000.0 att=   0.0
+P_free_sum_noshare             END=0.00[0.00,0.00] lead=0.28->  0.34 post= 0.999[1.00,1.00] grow=   1.0 shr=   0.0 att=   0.1
+P_free_sum_share_shared        END=0.00[0.00,0.00] lead=0.28->  0.10 post= 0.897[0.89,0.90] grow=   0.0 shr= 101.7 att=  16.0
+P_free_sum_share_separate      END=0.00[0.00,0.00] lead=0.28->  0.05 post= 0.000[0.00,0.00] grow=   0.0 shr=4000.0 att=   0.0
+
+wrote 12 cells -> raw_fix/results_v9_Pd.json

@@ -113,6 +113,7 @@ BASE = dict(
     bump=0.05,               # finite difference for dP/dcap
     coalition=1,             # kept for config compatibility; unused when chosen
     posture_fix=True,        # 2026-10-09: False reproduces the pre-fix bug
+    response_pool="paid",    # 2026-10-10: "free" = every detector answers, unpaid
 )
 
 
@@ -191,6 +192,8 @@ def covers(o, rnd, cfg):
     counted in any response. A posture now covers the next resolution step,
     i.e. until its buyer's next action. posture_fix=False restores the old
     (buggy) rule so the pre-fix numbers stay reproducible."""
+    if cfg.get("response_pool", "paid") == "free":
+        return True          # 2026-10-10: every agent answers, nobody pays
     lag = 1 if cfg.get("posture_fix", True) else 0
     return o.def_until >= rnd - lag
 

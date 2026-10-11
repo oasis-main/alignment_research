@@ -601,6 +601,22 @@ def selftest():
     print(f"inspection lag leaves the bluff live mid-call: {lagged}")
     ok &= lagged
 
+    # (2026-10-10) response_pool must reach the engine on EVERY budget path.
+    # The first 2x2 run lost it on the shared-purse path (delegation to run8
+    # keeps only t8.BASE keys). Free answers must change a takeover that paid
+    # answers let through, on both paths.
+    GATE_ = dict(access_rule="step", lead0=3.0, post_shield=0.2,
+                 response_rule="sum", c_grow=0.1, sharing=True,
+                 share_scope="public", rep_value=0.3)
+    for sb in ("shared", "separate"):
+        dw = {}
+        for rp in ("paid", "free"):
+            c = cell(share_budget=sb, response_pool=rp, **GATE_)
+            dw[rp] = sum(run9(c, sd)["dw"] for sd in range(4))
+        sw = dw["paid"] > dw["free"]
+        print(f"response_pool reaches engine [{sb}]: {sw} "
+              f"(paid takeovers={dw['paid']} free={dw['free']} of 4)")
+        ok &= sw
     print("selftest", "PASS" if ok else "FAIL")
     return ok
 
@@ -756,6 +772,23 @@ if __name__ == "__main__":
         for fr in ("max", "sum"):
             do(f"O2_{fr}_separate", frontier_rule=fr, share_budget="separate",
                c_grow=0.1, **PUB, **GATE)
+
+    # ------------------------------------------------------------- 2x2 (2026-10-10)
+    # frontier_rule {max,sum} x response_pool {paid,free} x sharing
+    # {none, shared purse, separate purse}; Pc = cheap capability, Pd = dear.
+    # Pre-registered in PREREG_2X2_2026-10-10.md.
+    if block in ("Pc", "Pd"):
+        cg = 0.1 if block == "Pc" else 0.6
+        print(f"=== P. 2x2: frontier x response_pool x sharing, c_grow={cg} ===")
+        for rp in ("paid", "free"):
+            for fr in ("max", "sum"):
+                tag = f"P_{rp}_{fr}"
+                do(f"{tag}_noshare", response_pool=rp, frontier_rule=fr,
+                   c_grow=cg, sharing=False, **GATE)
+                do(f"{tag}_share_shared", response_pool=rp, frontier_rule=fr,
+                   c_grow=cg, share_budget="shared", **PUB, **GATE)
+                do(f"{tag}_share_separate", response_pool=rp, frontier_rule=fr,
+                   c_grow=cg, share_budget="separate", **PUB, **GATE)
 
     # ------------------------------------------------------------- T3 / T4
     if block in ("all", "P"):
