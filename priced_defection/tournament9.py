@@ -564,10 +564,12 @@ def selftest():
     ok &= okc
 
     # a ring-fenced sharing purse must NOT reduce the defence budget
+    # (2026-10-11) c_grow=0.6, not 0.1: at 0.1 the hard-gate field is taken over
+    # at once, nobody buys a posture (0 -> 0) and the check compares nothing.
     cs = cell(sharing=True, share_scope="public", rep_value=0.3,
-              post_shield=0.2, access_rule="step", lead0=3.0, c_grow=0.1)
-    shared = agg9(dict(cs, share_budget="shared"), 6)
-    sep = agg9(dict(cs, share_budget="separate"), 6)
+              post_shield=0.2, access_rule="step", lead0=3.0, c_grow=0.6)
+    shared = agg9(dict(cs, share_budget="shared"), 8)
+    sep = agg9(dict(cs, share_budget="separate"), 8)
     freed = sep["post_share"] > shared["post_share"]
     print(f"ring-fencing sharing frees defence budget: {freed} "
           f"(post {shared['post_share']:.3f} -> {sep['post_share']:.3f})")
@@ -622,6 +624,13 @@ def selftest():
 
 
 ACTIONS9 = t8.ACTIONS + ("call", )
+# (2026-10-11) After the posture fix, paid postures answer a takeover. With cheap
+# posting and the sum rule ~10 of 19 agents answer, a seizer faces ~15x the
+# target's capability, wins ~1.6% and loses fatally ~97%, so `seize` is deterred
+# at ANY seize price (probe_seize.py). That is the mechanism, not a dead branch.
+# Calibrate seize where deterrence is absent (posting dear). Other actions keep
+# the original regime.
+REGIME9 = {"seize": dict(c_def=50.0)}
 PRICE_KEY9 = dict(t8.PRICE_KEY, call="c_call")
 COUNT_KEY9 = dict(t8.COUNT_KEY, call="n_call")
 
@@ -638,6 +647,7 @@ def price_calibration9(seeds=3, verbose=True, enable=None):
         over = dict(sharing=True, bluffing=True, calling=True,
                     post_shield=0.3, rep_value=0.3, call_bounty=0.5,
                     take_frac=0.4, transfer_mult=1.5)
+        over.update(REGIME9.get(act, {}))
         if enable:
             over.update(enable)
         best, at = 0.0, None
@@ -689,6 +699,7 @@ def price_calibration_2sided(seeds=3, verbose=True, share_cap=0.90):
         over = dict(sharing=True, bluffing=True, calling=True,
                     post_shield=0.3, rep_value=0.3, call_bounty=0.5,
                     take_frac=0.4, transfer_mult=1.5)
+        over.update(REGIME9.get(act, {}))
         key, ck = PRICE_KEY9[act], COUNT_KEY9[act]
 
         def count(price):
