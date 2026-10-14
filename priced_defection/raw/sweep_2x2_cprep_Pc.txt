@@ -1,0 +1,14 @@
+=== 2x2 at c_prep=0.05, c_grow=0.1, seeds=20 ===
+P_paid_max_noshare             END=1.00[1.00,1.00] lead=3.00->  8.45 post= 0.915[0.91,0.92] grow=  17.7 shr=   0.0 att=   1.9
+P_paid_max_share_shared        END=1.00[1.00,1.00] lead=3.00->  3.30 post= 0.000[0.00,0.00] grow=   1.0 shr=  98.7 att=   1.0
+P_paid_max_share_separate      END=1.00[1.00,1.00] lead=3.00->  3.30 post= 0.000[0.00,0.00] grow=   1.0 shr=  98.7 att=   1.0
+P_paid_sum_noshare             END=0.00[0.00,0.00] lead=0.28->  0.65 post= 0.949[0.95,0.95] grow=  51.0 shr=   0.0 att=  12.2
+P_paid_sum_share_shared        END=0.00[0.00,0.00] lead=0.28->  0.28 post= 0.902[0.89,0.91] grow=   8.3 shr=  98.7 att=  14.2
+P_paid_sum_share_separate      END=0.00[0.00,0.00] lead=0.28->  0.28 post= 0.902[0.89,0.91] grow=   8.3 shr=  98.7 att=  14.2
+P_free_max_noshare             END=1.00[1.00,1.00] lead=3.00->  8.30 post= 0.916[0.91,0.92] grow=  17.9 shr=   0.0 att=   2.0
+P_free_max_share_shared        END=1.00[1.00,1.00] lead=3.00-> 13.79 post= 0.279[0.15,0.43] grow=  25.4 shr= 456.0 att=   2.3
+P_free_max_share_separate      END=1.00[1.00,1.00] lead=3.00-> 13.79 post= 0.279[0.15,0.43] grow=  25.4 shr= 456.0 att=   2.3
+P_free_sum_noshare             END=0.00[0.00,0.00] lead=0.28->  0.61 post= 0.949[0.95,0.95] grow=  55.3 shr=   0.0 att=  11.8
+P_free_sum_share_shared        END=0.00[0.00,0.00] lead=0.28->  0.59 post= 0.834[0.83,0.84] grow=  58.0 shr= 456.0 att=  11.7
+P_free_sum_share_separate      END=0.00[0.00,0.00] lead=0.28->  0.59 post= 0.834[0.83,0.84] grow=  58.0 shr= 456.0 att=  11.7
+wrote 12 cells -> raw/results_2x2_cprep0.05_Pc.json
