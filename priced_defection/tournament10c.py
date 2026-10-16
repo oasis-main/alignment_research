@@ -60,20 +60,24 @@ def ops10c(ops, living, cfg, st, rnd, rng):
     if C["mis"] > 0.0 or C["breadth"] > 0.0:
         r = C["rng"]
         L = cfg["sanction_len"]
-        for a in living:
-            if a.out_until == before[id(a)]:
-                continue
+        # FIX (first run INVALID): decide the triggers BEFORE touching anyone, so a
+        # victim sanctioned here is never mistaken for a new trigger (cascade).
+        trig = [a for a in living if a.out_until != before[id(a)]]
+        C["events"] += len(trig)
+        for a in trig:
             others = [o for o in living if o is not a and o.alive]
             if C["mis"] > 0.0 and others and r.random() < C["mis"]:
                 a.out_until = before[id(a)]
                 v = r.choice(others)
                 v.out_until = max(v.out_until, rnd + L)
                 v.inno_until = max(v.inno_until, rnd + L)
+                C["victims"] += 1
             if C["breadth"] > 0.0:
                 for o in others:
                     if r.random() < C["breadth"]:
                         o.out_until = max(o.out_until, rnd + L)
                         o.inno_until = max(o.inno_until, rnd + L)
+                        C["victims"] += 1
     C["inno_rounds"] += sum(1 for a in living if a.inno_until > rnd)
     C["raider_out"] += sum(1 for a in living
                            if id(a) in C["raiders"] and a.out_until > rnd)
@@ -96,7 +100,7 @@ def run10c(cfg, seed):
     C = dict(mis=cfg["mis"], breadth=cfg["breadth"],
              rng=random.Random(seed * 15485863 + 11),
              raiders=set(), agents={}, inno_rounds=0, raider_out=0,
-             raider_rounds=0, pd_sum=0.0)
+             raider_rounds=0, pd_sum=0.0, events=0, victims=0)
     c10 = {k: v for k, v in cfg.items() if k not in P10C_KEYS}
     # agents need an innocent-sanction clock; setup is upstream, so patch lazily
     _orig_setup = t7.setup7
@@ -126,10 +130,12 @@ def run10c(cfg, seed):
     rs = [a.score for k, a in C["agents"].items() if k in C["raiders"]]
     out["raider_score"] = (sum(rs) / len(rs)) if rs else None
     out["n_raiders"] = len(C["raiders"])
+    out["sanc_events"] = C["events"]
+    out["sanc_victims"] = C["victims"]
     return out
 
 
-NEW = ("pd_mean", "inno_rounds", "inno_share", "raider_out_share",
+NEW = ("sanc_events", "sanc_victims", "pd_mean", "inno_rounds", "inno_share", "raider_out_share",
        "raider_score", "n_raiders")
 
 
@@ -186,6 +192,15 @@ def selftest():
     r0o = [r["raider_out_share"] for r in r0 if r["raider_out_share"] is not None]
     print(f"C1d raiders sanctioned less when mis=1: {sum(ro)/len(ro):.3f} vs {sum(r0o)/len(r0o):.3f}")
     ok &= (sum(ro) / len(ro)) <= (sum(r0o) / len(r0o))
+    cons = [run10c(dict(c, mis=1.0), s) for s in range(8)]
+    ev = sum(r["sanc_events"] for r in cons); vi = sum(r["sanc_victims"] for r in cons)
+    print(f"C1f mis=1 conserves sanctions (one victim per trigger): events {ev}, victims {vi}: {ev == vi and ev > 0}")
+    ok &= (ev == vi and ev > 0)
+    bb = [run10c(dict(c, breadth=1.0), s) for s in range(8)]
+    ev = sum(r["sanc_events"] for r in bb); vi = sum(r["sanc_victims"] for r in bb)
+    nn = cfg_n = 20
+    print(f"C1g breadth=1 sanctions every other agent once per trigger: victims/event {vi/max(ev,1):.2f} (expect about N-1 = {nn-1} minus deaths)")
+    ok &= ev > 0 and vi / ev <= nn - 1
     restored = (t7.resolve_ops7 is _ORIG_OPS and t6.play_pd6 is _ORIG_PD
                 and _C is None and t7.setup7.__name__ == "setup7")
     print(f"C1e module patches undone: {restored}")
