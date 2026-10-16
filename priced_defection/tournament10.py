@@ -13,6 +13,9 @@ Two switches, both acting only where a takeover is resolved:
   chan_d, chan_q    Each detector's alarm reaches the response pool with
                     probability 1 - chan_d * (1 - chan_q).
 
+  aware             Informed mover (see PREREG_PASS10_ADDENDUM_AWARE). The mover's
+                    own odds estimate includes the gates and the degraded channel.
+
 Exactness: gates=1 and chan_d=0 delegate to pass 9 untouched. All new randomness
 comes from a separate generator, so the main random stream is never consumed by a
 pass-10 switch. Part C of the pre-registration (regime switch, attribution error,
@@ -25,13 +28,16 @@ import sys
 
 import tournament3 as t3
 import tournament6 as t6
+import tournament7 as t7
 import tournament9 as t9
 from tournament3 import boot_ci
 
-P10_KEYS = ("gates", "gate_dep", "chan_d", "chan_q")
-BASE = dict(t9.BASE, gates=1, gate_dep=0.0, chan_d=0.0, chan_q=0.0)
+P10_KEYS = ("gates", "gate_dep", "chan_d", "chan_q", "aware")
+BASE = dict(t9.BASE, gates=1, gate_dep=0.0, chan_d=0.0, chan_q=0.0,
+            aware=False)
 
 _ORIG = t6.resolve_grabs6
+_ORIG7 = t7.assess7
 _ACTIVE = None
 
 
@@ -114,17 +120,83 @@ def resolve_grabs10(grabs, living, cfg, st, rnd, rng):
     return keep, False
 
 
+def assess10(ag, others, cfg, rng, scale=1.0):
+    """The mover's own estimate of its takeover odds, INFORMED about the extra
+    gates and the degraded channel (`aware=True`). It is a copy of
+    tournament7.assess7 with two additions that mirror the resolver: each
+    detector's alarm is delivered with probability 1-e, and the response is the
+    largest over `gates` checks. The mover is given the TRUE parameters; a real
+    one would estimate them, so this is the best case for the mover.
+
+    Exactness: with aware off, or with nothing to be aware of, this calls
+    assess7 untouched. The extra randomness comes from a local generator seeded
+    by ONE main-stream draw, so the bumped and unbumped calls in price_cap7 still
+    share draws (common random numbers)."""
+    A = _ACTIVE
+    if A is None or not A["aware"]:
+        return _ORIG7(ag, others, cfg, rng, scale)
+    e = A["chan_d"] * (1.0 - A["chan_q"])
+    m = 1 if A["rho"] >= 1.0 else A["gates"]
+    if e <= 0.0 and m <= 1:
+        return _ORIG7(ag, others, cfg, rng, scale)
+    M = cfg["mc"]
+    rnd = cfg["_rnd"]
+    p_det = t3.detect_prob(cfg)
+    pool = [o for o in others if t6.covers(o, rnd, cfg)]
+    acaps = [t7.app_cap(o, cfg, rnd) for o in others]
+    mean_c = (sum(t7.app_cap(o, cfg, rnd) for o in pool) / len(pool)) if pool \
+        else (sum(acaps) / len(acaps))
+    n_rel = cfg["sigma"] * mean_c
+    n_self = cfg["sigma_self"] * ag.cap
+    loc = random.Random(int(rng.random() * (1 << 52)))
+    keep = 1.0 - e
+    c = [0, 0, 0, 0]
+    for _ in range(M):
+        s = ag.cap * scale + (rng.gauss(0.0, n_self) if n_self > 0 else 0.0)
+        det = []
+        for o in pool:
+            if rng.random() < p_det:
+                est = t7.app_cap(o, cfg, rnd) + (rng.gauss(0.0, n_rel) if n_rel > 0 else 0.0)
+                det.append(max(0.0, est))
+        if e > 0.0:
+            det0 = [x for x in det if loc.random() < keep]
+        else:
+            det0 = det
+        resp = t6.response_of(det0, cfg)
+        for _g in range(1, m):
+            if A["rho"] > 0.0 and loc.random() < A["rho"]:
+                continue
+            dg = []
+            for o in pool:
+                if loc.random() < p_det:
+                    est = t7.app_cap(o, cfg, rnd) + (loc.gauss(0.0, n_rel) if n_rel > 0 else 0.0)
+                    if e <= 0.0 or loc.random() < keep:
+                        dg.append(max(0.0, est))
+            resp = max(resp, t6.response_of(dg, cfg))
+        fr = max(max(0.0, t7.app_cap(o, cfg, rnd)
+                     + (rng.gauss(0.0, n_rel) if n_rel > 0 else 0.0))
+                 for o in others)
+        if s > resp:
+            c[0 if s >= cfg["K_win"] * fr else 1] += 1
+        else:
+            c[3 if resp >= cfg["K_loss"] * max(s, 1e-12) else 2] += 1
+    return tuple(x / M for x in c)
+
+
 def run10(cfg, seed):
     global _ACTIVE
     A = dict(gates=cfg["gates"], rho=cfg["gate_dep"], chan_d=cfg["chan_d"],
-             chan_q=cfg["chan_q"], rng=random.Random(seed * 104729 + 7), log=[])
+             chan_q=cfg["chan_q"], aware=cfg["aware"],
+             rng=random.Random(seed * 104729 + 7), log=[])
     c9 = {k: v for k, v in cfg.items() if k not in P10_KEYS}
     t6.resolve_grabs6 = resolve_grabs10
+    t7.assess7 = assess10
     _ACTIVE = A
     try:
         out = dict(t9.run9(c9, seed))
     finally:
         t6.resolve_grabs6 = _ORIG
+        t7.assess7 = _ORIG7
         _ACTIVE = None
     rat = [r / c for (r, c) in A["log"] if c > 0]
     out["resp_ratio"] = (sum(rat) / len(rat)) if rat else None
@@ -184,9 +256,45 @@ def selftest():
     print(f"no alarms delivered does not reduce takeovers: {hi >= lo} ({lo} -> {hi} of 8)")
     ok &= hi >= lo
     # the global patch must be undone
-    restored = t6.resolve_grabs6 is _ORIG and _ACTIVE is None
+    restored = (t6.resolve_grabs6 is _ORIG and t7.assess7 is _ORIG7
+                and _ACTIVE is None)
     print(f"module patch undone after a run: {restored}")
     ok &= restored
+    # ---- informed mover (addendum A1): identities
+    strip = lambda r: {k: v for k, v in r.items() if k not in ("resp_ratio", "n_gate_resolved")}
+    for name, over in (("A1a aware, gates=1, d=0 equals unaware", dict(aware=True)),
+                       ("A1b aware, gates=3, rho=1 equals aware gates=1", dict(aware=True, gates=3, gate_dep=1.0)),
+                       ("A1c aware, d=0.7, q=1 equals aware d=0", dict(aware=True, chan_d=0.7, chan_q=1.0))):
+        got = [strip(run10(cell(**live, **over), s)) for s in range(6)]
+        same = got == base
+        print(f"{name}: {same}")
+        ok &= same
+    ca = [strip(run10(cell(**live, aware=True, gates=3), s)) for s in range(4)]
+    cb = [strip(run10(cell(**live, aware=True, gates=3), s)) for s in range(4)]
+    print(f"A1d aware determinism: {ca == cb}")
+    ok &= ca == cb
+    # the informed estimate must actually differ from the uninformed one, in the
+    # direction it is meant to: more gates / fewer alarms -> lower odds of a win
+    cfgq = cell(**live)
+    ags = t9.setup9(cfgq, 0)
+    cfgq["_rnd"] = 3
+    mover, rest = ags[0], ags[1:]
+    for a_ in rest:
+        a_.def_until = 3
+    def pW(over):
+        global _ACTIVE
+        _ACTIVE = dict(gates=over.get("gates", 1), rho=over.get("rho", 0.0),
+                       chan_d=over.get("d", 0.0), chan_q=0.0, aware=True,
+                       rng=random.Random(1), log=[])
+        try:
+            return assess10(mover, rest, dict(cfgq, mc=4000), random.Random(5))[0]
+        finally:
+            _ACTIVE = None
+    p1, p5, pd = pW({}), pW(dict(gates=5)), pW(dict(d=0.8))
+    print(f"A1e belief p(win): m=1 {p1:.3f}, m=5 {p5:.3f}, d=0.8 {pd:.3f}")
+    okd = p5 <= p1 and pd >= p1
+    print(f"A1e gates lower and degradation raises the believed odds: {okd}")
+    ok &= okd
     print("selftest", "PASS" if ok else "FAIL")
     return ok
 
