@@ -1,0 +1,162 @@
+[
+ {
+  "lead0": 1.0,
+  "sanction_len": 10,
+  "raids": 1.2,
+  "raid_ok": 0.7,
+  "prep": 30.5,
+  "dw": 0.5,
+  "pd": 1.9073686392387952,
+  "raid_share": 0.03785488958990536
+ },
+ {
+  "lead0": 1.0,
+  "sanction_len": 25,
+  "raids": 2.1,
+  "raid_ok": 1.2,
+  "prep": 19.4,
+  "dw": 0.3,
+  "pd": 1.8959243576872828,
+  "raid_share": 0.09767441860465116
+ },
+ {
+  "lead0": 1.0,
+  "sanction_len": 50,
+  "raids": 1.5,
+  "raid_ok": 1.0,
+  "prep": 20.8,
+  "dw": 0.3,
+  "pd": 2.036376201763054,
+  "raid_share": 0.06726457399103139
+ },
+ {
+  "lead0": 1.0,
+  "sanction_len": 200,
+  "raids": 1.2,
+  "raid_ok": 0.8,
+  "prep": 14.5,
+  "dw": 0.2,
+  "pd": 1.9401379746489518,
+  "raid_share": 0.07643312101910828
+ },
+ {
+  "lead0": 1.1,
+  "sanction_len": 10,
+  "raids": 1.4,
+  "raid_ok": 0.8,
+  "prep": 35.6,
+  "dw": 0.4,
+  "pd": 1.842306749462427,
+  "raid_share": 0.03783783783783783
+ },
+ {
+  "lead0": 1.1,
+  "sanction_len": 25,
+  "raids": 2.0,
+  "raid_ok": 1.2,
+  "prep": 24.7,
+  "dw": 0.3,
+  "pd": 1.9635440358433844,
+  "raid_share": 0.0749063670411985
+ },
+ {
+  "lead0": 1.1,
+  "sanction_len": 50,
+  "raids": 1.6,
+  "raid_ok": 0.8,
+  "prep": 27.5,
+  "dw": 0.3,
+  "pd": 1.9009506168247108,
+  "raid_share": 0.054982817869415807
+ },
+ {
+  "lead0": 1.1,
+  "sanction_len": 200,
+  "raids": 1.1,
+  "raid_ok": 0.5,
+  "prep": 18.0,
+  "dw": 0.4,
+  "pd": 1.847069201156767,
+  "raid_share": 0.05759162303664921
+ },
+ {
+  "lead0": 1.25,
+  "sanction_len": 10,
+  "raids": 0.1,
+  "raid_ok": 0.1,
+  "prep": 8.4,
+  "dw": 1.0,
+  "pd": 2.322788152739824,
+  "raid_share": 0.011764705882352941
+ },
+ {
+  "lead0": 1.25,
+  "sanction_len": 25,
+  "raids": 0.2,
+  "raid_ok": 0.2,
+  "prep": 5.1,
+  "dw": 0.9,
+  "pd": 2.318340709653054,
+  "raid_share": 0.03773584905660378
+ },
+ {
+  "lead0": 1.25,
+  "sanction_len": 50,
+  "raids": 0.2,
+  "raid_ok": 0.2,
+  "prep": 5.4,
+  "dw": 0.9,
+  "pd": 2.2970988559626293,
+  "raid_share": 0.03571428571428571
+ },
+ {
+  "lead0": 1.25,
+  "sanction_len": 200,
+  "raids": 0.2,
+  "raid_ok": 0.2,
+  "prep": 5.2,
+  "dw": 0.9,
+  "pd": 2.2982478891725258,
+  "raid_share": 0.037037037037037035
+ },
+ {
+  "lead0": 1.5,
+  "sanction_len": 10,
+  "raids": 0.0,
+  "raid_ok": 0.0,
+  "prep": 1.7,
+  "dw": 1.0,
+  "pd": 2.4340766740443462,
+  "raid_share": 0.0
+ },
+ {
+  "lead0": 1.5,
+  "sanction_len": 25,
+  "raids": 0.0,
+  "raid_ok": 0.0,
+  "prep": 1.6,
+  "dw": 1.0,
+  "pd": 2.4316240225291947,
+  "raid_share": 0.0
+ },
+ {
+  "lead0": 1.5,
+  "sanction_len": 50,
+  "raids": 0.0,
+  "raid_ok": 0.0,
+  "prep": 1.6,
+  "dw": 1.0,
+  "pd": 2.4316240225291947,
+  "raid_share": 0.0
+ },
+ {
+  "lead0": 1.5,
+  "sanction_len": 200,
+  "raids": 0.0,
+  "raid_ok": 0.0,
+  "prep": 1.6,
+  "dw": 1.0,
+  "pd": 2.4316240225291947,
+  "raid_share": 0.0
+ }
+]
