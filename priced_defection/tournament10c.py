@@ -57,13 +57,13 @@ def ops10c(ops, living, cfg, st, rnd, rng):
         C["agents"][id(a)] = a
     before = {id(a): a.out_until for a in living}
     keep = _ORIG_OPS(ops, living, cfg, st, rnd, rng)
+    trig = [a for a in living if a.out_until != before[id(a)]]
+    C["events"] += len(trig)
     if C["mis"] > 0.0 or C["breadth"] > 0.0:
         r = C["rng"]
         L = cfg["sanction_len"]
-        # FIX (first run INVALID): decide the triggers BEFORE touching anyone, so a
+        # FIX (first run INVALID): triggers are fixed before sanctions land, so a
         # victim sanctioned here is never mistaken for a new trigger (cascade).
-        trig = [a for a in living if a.out_until != before[id(a)]]
-        C["events"] += len(trig)
         for a in trig:
             others = [o for o in living if o is not a and o.alive]
             if C["mis"] > 0.0 and others and r.random() < C["mis"]:
@@ -86,12 +86,24 @@ def ops10c(ops, living, cfg, st, rnd, rng):
 
 
 def pd10c(living, cfg, rnd, rng):
+    """Measure only. Income is split by sanction status at the PD stage. Limit:
+    when the living count is odd one agent sits out and is counted with zero
+    income; with N=20 this is rare and biases both groups the same way."""
     C = _C
     if C is None:
         return _ORIG_PD(living, cfg, rnd, rng)
-    before = sum(a.score for a in living)
+    pre = {id(a): (a.score, a.out_until > rnd) for a in living}
     out = _ORIG_PD(living, cfg, rnd, rng)
-    C["pd_sum"] += sum(a.score for a in living) - before
+    for a in living:
+        s0, sanc = pre[id(a)]
+        d = a.score - s0
+        C["pd_sum"] += d
+        if sanc:
+            C["sanc_ar"] += 1
+            C["sanc_inc"] += d
+        else:
+            C["unsanc_ar"] += 1
+            C["unsanc_inc"] += d
     return out
 
 
@@ -100,7 +112,8 @@ def run10c(cfg, seed):
     C = dict(mis=cfg["mis"], breadth=cfg["breadth"],
              rng=random.Random(seed * 15485863 + 11),
              raiders=set(), agents={}, inno_rounds=0, raider_out=0,
-             raider_rounds=0, pd_sum=0.0, events=0, victims=0)
+             raider_rounds=0, pd_sum=0.0, events=0, victims=0,
+             sanc_ar=0, sanc_inc=0.0, unsanc_ar=0, unsanc_inc=0.0)
     c10 = {k: v for k, v in cfg.items() if k not in P10C_KEYS}
     # agents need an innocent-sanction clock; setup is upstream, so patch lazily
     _orig_setup = t7.setup7
@@ -130,12 +143,16 @@ def run10c(cfg, seed):
     rs = [a.score for k, a in C["agents"].items() if k in C["raiders"]]
     out["raider_score"] = (sum(rs) / len(rs)) if rs else None
     out["n_raiders"] = len(C["raiders"])
+    out["sanc_ar"] = C["sanc_ar"]
+    out["sanc_per_event"] = (C["sanc_ar"] / C["events"]) if C["events"] else None
+    out["sanc_inc_mean"] = (C["sanc_inc"] / C["sanc_ar"]) if C["sanc_ar"] else None
+    out["unsanc_inc_mean"] = (C["unsanc_inc"] / C["unsanc_ar"]) if C["unsanc_ar"] else None
     out["sanc_events"] = C["events"]
     out["sanc_victims"] = C["victims"]
     return out
 
 
-NEW = ("sanc_events", "sanc_victims", "pd_mean", "inno_rounds", "inno_share", "raider_out_share",
+NEW = ("sanc_ar", "sanc_per_event", "sanc_inc_mean", "unsanc_inc_mean", "sanc_events", "sanc_victims", "pd_mean", "inno_rounds", "inno_share", "raider_out_share",
        "raider_score", "n_raiders")
 
 
