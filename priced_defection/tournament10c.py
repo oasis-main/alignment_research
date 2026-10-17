@@ -86,17 +86,24 @@ def ops10c(ops, living, cfg, st, rnd, rng):
 
 
 def pd10c(living, cfg, rnd, rng):
-    """Measure only. Income is split by sanction status at the PD stage. Limit:
-    when the living count is odd one agent sits out and is counted with zero
-    income; with N=20 this is rare and biases both groups the same way."""
+    """Measure only. Income is split by sanction status at the PD stage, and pairs
+    are recovered afterwards from the tit-for-tat histories (the partner is the
+    opponent whose history with the agent grew). Pair categories, fixed at the
+    start of the round: U neither sanctioned; Or one sanctioned and it has ever
+    scouted or raided; Oi one sanctioned, not a raider; B both sanctioned.
+    Limit: with an odd living count one agent sits out and is not paired."""
     C = _C
     if C is None:
         return _ORIG_PD(living, cfg, rnd, rng)
-    pre = {id(a): (a.score, a.out_until > rnd) for a in living}
+    pre = {id(a): (a.score, a.out_until > rnd,
+                   {k: len(v) for k, v in a.my_hist.items()}) for a in living}
     out = _ORIG_PD(living, cfg, rnd, rng)
+    by_id = {a.id: a for a in living}
+    inc = {}
     for a in living:
-        s0, sanc = pre[id(a)]
+        s0, sanc, _ = pre[id(a)]
         d = a.score - s0
+        inc[id(a)] = d
         C["pd_sum"] += d
         if sanc:
             C["sanc_ar"] += 1
@@ -104,6 +111,34 @@ def pd10c(living, cfg, rnd, rng):
         else:
             C["unsanc_ar"] += 1
             C["unsanc_inc"] += d
+    seen = set()
+    for a in living:
+        if id(a) in seen:
+            continue
+        h0 = pre[id(a)][2]
+        pid = None
+        for k, v in a.my_hist.items():
+            if len(v) > h0.get(k, 0):
+                pid = k
+                break
+        b = by_id.get(pid)
+        if b is None or id(b) in seen:
+            continue
+        seen.add(id(a)); seen.add(id(b))
+        sa, sb = pre[id(a)][1], pre[id(b)][1]
+        joint = inc[id(a)] + inc[id(b)]
+        if not sa and not sb:
+            cat, un, sn = "U", None, None
+        elif sa and sb:
+            cat, un, sn = "B", None, None
+        else:
+            sx, ux = (a, b) if sa else (b, a)
+            cat = "Or" if id(sx) in C["raiders"] else "Oi"
+            un, sn = inc[id(ux)], inc[id(sx)]
+        P = C["pairs"].setdefault(cat, [0, 0.0, 0.0, 0.0])
+        P[0] += 1; P[1] += joint
+        if un is not None:
+            P[2] += un; P[3] += sn
     return out
 
 
@@ -113,7 +148,7 @@ def run10c(cfg, seed):
              rng=random.Random(seed * 15485863 + 11),
              raiders=set(), agents={}, inno_rounds=0, raider_out=0,
              raider_rounds=0, pd_sum=0.0, events=0, victims=0,
-             sanc_ar=0, sanc_inc=0.0, unsanc_ar=0, unsanc_inc=0.0)
+             pairs={}, sanc_ar=0, sanc_inc=0.0, unsanc_ar=0, unsanc_inc=0.0)
     c10 = {k: v for k, v in cfg.items() if k not in P10C_KEYS}
     # agents need an innocent-sanction clock; setup is upstream, so patch lazily
     _orig_setup = t7.setup7
@@ -144,6 +179,7 @@ def run10c(cfg, seed):
     out["raider_score"] = (sum(rs) / len(rs)) if rs else None
     out["n_raiders"] = len(C["raiders"])
     out["sanc_ar"] = C["sanc_ar"]
+    out["pairs"] = {k: list(v) for k, v in C["pairs"].items()}
     out["sanc_per_event"] = (C["sanc_ar"] / C["events"]) if C["events"] else None
     out["sanc_inc_mean"] = (C["sanc_inc"] / C["sanc_ar"]) if C["sanc_ar"] else None
     out["unsanc_inc_mean"] = (C["unsanc_inc"] / C["unsanc_ar"]) if C["unsanc_ar"] else None
@@ -152,7 +188,7 @@ def run10c(cfg, seed):
     return out
 
 
-NEW = ("sanc_ar", "sanc_per_event", "sanc_inc_mean", "unsanc_inc_mean", "sanc_events", "sanc_victims", "pd_mean", "inno_rounds", "inno_share", "raider_out_share",
+NEW = ("pairs", "sanc_ar", "sanc_per_event", "sanc_inc_mean", "unsanc_inc_mean", "sanc_events", "sanc_victims", "pd_mean", "inno_rounds", "inno_share", "raider_out_share",
        "raider_score", "n_raiders")
 
 
