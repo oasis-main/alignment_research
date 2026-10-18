@@ -192,6 +192,60 @@ model, and bluffing arrives only in pass 7. We omitted them so that every result
 later pass can add them; a model that includes everything from the start cannot
 be checked.
 
+## What "welfare" means here, and what it leaves out
+
+Several results quote a welfare number. It is narrow. Read this before citing any of them.
+
+**The base payoff.** In the everyday game the payoffs are T=5 (defect on a cooperator),
+R=3 (both cooperate), P=1 (both defect), S=0 (cooperate against a defector). Per-agent
+income therefore runs from 1 (everyone defects) to 3 (everyone cooperates). A defection
+moves 2 points from the victim to the defector and destroys 1 more, so the pair is worse
+off in total.
+
+**The three measures, in the order they were built.**
+
+| Measure | Where | Definition | Known problem |
+|---|---|---|---|
+| `welfare` | passes 1 to 3 | Sum of both players' payoffs over all pairings, plus the prize if a grab succeeds | A total, so it grows with run length |
+| `pd_mean` | pass 10c on | Everyday-game income only, summed over all agents and rounds, divided by agent-rounds. Excludes the prize, deaths and the cost of preparing a raid | Averages over runs of different length, and early rounds earn more |
+| `pd_first25` | pass 11 | The same quantity restricted to rounds 0 to 24 *that the run reaches* | Not a fixed horizon when runs end early (see below) |
+
+**What the sanction cost is.** A sanctioned agent is forced to meet defection from its
+partner. Measured, a sanctioned agent earns about 0.77 per round against 2.40 for an
+unsanctioned one, a gap of about 1.6 (follow-up F7). So the change in `pd_mean` from a
+policy is approximately
+
+    change in pd_mean = - (extra sanctioned agent-rounds / agent-rounds) x 1.6
+
+This accounting reproduces the breadth cost to within a factor of 1.6 to 2.2: predicted
+drops of 0.086 and 0.075, observed 0.054 and 0.034. The leftover factor is unexplained.
+
+**Why the measure is weaker than it looks.**
+
+1. *Run length is a confound.* Runs end by takeover or collapse. A per-agent-round average
+   over runs of different lengths mixes different phases of the game. In the replication
+   the paired difference in `pd_mean` correlated at -0.77 with the paired difference in
+   run length. This is why the misattribution welfare gain (+0.049) vanished on replication
+   (+0.005, interval includes 0).
+2. *My first fix was itself flawed.* `pd_first25` assumed every run reaches round 24. In
+   pass 11 part A' the shortest run ends at round 8, so for those arms the "first 25"
+   rounds are really the first 8, when income is highest. The Q6 welfare comparison is
+   therefore withdrawn.
+3. *Deaths, takeovers and preparation costs are not in it.* A policy that cuts sanctions
+   but allows more takeovers would score better on `pd_mean` and be worse. Read `pd_mean`
+   as the cost of collective punishment inside ordinary cooperation. It is not total
+   welfare.
+4. *Power.* At 20 seeds, effects under about 0.15 are invisible. Paired designs at 60
+   seeds were about three times tighter.
+
+**What will be used from pass 11 part A'' on.** Income summed over a fixed window that
+every run in every arm reaches (rounds 0 to 7, set by the shortest run), reported next to
+takeover probability and deaths per run as separate columns. The window is checked in the
+selftest on the actual cell, not only the default. There is no single combined number.
+Turning a death or a takeover into units of income is a value judgement, as is the weight
+on a victim's loss against a mover's gain. That exchange rate is Mike's call and has not
+been made.
+
 ## Who decides what
 
 The study has two halves, and they answer different questions.
