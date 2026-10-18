@@ -238,12 +238,19 @@ drops of 0.086 and 0.075, observed 0.054 and 0.034. The leftover factor is unexp
 4. *Power.* At 20 seeds, effects under about 0.15 are invisible. Paired designs at 60
    seeds were about three times tighter.
 
-**What will be used from pass 11 part A'' on.** Income summed over a fixed window that
-every run in every arm reaches (rounds 0 to 7, set by the shortest run), reported next to
-takeover probability and deaths per run as separate columns. The window is checked in the
-selftest on the actual cell, not only the default. There is no single combined number.
-Turning a death or a takeover into units of income is a value judgement, as is the weight
-on a victim's loss against a mover's gain. That exchange rate is Mike's call and has not
+**What will be used from pass 11 part A'' on.** A fixed window cannot be rounds 0 to 7. The
+earliest takeover resolves at round 8 and every sanction follows an attack, so a window
+that ends before round 8 is identical in every arm and measures nothing. A window that
+reaches past round 8 is not reached by runs that end in takeover. There is no clean fixed
+horizon for those runs, so the plan is: (1) report takeover probability, deaths per run and
+run length as separate columns; (2) report everyday-game income over the first W rounds for
+runs that survive to W, with the number of such runs in each arm, and read it as conditional
+on survival; (3) as a sensitivity, define income after a takeover as a stated floor (P = 1
+per agent-round, or 0) and report the whole-horizon total under each floor. The floor is an
+assumption about what a takeover does to everyone else, and it is Mike's call. The window
+is checked in the selftest on the actual cell, not only the default. There is no single
+combined number. Turning a death or a takeover into units of income is a value judgement,
+as is the weight on a victim's loss against a mover's gain. That exchange rate has not
 been made.
 
 ## Who decides what
