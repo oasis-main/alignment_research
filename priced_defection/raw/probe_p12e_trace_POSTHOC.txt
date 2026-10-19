@@ -1,0 +1,5 @@
+first differing seed: 8100
+rounds recorded: 45 200 | takeover g0/g1e-12: 1 0
+first round where discrete state (preparing/out_until/alive/ids) differs: (19, [((0, 16.084775462469352, 124.197402924, 1, -1, True), (0, 17.69325300871629, 124.784686605, 0, -1, True))], True, 5.115909044957677)
+first round where caps differ by >1e-9 relative: (1, 0.10000000000110025)
+top 4 caps at round 0 (g=0): [2.892988, 2.314391, 1.481586, 1.435389]

@@ -1,0 +1,6 @@
+g_def=0.0      takeover 0.850 att  1.55 deaths  0.00 first   28.8 growth events/run      0  seeds identical to g=0: 40/40
+g_def=1e-300   takeover 0.850 att  1.55 deaths  0.00 first   28.8 growth events/run   1290  seeds identical to g=0: 40/40
+g_def=1e-16    takeover 0.850 att  1.55 deaths  0.00 first   28.8 growth events/run   1290  seeds identical to g=0: 40/40
+g_def=1e-12    takeover 0.400 att  1.15 deaths  0.33 first   34.2 growth events/run   2606  seeds identical to g=0: 22/40
+g_def=1e-09    takeover 0.400 att  1.15 deaths  0.33 first   34.2 growth events/run   2606  seeds identical to g=0: 22/40
+g_def=1e-05    takeover 0.400 att  1.15 deaths  0.33 first   34.2 growth events/run   2606  seeds identical to g=0: 22/40
