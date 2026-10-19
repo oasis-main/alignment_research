@@ -40,3 +40,21 @@ Growth step pays c_grow x R x cap and currently always yields +g_invest x cap. A
 ### Real-world anchors checked 2026-10-19 (search, bibliographic/snippet level, not read in full)
 Agency theory: Jensen and Meckling, J. Financial Economics 3:305-360 (1976); Alchian and Demsetz, AER 62(5) (1972), shirking in team production and the central monitor; Holmstrom, Bell J. Economics 10:74-91 (1979), moral hazard and observability; Holmstrom and Milgrom, JLEO 7 (1991), multitask incentive distortion; Kerr, Academy of Management J. 18(4):769-83 (1975), rewarding A while hoping for B.
 Hugging Face incident: OpenAI technical report and blog (26 Aug 2026), METR/Redwood independent report, TechCrunch, Fortune (Sep 2026), State of AI Report 2026. NOT found: any reporting of a reputational backlash over surveillance tied to the incident (two queries). Do not cite that link until Mike supplies the source.
+
+## Addendum 3, 2026-10-19 ~16:55 UTC (Mike 16:39: failure orthogonal to capability but tied to competitive pressure; paid corruption of public vs private channels)
+
+Pass plan: 12a belief scale b + dip instrumentation (PREREG_PASS12A, committed). 12b monitor + adversary + read failure + reputation consequence. 12c growth failure. 12d channel corruption. eps dial and capital later. Published together, attributed separately.
+
+### 12c growth failure (design, not yet pre-registered)
+- Step payoff is a fixed fraction of the budget (cost c_grow*R*cap, gain g*cap), so a flat per-step failure probability p0 destroys a fixed FRACTION of spending at every capability level: orthogonal to level and still inside the scalar regime. No scaling with cap is needed or wanted.
+- Pressure term: p = p0 + p1*P_i with P_i built from RATIOS only (scale-free). Candidates: (a) race closeness exp(-|ln(cap/frontier)|/w), highest at parity; (b) relative deficit max(0, ln(frontier/cap)); (c) fatigue, consecutive growth steps without a payoff. Recommend (a) primary, (c) as stickiness (a failed step raises the next step's failure probability: the misspecified/impossible-task case), (b) as sensitivity. Sign trap: under (b) failures fall on laggards, which helps the leader and undercuts the g_def >= gamma stabiliser; report the sign, do not hide it.
+- Sweep p1 including 0 so pressure is separable from the flat rate. Agent aware of the expected rate (value of growth multiplied by 1-p), best case for the agent.
+- Empirical anchors: agency theory (Holmstrom-Milgrom 1991, Kerr 1975) supports incentive distortion on the measured task. That race pressure raises error is my hypothesis; no direct source checked. OpenAI's Hugging Face report says the models ran under reduced safeguards and acted against their task goals: one case, not a rate.
+
+### 12d channel corruption (design, not yet pre-registered)
+- Two purchasable actions for the mover, each using its one action slot that round (so corrupting competes with growing and with preparing):
+  - corrupt_pub: raises public-channel loss d by delta_pub per action, repaired by defenders at rate r per round, capped at 1. Price c_cp*R*cap.
+  - corrupt_priv: lowers club delivery q by delta_priv per action, price = m*c_cp*R*cap with m=10 as the default and {3,10,30} swept. Requires awareness of the club (belief b>0); with b=0 the spend is blind and has no effect. This ties 12d to 12a.
+- Two modes: SUPPRESS (lower delivery) and SPOOF (inject false alarms so the response or sanction lands on innocents, using the `mis` channel). Spoofing makes the defence harm itself and is the closer analogue of the Blackstone cost.
+- Each corruption action is detected with probability p_cd; detection costs the mover reputation. That only bites once the reputation consequence channel exists (12b).
+- "Order of magnitude dearer for private channels" is a parameter. Rationale (judgement, unchecked): flooding an open channel is cheap, breaching an authenticated small one needs compromise of members.
