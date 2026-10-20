@@ -1,0 +1,18 @@
+I1 determinism: True
+I2 unknown key raises: True
+I3 all g = 0 -> pie exactly 1 throughout: True
+I4 pw = 0 and pie = 1 -> PD income equals base payoffs: True
+I5a step gate: .79 penalty, .80 and .81 discount: True
+I5b logistic k=1e4 equals step away from the threshold: True
+I5c logistic is monotone non-increasing in the ratio: True
+I5d leaky with a leak draw gives the insider price: True
+I5e logistic k=1e6 reproduces step off the edge (lead0 1.35): True
+I6a share_mode off -> no diffusion: True
+I6b open sharing with diffusion > 0 -> free growth occurs: True
+I7 rent 0, pw 0 -> no capability value from income: True
+I8 invariants (cap > 0, finite, budget >= 0, pie in bounds) over 8 varied configs: True
+I9 bully defects against a much weaker partner, opens C against a near-equal: True
+I10 random assignment varies the leader's strategy across seeds: True
+I11 cooperation grows the pie (g_coop .02) and the cap binds: True
+I12 defection and punishment shrink the pie: True
+selftest PASS
