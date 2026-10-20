@@ -15,4 +15,7 @@ I9 bully defects against a much weaker partner, opens C against a near-equal: Tr
 I10 random assignment varies the leader's strategy across seeds: True
 I11 cooperation grows the pie (g_coop .02) and the cap binds: True
 I12 defection and punishment shrink the pie: True
+I13 legacy profile unchanged by amendments (V1 seeds 9500-9503 vs committed validation): True
+I14 pie prize: ruin loses own stream > 0, win = (N-1) x own: True
+I15 threat_exec is live (posture appears only when on): True
 selftest PASS

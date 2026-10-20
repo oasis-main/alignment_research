@@ -33,7 +33,7 @@ LEGACY = dict(
     # sharing: "off" | "priced" (an action) | "open" (every capability is published every round)
     share_mode="off", c_share=0.2, rep_value=0.0, diffusion=0.0,
     # posture
-    c_def=0.15, post_shield=0.2, threat_prior=1.0,
+    c_def=0.15, post_shield=0.2, threat_prior=1.0, threat_exec=False,
     # takeover
     c_prep=0.05, pi=4, kappa=4, tau=2, a=0.0, d=0.5, K_win=2.0, K_loss=2.0, partial=0.2, loss_hit=0.5,
     sanction_len=200, prize_rule="endogenous", G=100.0, L_over_G=1.0,
@@ -71,6 +71,7 @@ class Agent:
         self.preparing = 0
         self.prep_detectors = set()
         self.grabbing = False
+        self.exec_det = set()
         self.rep = 0.0
 
 
@@ -217,8 +218,11 @@ class Engine:
         if c["prize_rule"] == "exogenous":
             return c["G"], c["G"] * c["L_over_G"]
         if c["prize_rule"] == "pie":
+            # Amendment 1 (2026-10-20): a decisive win takes the others' remaining income stream from the pie;
+            # ruin loses the agent's own remaining stream (not lam * cap, which is ~0 when there is no rent).
             n_left = max(0, c["rounds"] - self.rnd)
-            return self.pie * R_ * len(others) * self.annuity(n_left), lam * ag.cap
+            own = self.pie * R_ * self.annuity(n_left)
+            return own * len(others), own
         return lam * sum(o.cap for o in others), lam * ag.cap
 
     def v_hat(self, ag):
@@ -261,6 +265,8 @@ class Engine:
             for o in others:
                 if o.preparing > 0 and ag.id in o.prep_detectors:
                     threat += 1.0
+                elif c["threat_exec"] and o.grabbing and ag.id in o.exec_det:
+                    threat += 1.0      # Amendment 2: an agent that saw an execution in progress may answer it
                 if o.out_until > self.rnd:
                     threat += 0.5
             opts.append(("post", c["post_shield"] * ag.cap * R_ * (c["threat_prior"] + threat) - p_post))
@@ -361,6 +367,7 @@ class Engine:
                 for o in living:
                     if o is not ag and o.alive and rng.random() < c["d"]:
                         g["edet"].add(o.id)
+                ag.exec_det = g["edet"]
             if g["done"] < c["kappa"]:
                 keep.append(g)
                 continue
@@ -389,7 +396,7 @@ class Engine:
                 ag.cap = max(1e-6, ag.cap * (1.0 - c["loss_hit"]))
             ag.out_until = self.rnd + c["sanction_len"]
             ag.cool_until = self.rnd + c["kappa"]
-            ag.grabbing, ag.preparing, ag.prep_detectors = False, 0, set()
+            ag.grabbing, ag.preparing, ag.prep_detectors, ag.exec_det = False, 0, set(), set()
         return keep, False, conflicts
 
     # ------------------------------------------------------------ one run
@@ -555,6 +562,19 @@ def selftest():
     chk("I11 cooperation grows the pie (g_coop .02) and the cap binds", all(1.0 < p <= 3.0 for p in pg))
     pd_ = [run(cell(lead0=1.35, g_punish=0.5, g_defect=0.5), s)["pie_end"] for s in S]
     chk("I12 defection and punishment shrink the pie", all(p < 1.0 for p in pd_))
+    import json, os
+    if os.path.exists("validate_stage1.json"):
+        V = json.load(open("validate_stage1.json"))
+        K = ("dw", "att", "deaths", "n_grow", "n_post")
+        chk("I13 legacy profile unchanged by amendments (V1 seeds 9500-9503 vs committed validation)",
+            all({k: run(cell(lead0=1.35), s)[k] for k in K} == {k: V["V1_lead1.35"][str(s)][k] for k in K} for s in range(9500, 9504)))
+    Ep = Engine(cell(rent=0.0, prize_rule="pie"), 0)
+    Gp, Lp = Ep.prize(Ep.ags[0], Ep.ags[1:], 0.0)
+    chk("I14 pie prize: ruin loses own stream > 0, win = (N-1) x own", Lp > 0 and abs(Gp - 19 * Lp) < 1e-9)
+    NEWP = dict(rent=0.0, prize_rule="pie", strat_assign="random", threat_prior=0.0, partial=0.0, lead0=1.35, pw=0.5)
+    r0 = [run(cell(**NEWP), s) for s in S]
+    r1 = [run(cell(threat_exec=True, **NEWP), s) for s in S]
+    chk("I15 threat_exec is live (posture appears only when on)", sum(r["n_post"] for r in r0) == 0 and sum(r["n_post"] for r in r1) > 0)
     print("selftest", "PASS" if ok else "FAIL")
     return ok
 

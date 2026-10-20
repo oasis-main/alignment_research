@@ -34,3 +34,9 @@ Legacy profile (rent .25, pie fixed, pw 0, step gate .8, threat_prior 1, by_id s
 - V3: the cliff: lead0 1.24 -> <= .25, lead0 1.26 -> >= .90 (old .000 / 1.000).
 - V4: inc ablation: rent 0 -> takeover 0 and no growth (old: 0).
 If any fails, the old engine's number is not reproduced and the difference is investigated before anything new is run.
+
+## Amendments (2026-10-20 20:2x UTC, after Mike chose prize (b), before any scored new-profile run)
+Found by an unscored 4-seed check (seeds 9900-9903) of the new profile (rent 0, prize = pie stream, random strategies, threat_prior 0):
+1. Ruin under prize_rule="pie" was `lam x cap`, which is ~0 when there is no rent, so the mover saw no downside and attempted a takeover ~300 times per run. Fixed: a decisive win takes the others' remaining pie income stream; ruin loses the agent's OWN remaining stream (win = (N-1) x ruin).
+2. With threat_prior 0 and prep detection a = 0 (cell Q), nobody ever has a reason to post, so no defence exists at all. Added `threat_exec`: an agent that detected an execution in progress counts it as a threat when pricing posture. Default False (legacy unchanged).
+Legacy profile verified unchanged after both (selftest I13: V1 seeds identical to the committed validation). Selftest now 20/20.
