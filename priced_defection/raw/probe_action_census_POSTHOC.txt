@@ -1,0 +1,3 @@
+Q lead0=1.35 share of agent-rounds: {'n_idle': 0.0, 'n_grow': 0.0275, 'n_post': 0.9318, 'n_share': 0.0, 'n_bluff': 0.0, 'n_scout': 0.0, 'n_seize': 0.0, 'n_prep': 0.0021} | agent-rounds/run 1042
+S share of agent-rounds: {'n_idle': 0.0, 'n_grow': 0.003, 'n_post': 0.9912, 'n_share': 0.0, 'n_bluff': 0.0, 'n_scout': 0.0, 'n_seize': 0.0, 'n_prep': 0.0003} | agent-rounds/run 2696
+post value with no threat = (post_shield - c_def)*R*cap = 0.15 x cap  (post_shield 0.20, c_def 0.15)
