@@ -21,4 +21,7 @@ I15 threat_exec is live (posture appears only when on): True
 I16 price_pie on, no fixed/outside term -> runs identical at pie0 .3, 1, 3: True
 I17 price_pie off -> defaults unchanged (I13 already covers legacy); outside value never enters budgets: True
 I18 fixed prize adds exactly prize_fixed to the win: True
+I19 anticipation, constant pie, no conflict hit: prize and ruin equal the level form: True
+I20 a conflict hit of .5 halves the anticipated prize at post_growth 0: True
+I21 theft off -> no steal actions; theft on -> capability is copied: True
 selftest PASS

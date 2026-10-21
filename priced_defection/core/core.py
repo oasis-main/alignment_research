@@ -40,6 +40,12 @@ LEGACY = dict(
     # pie-independent terms (2026-10-21): fixed prize/ruin added under prize_rule "pie"; outside value of capability
     # (value per unit capability per round, not scaled by the pie, not cash); price_pie scales every action price by the pie
     prize_fixed=0.0, ruin_fixed=0.0, out_val=0.0, price_pie=False,
+    # anticipation (2026-10-21): the mover projects the pie path. Status quo: recent per-round pie growth (last pie_win
+    # rounds). After a decisive win: one g_conflict hit, then post_growth per round. Prize and continuation both use the paths.
+    anticipate_pie=False, pie_win=10, post_growth=0.0,
+    # theft (2026-10-21): copy toward the true capability of the strongest other agent, no publication needed.
+    # Price c_steal x R x cap; succeeds w.p. p_steal; gain theta x gap; the victim keeps its capability (copying, not taking).
+    p_steal=0.0, c_steal=0.1, theta=0.1,
     mc=32, bump=0.05, sigma=0.5, sigma_self=0.0, response_rule="sum", frontier_rule="max",
     # ordinary game
     strat_assign="by_id", strat_pool=CLASSIC, bully_ratio=0.8, forgiveness=True,
@@ -109,12 +115,14 @@ class Engine:
         self.ags = setup(c, seed)
         self.pie = c["pie0"]
         self.published = 0.0
+        self.pie_hist = [c["pie0"]]
+        self._paths = None
         self.fr_hist = []
         self.leak = {}
         self.rnd = 0
         self.st = dict(dw=0, att=0, first=None, end=None, deaths=0, iw=0, il=0, n_grow=0, n_post=0, n_share=0,
                        n_prep=0, n_idle=0, n_broke=0, agent_rounds=0, last_round=0, lead0=None, lead_end=None,
-                       pie_sum=0.0, pie_n=0, pd_inc=0.0, base_inc=0.0, rent_inc=0.0, out_inc=0.0, diffused=0.0,
+                       pie_sum=0.0, pie_n=0, pd_inc=0.0, base_inc=0.0, rent_inc=0.0, out_inc=0.0, diffused=0.0, n_steal=0, stolen=0.0,
                        gate_edge=None, viol=0, conflicts_total=0,
                        leader_strat=self.ags[0].strat)
 
@@ -228,8 +236,13 @@ class Engine:
             # ruin loses the agent's own remaining stream (not lam * cap, which is ~0 when there is no rent).
             n_left = max(0, c["rounds"] - self.rnd)
             own = self.pie * R_ * self.annuity(n_left)
-            G = own * len(others) + c["prize_fixed"]
-            L = own + c["ruin_fixed"]
+            if c["anticipate_pie"]:
+                A_sq, A_po = self.paths()
+                G = R_ * A_po * len(others) + c["prize_fixed"]   # the others' streams, at the post-takeover pie
+                L = R_ * A_sq + c["ruin_fixed"]                  # ruin loses one's own status-quo stream
+            else:
+                G = own * len(others) + c["prize_fixed"]
+                L = own + c["ruin_fixed"]
             if c["out_val"] > 0.0:
                 # a decisive win takes the others' outside streams too; death loses one's own
                 G += c["out_val"] * sum(o.cap for o in others) * self.annuity(n_left)
@@ -237,8 +250,34 @@ class Engine:
             return G, L
         return lam * sum(o.cap for o in others), lam * ag.cap
 
+    def paths(self):
+        """Discounted pie sums over the remaining rounds: (status quo, after a decisive win). Cached per round."""
+        if self._paths is not None and self._paths[0] == self.rnd:
+            return self._paths[1], self._paths[2]
+        c, d = self.c, self.c["delta"]
+        h = self.pie_hist[-(c["pie_win"] + 1):]
+        r_sq = (h[-1] / h[0]) ** (1.0 / (len(h) - 1)) - 1.0 if len(h) > 1 else 0.0
+        n_left = max(0, c["rounds"] - self.rnd)
+        lo, hi = c["pie_min"], c["pie_max"]
+        sq, po = self.pie, max(lo, self.pie * (1.0 - c["g_conflict"]))
+        A_sq = A_po = 0.0
+        w = 1.0
+        for _ in range(n_left):
+            A_sq += w * sq
+            A_po += w * po
+            w *= d if d < 1.0 else 1.0
+            sq = min(hi, max(lo, sq * (1.0 + r_sq)))
+            po = min(hi, max(lo, po * (1.0 + c["post_growth"])))
+        self._paths = (self.rnd, A_sq, A_po)
+        return A_sq, A_po
+
     def v_hat(self, ag):
         d = self.c["delta"]
+        if self.c["anticipate_pie"]:
+            A_sq, _ = self.paths()
+            if not ag.recent:
+                return R_ * A_sq
+            return max(0.0, sum(ag.recent) / len(ag.recent) / self.pie - P_) * A_sq
         if not ag.recent:
             return self.pie * R_ / (1.0 - d)
         return max(0.0, sum(ag.recent) / len(ag.recent) - self.pie * P_) / (1.0 - d)
@@ -284,6 +323,11 @@ class Engine:
                 if o.out_until > self.rnd:
                     threat += 0.5
             opts.append(("post", c["post_shield"] * ag.cap * R_ * pk * (c["threat_prior"] + threat) - p_post))
+        if c["p_steal"] > 0.0:
+            p_st = c["c_steal"] * base
+            top = max(o.cap for o in others)
+            if ag.b >= p_st and top > ag.cap:
+                opts.append(("steal", lam * c["p_steal"] * c["theta"] * (top - ag.cap) - p_st))
         if c["share_mode"] == "priced":
             p_share = c["c_share"] * base
             if ag.b >= p_share:
@@ -483,6 +527,15 @@ class Engine:
                     a.rep += 1.0
                     n_share += 1
                     st["n_share"] += 1
+                elif kind == "steal":
+                    a.b -= c["c_steal"] * base
+                    st["n_steal"] += 1
+                    others_ = [o for o in living if o is not a and o.alive]
+                    top = max(o.cap for o in others_) if others_ else a.cap
+                    if top > a.cap and self.rng.random() < c["p_steal"]:
+                        gain = c["theta"] * (top - a.cap)
+                        a.cap += gain
+                        st["stolen"] += gain
                 elif kind == "prep":
                     a.preparing = 1
                     a.b -= c["c_prep"] * base
@@ -506,6 +559,7 @@ class Engine:
                        - c["g_defect"] * defect / n_mv - c["g_punish"] * punish / n_mv - c["g_conflict"] * conflicts)
                 self.pie = min(c["pie_max"], max(c["pie_min"], self.pie * fac))
             st["pie_sum"] += self.pie
+            self.pie_hist.append(self.pie)
             st["pie_n"] += 1
             for a in alive:
                 if not (a.cap > 0.0 and math.isfinite(a.cap) and math.isfinite(a.b) and a.b >= 0.0):
@@ -603,6 +657,17 @@ def selftest():
     Gf = Engine(cell(prize_fixed=500.0, **NEWP), 0)
     G1, L1 = Gf.prize(Gf.ags[0], Gf.ags[1:], 0.0)
     chk("I18 fixed prize adds exactly prize_fixed to the win", abs(G1 - Gp - 500.0) < 1e-9 and abs(L1 - Lp) < 1e-9)
+    # I19: anticipation at a constant pie with post_growth 0 and g_conflict 0 changes nothing material: the prize and ruin
+    # equal the level form exactly (continuation differs only by horizon n_left vs infinite; checked on the prize only)
+    Ea = Engine(cell(anticipate_pie=True, **NEWP), 0)
+    Ga, La = Ea.prize(Ea.ags[0], Ea.ags[1:], 0.0)
+    chk("I19 anticipation, constant pie, no conflict hit: prize and ruin equal the level form", abs(Ga - Gp) < 1e-6 and abs(La - Lp) < 1e-6)
+    Eb2 = Engine(cell(anticipate_pie=True, g_conflict=0.5, **NEWP), 0)
+    Gb2, _ = Eb2.prize(Eb2.ags[0], Eb2.ags[1:], 0.0)
+    chk("I20 a conflict hit of .5 halves the anticipated prize at post_growth 0", abs(Gb2 - 0.5 * Gp) < 1e-6)
+    rs0 = [run(cell(**NEWP), s) for s in S]
+    rs1 = [run(cell(p_steal=0.5, **NEWP), s) for s in S]
+    chk("I21 theft off -> no steal actions; theft on -> capability is copied", all(r["n_steal"] == 0 for r in rs0) and sum(r["stolen"] for r in rs1) > 0)
     print("selftest", "PASS" if ok else "FAIL")
     return ok
 
