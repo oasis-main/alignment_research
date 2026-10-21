@@ -37,6 +37,9 @@ LEGACY = dict(
     # takeover
     c_prep=0.05, pi=4, kappa=4, tau=2, a=0.0, d=0.5, K_win=2.0, K_loss=2.0, partial=0.2, loss_hit=0.5,
     sanction_len=200, prize_rule="endogenous", G=100.0, L_over_G=1.0,
+    # pie-independent terms (2026-10-21): fixed prize/ruin added under prize_rule "pie"; outside value of capability
+    # (value per unit capability per round, not scaled by the pie, not cash); price_pie scales every action price by the pie
+    prize_fixed=0.0, ruin_fixed=0.0, out_val=0.0, price_pie=False,
     mc=32, bump=0.05, sigma=0.5, sigma_self=0.0, response_rule="sum", frontier_rule="max",
     # ordinary game
     strat_assign="by_id", strat_pool=CLASSIC, bully_ratio=0.8, forgiveness=True,
@@ -111,7 +114,7 @@ class Engine:
         self.rnd = 0
         self.st = dict(dw=0, att=0, first=None, end=None, deaths=0, iw=0, il=0, n_grow=0, n_post=0, n_share=0,
                        n_prep=0, n_idle=0, n_broke=0, agent_rounds=0, last_round=0, lead0=None, lead_end=None,
-                       pie_sum=0.0, pie_n=0, pd_inc=0.0, base_inc=0.0, rent_inc=0.0, diffused=0.0,
+                       pie_sum=0.0, pie_n=0, pd_inc=0.0, base_inc=0.0, rent_inc=0.0, out_inc=0.0, diffused=0.0,
                        gate_edge=None, viol=0, conflicts_total=0,
                        leader_strat=self.ags[0].strat)
 
@@ -123,6 +126,9 @@ class Engine:
     def annuity(self, n):
         d = self.c["delta"]
         return float(n) if d >= 1.0 else (1.0 - d ** n) / (1.0 - d)
+
+    def pk(self):
+        return self.pie if self.c["price_pie"] else 1.0
 
     def covers(self, o):
         return o.def_until >= self.rnd - 1
@@ -166,7 +172,7 @@ class Engine:
 
     def growth_price(self, ag, living):
         c = self.c
-        base = c["c_grow"] * R_ * ag.cap
+        base = c["c_grow"] * R_ * ag.cap * self.pk()
         if c["gate"] == "smooth":
             if c["price_scale"] == 0.0:
                 return base
@@ -222,7 +228,13 @@ class Engine:
             # ruin loses the agent's own remaining stream (not lam * cap, which is ~0 when there is no rent).
             n_left = max(0, c["rounds"] - self.rnd)
             own = self.pie * R_ * self.annuity(n_left)
-            return own * len(others), own
+            G = own * len(others) + c["prize_fixed"]
+            L = own + c["ruin_fixed"]
+            if c["out_val"] > 0.0:
+                # a decisive win takes the others' outside streams too; death loses one's own
+                G += c["out_val"] * sum(o.cap for o in others) * self.annuity(n_left)
+                L += c["out_val"] * ag.cap * self.annuity(n_left)
+            return G, L
         return lam * sum(o.cap for o in others), lam * ag.cap
 
     def v_hat(self, ag):
@@ -241,7 +253,9 @@ class Engine:
         if not others:
             return "idle"
         d = c["delta"]
-        lam_inc = (c["rent"] * R_ / (1.0 - d) if d < 1.0 else c["rent"] * R_ * 50) + self.pd_cap_value(ag, others)
+        fwd = 1.0 / (1.0 - d) if d < 1.0 else 50.0
+        lam_inc = c["rent"] * R_ * fwd + self.pd_cap_value(ag, others) + c["out_val"] * fwd
+        pk = self.pk()
         st = rng.getstate()
         q0 = self.assess(ag, others, 1.0)
         rng.setstate(st)
@@ -254,7 +268,7 @@ class Engine:
         v = self.v_hat(ag)
         G_b, L_b = self.prize(ag, others, lam)
         sanc = self.sanction_cost()
-        base = R_ * ag.cap
+        base = R_ * ag.cap * pk
         opts = [("idle", 0.0)]
         p_grow = self.growth_price(ag, living)
         if ag.b >= p_grow:
@@ -269,11 +283,11 @@ class Engine:
                     threat += 1.0      # Amendment 2: an agent that saw an execution in progress may answer it
                 if o.out_until > self.rnd:
                     threat += 0.5
-            opts.append(("post", c["post_shield"] * ag.cap * R_ * (c["threat_prior"] + threat) - p_post))
+            opts.append(("post", c["post_shield"] * ag.cap * R_ * pk * (c["threat_prior"] + threat) - p_post))
         if c["share_mode"] == "priced":
             p_share = c["c_share"] * base
             if ag.b >= p_share:
-                opts.append(("share", c["rep_value"] * R_ * ag.cap - p_share))
+                opts.append(("share", c["rep_value"] * R_ * pk * ag.cap - p_share))
         if ag.b >= c["c_prep"] * base:
             ev_t = ev(q0, G_b, L_b) - (1.0 - q0[0]) * sanc
             opts.append(("prep", delay * ev_t - v - c["c_prep"] * base * c["pi"]))
@@ -414,6 +428,9 @@ class Engine:
                 inc = c["rent"] * R_ * a.cap
                 a.b += inc
                 st["rent_inc"] += inc
+                if c["out_val"] > 0.0:
+                    a.score += c["out_val"] * a.cap      # value, not cash: never enters the budget
+                    st["out_inc"] += c["out_val"] * a.cap
             fr_now = max(a.cap for a in living)
             self.fr_hist.append(fr_now)
             if c["gate"] == "leaky":
@@ -441,7 +458,7 @@ class Engine:
                     continue
                 if a.preparing > 0:
                     a.preparing += 1
-                    a.b = max(0.0, a.b - c["c_prep"] * R_ * a.cap)
+                    a.b = max(0.0, a.b - c["c_prep"] * R_ * a.cap * self.pk())
                     if a.preparing > c["pi"]:
                         a.grabbing = True
                         grabs.append(dict(ag=a, done=0, edet=set()))
@@ -449,7 +466,7 @@ class Engine:
                 picks.append((a, self.choose(a, living)))
             n_share = 0
             for a, kind in picks:
-                base = R_ * a.cap
+                base = R_ * a.cap * self.pk()
                 if kind == "idle":
                     st["n_idle"] += 1
                 elif kind == "grow":
@@ -575,6 +592,17 @@ def selftest():
     r0 = [run(cell(**NEWP), s) for s in S]
     r1 = [run(cell(threat_exec=True, **NEWP), s) for s in S]
     chk("I15 threat_exec is live (posture appears only when on)", sum(r["n_post"] for r in r0) == 0 and sum(r["n_post"] for r in r1) > 0)
+    # I16: with every price scaled by the pie and no pie-independent term, the pie level cancels exactly
+    NP = dict(NEWP, price_pie=True)
+    K = ("dw", "att", "deaths", "n_grow", "n_post", "n_prep", "n_idle")
+    base_ = [{k: run(cell(**NP), s)[k] for k in K} for s in S]
+    chk("I16 price_pie on, no fixed/outside term -> runs identical at pie0 .3, 1, 3",
+        all([{k: run(cell(pie0=p, **NP), s)[k] for k in K} for s in S] == base_ for p in (0.3, 3.0)))
+    chk("I17 price_pie off -> defaults unchanged (I13 already covers legacy); outside value never enters budgets",
+        run(cell(out_val=1.0, **NEWP), 0)["out_inc"] > 0)
+    Gf = Engine(cell(prize_fixed=500.0, **NEWP), 0)
+    G1, L1 = Gf.prize(Gf.ags[0], Gf.ags[1:], 0.0)
+    chk("I18 fixed prize adds exactly prize_fixed to the win", abs(G1 - Gp - 500.0) < 1e-9 and abs(L1 - Lp) < 1e-9)
     print("selftest", "PASS" if ok else "FAIL")
     return ok
 
