@@ -24,4 +24,8 @@ I18 fixed prize adds exactly prize_fixed to the win: True
 I19 anticipation, constant pie, no conflict hit: prize and ruin equal the level form: True
 I20 a conflict hit of .5 halves the anticipated prize at post_growth 0: True
 I21 theft off -> no steal actions; theft on -> capability is copied: True
+I22 welfare identity: W = W_pd + W_out; W_pd equals PD income: True
+I23 takeover off -> no prep, no attempt: True
+I24 out_exp 0 -> outside value adds nothing to the value of capability: True
+I25 outside value that neither grows nor is captured nor is cash leaves the dynamics unchanged: True
 selftest PASS

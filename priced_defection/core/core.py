@@ -46,6 +46,13 @@ LEGACY = dict(
     # theft (2026-10-21): copy toward the true capability of the strongest other agent, no publication needed.
     # Price c_steal x R x cap; succeeds w.p. p_steal; gain theta x gap; the victim keeps its capability (copying, not taking).
     p_steal=0.0, c_steal=0.1, theta=0.1,
+    # outside-value knobs (2026-10-21, orthogonality ladder). Outside income per round = out_val x cap ** out_exp.
+    # out_exp 0: income unrelated to capability; 1: proportional. out_cash: it is spendable (enters the budget).
+    # out_capture: a decisive win takes the others' outside streams and ruin loses one's own. out_grow: it raises the
+    # value of capability, so growth. Defaults reproduce the N2/N3 behaviour (exp 1, not cash, captured, grows).
+    out_exp=1.0, out_cash=False, out_capture=True, out_grow=True,
+    # takeover off: the prep action is never offered (pure ordinary game, plus whatever else is on)
+    takeover=True,
     mc=32, bump=0.05, sigma=0.5, sigma_self=0.0, response_rule="sum", frontier_rule="max",
     # ordinary game
     strat_assign="by_id", strat_pool=CLASSIC, bully_ratio=0.8, forgiveness=True,
@@ -82,6 +89,8 @@ class Agent:
         self.grabbing = False
         self.exec_det = set()
         self.rep = 0.0
+        self.w_pd = 0.0
+        self.w_out = 0.0
 
 
 def setup(c, seed):
@@ -243,10 +252,11 @@ class Engine:
             else:
                 G = own * len(others) + c["prize_fixed"]
                 L = own + c["ruin_fixed"]
-            if c["out_val"] > 0.0:
+            if c["out_val"] > 0.0 and c["out_capture"]:
                 # a decisive win takes the others' outside streams too; death loses one's own
-                G += c["out_val"] * sum(o.cap for o in others) * self.annuity(n_left)
-                L += c["out_val"] * ag.cap * self.annuity(n_left)
+                e = c["out_exp"]
+                G += c["out_val"] * sum(o.cap ** e for o in others) * self.annuity(n_left)
+                L += c["out_val"] * ag.cap ** e * self.annuity(n_left)
             return G, L
         return lam * sum(o.cap for o in others), lam * ag.cap
 
@@ -293,7 +303,8 @@ class Engine:
             return "idle"
         d = c["delta"]
         fwd = 1.0 / (1.0 - d) if d < 1.0 else 50.0
-        lam_inc = c["rent"] * R_ * fwd + self.pd_cap_value(ag, others) + c["out_val"] * fwd
+        ov = c["out_val"] * c["out_exp"] * max(ag.cap, 1e-12) ** (c["out_exp"] - 1.0) * fwd if c["out_grow"] else 0.0
+        lam_inc = c["rent"] * R_ * fwd + self.pd_cap_value(ag, others) + ov
         pk = self.pk()
         st = rng.getstate()
         q0 = self.assess(ag, others, 1.0)
@@ -332,7 +343,7 @@ class Engine:
             p_share = c["c_share"] * base
             if ag.b >= p_share:
                 opts.append(("share", c["rep_value"] * R_ * pk * ag.cap - p_share))
-        if ag.b >= c["c_prep"] * base:
+        if c["takeover"] and ag.b >= c["c_prep"] * base:
             ev_t = ev(q0, G_b, L_b) - (1.0 - q0[0]) * sanc
             opts.append(("prep", delay * ev_t - v - c["c_prep"] * base * c["pi"]))
         opts.sort(key=lambda x: x[1], reverse=True)
@@ -388,6 +399,7 @@ class Engine:
                 b0 = base_pay(m_, o_)
                 pay = self.pie * b0 * ((1.0 - pw) + 2.0 * pw * self.share_of(who, opp)) if pw > 0 else self.pie * b0
                 who.score += pay
+                who.w_pd += pay
                 who.b += pay
                 st["pd_inc"] += pay
                 st["base_inc"] += b0
@@ -473,8 +485,12 @@ class Engine:
                 a.b += inc
                 st["rent_inc"] += inc
                 if c["out_val"] > 0.0:
-                    a.score += c["out_val"] * a.cap      # value, not cash: never enters the budget
-                    st["out_inc"] += c["out_val"] * a.cap
+                    oi = c["out_val"] * a.cap ** c["out_exp"]
+                    a.score += oi
+                    a.w_out += oi
+                    st["out_inc"] += oi
+                    if c["out_cash"]:
+                        a.b += oi                      # spendable only when out_cash is on
             fr_now = max(a.cap for a in living)
             self.fr_hist.append(fr_now)
             if c["gate"] == "leaky":
@@ -568,7 +584,43 @@ class Engine:
                 st["viol"] += 1
         st["pie_end"] = self.pie
         st["pie_mean"] = st["pie_sum"] / st["pie_n"] if st["pie_n"] else self.pie
+        self.welfare()
         return st
+
+    def welfare(self):
+        """Welfare = realized PD payoffs (pie-scaled, power-weighted) + realized outside value, per agent, over the rounds
+        actually played. Partial-takeover prizes (legacy G) are excluded: they are transfers in an arbitrary unit.
+        A decisive takeover ends the run; the rounds after it are accounted two ways:
+          trunc  nothing more is produced or counted (lower bound);
+          winner the winner owns every stream from then on at the end pie: N x pie x R per round (+ all outside value),
+                 the others get nothing (total preserved, distribution maximally unequal)."""
+        c, st = self.c, self.st
+        N = c["N"]
+        w = [a.w_pd + a.w_out for a in self.ags]
+        st["W_pd"] = sum(a.w_pd for a in self.ags)
+        st["W_out"] = sum(a.w_out for a in self.ags)
+        st["W"] = st["W_pd"] + st["W_out"]
+        played = st["last_round"] + 1
+        st["W_per_round"] = st["W"] / played
+        st["W_min_agent"] = min(w)
+        st["W_gini"] = gini(w)
+        wp = list(w)
+        if st["dw"]:
+            n_rem = max(0, c["rounds"] - played)
+            win = max((a for a in self.ags if a.alive), key=lambda a: a.cap)
+            extra = n_rem * (N * self.pie * R_ + (c["out_val"] * sum(a.cap ** c["out_exp"] for a in self.ags if a.alive)))
+            wp[win.id] += extra
+        st["W_winner_rule"] = sum(wp)
+        st["W_gini_winner_rule"] = gini(wp)
+        st["n_alive_end"] = sum(1 for a in self.ags if a.alive)
+
+
+def gini(xs):
+    xs = sorted(max(0.0, x) for x in xs)
+    n, tot = len(xs), sum(xs)
+    if n == 0 or tot <= 0:
+        return 0.0
+    return sum((2 * (i + 1) - n - 1) * x for i, x in enumerate(xs)) / (n * tot)
 
 
 def run(cfg, seed):
@@ -668,6 +720,17 @@ def selftest():
     rs0 = [run(cell(**NEWP), s) for s in S]
     rs1 = [run(cell(p_steal=0.5, **NEWP), s) for s in S]
     chk("I21 theft off -> no steal actions; theft on -> capability is copied", all(r["n_steal"] == 0 for r in rs0) and sum(r["stolen"] for r in rs1) > 0)
+    rw = run(cell(out_val=0.5, **NEWP), 1)
+    chk("I22 welfare identity: W = W_pd + W_out; W_pd equals PD income", abs(rw["W"] - rw["W_pd"] - rw["W_out"]) < 1e-6 and abs(rw["W_pd"] - rw["pd_inc"]) < 1e-6)
+    r_nt = [run(cell(takeover=False, out_val=0.5, **NEWP), s) for s in S]
+    chk("I23 takeover off -> no prep, no attempt", all(r["n_prep"] == 0 and r["att"] == 0 for r in r_nt))
+    E5 = Engine(cell(out_val=0.5, out_exp=0.0, **NEWP), 0)
+    chk("I24 out_exp 0 -> outside value adds nothing to the value of capability",
+        abs(E5.pd_cap_value(E5.ags[0], E5.ags[1:]) - 0.0) >= 0 and run(cell(out_val=0.5, out_exp=0.0, **NEWP), 0)["n_grow"] == run(cell(**NEWP), 0)["n_grow"])
+    rc0 = run(cell(out_val=0.5, out_grow=False, out_capture=False, **NEWP), 2)
+    rc1 = run(cell(**NEWP), 2)
+    chk("I25 outside value that neither grows nor is captured nor is cash leaves the dynamics unchanged",
+        all(rc0[k] == rc1[k] for k in ("dw", "att", "deaths", "n_grow", "n_post", "n_prep", "pie_end")))
     print("selftest", "PASS" if ok else "FAIL")
     return ok
 
