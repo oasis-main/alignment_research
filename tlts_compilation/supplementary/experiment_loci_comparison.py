@@ -176,10 +176,10 @@ def variant_D(prior: Prior, t: str, tlts: TLTS, rng: np.random.Generator) -> str
     adm = set(tlts.admissible_from(t).keys())
     if not adm:
         return ""   # terminal state
-    masked = {l: prior[t][l] for l in adm}
+    masked = {l: prior[t][l] for l in sorted(adm)}
     if sum(masked.values()) == 0:
         # confidence-collapse fallback: uniform over admissible
-        return sample_from({l: 1.0 / len(adm) for l in adm}, rng)
+        return sample_from({l: 1.0 / len(adm) for l in sorted(adm)}, rng)
     return sample_from(normalize(masked), rng)
 
 
@@ -235,8 +235,9 @@ def variant_B_reachability(prior: Prior, t: str, tlts: TLTS, rng: np.random.Gene
     label_targets: Dict[str, Set[str]] = {}
     for tt, l, t2 in tlts.delta:
         label_targets.setdefault(l, set()).add(t2)
-    adm_b = {l for l in tlts.labels
-             if any(t2 in reach for t2 in label_targets.get(l, set()))}
+    # sorted (audit 2026-10-21): iterating a set of strings made sampling depend on PYTHONHASHSEED
+    adm_b = sorted(l for l in tlts.labels
+                   if any(t2 in reach for t2 in label_targets.get(l, set())))
     if not adm_b:
         return sample_from(prior[t], rng)
     masked = {l: prior[t][l] for l in adm_b}
@@ -295,7 +296,7 @@ def run_trajectory(
         # Diagnostics on the prior at this step (independent of variant)
         full = prior[state]
         adm_set = set(adm.keys())
-        masked_unnorm = {l: full[l] for l in adm_set}
+        masked_unnorm = {l: full[l] for l in sorted(adm_set)}
         masked_z = sum(masked_unnorm.values())
         if masked_z > 0:
             masked = normalize(masked_unnorm)
