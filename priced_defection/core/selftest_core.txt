@@ -28,4 +28,6 @@ I22 welfare identity: W = W_pd + W_out; W_pd equals PD income: True
 I23 takeover off -> no prep, no attempt: True
 I24 out_exp 0 -> outside value adds nothing to the value of capability: True
 I25 outside value that neither grows nor is captured nor is cash leaves the dynamics unchanged: True
+I26 takeover off -> no takeover-odds term in the value of capability (pure-PD growth fix): True
+I27 welfare: no takeover -> all three accountings equal; trend rule <= freeze rule when the pie is not rising: True
 selftest PASS

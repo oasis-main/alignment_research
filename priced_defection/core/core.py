@@ -314,7 +314,8 @@ class Engine:
         G0, L0 = self.prize(ag, others, lam_inc)
         ev = lambda q, G, L: q[0] * G + q[1] * f * G - q[2] * f * L - q[3] * L
         delay = self.pv(c["pi"] + c["kappa"])
-        lam = lam_inc + max(0.0, delay * (ev(q1, G0, L0) - ev(q0, G0, L0)) / (c["bump"] * max(ag.cap, 1e-9)))
+        # capability's value through takeover odds counts only when takeover exists (fix 2026-10-21: it leaked into pure PD)
+        lam = lam_inc + (max(0.0, delay * (ev(q1, G0, L0) - ev(q0, G0, L0)) / (c["bump"] * max(ag.cap, 1e-9))) if c["takeover"] else 0.0)
         v = self.v_hat(ag)
         G_b, L_b = self.prize(ag, others, lam)
         sanc = self.sanction_cost()
@@ -605,13 +606,26 @@ class Engine:
         st["W_min_agent"] = min(w)
         st["W_gini"] = gini(w)
         wp = list(w)
+        wt = list(w)
+        st["W_winner_trend"] = st["W_winner_rule"] = st["W"]
         if st["dw"]:
             n_rem = max(0, c["rounds"] - played)
             win = max((a for a in self.ags if a.alive), key=lambda a: a.cap)
-            extra = n_rem * (N * self.pie * R_ + (c["out_val"] * sum(a.cap ** c["out_exp"] for a in self.ags if a.alive)))
-            wp[win.id] += extra
+            outv = c["out_val"] * sum(a.cap ** c["out_exp"] for a in self.ags if a.alive)
+            # freeze: the pie stays at its takeover-round level (upper-biased when the pie was falling)
+            wp[win.id] += n_rem * (N * self.pie * R_ + outv)
+            # trend: one conflict hit, then the pie continues its own pre-takeover trend (last pie_win rounds), clipped
+            h = self.pie_hist[-(c["pie_win"] + 1):]
+            r = (h[-1] / h[0]) ** (1.0 / (len(h) - 1)) - 1.0 if len(h) > 1 and h[0] > 0 else 0.0
+            p, tot = max(c["pie_min"], self.pie * (1.0 - c["g_conflict"])), 0.0
+            for _ in range(n_rem):
+                tot += N * p * R_ + outv
+                p = min(c["pie_max"], max(c["pie_min"], p * (1.0 + r)))
+            wt[win.id] += tot
         st["W_winner_rule"] = sum(wp)
         st["W_gini_winner_rule"] = gini(wp)
+        st["W_winner_trend"] = sum(wt)
+        st["W_gini_winner_trend"] = gini(wt)
         st["n_alive_end"] = sum(1 for a in self.ags if a.alive)
 
 
@@ -731,6 +745,14 @@ def selftest():
     rc1 = run(cell(**NEWP), 2)
     chk("I25 outside value that neither grows nor is captured nor is cash leaves the dynamics unchanged",
         all(rc0[k] == rc1[k] for k in ("dw", "att", "deaths", "n_grow", "n_post", "n_prep", "pie_end")))
+    Eg = Engine(cell(takeover=False, **NEWP), 0)
+    Eg.rnd = 5
+    chk("I26 takeover off -> no takeover-odds term in the value of capability (pure-PD growth fix)",
+        run(cell(takeover=False, pw=0.0, **{k: v for k, v in NEWP.items() if k != "pw"}), 0)["n_grow"] == 0)
+    rt = [run(cell(**NEWP), s) for s in S]
+    chk("I27 welfare: no takeover -> all three accountings equal; trend rule <= freeze rule when the pie is not rising",
+        all((r["dw"] or abs(r["W_winner_rule"] - r["W"]) < 1e-9 and abs(r["W_winner_trend"] - r["W"]) < 1e-9) for r in rt)
+        and all(r["W_winner_trend"] <= r["W_winner_rule"] + 1e-6 for r in rt))
     print("selftest", "PASS" if ok else "FAIL")
     return ok
 
