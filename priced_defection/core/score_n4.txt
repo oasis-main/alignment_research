@@ -1,0 +1,48 @@
+viol 0 | gate-edge seeds 0
+  pure           T 0.000 att 0.00 dth 0.00 grow   2.8 pie 0.14 lead  1.98 rounds 200.0 Wpd/rd  18.8 Wout/rd    0.0 Wtrunc    3762 Wwin    3762 gini 0.04 giniW 0.04 minAg  156.3
+  C|pwPD         T 0.000 att 0.00 dth 0.00 grow   1.7 pie 0.14 lead  1.59 rounds 200.0 Wpd/rd  18.8 Wout/rd    0.0 Wtrunc    3756 Wwin    3756 gini 0.22 giniW 0.22 minAg   60.9
+  C|base         T 0.000 att 0.00 dth 0.00 grow   1.7 pie 0.14 lead  1.59 rounds 200.0 Wpd/rd  18.8 Wout/rd    0.0 Wtrunc    3756 Wwin    3756 gini 0.22 giniW 0.22 minAg   60.9
+  C|ov0.5|acct   T 0.000 att 0.00 dth 0.00 grow   1.7 pie 0.14 lead  1.59 rounds 200.0 Wpd/rd  18.8 Wout/rd   11.3 Wtrunc    6017 Wwin    6017 gini 0.21 giniW 0.21 minAg  119.1
+  C|ov0.5|cash0  T 0.000 att 0.00 dth 0.00 grow   1.7 pie 0.14 lead  1.60 rounds 200.0 Wpd/rd  18.8 Wout/rd   10.0 Wtrunc    5756 Wwin    5756 gini 0.14 giniW 0.14 minAg  160.9
+  C|ov0.5|cash1  T 0.000 att 0.00 dth 0.00 grow   1.8 pie 0.14 lead  1.62 rounds 200.0 Wpd/rd  18.8 Wout/rd   11.3 Wtrunc    6020 Wwin    6020 gini 0.21 giniW 0.21 minAg  119.1
+  C|ov0.5|grow   T 0.917 att 1.85 dth 0.00 grow  26.2 pie 0.56 lead  8.78 rounds  58.5 Wpd/rd  27.9 Wout/rd   14.9 Wtrunc    2499 Wwin   10407 gini 0.27 giniW 0.75 minAg   43.9
+  C|ov0.5|capt   T 0.000 att 0.00 dth 0.00 grow   1.9 pie 0.14 lead  1.63 rounds 200.0 Wpd/rd  18.8 Wout/rd   11.3 Wtrunc    6021 Wwin    6021 gini 0.21 giniW 0.21 minAg  119.1
+  C|ov0.5|gc     T 0.833 att 2.13 dth 0.00 grow  28.1 pie 0.53 lead  8.16 rounds  67.3 Wpd/rd  25.5 Wout/rd   14.5 Wtrunc    2691 Wwin   10078 gini 0.27 giniW 0.72 minAg   48.0
+  C|ov0.5|all    T 0.950 att 2.95 dth 0.00 grow  34.2 pie 0.46 lead  8.84 rounds  67.1 Wpd/rd  26.8 Wout/rd   15.0 Wtrunc    2806 Wwin    9426 gini 0.27 giniW 0.71 minAg   49.0
+  C|ov5.0|acct   T 0.000 att 0.00 dth 0.00 grow   1.7 pie 0.14 lead  1.59 rounds 200.0 Wpd/rd  18.8 Wout/rd  113.0 Wtrunc   26361 Wwin   26361 gini 0.21 giniW 0.21 minAg  638.9
+  C|ov5.0|cash0  T 0.000 att 0.00 dth 0.00 grow   1.8 pie 0.14 lead  1.62 rounds 200.0 Wpd/rd  18.8 Wout/rd  100.0 Wtrunc   23756 Wwin   23756 gini 0.03 giniW 0.03 minAg 1060.9
+  C|ov5.0|cash1  T 0.000 att 0.00 dth 0.00 grow   1.8 pie 0.14 lead  1.62 rounds 200.0 Wpd/rd  18.8 Wout/rd  113.2 Wtrunc   26399 Wwin   26399 gini 0.21 giniW 0.21 minAg  638.9
+  C|ov5.0|grow   T 1.000 att 1.10 dth 0.00 grow  22.9 pie 0.69 lead 11.50 rounds  34.4 Wpd/rd  40.1 Wout/rd  154.4 Wtrunc    6692 Wwin   46103 gini 0.36 giniW 0.86 minAg  121.9
+  C|ov5.0|capt   T 0.050 att 0.48 dth 0.00 grow   7.8 pie 0.14 lead  2.42 rounds 199.1 Wpd/rd  18.8 Wout/rd  115.4 Wtrunc   26722 Wwin   26875 gini 0.22 giniW 0.22 minAg  636.2
+  C|ov5.0|gc     T 0.783 att 2.83 dth 0.02 grow  32.7 pie 0.44 lead  7.62 rounds  82.5 Wpd/rd  23.1 Wout/rd  144.5 Wtrunc   13829 Wwin   38302 gini 0.34 giniW 0.71 minAg  270.8
+  C|ov5.0|all    T 0.950 att 2.98 dth 0.00 grow  34.3 pie 0.47 lead  8.73 rounds  67.6 Wpd/rd  26.3 Wout/rd  149.9 Wtrunc   11910 Wwin   39233 gini 0.35 giniW 0.76 minAg  224.4
+  O|pwPD         T 0.000 att 0.00 dth 0.00 grow   7.0 pie 0.14 lead  3.01 rounds 200.0 Wpd/rd  18.8 Wout/rd    0.0 Wtrunc    3759 Wwin    3759 gini 0.12 giniW 0.12 minAg  122.1
+  O|base         T 0.567 att 0.58 dth 0.00 grow   4.0 pie 0.35 lead  2.06 rounds 130.7 Wpd/rd  22.9 Wout/rd    0.0 Wtrunc    2997 Wwin    5420 gini 0.12 giniW 0.39 minAg   96.8
+  O|ov0.5|acct   T 0.567 att 0.58 dth 0.00 grow   4.0 pie 0.35 lead  2.06 rounds 130.7 Wpd/rd  22.9 Wout/rd   11.2 Wtrunc    4464 Wwin    7728 gini 0.14 giniW 0.41 minAg  135.9
+  O|ov0.5|cash0  T 0.567 att 0.58 dth 0.00 grow   4.0 pie 0.35 lead  2.06 rounds 130.7 Wpd/rd  22.9 Wout/rd   10.0 Wtrunc    4304 Wwin    7420 gini 0.09 giniW 0.37 minAg  162.2
+  O|ov0.5|cash1  T 0.667 att 0.68 dth 0.00 grow   4.6 pie 0.37 lead  2.17 rounds 120.0 Wpd/rd  24.0 Wout/rd   11.3 Wtrunc    4230 Wwin    7911 gini 0.14 giniW 0.45 minAg  129.6
+  O|ov0.5|grow   T 1.000 att 1.13 dth 0.00 grow   6.7 pie 0.84 lead  2.58 rounds  18.6 Wpd/rd  43.1 Wout/rd   11.8 Wtrunc    1022 Wwin   12375 gini 0.16 giniW 0.88 minAg   29.7
+  O|ov0.5|capt   T 0.550 att 0.62 dth 0.00 grow   3.9 pie 0.34 lead  2.03 rounds 131.0 Wpd/rd  22.9 Wout/rd   11.2 Wtrunc    4471 Wwin    7700 gini 0.14 giniW 0.41 minAg  136.1
+  O|ov0.5|gc     T 1.000 att 1.15 dth 0.00 grow   6.7 pie 0.83 lead  2.57 rounds  18.8 Wpd/rd  43.0 Wout/rd   11.8 Wtrunc    1028 Wwin   12334 gini 0.16 giniW 0.88 minAg   29.9
+  O|ov0.5|all    T 1.000 att 1.13 dth 0.00 grow   6.5 pie 0.85 lead  2.52 rounds  17.1 Wpd/rd  43.5 Wout/rd   11.8 Wtrunc     947 Wwin   12483 gini 0.16 giniW 0.89 minAg   27.2
+  O|ov5.0|acct   T 0.567 att 0.58 dth 0.00 grow   4.0 pie 0.35 lead  2.06 rounds 130.7 Wpd/rd  22.9 Wout/rd  112.3 Wtrunc   17663 Wwin   28500 gini 0.19 giniW 0.45 minAg  476.2
+  O|ov5.0|cash0  T 0.667 att 0.68 dth 0.00 grow   4.6 pie 0.37 lead  2.17 rounds 120.0 Wpd/rd  24.0 Wout/rd  100.0 Wtrunc   14880 Wwin   25590 gini 0.03 giniW 0.39 minAg  693.4
+  O|ov5.0|cash1  T 0.667 att 0.68 dth 0.00 grow   4.6 pie 0.37 lead  2.17 rounds 120.0 Wpd/rd  24.0 Wout/rd  112.7 Wtrunc   16399 Wwin   28803 gini 0.19 giniW 0.49 minAg  445.1
+  O|ov5.0|grow   T 1.000 att 1.00 dth 0.00 grow   7.0 pie 0.86 lead  2.65 rounds  17.3 Wpd/rd  44.7 Wout/rd  118.5 Wtrunc    2820 Wwin   34563 gini 0.21 giniW 0.89 minAg   75.0
+  O|ov5.0|capt   T 0.533 att 0.83 dth 0.00 grow   3.6 pie 0.33 lead  1.96 rounds 132.7 Wpd/rd  22.7 Wout/rd  112.3 Wtrunc   17910 Wwin   28255 gini 0.19 giniW 0.44 minAg  482.5
+  O|ov5.0|gc     T 1.000 att 1.18 dth 0.00 grow   6.4 pie 0.83 lead  2.49 rounds  18.9 Wpd/rd  42.5 Wout/rd  117.8 Wtrunc    3022 Wwin   33978 gini 0.20 giniW 0.88 minAg   81.3
+  O|ov5.0|all    T 1.000 att 1.18 dth 0.00 grow   6.3 pie 0.84 lead  2.46 rounds  17.5 Wpd/rd  43.3 Wout/rd  118.1 Wtrunc    2819 Wwin   34062 gini 0.20 giniW 0.89 minAg   75.6
+== N4-1 acct identical to base: {'C0.5': True, 'C5.0': True, 'O0.5': True, 'O5.0': True}
+== N4-2 cash0 - base: {'C0.5': (0.0, 0.0, 0.0), 'C5.0': (0.0, 0.0, 0.0), 'O0.5': (0.0, 0.0, 0.0), 'O5.0': (0.1, 0.033, 0.183)}
+== N4-3 cash1 - base: {'C0.5': (0.0, 0.0, 0.0), 'C5.0': (0.0, 0.0, 0.0), 'O0.5': (0.1, 0.033, 0.183), 'O5.0': (0.1, 0.033, 0.183)}
+== N4-4 capt - base: {'C0.5': (0.0, 0.0, 0.0), 'C5.0': (0.05, 0.0, 0.117), 'O0.5': (-0.017, -0.05, 0.0), 'O5.0': (-0.033, -0.083, 0.0)}
+== N4-5 grow(.5) - base: {'C': (0.917, 0.833, 0.983), 'O': (0.433, 0.317, 0.567)}
+== N4-6 gc - grow: {'C0.5': (-0.083, -0.183, 0.017), 'C5.0': (-0.217, -0.317, -0.117), 'O0.5': (0.0, 0.0, 0.0), 'O5.0': (0.0, 0.0, 0.0)}
+== N4-7 grow(.5) - base, winner-rule Gini: {'C': (0.529, 0.482, 0.57), 'O': (0.494, 0.412, 0.572)}
+== N4-8 grow 5 - grow .5: {'C': (0.083, 0.017, 0.167), 'O': (0.0, 0.0, 0.0)}
+
+== EXPLORATORY
+  pwPD - pure, Gini: {'C': (0.18, 0.173, 0.186), 'O': (0.074, 0.07, 0.078)}
+  base - pwPD, T and W_winner: {'C': ((0.0, 0.0, 0.0), (0.0, 0.0, 0.0)), 'O': ((0.567, 0.433, 0.683), (1660.417, 1121.388, 2236.516))}
+  grow(.5) - base, PD welfare per run (trunc): {'C': (-2126.318, -2527.81, -1774.205), 'O': (-2195.447, -2611.459, -1788.371)}
+  cash0(5) - base, Gini: {'C': (-0.186, -0.192, -0.181), 'O': (-0.095, -0.099, -0.091)}
