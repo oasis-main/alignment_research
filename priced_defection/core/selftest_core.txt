@@ -30,4 +30,7 @@ I24 out_exp 0 -> outside value adds nothing to the value of capability: True
 I25 outside value that neither grows nor is captured nor is cash leaves the dynamics unchanged: True
 I26 takeover off -> no takeover-odds term in the value of capability (pure-PD growth fix): True
 I27 welfare: no takeover -> all three accountings equal; trend rule <= freeze rule when the pie is not rising: True
+I28 theft realism off (p_catch 0, conceal 0, sigma 0) reproduces the frictionless theft draw for draw: True
+I29 full concealment -> nothing is stolen: True
+I30 certain capture -> nothing is stolen: True
 selftest PASS

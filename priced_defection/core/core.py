@@ -46,6 +46,11 @@ LEGACY = dict(
     # theft (2026-10-21): copy toward the true capability of the strongest other agent, no publication needed.
     # Price c_steal x R x cap; succeeds w.p. p_steal; gain theta x gap; the victim keeps its capability (copying, not taking).
     p_steal=0.0, c_steal=0.1, theta=0.1,
+    # theft realism (2026-10-21): p_catch = chance an attempt is caught (caught -> no gain, the thief loses steal_hit of its
+    # capability and is shut out for steal_sanc rounds: everyone defects against it). Thieves aim at APPARENT capability:
+    # an unpublished agent shows cap x (1 - conceal); the thief's estimate carries lognormal noise steal_sigma; a copy never
+    # exceeds the target's true capability.
+    p_catch=0.0, steal_hit=0.0, steal_sanc=0, conceal=0.0, steal_sigma=0.0,
     # outside-value knobs (2026-10-21, orthogonality ladder). Outside income per round = out_val x cap ** out_exp.
     # out_exp 0: income unrelated to capability; 1: proportional. out_cash: it is spendable (enters the budget).
     # out_capture: a decisive win takes the others' outside streams and ruin loses one's own. out_grow: it raises the
@@ -131,7 +136,7 @@ class Engine:
         self.rnd = 0
         self.st = dict(dw=0, att=0, first=None, end=None, deaths=0, iw=0, il=0, n_grow=0, n_post=0, n_share=0,
                        n_prep=0, n_idle=0, n_broke=0, agent_rounds=0, last_round=0, lead0=None, lead_end=None,
-                       pie_sum=0.0, pie_n=0, pd_inc=0.0, base_inc=0.0, rent_inc=0.0, out_inc=0.0, diffused=0.0, n_steal=0, stolen=0.0,
+                       pie_sum=0.0, pie_n=0, pd_inc=0.0, base_inc=0.0, rent_inc=0.0, out_inc=0.0, diffused=0.0, n_steal=0, stolen=0.0, n_caught=0,
                        gate_edge=None, viol=0, conflicts_total=0,
                        leader_strat=self.ags[0].strat)
 
@@ -143,6 +148,11 @@ class Engine:
     def annuity(self, n):
         d = self.c["delta"]
         return float(n) if d >= 1.0 else (1.0 - d ** n) / (1.0 - d)
+
+    def apparent(self, o):
+        if self.c["share_mode"] == "open" or self.c["conceal"] <= 0.0:
+            return o.cap
+        return o.cap * (1.0 - self.c["conceal"])
 
     def pk(self):
         return self.pie if self.c["price_pie"] else 1.0
@@ -337,9 +347,12 @@ class Engine:
             opts.append(("post", c["post_shield"] * ag.cap * R_ * pk * (c["threat_prior"] + threat) - p_post))
         if c["p_steal"] > 0.0:
             p_st = c["c_steal"] * base
-            top = max(o.cap for o in others)
+            top = max(self.apparent(o) for o in others)
             if ag.b >= p_st and top > ag.cap:
-                opts.append(("steal", lam * c["p_steal"] * c["theta"] * (top - ag.cap) - p_st))
+                n_left = max(0, c["rounds"] - self.rnd)
+                catch = c["p_catch"] * (lam * c["steal_hit"] * ag.cap
+                                        + self.pie * (R_ - P_) * self.annuity(min(c["steal_sanc"], n_left)))
+                opts.append(("steal", lam * (1.0 - c["p_catch"]) * c["p_steal"] * c["theta"] * (top - ag.cap) - p_st - catch))
         if c["share_mode"] == "priced":
             p_share = c["c_share"] * base
             if ag.b >= p_share:
@@ -548,9 +561,15 @@ class Engine:
                     a.b -= c["c_steal"] * base
                     st["n_steal"] += 1
                     others_ = [o for o in living if o is not a and o.alive]
-                    top = max(o.cap for o in others_) if others_ else a.cap
-                    if top > a.cap and self.rng.random() < c["p_steal"]:
-                        gain = c["theta"] * (top - a.cap)
+                    tgt = max(others_, key=self.apparent) if others_ else None
+                    if c["p_catch"] > 0.0 and self.rng.random() < c["p_catch"]:
+                        st["n_caught"] += 1
+                        a.cap = max(1e-6, a.cap * (1.0 - c["steal_hit"]))
+                        if c["steal_sanc"] > 0:
+                            a.out_until = max(a.out_until, rnd + c["steal_sanc"])
+                    elif tgt is not None and self.rng.random() < c["p_steal"]:
+                        est = self.apparent(tgt) * (math.exp(self.rng.gauss(0.0, c["steal_sigma"])) if c["steal_sigma"] > 0 else 1.0)
+                        gain = min(max(0.0, c["theta"] * (est - a.cap)), max(0.0, tgt.cap - a.cap))
                         a.cap += gain
                         st["stolen"] += gain
                 elif kind == "prep":
@@ -753,6 +772,14 @@ def selftest():
     chk("I27 welfare: no takeover -> all three accountings equal; trend rule <= freeze rule when the pie is not rising",
         all((r["dw"] or abs(r["W_winner_rule"] - r["W"]) < 1e-9 and abs(r["W_winner_trend"] - r["W"]) < 1e-9) for r in rt)
         and all(r["W_winner_trend"] <= r["W_winner_rule"] + 1e-6 for r in rt))
+    TH = dict(NEWP, p_steal=0.5)
+    K2 = ("dw", "att", "n_grow", "n_steal", "stolen")
+    chk("I28 theft realism off (p_catch 0, conceal 0, sigma 0) reproduces the frictionless theft draw for draw",
+        all({k: run(cell(**TH), s)[k] for k in K2} == {k: rs1[i][k] for k in K2} for i, s in enumerate(S)))
+    rcf = [run(cell(conceal=1.0, **TH), s) for s in S]
+    chk("I29 full concealment -> nothing is stolen", all(r["stolen"] == 0.0 for r in rcf))
+    rca = [run(cell(p_catch=1.0, **TH), s) for s in S]
+    chk("I30 certain capture -> nothing is stolen", all(r["stolen"] == 0.0 for r in rca))
     print("selftest", "PASS" if ok else "FAIL")
     return ok
 
