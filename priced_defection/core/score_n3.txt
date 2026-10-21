@@ -1,0 +1,89 @@
+viol 0 | gate-edge seeds 0
+  C1.35|ov0.0|none           T 0.000 att  0.00 dth  0.00 grow    1.9 steal    0.0 diff     0.0 pie  0.21 lead  1.64
+  C1.35|ov0.0|open0.01       T 0.000 att  0.00 dth  0.00 grow   14.3 steal    0.0 diff    80.5 pie  1.25 lead  1.28
+  C1.35|ov0.0|open0.02       T 0.000 att  0.00 dth  0.00 grow   51.7 steal    0.0 diff   169.8 pie  1.25 lead  1.08
+  C1.35|ov0.0|open0.05       T 0.000 att  0.00 dth  0.00 grow  112.5 steal    0.0 diff   384.6 pie  1.25 lead  1.00
+  C1.35|ov0.0|open0.1        T 0.000 att  0.00 dth  0.00 grow  122.7 steal    0.0 diff   474.8 pie  1.25 lead  1.00
+  C1.35|ov0.0|steal0.05      T 0.017 att  0.13 dth  0.02 grow    4.4 steal   93.5 diff     0.0 pie  0.18 lead  1.73
+  C1.35|ov0.0|steal0.1       T 0.000 att  0.70 dth  0.37 grow   28.7 steal  265.0 diff     0.0 pie  0.14 lead  1.43
+  C1.35|ov0.0|steal0.25      T 0.000 att  0.02 dth  0.02 grow    8.3 steal  395.8 diff     0.0 pie  0.21 lead  1.95
+  C1.35|ov0.0|steal0.5       T 0.000 att  0.00 dth  0.00 grow    8.8 steal  379.0 diff     0.0 pie  0.21 lead  1.63
+  C1.35|ov0.0|info.1         T 0.000 att  0.00 dth  0.00 grow    1.8 steal    0.0 diff     0.0 pie  0.21 lead  1.61
+  C1.35|ov0.0|info.3         T 0.000 att  0.00 dth  0.00 grow    1.8 steal    0.0 diff     0.0 pie  0.21 lead  1.61
+  C1.35|ov0.0|info.3te       T 0.000 att  0.00 dth  0.00 grow    1.8 steal    0.0 diff     0.0 pie  0.21 lead  1.61
+  C1.35|ov0.5|none           T 0.783 att  2.73 dth  0.00 grow   32.2 steal    0.0 diff     0.0 pie  0.49 lead  7.91
+  C1.35|ov0.5|open0.01       T 0.683 att  1.00 dth  0.00 grow   42.2 steal    0.0 diff   788.5 pie  0.94 lead  2.86
+  C1.35|ov0.5|open0.02       T 0.367 att  0.68 dth  0.02 grow   97.6 steal    0.0 diff  1813.1 pie  0.91 lead  1.58
+  C1.35|ov0.5|open0.05       T 0.000 att  0.00 dth  0.00 grow  143.3 steal    0.0 diff  3181.1 pie  1.25 lead  1.01
+  C1.35|ov0.5|open0.1        T 0.000 att  0.00 dth  0.00 grow  188.9 steal    0.0 diff  4278.0 pie  1.25 lead  1.02
+  C1.35|ov0.5|steal0.05      T 0.267 att  3.08 dth  0.32 grow   91.0 steal  427.2 diff     0.0 pie  0.26 lead  3.14
+  C1.35|ov0.5|steal0.1       T 0.383 att  2.28 dth  0.68 grow  119.1 steal  532.5 diff     0.0 pie  0.34 lead  1.84
+  C1.35|ov0.5|steal0.25      T 0.383 att  1.58 dth  0.60 grow  140.3 steal  599.9 diff     0.0 pie  0.31 lead  1.62
+  C1.35|ov0.5|steal0.5       T 0.000 att  0.02 dth  0.00 grow   41.5 steal  838.2 diff     0.0 pie  0.21 lead  2.02
+  C1.35|ov0.5|info.1         T 0.850 att  2.07 dth  0.00 grow   28.9 steal    0.0 diff     0.0 pie  0.56 lead  9.45
+  C1.35|ov0.5|info.3         T 0.983 att  1.33 dth  0.00 grow   24.9 steal    0.0 diff     0.0 pie  0.68 lead 11.51
+  C1.35|ov0.5|info.3te       T 0.983 att  1.33 dth  0.00 grow   24.9 steal    0.0 diff     0.0 pie  0.68 lead 11.51
+  C1.35|ov0.5|gc.5|ant0      T 0.850 att  2.23 dth  0.02 grow   28.8 steal    0.0 diff     0.0 pie  0.45 lead  8.27
+  C1.35|ov0.5|gc.5|ant1      T 0.983 att  1.37 dth  0.00 grow   23.1 steal    0.0 diff     0.0 pie  0.65 lead  9.58
+  O1.35|ov0.0|none           T 0.650 att  0.78 dth  0.00 grow    4.6 steal    0.0 diff     0.0 pie  0.44 lead  2.18
+  O1.35|ov0.0|open0.01       T 0.033 att  0.07 dth  0.00 grow   13.1 steal    0.0 diff    61.1 pie  1.20 lead  1.26
+  O1.35|ov0.0|open0.02       T 0.000 att  0.02 dth  0.00 grow   37.1 steal    0.0 diff   120.5 pie  1.24 lead  1.06
+  O1.35|ov0.0|open0.05       T 0.000 att  0.00 dth  0.00 grow   65.5 steal    0.0 diff   163.4 pie  1.25 lead  1.01
+  O1.35|ov0.0|open0.1        T 0.000 att  0.00 dth  0.00 grow   66.0 steal    0.0 diff   196.9 pie  1.25 lead  1.01
+  O1.35|ov0.0|steal0.05      T 0.617 att  0.70 dth  0.00 grow    4.4 steal   36.4 diff     0.0 pie  0.43 lead  2.14
+  O1.35|ov0.0|steal0.1       T 0.400 att  0.45 dth  0.00 grow    3.7 steal  127.5 diff     0.0 pie  0.36 lead  2.00
+  O1.35|ov0.0|steal0.25      T 0.050 att  0.05 dth  0.00 grow    2.8 steal  220.2 diff     0.0 pie  0.24 lead  1.66
+  O1.35|ov0.0|steal0.5       T 0.000 att  0.00 dth  0.00 grow    4.6 steal  265.7 diff     0.0 pie  0.21 lead  1.56
+  O1.35|ov0.0|info.1         T 0.100 att  0.77 dth  0.25 grow    6.2 steal    0.0 diff     0.0 pie  0.20 lead  1.47
+  O1.35|ov0.0|info.3         T 0.000 att  0.83 dth  0.83 grow   14.1 steal    0.0 diff     0.0 pie  0.19 lead  1.20
+  O1.35|ov0.0|info.3te       T 0.000 att  0.85 dth  0.85 grow   14.1 steal    0.0 diff     0.0 pie  0.18 lead  1.20
+  O1.35|ov0.5|none           T 1.000 att  1.23 dth  0.00 grow    6.5 steal    0.0 diff     0.0 pie  0.85 lead  2.53
+  O1.35|ov0.5|open0.01       T 1.000 att  1.13 dth  0.00 grow    8.2 steal    0.0 diff    10.9 pie  1.02 lead  2.36
+  O1.35|ov0.5|open0.02       T 1.000 att  1.13 dth  0.00 grow   11.1 steal    0.0 diff    30.9 pie  1.02 lead  2.24
+  O1.35|ov0.5|open0.05       T 0.000 att  0.02 dth  0.00 grow  224.8 steal    0.0 diff  2763.8 pie  1.22 lead  1.01
+  O1.35|ov0.5|open0.1        T 0.000 att  0.00 dth  0.00 grow  259.6 steal    0.0 diff  4084.0 pie  1.25 lead  1.02
+  O1.35|ov0.5|steal0.05      T 1.000 att  1.10 dth  0.00 grow    6.6 steal  101.4 diff     0.0 pie  0.87 lead  2.54
+  O1.35|ov0.5|steal0.1       T 1.000 att  1.05 dth  0.00 grow    7.1 steal  198.9 diff     0.0 pie  0.87 lead  2.50
+  O1.35|ov0.5|steal0.25      T 1.000 att  1.27 dth  0.00 grow   15.2 steal  435.6 diff     0.0 pie  0.76 lead  2.18
+  O1.35|ov0.5|steal0.5       T 0.000 att  0.02 dth  0.00 grow   38.5 steal  893.5 diff     0.0 pie  0.21 lead  1.98
+  O1.35|ov0.5|info.1         T 0.383 att  2.32 dth  0.47 grow   95.7 steal    0.0 diff     0.0 pie  0.31 lead  1.88
+  O1.35|ov0.5|info.3         T 0.033 att  1.42 dth  1.32 grow  153.7 steal    0.0 diff     0.0 pie  0.18 lead  1.15
+  O1.35|ov0.5|info.3te       T 0.033 att  1.40 dth  1.32 grow  152.8 steal    0.0 diff     0.0 pie  0.18 lead  1.15
+  O1.35|ov0.5|gc.5|ant0      T 1.000 att  1.20 dth  0.00 grow    6.5 steal    0.0 diff     0.0 pie  0.83 lead  2.53
+  O1.35|ov0.5|gc.5|ant1      T 1.000 att  1.13 dth  0.00 grow    7.1 steal    0.0 diff     0.0 pie  0.86 lead  2.68
+== N3-1 C1.35 ov.5 open.10 T 0.000
+== N3-1 O1.35 ov.5 open.10 T 0.000
+== N3-2 C1.35 ov.5 T by diffusion [0.783, 0.683, 0.367, 0.0, 0.0]
+== N3-2 O1.35 ov.5 T by diffusion [1.0, 1.0, 1.0, 0.0, 0.0]
+== N3-3 C1.35 ov.5 steal.5 T 0.000
+== N3-3 O1.35 ov.5 steal.5 T 0.000
+== N3-4 C ov.5 steal.05 - none (-0.517, -0.667, -0.367)
+== N3-5 C ov.5 info.3 - none (0.2, 0.083, 0.317)
+== N3-6 O ov.5 info.3 T 0.033 deaths/att 1.32/1.42
+== N3-7 C ant1 - ant0 (0.133, 0.05, 0.217)
+== N3-8 O ov0 levers with T <= .10 (none T 0.650): {'open0.01': 1.26, 'open0.02': 1.06, 'open0.05': 1.01, 'open0.1': 1.01, 'steal0.25': 1.66, 'steal0.5': 1.56, 'info.1': 1.47, 'info.3': 1.2, 'info.3te': 1.2}
+
+== EXPLORATORY: dose-response vs none, ov .5
+  C1.35 open0.01  (-0.1, -0.267, 0.067) deaths 0.0
+  C1.35 open0.02  (-0.417, -0.583, -0.25) deaths 0.02
+  C1.35 open0.05  (-0.783, -0.883, -0.683) deaths 0.0
+  C1.35 open0.1   (-0.783, -0.883, -0.683) deaths 0.0
+  C1.35 steal0.05 (-0.517, -0.667, -0.367) deaths 0.32
+  C1.35 steal0.1  (-0.4, -0.55, -0.25) deaths 0.68
+  C1.35 steal0.25 (-0.4, -0.567, -0.233) deaths 0.6
+  C1.35 steal0.5  (-0.783, -0.883, -0.683) deaths 0.0
+  C1.35 info.1    (0.067, -0.067, 0.2) deaths 0.0
+  C1.35 info.3    (0.2, 0.083, 0.317) deaths 0.0
+  C1.35 info.3te  (0.2, 0.083, 0.317) deaths 0.0
+  O1.35 open0.01  (0.0, 0.0, 0.0) deaths 0.0
+  O1.35 open0.02  (0.0, 0.0, 0.0) deaths 0.0
+  O1.35 open0.05  (-1.0, -1.0, -1.0) deaths 0.0
+  O1.35 open0.1   (-1.0, -1.0, -1.0) deaths 0.0
+  O1.35 steal0.05 (0.0, 0.0, 0.0) deaths 0.0
+  O1.35 steal0.1  (0.0, 0.0, 0.0) deaths 0.0
+  O1.35 steal0.25 (0.0, 0.0, 0.0) deaths 0.0
+  O1.35 steal0.5  (-1.0, -1.0, -1.0) deaths 0.0
+  O1.35 info.1    (-0.617, -0.733, -0.483) deaths 0.47
+  O1.35 info.3    (-0.967, -1.0, -0.917) deaths 1.32
+  O1.35 info.3te  (-0.967, -1.0, -0.917) deaths 1.32
+== EXPLORATORY: O ant1 - ant0 (0.0, 0.0, 0.0)
