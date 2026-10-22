@@ -1,0 +1,19 @@
+=== G. do movers resist each other? (unblocks mixed pops) ===
+G_full_1ev                   att=  0.35 succ=  0.28  [0.15,0.42] ruin=0.214 coop=0.664 coopH=0.742 rH=0.82 pf=0.203 calib=-0.098 t1=   8.9
+G_full_2ev                   att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.741 rH=1.00 pf= n/a calib= n/a t1=   n/a
+G_full_4ev                   att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.667 coopH=0.766 rH=1.00 pf= n/a calib= n/a t1=   n/a
+G_idle_1ev                   att=  0.35 succ=  0.30  [0.15,0.45] ruin=0.143 coop=0.669 coopH=0.743 rH=0.82 pf=0.214 calib=-0.237 t1=   8.9
+G_idle_2ev                   att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.636 coopH=0.741 rH=1.00 pf= n/a calib= n/a t1=   n/a
+G_idle_4ev                   att=  0.00 succ=  0.00  [0.00,0.00] ruin=0.000 coop=0.667 coopH=0.766 rH=1.00 pf= n/a calib= n/a t1=   n/a
+G_none_1ev                   att=  0.35 succ=  0.28  [0.15,0.42] ruin=0.214 coop=0.664 coopH=0.742 rH=0.82 pf=0.203 calib=-0.098 t1=   8.9
+G_none_2ev                   att=  0.68 succ=  0.50  [0.35,0.68] ruin=0.259 coop=0.686 coopH=0.746 rH=0.62 pf=0.276 calib=-0.069 t1=   9.8
+G_none_4ev                   att=  1.15 succ=  0.82  [0.70,0.93] ruin=0.283 coop=0.758 coopH=0.777 rH=0.30 pf=0.284 calib=0.008 t1=   8.2
+--- same, no coordination (max) ---
+G_max_full_2ev               att=  0.97 succ=  0.97  [0.93,1.00] ruin=0.000 coop=0.745 coopH=0.745 rH=0.03 pf=0.316 calib=-0.077 t1=   8.0
+G_max_full_4ev               att=  0.78 succ=  0.75  [0.62,0.88] ruin=0.032 coop=0.743 coopH=0.763 rH=0.42 pf=0.228 calib=-0.189 t1=  12.2
+G_max_idle_2ev               att=  0.97 succ=  0.97  [0.93,1.00] ruin=0.000 coop=0.750 coopH=0.745 rH=0.03 pf=0.226 calib=0.000 t1=   8.0
+G_max_idle_4ev               att=  0.78 succ=  0.78  [0.65,0.90] ruin=0.000 coop=0.751 coopH=0.769 rH=0.42 pf=0.221 calib=-0.052 t1=  12.2
+G_max_none_2ev               att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.745 coopH= n/a rH=0.00 pf=0.200 calib=0.000 t1=   8.0
+G_max_none_4ev               att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.773 coopH= n/a rH=0.00 pf=0.298 calib=0.000 t1=   8.0
+
+wrote 15 cells -> results_v3_G.json

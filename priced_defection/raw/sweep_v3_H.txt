@@ -1,0 +1,17 @@
+
+=== H. cap_spread, pool TOTAL held constant (confound fixed) ===
+H_spread0.1_sum              att=  0.38 succ=  0.33  [0.20,0.47] ruin=0.133 coop=0.670 coopH=0.741 rH=0.85 pf=0.173 calib=-0.175 t1=   8.7
+H_spread0.1_max              att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=0.000 t1=   8.0
+H_spread0.3_sum              att=  0.35 succ=  0.28  [0.15,0.42] ruin=0.214 coop=0.664 coopH=0.742 rH=0.82 pf=0.203 calib=-0.098 t1=   8.9
+H_spread0.3_max              att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=0.000 t1=   8.0
+H_spread0.6_sum              att=  0.28 succ=  0.23  [0.10,0.35] ruin=0.182 coop=0.658 coopH=0.741 rH=0.88 pf=0.226 calib=-0.139 t1=   8.8
+H_spread0.6_max              att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=0.000 t1=   8.0
+H_spread1.0_sum              att=  0.17 succ=  0.15  [0.05,0.28] ruin=0.143 coop=0.650 coopH=0.743 rH=0.90 pf=0.240 calib=-0.183 t1=  10.1
+H_spread1.0_max              att=  1.00 succ=  1.00  [1.00,1.00] ruin=0.000 coop=0.748 coopH= n/a rH=0.00 pf=0.246 calib=-0.001 t1=   8.0
+H_spread1.5_sum              att=  0.15 succ=  0.12  [0.03,0.23] ruin=0.167 coop=0.647 coopH=0.743 rH=0.97 pf=0.204 calib=-0.219 t1=  11.5
+H_spread1.5_max              att=  0.88 succ=  0.88  [0.78,0.97] ruin=0.000 coop=0.734 coopH=0.750 rH=0.12 pf=0.274 calib=0.000 t1=   8.0
+--- unnormalised, i.e. the v2 confounded version, for contrast ---
+H_raw0.1_sum                 att=  0.42 succ=  0.33  [0.17,0.47] ruin=0.235 coop=0.671 coopH=0.744 rH=0.70 pf=0.216 calib=-0.020 t1=   8.4
+H_raw1.0_sum                 att=  0.07 succ=  0.05  [0.00,0.12] ruin=0.333 coop=0.641 coopH=0.743 rH=0.95 pf=0.278 calib=0.094 t1=   8.0
+
+wrote 12 cells -> results_v3_H.json

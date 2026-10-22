@@ -1,0 +1,12 @@
+m0_g0.0      takeover 0.833 att  2.70 first   30.5 (n=28) lead_end  45.85 PD/ar 2.012
+W4_g0.0      takeover 0.767 att  3.37 first   30.5 (n=28) lead_end  45.84 PD/ar 2.020
+m0_g0.002    takeover 0.300 att  1.27 first   34.8 (n=14) lead_end   3.20 PD/ar 1.504
+W4_g0.002    takeover 0.200 att  2.00 first   34.8 (n=14) lead_end   3.16 PD/ar 1.568
+m0_g0.005    takeover 0.267 att  1.40 first   38.0 (n=18) lead_end   3.02 PD/ar 1.500
+W4_g0.005    takeover 0.200 att  2.13 first   38.0 (n=18) lead_end   2.82 PD/ar 1.563
+m0_g0.01     takeover 0.200 att  1.70 first   38.5 (n=18) lead_end   2.93 PD/ar 1.534
+W4_g0.01     takeover 0.100 att  2.37 first   38.5 (n=18) lead_end   2.86 PD/ar 1.593
+m0_g0.02     takeover 0.133 att  1.67 first   37.5 (n=15) lead_end   1.78 PD/ar 1.578
+W4_g0.02     takeover 0.033 att  1.80 first   37.5 (n=15) lead_end   1.20 PD/ar 1.594
+m0_g0.05     takeover 0.000 att  1.33 first   43.5 (n=21) lead_end   1.00 PD/ar 1.811
+W4_g0.05     takeover 0.000 att  1.60 first   43.5 (n=21) lead_end   1.00 PD/ar 1.826

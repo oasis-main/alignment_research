@@ -1,0 +1,14 @@
+I1 m=0 equals tournament12 [D0]: True
+I1 m=0 equals tournament12 [CL]: True
+I2 m=4, all effects off, equals m=0 [D0]: True
+I2 m=4, all effects off, equals m=0 [CL]: True
+I3a determinism (all fields): True
+I3b setup leaves the global random stream untouched: True
+I3c module patches undone: True
+I3d monitor sets nested (m=2 within m=4): True
+I4 invariant violations: 0 (want 0); reads ok 260 of 284 tries (want > 0)
+I5 bad_touch 0 (want 0); exclusion events with p_exp=rho=1: 2672 (want > 0); zero-cost arms clean
+I6 false flags fire: True; cost spends: True; false flags lower total PD score: False
+I6b m=8, r=.9 differs from m=0 in D0: True
+I7 net income equals un-netted income when spend = 0: True
+selftest PASS

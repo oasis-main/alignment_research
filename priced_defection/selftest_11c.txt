@@ -1,0 +1,10 @@
+Q0a f=1,q=1 (belief q*f=1) equals aware d=0: True
+Q0b f=0 equals pass 10 aware d=1.0 chan_q=0: True
+Q0g A'' (f=.5,q=1) differs from A' (belief wiring is live): True
+Q0c determinism: True
+Q0d module patches undone: True
+Q0e recorder leaves outputs unchanged: True; first-25 mismatches: 0
+Q0f accounting (cell f=0): recorded PD rounds/agent-rounds consistent with engine: True
+Q0f same for f=1,q=1: True; rec_rounds=[26, 25, 99, 102, 41, 29, 200, 200], last_round=[26, 25, 99, 102, 41, 29, 199, 199]
+floor sanity (F1>=F0; equal when no remaining rounds): True
+selftest PASS

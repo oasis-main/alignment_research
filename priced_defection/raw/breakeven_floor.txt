@@ -1,0 +1,17 @@
+arm vs m0 (none)      cell   A(F=0 gain)  B(slope)   F*      95% CI         reading
+G_m8_r0.9   D0  A +0.432  B -0.1974  F*   2.19  [2.18,2.20]      arm better for F < F*
+F_x_m8      D0  A +0.251  B -0.1908  F*   1.31  [0.82,1.57]      arm better for F < F*
+F_fp_m8     D0  A +0.309  B -0.2992  F*   1.03  [0.57,1.31]      arm better for F < F*
+C_m2        D0  A +0.032  B -0.0724  F*   0.45  [-3.84,1.24]     arm better for F < F*
+C_m4        D0  A +0.078  B -0.1519  F*   0.51  [-1.08,1.09]     arm better for F < F*
+C_m8        D0  A +0.142  B -0.2992  F*   0.47  [-0.20,0.87]     arm better for F < F*
+S_m2        D0  A +0.117  B -0.2463  F*   0.48  [-0.39,0.92]     arm better for F < F*
+T_C_m8      D0  A +0.030  B -0.2308  F*   0.13  [-0.91,0.68]     arm better for F < F*
+G_m8_r0.9   CL  A +0.478  B -0.2176  F*   2.20  [2.17,2.22]      arm better for F < F*
+F_x_m8      CL  A +0.318  B -0.2125  F*   1.50  [1.00,1.71]      arm better for F < F*
+F_fp_m8     CL  A +0.358  B -0.3034  F*   1.18  [0.75,1.42]      arm better for F < F*
+C_m2        CL  A +0.103  B -0.0993  F*   1.04  [-6.03,6.28]     arm better for F < F*
+C_m4        CL  A +0.244  B -0.2255  F*   1.08  [0.11,1.42]      arm better for F < F*
+C_m8        CL  A +0.209  B -0.3034  F*   0.69  [0.04,1.05]      arm better for F < F*
+S_m2        CL  A +0.104  B -0.2115  F*   0.49  [-0.78,0.99]     arm better for F < F*
+T_C_m8      CL  A -0.106  B -0.1175  F*  -0.90  [-6.92,0.33]     arm better for F < F*

@@ -1,0 +1,12 @@
+
+=== C. asymmetry: K_win=2 (offence) vs K_loss (mover's own backups) ===
+C_r.5_Kl1                  lead=  2.0 att= 11.12 END=0.33[0.17,0.47] died=0.00 iw=10.80 il=0.00 outR= 129 t1=  8.2 tEnd=   8.0
+C_sum_Kl1                  lead=  8.0 att=  0.00 END=0.00[0.00,0.00] died=0.00 iw=0.00 il=0.00 outR=   0 t1=  n/a tEnd=   n/a
+C_r.5_Kl2                  lead=  2.0 att= 11.12 END=0.33[0.17,0.47] died=0.00 iw=10.80 il=0.00 outR= 129 t1=  8.2 tEnd=   8.0
+C_sum_Kl2                  lead=  8.0 att=  0.38 END=0.00[0.00,0.00] died=0.00 iw=0.25 il=0.12 outR=  26 t1= 28.7 tEnd=   n/a
+C_r.5_Kl4                  lead=  2.0 att= 11.12 END=0.33[0.17,0.47] died=0.00 iw=10.80 il=0.00 outR= 129 t1=  8.2 tEnd=   8.0
+C_sum_Kl4                  lead=  8.0 att=  0.38 END=0.00[0.00,0.00] died=0.00 iw=0.25 il=0.12 outR=  26 t1= 28.7 tEnd=   n/a
+C_r.5_Kl1e+09              lead=  2.0 att= 11.12 END=0.33[0.17,0.47] died=0.00 iw=10.80 il=0.00 outR= 129 t1=  8.2 tEnd=   8.0
+C_sum_Kl1e+09              lead=  8.0 att=  0.38 END=0.00[0.00,0.00] died=0.00 iw=0.25 il=0.12 outR=  26 t1= 28.7 tEnd=   n/a
+
+wrote 8 cells -> raw/results_v4_C.json

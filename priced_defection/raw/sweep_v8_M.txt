@@ -1,0 +1,14 @@
+
+=== M. S4: does public sharing defeat the ACCESS GATE? ===
+M_gate_noshare_cg0.1           END=0.90[0.77,1.00] lead=3.00->  3.87[3.46,4.47] grow=   2.3 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   9.4
+M_gate_club_cg0.1              END=1.00[1.00,1.00] lead=3.00->  3.42[3.37,3.48] grow=   1.4 shr= 152.6 blf= 0.000 app= 1.000 tEnd=   9.4
+M_gate_public_cg0.1            END=1.00[1.00,1.00] lead=3.00->  3.42[3.37,3.48] grow=   1.4 shr= 150.1 blf= 0.000 app= 1.000 tEnd=   9.4
+M_gate_noshare_cg0.6           END=1.00[1.00,1.00] lead=3.00->  3.00[3.00,3.00] grow=   0.0 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   9.6
+M_gate_club_cg0.6              END=0.80[0.63,0.93] lead=3.00->  2.65[2.37,2.88] grow=   0.0 shr= 153.9 blf= 0.000 app= 1.000 tEnd=   9.7
+M_gate_public_cg0.6            END=0.00[0.00,0.00] lead=3.00->  1.21[1.16,1.25] grow=   0.0 shr= 103.0 blf= 0.000 app= 1.000 tEnd=   n/a
+--- M2: sharing efficiency against a hard gate ---
+M2_public_eff0.1               END=0.10[0.00,0.23] lead=3.00->  1.41[1.31,1.54] grow=   0.0 shr= 138.9 blf= 0.000 app= 1.000 tEnd=   9.3
+M2_public_eff0.25              END=0.00[0.00,0.00] lead=3.00->  1.21[1.16,1.25] grow=   0.0 shr= 103.0 blf= 0.000 app= 1.000 tEnd=   n/a
+M2_public_eff0.5               END=0.00[0.00,0.00] lead=3.00->  1.11[1.08,1.13] grow=   0.0 shr=  87.1 blf= 0.000 app= 1.000 tEnd=   n/a
+
+wrote 9 cells -> raw/results_v8_M.json

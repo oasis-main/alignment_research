@@ -1,0 +1,15 @@
+
+=== H. Q3: public vs club sharing -- provision ===
+H_public_c0.05               shr=   0.0 sharers=  0.0 moved=   0.00 club=  0.0 rep=  0.00 ldClub=   n/a ldNon=  1.96 END=0.07 lead=1.25->1.29
+H_public_c0.2                shr=   0.0 sharers=  0.0 moved=   0.00 club=  0.0 rep=  0.00 ldClub=   n/a ldNon=  1.96 END=0.07 lead=1.25->1.29
+H_public_c0.5                shr=   0.0 sharers=  0.0 moved=   0.00 club=  0.0 rep=  0.00 ldClub=   n/a ldNon=  1.96 END=0.07 lead=1.25->1.29
+H_club_c0.05                 shr=   0.0 sharers=  0.0 moved=   0.00 club=  0.0 rep=  0.00 ldClub=   n/a ldNon=  1.96 END=0.07 lead=1.25->1.29
+H_club_c0.2                  shr=   0.0 sharers=  0.0 moved=   0.00 club=  0.0 rep=  0.00 ldClub=   n/a ldNon=  1.96 END=0.07 lead=1.25->1.29
+H_club_c0.5                  shr=   0.0 sharers=  0.0 moved=   0.00 club=  0.0 rep=  0.00 ldClub=   n/a ldNon=  1.96 END=0.07 lead=1.25->1.29
+--- H2: does a private return to reputation rescue public sharing? ---
+H2_public_rep0.0             shr=   0.0 sharers=  0.0 moved=   0.00 club=  0.0 rep=  0.00 ldClub=   n/a ldNon=  1.96 END=0.07 lead=1.25->1.29
+H2_public_rep0.1             shr=   0.0 sharers=  0.0 moved=   0.00 club=  0.0 rep=  0.00 ldClub=   n/a ldNon=  1.96 END=0.07 lead=1.25->1.29
+H2_public_rep0.3             shr= 303.9 sharers= 20.0 moved=  16.50 club=  5.2 rep=  1.43 ldClub=  1.00 ldNon=  1.02 END=0.00 lead=1.25->1.02
+H2_public_rep0.6             shr=3061.4 sharers= 20.0 moved=  17.11 club= 17.6 rep= 13.51 ldClub=  1.00 ldNon=  1.00 END=0.00 lead=1.25->1.00
+
+wrote 10 cells -> raw/results_v7_H.json

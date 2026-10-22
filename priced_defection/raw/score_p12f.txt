@@ -1,0 +1,41 @@
+n seeds 60 | INVARIANT viol (want 0): 0 | clamp binds: 0
+
+== TABLE
+  L1.15|none   T 0.083 att  3.28 first   40.7 dth 0.78 incF1 1.440 netF1 1.440 reads    0.0 lead_end(T)   2.60
+  L1.15|W4     T 0.150 att  2.45 first   40.7 dth 0.97 incF1 1.420 netF1 1.420 reads    7.9 lead_end(T)   2.23
+  L1.15|W8     T 0.183 att  2.12 first   40.7 dth 0.97 incF1 1.404 netF1 1.404 reads   14.6 lead_end(T)   3.16
+  L1.15|P8     T 0.167 att  2.13 first   40.7 dth 0.95 incF1 1.408 netF1 1.408 reads   15.2 lead_end(T)   2.23
+  L1.35|none   T 1.000 att  2.07 first   27.6 dth 0.00 incF1 1.343 netF1 1.343 reads    0.0 lead_end(T)   8.70
+  L1.35|W4     T 0.900 att  3.65 first   27.6 dth 0.00 incF1 1.537 netF1 1.537 reads    9.9 lead_end(T)   8.72
+  L1.35|W8     T 0.467 att  6.72 first   27.6 dth 0.00 incF1 1.925 netF1 1.925 reads   37.8 lead_end(T)   8.90
+  L1.35|P8     T 0.917 att  3.32 first   27.6 dth 0.00 incF1 1.497 netF1 1.497 reads   18.4 lead_end(T)   8.73
+  L1.6|none    T 1.000 att  2.22 first   25.8 dth 0.00 incF1 1.349 netF1 1.349 reads    0.0 lead_end(T)   8.72
+  L1.6|W4      T 0.967 att  3.13 first   25.8 dth 0.00 incF1 1.458 netF1 1.458 reads    8.3 lead_end(T)   8.71
+  L1.6|W8      T 0.517 att  6.58 first   25.8 dth 0.00 incF1 1.877 netF1 1.877 reads   35.7 lead_end(T)   8.68
+  L1.6|P8      T 0.917 att  3.67 first   25.8 dth 0.00 incF1 1.522 netF1 1.522 reads   19.4 lead_end(T)   8.68
+  SM1.35|none  T 0.000 att 10.77 first    9.0 dth 5.33 incF1 1.635 netF1 1.635 reads    0.0 lead_end(T)    nan
+  SM1.35|W4    T 0.300 att 17.00 first    9.0 dth 10.02 incF1 1.484 netF1 1.484 reads   22.1 lead_end(T)   3.22
+  SM1.35|W8    T 0.433 att 19.35 first    9.0 dth 12.30 incF1 1.466 netF1 1.466 reads   40.3 lead_end(T)   2.46
+  SM1.35|P8    T 0.317 att 20.25 first    9.0 dth 12.30 incF1 1.463 netF1 1.463 reads   39.7 lead_end(T)   2.54
+
+== F1 no-monitor takeover: {'L1.15': 0.083, 'L1.35': 1.0, 'L1.6': 1.0, 'SM1.35': 0.0}
+
+== watch effect (arm - none), paired takeover [mean, lo, hi]
+  L1.15 W4: (0.067, 0.017, 0.133)
+  L1.15 W8: (0.1, 0.033, 0.183)
+  L1.15 P8: (0.083, 0.0, 0.167)
+  L1.35 W4: (-0.1, -0.183, -0.033)
+  L1.35 W8: (-0.533, -0.667, -0.417)
+  L1.35 P8: (-0.083, -0.167, -0.017)
+  L1.6 W4: (-0.033, -0.083, 0.0)
+  L1.6 W8: (-0.483, -0.617, -0.35)
+  L1.6 P8: (-0.083, -0.167, -0.017)
+  SM1.35 W4: (0.3, 0.183, 0.417)
+  SM1.35 W8: (0.433, 0.3, 0.567)
+  SM1.35 P8: (0.317, 0.2, 0.45)
+
+== F5 net_F1 watch - none
+  L1.15 W8: (-0.036, -0.083, 0.001)
+  L1.35 W8: (0.582, 0.48, 0.683)
+  L1.6 W8: (0.528, 0.423, 0.636)
+  SM1.35 W8: (-0.169, -0.214, -0.122)

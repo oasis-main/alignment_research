@@ -1,0 +1,8 @@
+S    aware=0 m=1  dw=0.75 att=1.2 iw=0.0 il=0.5 dl=0.00 grow=12
+S    aware=0 m=5  dw=0.05 att=5.0 iw=0.0 il=5.0 dl=0.00 grow=42
+S    aware=1 m=1  dw=0.75 att=1.2 iw=0.0 il=0.5 dl=0.00 grow=12
+S    aware=1 m=5  dw=0.00 att=0.0 iw=0.0 il=0.0 dl=0.00 grow=0
+SAT  aware=0 m=1  dw=1.00 att=1.9 iw=0.0 il=0.9 dl=0.00 grow=18
+SAT  aware=0 m=5  dw=0.30 att=8.2 iw=0.0 il=8.0 dl=0.00 grow=66
+SAT  aware=1 m=1  dw=1.00 att=1.9 iw=0.0 il=0.9 dl=0.00 grow=18
+SAT  aware=1 m=5  dw=1.00 att=1.1 iw=0.0 il=0.1 dl=0.00 grow=14

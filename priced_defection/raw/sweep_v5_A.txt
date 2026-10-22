@@ -1,0 +1,35 @@
+=== A. DEFENDER CATCH-UP: does g_def >= gamma hold the order? ===
+--- A1: growth ONLY, no operations (ops=False) ---
+A1_gam0.0_gdef0.0        lead0=  1.24->    n/a END=0.00[0.00,0.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=   n/a
+A1_gam0.0_gdef0.01       lead0=  1.22->   0.12 END=0.00[0.00,0.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=   n/a
+A1_gam0.0_gdef0.02       lead0=  1.21->   0.02 END=0.00[0.00,0.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=   n/a
+A1_gam0.0_gdef0.05       lead0=  1.18->   0.00 END=0.00[0.00,0.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=   n/a
+A1_gam0.0_gdef0.08       lead0=  1.14->   0.00 END=0.00[0.00,0.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=   n/a
+A1_gam0.02_gdef0.0       lead0=  1.26->    n/a END=1.00[1.00,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=  29.4
+A1_gam0.02_gdef0.01      lead0=  1.25->   2.13 END=1.00[1.00,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=  54.6
+A1_gam0.02_gdef0.02      lead0=  1.24->   1.24 END=0.00[0.00,0.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=   n/a
+A1_gam0.02_gdef0.05      lead0=  1.20->   0.00 END=0.00[0.00,0.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=   n/a
+A1_gam0.02_gdef0.08      lead0=  1.17->   0.00 END=0.00[0.00,0.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=   n/a
+A1_gam0.05_gdef0.0       lead0=  1.30->    n/a END=1.00[1.00,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=  13.4
+A1_gam0.05_gdef0.01      lead0=  1.28->   2.46 END=1.00[1.00,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=  16.6
+A1_gam0.05_gdef0.02      lead0=  1.27->   2.41 END=1.00[1.00,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=  22.0
+A1_gam0.05_gdef0.05      lead0=  1.24->   1.24 END=0.00[0.00,0.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=   n/a
+A1_gam0.05_gdef0.08      lead0=  1.20->   0.00 END=0.00[0.00,0.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=   n/a
+--- A2: same grid WITH operations, to separate growth from raids ---
+A2_gam0.0_gdef0.0        lead0=  1.24->   0.87 END=0.00[0.00,0.00] died=0.57 mRepo=  0.0/0.0   dRepo=  3.0/2.1   took=   2.9 tEnd=   n/a
+A2_gam0.0_gdef0.01       lead0=  1.22->   0.01 END=0.00[0.00,0.00] died=0.00 mRepo=  0.8/0.5   dRepo= 21.8/21.2  took=  10.9 tEnd=   n/a
+A2_gam0.0_gdef0.02       lead0=  1.21->   0.00 END=0.00[0.00,0.00] died=0.00 mRepo=  0.6/0.3   dRepo= 22.9/22.7  took=  10.6 tEnd=   n/a
+A2_gam0.0_gdef0.05       lead0=  1.18->   0.01 END=0.00[0.00,0.00] died=0.03 mRepo=  0.8/0.4   dRepo= 22.8/22.7  took=  13.3 tEnd=   n/a
+A2_gam0.0_gdef0.08       lead0=  1.14->   0.01 END=0.00[0.00,0.00] died=0.03 mRepo=  0.5/0.3   dRepo= 22.9/22.9  took=  14.6 tEnd=   n/a
+A2_gam0.02_gdef0.0       lead0=  1.26->   2.17 END=0.95[0.88,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  1.5/1.3   took=   2.8 tEnd=  28.2
+A2_gam0.02_gdef0.01      lead0=  1.25->   1.69 END=0.78[0.65,0.90] died=0.00 mRepo=  0.1/0.1   dRepo=  6.0/5.5   took=  12.6 tEnd=  50.5
+A2_gam0.02_gdef0.02      lead0=  1.24->   0.56 END=0.00[0.00,0.00] died=0.00 mRepo=  1.0/0.7   dRepo= 15.2/14.3  took=  63.1 tEnd=   n/a
+A2_gam0.02_gdef0.05      lead0=  1.20->   0.00 END=0.00[0.00,0.00] died=0.00 mRepo=  0.7/0.4   dRepo= 23.0/22.9  took=  66.7 tEnd=   n/a
+A2_gam0.02_gdef0.08      lead0=  1.17->   0.00 END=0.00[0.00,0.00] died=0.00 mRepo=  0.7/0.5   dRepo= 23.3/23.2  took=  89.3 tEnd=   n/a
+A2_gam0.05_gdef0.0       lead0=  1.30->   2.59 END=1.00[1.00,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.3 tEnd=  14.0
+A2_gam0.05_gdef0.01      lead0=  1.28->   2.34 END=1.00[1.00,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.1/0.1   took=   0.5 tEnd=  15.5
+A2_gam0.05_gdef0.02      lead0=  1.27->   2.42 END=1.00[1.00,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.3/0.1   took=   0.8 tEnd=  22.1
+A2_gam0.05_gdef0.05      lead0=  1.24->   0.56 END=0.00[0.00,0.00] died=0.00 mRepo=  1.0/0.7   dRepo= 15.2/14.3  took=5304.5 tEnd=   n/a
+A2_gam0.05_gdef0.08      lead0=  1.20->   0.00 END=0.00[0.00,0.00] died=0.00 mRepo=  0.7/0.4   dRepo= 23.0/22.9  took=5370.0 tEnd=   n/a
+
+wrote 30 cells -> raw/results_v5_A.json

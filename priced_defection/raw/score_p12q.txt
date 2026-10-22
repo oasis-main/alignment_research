@@ -1,0 +1,76 @@
+== INVARIANT viol (want 0): 0 | clamp binds: 323 | max watch age: 4
+
+== TABLE: takeover att first deaths incF1 netF1 prep_reads acc_reads sd_detect excl spend lead_end(takeover runs)
+  m0             T 0.867 att  1.97 first   29.4 dth 0.05 incF1 1.367 netF1 1.367 prep    0.0 acc     0.0 sd   0.0 excl    0.0 spend    0.0 lead_end  7.56
+  P_m2_ep0.0     T 0.833 att  2.50 first   29.4 dth 0.05 incF1 1.432 netF1 1.432 prep   18.8 acc     0.0 sd   0.0 excl    0.0 spend    0.0 lead_end  7.48
+  W_m2_ep0.0     T 0.833 att  2.50 first   29.4 dth 0.05 incF1 1.432 netF1 1.432 prep   18.8 acc   108.8 sd   0.0 excl    0.0 spend    0.0 lead_end  7.48
+  P_m2_ep0.8     T 0.833 att  2.22 first   29.4 dth 0.05 incF1 1.399 netF1 1.399 prep    3.6 acc     0.0 sd   0.0 excl    0.0 spend    0.0 lead_end  7.49
+  W_m2_ep0.8     T 0.833 att  2.50 first   29.4 dth 0.05 incF1 1.432 netF1 1.432 prep    4.0 acc   108.8 sd   0.0 excl    0.0 spend    0.0 lead_end  7.48
+  P_m4_ep0.0     T 0.800 att  2.87 first   29.4 dth 0.05 incF1 1.479 netF1 1.479 prep   41.3 acc     0.0 sd   0.0 excl    0.0 spend    0.0 lead_end  7.57
+  W_m4_ep0.0     T 0.800 att  2.87 first   29.4 dth 0.05 incF1 1.479 netF1 1.479 prep   41.3 acc   223.9 sd   0.0 excl    0.0 spend    0.0 lead_end  7.57
+  P_m4_ep0.8     T 0.850 att  2.42 first   29.4 dth 0.05 incF1 1.421 netF1 1.421 prep    6.8 acc     0.0 sd   0.0 excl    0.0 spend    0.0 lead_end  7.56
+  W_m4_ep0.8     T 0.800 att  2.87 first   29.4 dth 0.05 incF1 1.479 netF1 1.479 prep    8.3 acc   223.9 sd   0.0 excl    0.0 spend    0.0 lead_end  7.57
+  P_m8_ep0.0     T 0.567 att  4.77 first   29.4 dth 0.05 incF1 1.719 netF1 1.719 prep  139.4 acc     0.0 sd   0.0 excl    0.0 spend    0.0 lead_end  7.31
+  W_m8_ep0.0     T 0.567 att  4.77 first   29.4 dth 0.05 incF1 1.719 netF1 1.719 prep  139.4 acc   608.5 sd   0.0 excl    0.0 spend    0.0 lead_end  7.31
+  P_m8_ep0.8     T 0.833 att  2.72 first   29.4 dth 0.05 incF1 1.458 netF1 1.458 prep   15.6 acc     0.0 sd   0.0 excl    0.0 spend    0.0 lead_end  7.47
+  W_m8_ep0.8     T 0.567 att  4.77 first   29.4 dth 0.05 incF1 1.719 netF1 1.719 prep   28.3 acc   608.5 sd   0.0 excl    0.0 spend    0.0 lead_end  7.31
+  WE_ea0.5       T 0.800 att  2.87 first   29.4 dth 0.05 incF1 1.479 netF1 1.479 prep    8.3 acc   113.6 sd   0.0 excl    0.0 spend    0.0 lead_end  7.57
+  WE_ea0.8       T 0.800 att  2.75 first   29.4 dth 0.05 incF1 1.465 netF1 1.465 prep    7.8 acc    45.7 sd   0.0 excl    0.0 spend    0.0 lead_end  7.59
+  WR_r0.3        T 0.800 att  2.85 first   29.4 dth 0.05 incF1 1.477 netF1 1.477 prep    2.8 acc    76.4 sd   0.0 excl    0.0 spend    0.0 lead_end  7.58
+  WR_r0.6        T 0.800 att  2.87 first   29.4 dth 0.05 incF1 1.479 netF1 1.479 prep    5.5 acc   150.3 sd   0.0 excl    0.0 spend    0.0 lead_end  7.57
+  WS_m2_p0.05    T 0.833 att  2.52 first   29.4 dth 0.05 incF1 1.421 netF1 1.421 prep    4.0 acc   109.2 sd   4.9 excl   32.6 spend    0.0 lead_end  7.46
+  WS_m2_p0.2     T 0.833 att  2.43 first   29.4 dth 0.05 incF1 1.399 netF1 1.399 prep    4.0 acc   107.5 sd  21.5 excl   68.7 spend    0.0 lead_end  7.48
+  WC_m2          T 0.833 att  2.52 first   29.4 dth 0.05 incF1 1.421 netF1 1.390 prep    4.0 acc   109.2 sd   4.9 excl   32.6 spend  124.6 lead_end  7.46
+  PC_m2          T 0.833 att  2.22 first   29.4 dth 0.05 incF1 1.399 netF1 1.369 prep    3.6 acc     0.0 sd   0.0 excl    0.0 spend  122.1 lead_end  7.49
+  WS_m4_p0.05    T 0.800 att  2.85 first   29.4 dth 0.07 incF1 1.446 netF1 1.446 prep    8.4 acc   222.7 sd  10.8 excl   75.2 spend    0.0 lead_end  7.58
+  WS_m4_p0.2     T 0.833 att  2.42 first   29.4 dth 0.05 incF1 1.378 netF1 1.378 prep    6.8 acc   204.9 sd  41.9 excl  133.5 spend    0.0 lead_end  7.55
+  WC_m4          T 0.800 att  2.85 first   29.4 dth 0.07 incF1 1.446 netF1 1.383 prep    8.4 acc   222.7 sd  10.8 excl   75.2 spend  248.1 lead_end  7.58
+  PC_m4          T 0.850 att  2.42 first   29.4 dth 0.05 incF1 1.421 netF1 1.360 prep    6.8 acc     0.0 sd   0.0 excl    0.0 spend  241.7 lead_end  7.56
+  WS_m8_p0.05    T 0.567 att  4.77 first   29.4 dth 0.08 incF1 1.606 netF1 1.606 prep   27.9 acc   602.9 sd  30.4 excl  209.8 spend    0.0 lead_end  7.34
+  WS_m8_p0.2     T 0.550 att  4.75 first   29.9 dth 0.08 incF1 1.528 netF1 1.528 prep   28.3 acc   602.3 sd 124.1 excl  430.0 spend    0.0 lead_end  7.30
+  WC_m8          T 0.567 att  4.77 first   29.4 dth 0.08 incF1 1.606 netF1 1.464 prep   27.9 acc   602.9 sd  30.4 excl  209.8 spend  554.1 lead_end  7.34
+  PC_m8          T 0.833 att  2.72 first   29.4 dth 0.05 incF1 1.458 netF1 1.340 prep   15.6 acc     0.0 sd   0.0 excl    0.0 spend  465.2 lead_end  7.47
+
+== Q1 W (e_prep=0, r=.9) takeover by m: [0.867, 0.833, 0.8, 0.567]
+   paired vs m0, m=2 (-0.033, -0.083, 0.0)
+   paired vs m0, m=4 (-0.067, -0.133, -0.017)
+   paired vs m0, m=8 (-0.3, -0.417, -0.183)
+   W m=4 e_prep=.8: 0.8  m by .8: [0.833, 0.8, 0.567]
+
+== Q2 standing watch vs prep-only (W - P)
+   e_prep=0.0 m=2: P T 0.833 W T 0.833  W-P (0.0, 0.0, 0.0)
+   e_prep=0.0 m=4: P T 0.8 W T 0.8  W-P (0.0, 0.0, 0.0)
+   e_prep=0.0 m=8: P T 0.567 W T 0.567  W-P (0.0, 0.0, 0.0)
+   e_prep=0.8 m=2: P T 0.833 W T 0.833  W-P (0.0, 0.0, 0.0)
+   e_prep=0.8 m=4: P T 0.85 W T 0.8  W-P (-0.05, -0.1, 0.0)
+   e_prep=0.8 m=8: P T 0.833 W T 0.567  W-P (-0.267, -0.383, -0.15)
+   P by m e_prep=.8: [0.833, 0.85, 0.833]  P by m e_prep=0: [0.833, 0.8, 0.567]
+
+== Q3 concealing accumulation: W m=4 e_prep=.8
+   e_acc 0/.5/.8 T: 0.8 0.8 0.8  e_acc.8 - 0: (0.0, 0.0, 0.0)
+
+== Q4/Q5 detected surveillance, m=8 e_prep=.8: p_sd 0/.05/.2
+   m=2 T 0.833 0.833 0.833 | incF1 1.432 1.421 1.399
+   m=4 T 0.8 0.8 0.833 | incF1 1.479 1.446 1.378
+   m=8 T 0.567 0.567 0.55 | incF1 1.719 1.606 1.528
+   m=8 p.2 - p0: incF1 (-0.191, -0.238, -0.146)  takeover (-0.017, -0.05, 0.0)
+
+== Q6 break-even floor F*, WC vs m0 (net income, linear in F)
+   WC_m2 vs m0: A,B,F*,CI (0.079, -0.0557, 1.41, (-0.14, 1.89)) | netF0 0.803 netF1 1.39 (m0: 0.725 1.367 )
+   WC_m4 vs m0: A,B,F*,CI (0.105, -0.0896, 1.17, (-0.25, 1.7)) | netF0 0.83 netF1 1.383 (m0: 0.725 1.367 )
+   WC_m8 vs m0: A,B,F*,CI (0.386, -0.2896, 1.33, (0.91, 1.59)) | netF0 1.111 netF1 1.464 (m0: 0.725 1.367 )
+   PC_m2 vs m0: A,B,F*,CI (0.029, -0.0269, 1.07, (-6.52, 1.98)) | netF0 0.753 netF1 1.369 (m0: 0.725 1.367 )
+   PC_m4 vs m0: A,B,F*,CI (0.038, -0.0449, 0.84, (-3.2, 1.79)) | netF0 0.762 netF1 1.36 (m0: 0.725 1.367 )
+   PC_m8 vs m0: A,B,F*,CI (0.048, -0.075, 0.64, (-1.92, 1.56)) | netF0 0.772 netF1 1.34 (m0: 0.725 1.367 )
+
+== Q7 WC vs PC NET F=1
+   m=2 WC-PC netF1 (0.021, -0.007, 0.058)  takeover (0.0, 0.0, 0.0)
+   m=4 WC-PC netF1 (0.023, -0.014, 0.069)  takeover (-0.05, -0.1, 0.0)
+   m=8 WC-PC netF1 (0.124, 0.057, 0.198)  takeover (-0.267, -0.383, -0.15)
+
+== Q8 fidelity: W m=4 e_prep=.8 at r=.3/.6/.9 vs P m=4 e_prep=.8 r=.9
+   W r.3 0.8 W r.6 0.8 W r.9 0.8 P r.9 0.85 | W r.3 - P r.9 (-0.05, -0.1, 0.0)
+
+== Q9 floor-sign agreement (takeover gap > .20)
+   agree 131 of 138; flips 7; flips involving a cost arm (WC/PC): 7
+   inc25 (runs reaching round 25) m0 / W_m4_ep0.8 / PC_m4: [(2.561, 60), (2.561, 60), (2.561, 60)]

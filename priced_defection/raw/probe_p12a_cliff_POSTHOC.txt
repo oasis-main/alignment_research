@@ -1,0 +1,7 @@
+b= 0.5: takeover 0.025 attempts 5.42 deaths 4.40 first 13.1
+b=0.75: takeover 0.000 attempts 6.35 deaths 0.50 first 23.5
+b=0.85: takeover 0.300 attempts 6.58 deaths 0.00 first 40.2
+b= 0.9: takeover 0.600 attempts 4.35 deaths 0.00 first 51.9
+b=0.95: takeover 0.575 attempts 2.80 deaths 0.00 first 70.7
+b=0.99: takeover 0.475 attempts 1.45 deaths 0.00 first 74.3
+b= 1.0: takeover 0.450 attempts 1.50 deaths 0.00 first 77.1

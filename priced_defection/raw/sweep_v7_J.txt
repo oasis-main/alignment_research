@@ -1,0 +1,17 @@
+
+=== J. Q5: bluffing -- does overstatement substitute for growth? ===
+J_nobluff                    END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+J_cb0.02_mult0.5             END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+J_cb0.02_mult1.5             END=0.07[0.00,0.17] lead=1.25->   1.28 grow=   0.1 seize=  0.0 prep=  8.1 post= 0.867 shr=   0.0 blf= 0.537 app= 1.803 tEnd=  76.0
+J_cb0.1_mult0.5              END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+J_cb0.1_mult1.5              END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.001 app= 1.003 tEnd=  69.0
+J_cb0.3_mult0.5              END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+J_cb0.3_mult1.5              END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+--- J2: bluff vs real growth at matched prices (substitution) ---
+J2_cb0.05_cg0.3              END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+J2_cb0.3_cg0.3               END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+--- J3: does a bluff hold up at a real lead? ---
+J3_lead1.0_bluff             END=0.07[0.00,0.17] lead=1.25->   1.29 grow=   0.2 seize=  0.0 prep=  8.1 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+J3_lead3.0_bluff             END=1.00[1.00,1.00] lead=3.00->   3.12 grow=   0.4 seize=  0.0 prep=  2.5 post= 0.814 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   9.8
+
+wrote 11 cells -> raw/results_v7_J.json

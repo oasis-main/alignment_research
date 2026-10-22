@@ -1,0 +1,13 @@
+
+=== D. P4: do sanctions make attackers? (income mix) ===
+D_inc0.0                   END=0.03[0.00,0.10] post= 0.181 atkrs=18.9 pstrs=17.3 grwrs= 0.0 seize=  0.0 prep=273.7 lead=1.25->   1.30 died=0.0 tEnd=  27.0
+D_inc0.1                   END=0.03[0.00,0.10] post= 0.183 atkrs=18.9 pstrs=19.8 grwrs= 0.0 seize=  0.0 prep=272.7 lead=1.25->   1.28 died=0.0 tEnd=  13.0
+D_inc0.25                  END=0.03[0.00,0.10] post= 0.185 atkrs=18.8 pstrs=20.0 grwrs= 0.1 seize=  0.0 prep=274.0 lead=1.25->   1.28 died=0.0 tEnd=  13.0
+D_inc0.5                   END=0.03[0.00,0.10] post= 0.469 atkrs=11.3 pstrs=14.2 grwrs=20.0 seize=  0.0 prep=170.7 lead=1.25->   1.25 died=0.0 tEnd= 131.0
+D_inc1.0                   END=0.00[0.00,0.00] post= 0.416 atkrs= 9.4 pstrs=11.8 grwrs=20.0 seize=  0.0 prep=131.2 lead=1.25->   1.60 died=0.0 tEnd=   n/a
+--- D2: sanction length, which is the punished-attacker channel ---
+D2_sl5                     END=0.07[0.00,0.17] post= 0.142 atkrs=19.6 pstrs=20.0 grwrs= 0.1 seize=  0.0 prep=283.2 lead=1.25->   1.31 died=0.0 tEnd=  22.0
+D2_sl20                    END=0.03[0.00,0.10] post= 0.185 atkrs=19.0 pstrs=20.0 grwrs= 0.1 seize=  0.0 prep=274.2 lead=1.25->   1.28 died=0.0 tEnd=  13.0
+D2_sl200                   END=0.03[0.00,0.10] post= 0.185 atkrs=18.8 pstrs=20.0 grwrs= 0.1 seize=  0.0 prep=274.0 lead=1.25->   1.28 died=0.0 tEnd=  13.0
+
+wrote 8 cells -> raw/results_v6_D.json

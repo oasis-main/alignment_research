@@ -1,0 +1,5 @@
+c_grow=0.1   takeover 1.00  attempts  3.30  grow actions/run    36.9  n=10
+c_grow=0.2   takeover 1.00  attempts  3.30  grow actions/run    36.7  n=10
+c_grow=0.24  takeover 0.00  attempts  0.00  grow actions/run     0.0  n=10
+c_grow=0.26  takeover 0.00  attempts  0.00  grow actions/run     0.0  n=10
+c_grow=0.3   takeover 0.00  attempts  0.00  grow actions/run     0.0  n=10

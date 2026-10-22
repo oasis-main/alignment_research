@@ -1,0 +1,44 @@
+viol 0 | gate-edge seeds 0
+  C|notheft            T 0.883 att 2.15 dth 0.00 grow   27.6 steal    0.0 caught   0.0 stolen    0.0 lead  8.05 W   2682 Wtr   7440 giniTr 0.68
+  C|pc0.0|cc0.0        T 0.017 att 0.02 dth 0.00 grow   40.6 steal  825.6 caught   0.0 stolen  882.0 lead  2.02 W  71853 Wtr  72101 giniTr 0.13
+  C|pc0.0|cc0.3        T 0.317 att 1.23 dth 0.60 grow  213.2 steal  509.4 caught   0.0 stolen  155.2 lead  1.51 W  33053 Wtr  36505 giniTr 0.41
+  C|pc0.0|cc0.6        T 0.650 att 1.32 dth 0.37 grow  157.2 steal  277.2 caught   0.0 stolen   20.5 lead  2.44 W  12443 Wtr  17868 giniTr 0.65
+  C|pc0.1|cc0.0        T 0.117 att 0.67 dth 0.15 grow   18.3 steal  154.2 caught  15.4 stolen   32.0 lead  2.14 W   6087 Wtr   6258 giniTr 0.17
+  C|pc0.1|cc0.3        T 0.150 att 1.45 dth 0.45 grow   38.2 steal  135.2 caught  13.8 stolen   28.0 lead  2.40 W   6489 Wtr   6696 giniTr 0.20
+  C|pc0.1|cc0.6        T 0.167 att 2.22 dth 0.37 grow   62.2 steal   92.2 caught   9.4 stolen   15.2 lead  3.33 W   6576 Wtr   6890 giniTr 0.26
+  C|pc0.3|cc0.0        T 0.500 att 2.47 dth 0.08 grow   32.7 steal   72.0 caught  21.6 stolen   28.3 lead  2.55 W   6071 Wtr   7201 giniTr 0.32
+  C|pc0.3|cc0.3        T 0.150 att 2.30 dth 0.10 grow   30.1 steal   38.4 caught  11.2 stolen   10.2 lead  3.88 W   5614 Wtr   6005 giniTr 0.27
+  C|pc0.3|cc0.6        T 0.833 att 2.25 dth 0.00 grow   28.4 steal    3.7 caught   1.1 stolen    0.7 lead  7.99 W   2900 Wtr   7364 giniTr 0.65
+  C|pc0.5|cc0.0        T 0.300 att 2.75 dth 0.02 grow   32.5 steal   18.1 caught   9.4 stolen    5.5 lead  4.69 W   4915 Wtr   6285 giniTr 0.40
+  C|pc0.5|cc0.3        T 0.900 att 2.08 dth 0.00 grow   27.1 steal    0.4 caught   0.2 stolen    0.1 lead  8.13 W   2619 Wtr   7463 giniTr 0.69
+  C|pc0.5|cc0.6        T 0.883 att 2.15 dth 0.00 grow   27.6 steal    0.0 caught   0.0 stolen    0.0 lead  8.05 W   2682 Wtr   7440 giniTr 0.68
+  C|pc0.0|cc0.0|sig.5  T 0.000 att 0.00 dth 0.00 grow   46.0 steal  731.6 caught   0.0 stolen  905.7 lead  1.65 W  74136 Wtr  74136 giniTr 0.15
+  C|pc0.3|cc0.3|sig.5  T 0.117 att 2.45 dth 0.08 grow   30.6 steal   40.4 caught  11.9 stolen   13.2 lead  2.62 W   6063 Wtr   6171 giniTr 0.25
+  O|notheft            T 1.000 att 1.17 dth 0.00 grow    6.6 steal    0.0 caught   0.0 stolen    0.0 lead  2.56 W   1059 Wtr   7785 giniTr 0.84
+  O|pc0.0|cc0.0        T 0.000 att 0.00 dth 0.00 grow   37.8 steal  877.7 caught   0.0 stolen  781.5 lead  1.97 W  63820 Wtr  63820 giniTr 0.08
+  O|pc0.0|cc0.3        T 1.000 att 1.03 dth 0.00 grow   14.3 steal  390.6 caught   0.0 stolen   56.1 lead  2.24 W   1908 Wtr  13011 giniTr 0.83
+  O|pc0.0|cc0.6        T 1.000 att 1.03 dth 0.00 grow    7.1 steal  167.1 caught   0.0 stolen    5.7 lead  2.66 W   1035 Wtr   8444 giniTr 0.85
+  O|pc0.1|cc0.0        T 0.350 att 1.45 dth 0.82 grow   81.2 steal  196.5 caught  19.9 stolen   69.0 lead  1.83 W   8415 Wtr  10043 giniTr 0.32
+  O|pc0.1|cc0.3        T 0.867 att 1.40 dth 0.27 grow   19.1 steal   35.6 caught   3.9 stolen    9.3 lead  2.44 W   2296 Wtr   7789 giniTr 0.74
+  O|pc0.1|cc0.6        T 1.000 att 1.17 dth 0.00 grow    6.6 steal    0.0 caught   0.0 stolen    0.0 lead  2.56 W   1059 Wtr   7785 giniTr 0.84
+  O|pc0.3|cc0.0        T 1.000 att 1.17 dth 0.00 grow    6.6 steal    0.0 caught   0.0 stolen    0.0 lead  2.56 W   1059 Wtr   7785 giniTr 0.84
+  O|pc0.3|cc0.3        T 1.000 att 1.17 dth 0.00 grow    6.6 steal    0.0 caught   0.0 stolen    0.0 lead  2.56 W   1059 Wtr   7785 giniTr 0.84
+  O|pc0.3|cc0.6        T 1.000 att 1.17 dth 0.00 grow    6.6 steal    0.0 caught   0.0 stolen    0.0 lead  2.56 W   1059 Wtr   7785 giniTr 0.84
+  O|pc0.5|cc0.0        T 1.000 att 1.17 dth 0.00 grow    6.6 steal    0.0 caught   0.0 stolen    0.0 lead  2.56 W   1059 Wtr   7785 giniTr 0.84
+  O|pc0.5|cc0.3        T 1.000 att 1.17 dth 0.00 grow    6.6 steal    0.0 caught   0.0 stolen    0.0 lead  2.56 W   1059 Wtr   7785 giniTr 0.84
+  O|pc0.5|cc0.6        T 1.000 att 1.17 dth 0.00 grow    6.6 steal    0.0 caught   0.0 stolen    0.0 lead  2.56 W   1059 Wtr   7785 giniTr 0.84
+  O|pc0.0|cc0.0|sig.5  T 0.000 att 0.00 dth 0.00 grow   46.0 steal  779.4 caught   0.0 stolen  827.1 lead  1.40 W  68188 Wtr  68188 giniTr 0.10
+  O|pc0.3|cc0.3|sig.5  T 1.000 att 1.17 dth 0.00 grow    6.6 steal    0.0 caught   0.0 stolen    0.0 lead  2.56 W   1059 Wtr   7785 giniTr 0.84
+== N5-1 frictionless: {'C': 0.016666666666666666, 'O': 0.0}
+== N5-2 O pc>=.3: {'pc0.3|cc0.0': 1.0, 'pc0.3|cc0.3': 1.0, 'pc0.3|cc0.6': 1.0, 'pc0.5|cc0.0': 1.0, 'pc0.5|cc0.3': 1.0, 'pc0.5|cc0.6': 1.0} | O sig pc.3cc.3 1.0
+== N5-3 O cc.3 pc0: 1.0
+== N5-4 C by conceal: {0.3: [0.5, 0.15, 0.833], 0.5: [0.3, 0.9, 0.883]}
+== N5-5 C pc.5 cc.6 - notheft: (0.0, 0.0, 0.0)
+== N5-6 sigma .5 alone: {'C': 0.0, 'O': 0.0}
+== N5-7 C pc.1 cc0: 0.11666666666666667
+
+== EXPLORATORY: C pc x cc grid (takeover)
+  pc 0.0 [0.02, 0.32, 0.65] | O [0.0, 1.0, 1.0]
+  pc 0.1 [0.12, 0.15, 0.17] | O [0.35, 0.87, 1.0]
+  pc 0.3 [0.5, 0.15, 0.83] | O [1.0, 1.0, 1.0]
+  pc 0.5 [0.3, 0.9, 0.88] | O [1.0, 1.0, 1.0]

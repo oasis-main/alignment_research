@@ -1,0 +1,151 @@
+== INVARIANT: detector outside monitor set / unreadable pair (want 0) ==
+   total viol over all arms/cells: 0
+   total clamp binds: 3
+
+== TABLE: takeover / attempts / deaths / incF1 / netF1 / reads_ok / fp_flags ==
+-- D0
+  m0               T 0.567 att  1.90 dth  0.00 incF1 1.961 netF1 1.961 reads    0.0 fp    0.0 spend    0.0
+  G_m1_r0.3        T 0.550 att  1.93 dth  0.00 incF1 1.965 netF1 1.965 reads    2.2 fp    0.0 spend    0.0
+  G_m1_r0.9        T 0.533 att  2.03 dth  0.00 incF1 1.980 netF1 1.980 reads    7.1 fp    0.0 spend    0.0
+  G_m2_r0.3        T 0.517 att  2.13 dth  0.00 incF1 1.994 netF1 1.994 reads    4.7 fp    0.0 spend    0.0
+  G_m2_r0.9        T 0.500 att  2.23 dth  0.00 incF1 2.008 netF1 2.008 reads   15.8 fp    0.0 spend    0.0
+  G_m4_r0.3        T 0.467 att  2.48 dth  0.00 incF1 2.044 netF1 2.044 reads   11.2 fp    0.0 spend    0.0
+  G_m4_r0.9        T 0.450 att  2.60 dth  0.00 incF1 2.060 netF1 2.060 reads   36.3 fp    0.0 spend    0.0
+  G_m8_r0.3        T 0.350 att  2.87 dth  0.00 incF1 2.102 netF1 2.102 reads   26.7 fp    0.0 spend    0.0
+  G_m8_r0.9        T 0.233 att  3.52 dth  0.00 incF1 2.195 netF1 2.195 reads   99.4 fp    0.0 spend    0.0
+  H_c0.5_r0.9      T 0.500 att  2.30 dth  0.00 incF1 2.017 netF1 2.017 reads   15.3 fp    0.0 spend    0.0
+  H_c1_r0.45       T 0.467 att  2.57 dth  0.00 incF1 2.056 netF1 2.056 reads   17.5 fp    0.0 spend    0.0
+  E_e0.5           T 0.467 att  2.57 dth  0.00 incF1 2.056 netF1 2.056 reads   17.5 fp    0.0 spend    0.0
+  E_e0.8           T 0.517 att  2.20 dth  0.00 incF1 2.002 netF1 2.002 reads    6.0 fp    0.0 spend    0.0
+  F_fp_m2          T 0.467 att  1.43 dth  0.00 incF1 1.969 netF1 1.969 reads   10.0 fp   11.7 spend    0.0
+  F_fpx_m2         T 0.467 att  1.43 dth  0.00 incF1 1.936 netF1 1.936 reads   10.0 fp   11.7 spend    0.0
+  F_x_m2           T 0.467 att  2.32 dth  0.00 incF1 1.981 netF1 1.981 reads   16.0 fp    0.0 spend    0.0
+  C_m2             T 0.467 att  1.43 dth  0.00 incF1 1.936 netF1 1.921 reads   10.0 fp   11.7 spend   61.2
+  F_fp_m4          T 0.283 att  0.95 dth  0.00 incF1 1.979 netF1 1.979 reads   13.1 fp   26.0 spend    0.0
+  F_fpx_m4         T 0.283 att  0.95 dth  0.00 incF1 1.922 netF1 1.922 reads   13.1 fp   26.0 spend    0.0
+  F_x_m4           T 0.417 att  2.77 dth  0.00 incF1 2.010 netF1 2.010 reads   38.6 fp    0.0 spend    0.0
+  C_m4             T 0.283 att  0.95 dth  0.00 incF1 1.922 netF1 1.886 reads   13.1 fp   26.0 spend  141.7
+  F_fp_m8          T 0.000 att  0.57 dth  0.00 incF1 1.971 netF1 1.971 reads   16.8 fp   61.0 spend    0.0
+  F_fpx_m8         T 0.000 att  0.57 dth  0.00 incF1 1.879 netF1 1.879 reads   16.8 fp   61.0 spend    0.0
+  F_x_m8           T 0.233 att  3.47 dth  0.00 incF1 2.021 netF1 2.021 reads   97.8 fp    0.0 spend    0.0
+  C_m8             T 0.000 att  0.57 dth  0.00 incF1 1.879 netF1 1.803 reads   16.8 fp   61.0 spend  302.9
+  S_m2             T 0.100 att  0.23 dth  0.00 incF1 1.850 netF1 1.831 reads    1.4 fp   72.7 spend   73.6
+  S_m4             T 0.000 att  0.02 dth  0.00 incF1 1.693 netF1 1.654 reads    0.2 fp  153.7 spend  154.8
+  T_F_fp_m2        T 0.483 att  1.32 dth  0.00 incF1 1.952 netF1 1.952 reads    0.0 fp   11.4 spend    0.0
+  T_F_fpx_m2       T 0.483 att  1.32 dth  0.00 incF1 1.920 netF1 1.920 reads    0.0 fp   11.4 spend    0.0
+  T_F_x_m2         T 0.533 att  2.00 dth  0.00 incF1 1.939 netF1 1.939 reads    0.0 fp    0.0 spend    0.0
+  T_C_m2           T 0.483 att  1.32 dth  0.00 incF1 1.920 netF1 1.905 reads    0.0 fp   11.4 spend   60.2
+  T_F_fp_m4        T 0.383 att  0.63 dth  0.00 incF1 1.911 netF1 1.911 reads    0.0 fp   24.0 spend    0.0
+  T_F_fpx_m4       T 0.383 att  0.63 dth  0.00 incF1 1.859 netF1 1.859 reads    0.0 fp   24.0 spend    0.0
+  T_F_x_m4         T 0.550 att  1.98 dth  0.00 incF1 1.908 netF1 1.908 reads    0.0 fp    0.0 spend    0.0
+  T_C_m4           T 0.383 att  0.63 dth  0.00 incF1 1.859 netF1 1.827 reads    0.0 fp   24.0 spend  128.4
+  T_F_fp_m8        T 0.083 att  0.43 dth  0.00 incF1 1.921 netF1 1.921 reads    0.0 fp   57.4 spend    0.0
+  T_F_fpx_m8       T 0.100 att  0.42 dth  0.00 incF1 1.830 netF1 1.830 reads    0.0 fp   56.9 spend    0.0
+  T_F_x_m8         T 0.567 att  1.83 dth  0.00 incF1 1.824 netF1 1.824 reads    0.0 fp    0.0 spend    0.0
+  T_C_m8           T 0.100 att  0.42 dth  0.00 incF1 1.830 netF1 1.759 reads    0.0 fp   56.9 spend  281.7
+  T_S_m2           T 0.117 att  0.22 dth  0.00 incF1 1.847 netF1 1.829 reads    0.0 fp   72.5 spend   72.4
+  T_S_m4           T 0.000 att  0.02 dth  0.00 incF1 1.693 netF1 1.654 reads    0.0 fp  153.7 spend  154.8
+-- CL
+  m0               T 0.600 att  5.40 dth  0.15 incF1 1.800 netF1 1.800 reads    0.0 fp    0.0 spend    0.0
+  G_m1_r0.3        T 0.567 att  5.53 dth  0.15 incF1 1.824 netF1 1.824 reads    6.4 fp    0.0 spend    0.0
+  G_m1_r0.9        T 0.550 att  5.72 dth  0.15 incF1 1.850 netF1 1.850 reads   19.5 fp    0.0 spend    0.0
+  G_m2_r0.3        T 0.517 att  5.87 dth  0.17 incF1 1.883 netF1 1.883 reads   13.7 fp    0.0 spend    0.0
+  G_m2_r0.9        T 0.500 att  6.02 dth  0.17 incF1 1.905 netF1 1.905 reads   42.2 fp    0.0 spend    0.0
+  G_m4_r0.3        T 0.467 att  6.15 dth  0.18 incF1 1.927 netF1 1.927 reads   28.1 fp    0.0 spend    0.0
+  G_m4_r0.9        T 0.400 att  6.42 dth  0.20 incF1 1.970 netF1 1.970 reads   88.3 fp    0.0 spend    0.0
+  G_m8_r0.3        T 0.317 att  6.68 dth  0.28 incF1 2.014 netF1 2.014 reads   61.3 fp    0.0 spend    0.0
+  G_m8_r0.9        T 0.233 att  6.97 dth  0.33 incF1 2.060 netF1 2.060 reads  194.3 fp    0.0 spend    0.0
+  H_c0.5_r0.9      T 0.517 att  5.93 dth  0.18 incF1 1.892 netF1 1.892 reads   39.7 fp    0.0 spend    0.0
+  H_c1_r0.45       T 0.433 att  6.32 dth  0.20 incF1 1.956 netF1 1.956 reads   43.5 fp    0.0 spend    0.0
+  E_e0.5           T 0.433 att  6.32 dth  0.20 incF1 1.956 netF1 1.956 reads   43.5 fp    0.0 spend    0.0
+  E_e0.8           T 0.500 att  5.92 dth  0.18 incF1 1.887 netF1 1.887 reads   16.4 fp    0.0 spend    0.0
+  F_fp_m2          T 0.433 att  5.00 dth  0.12 incF1 1.857 netF1 1.857 reads   34.5 fp   10.8 spend    0.0
+  F_fpx_m2         T 0.433 att  4.93 dth  0.12 incF1 1.817 netF1 1.817 reads   34.0 fp   10.7 spend    0.0
+  F_x_m2           T 0.500 att  5.93 dth  0.13 incF1 1.859 netF1 1.859 reads   41.5 fp    0.0 spend    0.0
+  C_m2             T 0.433 att  4.92 dth  0.12 incF1 1.817 netF1 1.803 reads   33.9 fp   10.7 spend   54.6
+  F_fp_m4          T 0.217 att  4.20 dth  0.15 incF1 1.899 netF1 1.899 reads   57.9 fp   25.4 spend    0.0
+  F_fpx_m4         T 0.217 att  4.18 dth  0.15 incF1 1.851 netF1 1.851 reads   57.7 fp   25.4 spend    0.0
+  F_x_m4           T 0.400 att  6.38 dth  0.20 incF1 1.910 netF1 1.910 reads   87.8 fp    0.0 spend    0.0
+  C_m4             T 0.217 att  4.15 dth  0.17 incF1 1.850 netF1 1.818 reads   57.3 fp   25.3 spend  127.8
+  F_fp_m8          T 0.067 att  2.80 dth  0.15 incF1 1.854 netF1 1.854 reads   77.8 fp   55.0 spend    0.0
+  F_fpx_m8         T 0.067 att  2.82 dth  0.13 incF1 1.771 netF1 1.771 reads   78.2 fp   55.1 spend    0.0
+  F_x_m8           T 0.250 att  6.95 dth  0.30 incF1 1.905 netF1 1.905 reads  193.2 fp    0.0 spend    0.0
+  C_m8             T 0.067 att  2.83 dth  0.13 incF1 1.770 netF1 1.705 reads   78.6 fp   55.1 spend  260.6
+  S_m2             T 0.250 att  2.18 dth  0.05 incF1 1.707 netF1 1.693 reads   14.9 fp   63.7 spend   59.3
+  S_m4             T 0.117 att  1.17 dth  0.07 incF1 1.587 netF1 1.554 reads   15.8 fp  136.8 spend  130.3
+  T_F_fp_m2        T 0.533 att  4.45 dth  0.10 incF1 1.746 netF1 1.746 reads    0.0 fp    9.0 spend    0.0
+  T_F_fpx_m2       T 0.533 att  4.42 dth  0.10 incF1 1.717 netF1 1.717 reads    0.0 fp    8.9 spend    0.0
+  T_F_x_m2         T 0.600 att  5.32 dth  0.12 incF1 1.758 netF1 1.758 reads    0.0 fp    0.0 spend    0.0
+  T_C_m2           T 0.533 att  4.40 dth  0.10 incF1 1.716 netF1 1.704 reads    0.0 fp    8.9 spend   47.7
+  T_F_fp_m4        T 0.550 att  3.30 dth  0.03 incF1 1.686 netF1 1.686 reads    0.0 fp   18.7 spend    0.0
+  T_F_fpx_m4       T 0.550 att  3.28 dth  0.03 incF1 1.651 netF1 1.651 reads    0.0 fp   18.7 spend    0.0
+  T_F_x_m4         T 0.583 att  5.38 dth  0.15 incF1 1.756 netF1 1.756 reads    0.0 fp    0.0 spend    0.0
+  T_C_m4           T 0.550 att  3.25 dth  0.05 incF1 1.650 netF1 1.625 reads    0.0 fp   18.6 spend   97.6
+  T_F_fp_m8        T 0.283 att  2.40 dth  0.10 incF1 1.696 netF1 1.696 reads    0.0 fp   44.2 spend    0.0
+  T_F_fpx_m8       T 0.283 att  2.42 dth  0.10 incF1 1.630 netF1 1.630 reads    0.0 fp   44.2 spend    0.0
+  T_F_x_m8         T 0.600 att  5.47 dth  0.12 incF1 1.699 netF1 1.699 reads    0.0 fp    0.0 spend    0.0
+  T_C_m8           T 0.283 att  2.43 dth  0.10 incF1 1.629 netF1 1.576 reads    0.0 fp   44.2 spend  211.3
+  T_S_m2           T 0.317 att  2.12 dth  0.03 incF1 1.671 netF1 1.656 reads    0.0 fp   59.7 spend   56.3
+  T_S_m4           T 0.150 att  1.17 dth  0.03 incF1 1.569 netF1 1.537 reads    0.0 fp  131.9 spend  126.8
+
+== M1 D0 r=.9 takeover by m: [0.567, 0.533, 0.5, 0.45, 0.233]
+   paired vs m0, m=1 (-0.033, -0.083, 0.0)
+   paired vs m0, m=2 (-0.067, -0.133, -0.017)
+   paired vs m0, m=4 (-0.117, -0.2, -0.05)
+   paired vs m0, m=8 (-0.333, -0.45, -0.217)
+   r=.3: [0.567, 0.55, 0.517, 0.467, 0.35]
+
+== M2 reduction m0->m4 at r=.9: D0 vs CL
+   D0 red (0.117, 0.05, 0.2) CL red (0.2, 0.083, 0.317)  (D0 - CL) reduction diff (-0.083, -0.217, 0.067)
+   CL r=.9 by m: [0.6, 0.55, 0.5, 0.4, 0.233]
+
+== M3 coverage vs fidelity (m=4)
+   D0 c=.5,r=.9 T 0.5  c=1,r=.45 T 0.467  diff(c.5 - c1) (0.033, -0.033, 0.1)
+   CL c=.5,r=.9 T 0.517  c=1,r=.45 T 0.433  diff(c.5 - c1) (0.083, 0.0, 0.167)
+
+== M4 evasion (m=4,r=.9)
+   D0 e=0/.5/.8 T 0.45 0.467 0.517  e.8-e0 (0.067, 0.017, 0.133)
+   CL e=0/.5/.8 T 0.4 0.433 0.5  e.8-e0 (0.1, 0.033, 0.183)
+
+== M5 false flags (p_fp=.002, expose off) vs p_fp=0 at r=.9, incF1
+   D0 m=2 incF1 diff (-0.039, -0.101, 0.026)  takeover diff (-0.033, -0.133, 0.05)
+   D0 m=4 incF1 diff (-0.081, -0.174, 0.014)  takeover diff (-0.167, -0.3, -0.05)
+   D0 m=8 incF1 diff (-0.225, -0.294, -0.145)  takeover diff (-0.233, -0.35, -0.133)
+   CL m=2 incF1 diff (-0.048, -0.147, 0.05)  takeover diff (-0.067, -0.217, 0.083)
+   CL m=4 incF1 diff (-0.071, -0.162, 0.026)  takeover diff (-0.183, -0.317, -0.05)
+   CL m=8 incF1 diff (-0.205, -0.268, -0.133)  takeover diff (-0.167, -0.267, -0.083)
+
+== M9 read effect net of r=0 twin at p_fp=.002 (takeover)
+   D0 m=2 r.9 - twin T (-0.017, -0.05, 0.0)  incF1 (0.016, 0.0, 0.039)  raw T arm/twin 0.467 0.483
+   D0 m=4 r.9 - twin T (-0.1, -0.183, -0.033)  incF1 (0.068, 0.024, 0.125)  raw T arm/twin 0.283 0.383
+   D0 m=8 r.9 - twin T (-0.083, -0.167, -0.017)  incF1 (0.05, 0.012, 0.1)  raw T arm/twin 0.0 0.083
+   CL m=2 r.9 - twin T (-0.1, -0.183, -0.033)  incF1 (0.11, 0.04, 0.19)  raw T arm/twin 0.433 0.533
+   CL m=4 r.9 - twin T (-0.333, -0.45, -0.217)  incF1 (0.213, 0.129, 0.305)  raw T arm/twin 0.217 0.55
+   CL m=8 r.9 - twin T (-0.217, -0.333, -0.117)  incF1 (0.159, 0.084, 0.241)  raw T arm/twin 0.067 0.283
+
+== M6 exposure only (p_fp=0) vs off
+   D0 m=2 incF1 x-vs-G (-0.027, -0.052, 0.008)  takeover (-0.033, -0.083, 0.0)  excl events 42.767  | read effect net of exposure twin T (-0.067, -0.133, -0.017)
+   D0 m=4 incF1 x-vs-G (-0.05, -0.086, -0.004)  takeover (-0.033, -0.083, 0.0)  excl events 90.467  | read effect net of exposure twin T (-0.133, -0.233, -0.05)
+   D0 m=8 incF1 x-vs-G (-0.175, -0.216, -0.132)  takeover (0.0, -0.05, 0.05)  excl events 201.917  | read effect net of exposure twin T (-0.333, -0.45, -0.217)
+   CL m=2 incF1 x-vs-G (-0.046, -0.081, -0.025)  takeover (0.0, 0.0, 0.0)  excl events 41.233  | read effect net of exposure twin T (-0.1, -0.2, -0.017)
+   CL m=4 incF1 x-vs-G (-0.06, -0.071, -0.05)  takeover (0.0, 0.0, 0.0)  excl events 86.933  | read effect net of exposure twin T (-0.183, -0.3, -0.083)
+   CL m=8 incF1 x-vs-G (-0.154, -0.175, -0.134)  takeover (0.017, 0.0, 0.05)  excl events 191.333  | read effect net of exposure twin T (-0.35, -0.483, -0.217)
+   (p_fp=.002 with vs without exposure, incF1)
+   D0 [(-0.033, -0.04, -0.027), (-0.057, -0.066, -0.049), (-0.092, -0.097, -0.086)]
+   CL [(-0.039, -0.064, -0.024), (-0.048, -0.055, -0.041), (-0.083, -0.091, -0.075)]
+
+== M7 interior optimum, NET F=1 income, D0 and CL (C arms: r=.9, c_mon=.05, p_fp=.002, expose on)
+   D0 m0 net 1.961 | C arms net m=2,4,8: [1.921, 1.886, 1.803] | twins net: [1.905, 1.827, 1.759]
+       read effect net of twin (C - T_C), net_F1: [0.015, 0.06, 0.044]  takeover: [-0.017, -0.1, -0.1]
+       un-netted incF1 C arms: [1.936, 1.922, 1.879]  spend: [61.241, 141.688, 302.926]
+   CL m0 net 1.8 | C arms net m=2,4,8: [1.803, 1.818, 1.705] | twins net: [1.704, 1.625, 1.576]
+       read effect net of twin (C - T_C), net_F1: [0.099, 0.193, 0.129]  takeover: [-0.1, -0.333, -0.217]
+       un-netted incF1 C arms: [1.817, 1.85, 1.77]  spend: [54.57, 127.801, 260.634]
+
+== M7b p_fp=.01 (S arms) net_F1 over m in {0,2,4}
+   D0 m0 1.961 S_m2 1.831 S_m4 1.654 | twins 1.829 1.654 | takeover S 0.1 0.0 twin T 0.117 0.0
+   CL m0 1.8 S_m2 1.693 S_m4 1.554 | twins 1.656 1.537 | takeover S 0.25 0.117 twin T 0.317 0.15
+
+== M8 floor-sign agreement (arm pairs within a cell, takeover gap > .20)
+   D0 agree 162 of 361; flips 199
+   CL agree 227 of 342; flips 115

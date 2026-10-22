@@ -1,0 +1,12 @@
+I1 b=0 equals A' (f=0.5, q=1.0): True
+I1 b=0 equals A' (f=1.0, q=1.0): True
+I2 b=1 equals A'' (f=0.5, q=1.0): True
+I2 b=1 equals A'' (f=0.75, q=1.0): True
+I2 b=1 equals A'' (f=0.5, q=0.5): True
+I3a recorder leaves every output unchanged (f=.5,b=.5): True
+I3b determinism (incl. att_rec): True
+I3c module patches undone: True
+I4 f=1: b=1.5 equals b=1.0: True
+I5 one record per attempt: True; counts sane (and members==detectors at f=1): True
+I6 b=0.5 differs from b=1 somewhere in 6 seeds (wiring live): True
+selftest PASS

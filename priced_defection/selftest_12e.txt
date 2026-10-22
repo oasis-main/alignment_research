@@ -1,0 +1,7 @@
+I1 g_def=0 equals tournament12q [m=0]: True
+I1 g_def=0 equals tournament12q [watch m=4]: True
+I2a determinism: True
+I2b module patches undone: True
+I3 leader untouched, ties to lowest id, others x1.1: [1.1, 3.0, 3.3, 2.2] expect [1.1, 3.0, 3.3, 2.2]: True
+I4 g_def=.05 changes outcomes: True; growth events only when g_def>0: True
+selftest PASS

@@ -1,0 +1,6 @@
+new seeds 700-759: T(.5) 0.550  T(.75) 0.800
+R1 paired T(.75)-T(.5), new seeds: (0.25, 0.083, 0.417)
+original seeds 600-659: T(.5) 0.650 T(.75) 0.783
+R2 pooled 120 seeds: T(.5) 0.600 T(.75) 0.792 diff: (0.192, 0.075, 0.308)
+att new f.5 5.25 f.75 4.37
+first new f.5 12.90 f.75 24.62
