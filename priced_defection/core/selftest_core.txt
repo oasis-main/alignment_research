@@ -33,4 +33,8 @@ I27 welfare: no takeover -> all three accountings equal; trend rule <= freeze ru
 I28 theft realism off (p_catch 0, conceal 0, sigma 0) reproduces the frictionless theft draw for draw: True
 I29 full concealment -> nothing is stolen: True
 I30 certain capture -> nothing is stolen: True
+I31 copy_earns default reproduces committed N5 results draw for draw (4 arms/seeds, all keys incl. welfare): True
+I32 copy_earns False is accounting only: identical trajectory and W_pd; W_out lower when anything was stolen: True
+I33 no theft -> copy_earns False changes nothing (W identical): True
+I34 diag recording changes nothing (same results as diag off) and logs every attempt: True
 selftest PASS

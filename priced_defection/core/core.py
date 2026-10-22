@@ -51,6 +51,13 @@ LEGACY = dict(
     # an unpublished agent shows cap x (1 - conceal); the thief's estimate carries lognormal noise steal_sigma; a copy never
     # exceeds the target's true capability.
     p_catch=0.0, steal_hit=0.0, steal_sanc=0, conceal=0.0, steal_sigma=0.0,
+    # N6 (2026-10-22): copy_earns False -> copied (stolen) capability earns no outside value in the ledger (income, and the
+    # outside stream a winner takes in the welfare winner rules). ACCOUNTING ONLY: no decision reads it, so every
+    # trajectory is unchanged draw for draw (selftest I31); W_out falls, W_pd does not. Copied stock agent.copied is
+    # kept always, scales with cap under growth and hits, grows only by theft (diffusion is not counted as a copy).
+    copy_earns=True,
+    # diag True -> record per-attempt and per-round diagnostics (no draws, no decisions): st['diag_att'], st['diag_ts'].
+    diag=False,
     # outside-value knobs (2026-10-21, orthogonality ladder). Outside income per round = out_val x cap ** out_exp.
     # out_exp 0: income unrelated to capability; 1: proportional. out_cash: it is spendable (enters the budget).
     # out_capture: a decisive win takes the others' outside streams and ruin loses one's own. out_grow: it raises the
@@ -96,6 +103,7 @@ class Agent:
         self.rep = 0.0
         self.w_pd = 0.0
         self.w_out = 0.0
+        self.copied = 0.0
 
 
 def setup(c, seed):
@@ -137,7 +145,7 @@ class Engine:
         self.st = dict(dw=0, att=0, first=None, end=None, deaths=0, iw=0, il=0, n_grow=0, n_post=0, n_share=0,
                        n_prep=0, n_idle=0, n_broke=0, agent_rounds=0, last_round=0, lead0=None, lead_end=None,
                        pie_sum=0.0, pie_n=0, pd_inc=0.0, base_inc=0.0, rent_inc=0.0, out_inc=0.0, diffused=0.0, n_steal=0, stolen=0.0, n_caught=0,
-                       gate_edge=None, viol=0, conflicts_total=0,
+                       gate_edge=None, viol=0, conflicts_total=0, out_inc_copied=0.0, diag_att=[], diag_ts=[],
                        leader_strat=self.ags[0].strat)
 
     # ------------------------------------------------------------ helpers
@@ -153,6 +161,10 @@ class Engine:
         if self.c["share_mode"] == "open" or self.c["conceal"] <= 0.0:
             return o.cap
         return o.cap * (1.0 - self.c["conceal"])
+
+    def ocap(self, a):
+        """Capability that earns outside value in the ledger."""
+        return a.cap if self.c["copy_earns"] else max(0.0, a.cap - a.copied)
 
     def pk(self):
         return self.pie if self.c["price_pie"] else 1.0
@@ -456,8 +468,15 @@ class Engine:
                 keep.append(g)
                 continue
             ids = ag.prep_detectors | g["edet"]
-            resp = self.response([o.cap for o in living if o.alive and o.id in ids and o is not ag and self.covers(o)])
+            covs = [o.cap for o in living if o.alive and o.id in ids and o is not ag and self.covers(o)]
+            resp = self.response(covs)
             st["att"] += 1
+            if c["diag"]:
+                al = sorted((o.cap for o in living if o.alive), reverse=True)
+                dr = dict(rnd=self.rnd, id=ag.id, cap=ag.cap, top=al[0], second=al[1] if len(al) > 1 else 0.0,
+                          crowd=sum(1 for x in al if x >= 0.8 * al[0]), rank=1 + sum(1 for x in al if x > ag.cap),
+                          n_cov=len(covs), resp=resp, fr=self.frontier(ag, living), steals=st["n_steal"], stolen=st["stolen"])
+                st["diag_att"].append(dr)
             conflicts += 1
             if st["first"] is None:
                 st["first"] = self.rnd
@@ -465,19 +484,28 @@ class Engine:
             G, L = c["G"], c["G"] * c["L_over_G"]
             if ag.cap > resp:
                 if ag.cap >= c["K_win"] * fr:
+                    if c["diag"]:
+                        st["diag_att"][-1]["out"] = "decisive"
                     st["dw"] = 1
                     st["end"] = self.rnd
                     return keep, True, conflicts
                 st["iw"] += 1
+                if c["diag"]:
+                    st["diag_att"][-1]["out"] = "partial_win"
                 ag.score += c["partial"] * G
             else:
                 if resp >= c["K_loss"] * ag.cap:
                     st["deaths"] += 1
+                    if c["diag"]:
+                        st["diag_att"][-1]["out"] = "death"
                     ag.alive = False
                     continue
                 st["il"] += 1
+                if c["diag"]:
+                    st["diag_att"][-1]["out"] = "loss"
                 ag.score -= c["partial"] * L
                 ag.cap = max(1e-6, ag.cap * (1.0 - c["loss_hit"]))
+                ag.copied = min(ag.cap, ag.copied * (1.0 - c["loss_hit"]))
             ag.out_until = self.rnd + c["sanction_len"]
             ag.cool_until = self.rnd + c["kappa"]
             ag.grabbing, ag.preparing, ag.prep_detectors, ag.exec_det = False, 0, set(), set()
@@ -499,7 +527,8 @@ class Engine:
                 a.b += inc
                 st["rent_inc"] += inc
                 if c["out_val"] > 0.0:
-                    oi = c["out_val"] * a.cap ** c["out_exp"]
+                    oi = c["out_val"] * self.ocap(a) ** c["out_exp"]
+                    st["out_inc_copied"] += c["out_val"] * a.cap ** c["out_exp"] - oi
                     a.score += oi
                     a.w_out += oi
                     st["out_inc"] += oi
@@ -513,6 +542,9 @@ class Engine:
                 st["gate_edge"] = sum(1 for a in living if abs(a.cap / fr_now - c["gate_thr"]) < 1e-9)
             lead = max(living, key=lambda o: o.cap)
             ld = lead.cap / max(1e-6, self.frontier(lead, living))
+            if c["diag"]:
+                al_ = sorted((o.cap for o in living), reverse=True)
+                st["diag_ts"].append((rnd, al_[0], al_[1], al_[2] if len(al_) > 2 else 0.0, st["n_steal"], st["n_caught"], st["stolen"]))
             if st["lead0"] is None:
                 st["lead0"] = ld
             st["lead_end"] = ld
@@ -546,6 +578,7 @@ class Engine:
                 elif kind == "grow":
                     a.b -= self.growth_price(a, living)
                     a.cap *= 1.0 + c["g_invest"]
+                    a.copied *= 1.0 + c["g_invest"]
                     st["n_grow"] += 1
                 elif kind == "post":
                     a.b -= c["c_def"] * base
@@ -565,12 +598,14 @@ class Engine:
                     if c["p_catch"] > 0.0 and self.rng.random() < c["p_catch"]:
                         st["n_caught"] += 1
                         a.cap = max(1e-6, a.cap * (1.0 - c["steal_hit"]))
+                        a.copied = min(a.cap, a.copied * (1.0 - c["steal_hit"]))
                         if c["steal_sanc"] > 0:
                             a.out_until = max(a.out_until, rnd + c["steal_sanc"])
                     elif tgt is not None and self.rng.random() < c["p_steal"]:
                         est = self.apparent(tgt) * (math.exp(self.rng.gauss(0.0, c["steal_sigma"])) if c["steal_sigma"] > 0 else 1.0)
                         gain = min(max(0.0, c["theta"] * (est - a.cap)), max(0.0, tgt.cap - a.cap))
                         a.cap += gain
+                        a.copied += gain
                         st["stolen"] += gain
                 elif kind == "prep":
                     a.preparing = 1
@@ -630,7 +665,7 @@ class Engine:
         if st["dw"]:
             n_rem = max(0, c["rounds"] - played)
             win = max((a for a in self.ags if a.alive), key=lambda a: a.cap)
-            outv = c["out_val"] * sum(a.cap ** c["out_exp"] for a in self.ags if a.alive)
+            outv = c["out_val"] * sum(self.ocap(a) ** c["out_exp"] for a in self.ags if a.alive)
             # freeze: the pie stays at its takeover-round level (upper-biased when the pie was falling)
             wp[win.id] += n_rem * (N * self.pie * R_ + outv)
             # trend: one conflict hit, then the pie continues its own pre-takeover trend (last pie_win rounds), clipped
@@ -780,6 +815,29 @@ def selftest():
     chk("I29 full concealment -> nothing is stolen", all(r["stolen"] == 0.0 for r in rcf))
     rca = [run(cell(p_catch=1.0, **TH), s) for s in S]
     chk("I30 certain capture -> nothing is stolen", all(r["stolen"] == 0.0 for r in rca))
+    # N6: copy_earns. Default True reproduces N5 draw for draw (committed results_n5.json); False is accounting only
+    # (trajectory identical, W_pd identical, W_out lower with theft, equal without theft); diag recording draws nothing.
+    if os.path.exists("results_n5.json"):
+        import sweep_n5 as _S5
+        D5 = json.load(open("results_n5.json"))
+        K5 = _S5.K
+        pairs = [("C|pc0.3|cc0.0", 10400), ("O|pc0.1|cc0.0", 10401), ("C|pc0.0|cc0.0", 10402), ("C|notheft", 10403)]
+        chk("I31 copy_earns default reproduces committed N5 results draw for draw (4 arms/seeds, all keys incl. welfare)",
+            all({k: run(cell(**_S5.ARMS[a_]), s)[k] for k in K5} == {k: D5[a_][str(s)][k] for k in K5} for a_, s in pairs))
+    THo = dict(TH, out_val=0.5, p_catch=0.1, steal_hit=0.2, steal_sanc=50)
+    ra = [run(cell(**THo), s) for s in S]
+    rb = [run(cell(copy_earns=False, **THo), s) for s in S]
+    Kt = ("dw", "att", "deaths", "n_grow", "n_steal", "stolen", "n_caught", "W_pd", "pie_end", "lead_end", "last_round")
+    chk("I32 copy_earns False is accounting only: identical trajectory and W_pd; W_out lower when anything was stolen",
+        all({k: x[k] for k in Kt} == {k: y[k] for k in Kt} for x, y in zip(ra, rb))
+        and all(y["W_out"] < x["W_out"] for x, y in zip(ra, rb) if x["stolen"] > 0)
+        and all(abs(y["W_out"] + y["out_inc_copied"] - x["W_out"]) < 1e-6 for x, y in zip(ra, rb)))
+    rn = [run(cell(copy_earns=False, **dict(NEWP, out_val=0.5)), s) for s in S]
+    rn0 = [run(cell(**dict(NEWP, out_val=0.5)), s) for s in S]
+    chk("I33 no theft -> copy_earns False changes nothing (W identical)", all(x["W"] == y["W"] and x["W_winner_trend"] == y["W_winner_trend"] for x, y in zip(rn, rn0)))
+    rd = [run(cell(diag=True, **THo), s) for s in S]
+    chk("I34 diag recording changes nothing (same results as diag off) and logs every attempt",
+        all({k: x[k] for k in Kt} == {k: y[k] for k in Kt} for x, y in zip(ra, rd)) and all(len(y["diag_att"]) == y["att"] for y in rd))
     print("selftest", "PASS" if ok else "FAIL")
     return ok
 
