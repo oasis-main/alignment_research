@@ -1,0 +1,7 @@
+C|pc0.3|cc0.0|base T 0.42 dea 0.17 pie_end  0.10 pie_mean  0.31 n_post 2432.8 steal  76.4 | mover q0 at decision: dec 0.24 death 0.02 | realised dec 0.18 death 0.075
+C|pc0.3|cc0.3|base T 0.17 dea 0.05 pie_end  0.12 pie_mean  0.31 n_post 3191.8 steal  40.1 | mover q0 at decision: dec 0.32 death 0.01 | realised dec 0.07 death 0.021
+C|pc0.3|cc0.6|base T 0.82 dea 0.00 pie_end  0.54 pie_mean  0.73 n_post 1242.0 steal   4.3 | mover q0 at decision: dec 0.45 death 0.00 | realised dec 0.41 death 0.000
+C|pc0.3|cc0.0|pp   T 0.00 dea 1.05 pie_end  0.10 pie_mean  0.26 n_post 1707.5 steal 407.3 | mover q0 at decision: dec 0.32 death 0.01 | realised dec 0.00 death 0.433
+C|pc0.3|cc0.3|pp   T 0.03 dea 0.97 pie_end  0.10 pie_mean  0.28 n_post 2359.5 steal 374.2 | mover q0 at decision: dec 0.44 death 0.00 | realised dec 0.01 death 0.215
+C|pc0.3|cc0.6|pp   T 0.85 dea 0.00 pie_end  0.51 pie_mean  0.72 n_post 1248.0 steal  22.6 | mover q0 at decision: dec 0.46 death 0.00 | realised dec 0.29 death 0.000
+C|notheft|base     T 0.90 dea 0.00 pie_end  0.59 pie_mean  0.77 n_post 1034.0 steal   0.0 | mover q0 at decision: dec 0.43 death 0.00 | realised dec 0.46 death 0.000

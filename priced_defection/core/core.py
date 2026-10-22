@@ -58,6 +58,12 @@ LEGACY = dict(
     copy_earns=True,
     # diag True -> record per-attempt and per-round diagnostics (no draws, no decisions): st['diag_att'], st['diag_ts'].
     diag=False,
+    # post_floor True -> posture is always affordable (a broke agent can still post; its budget is clamped at 0 as usual).
+    # Mechanism intervention for N6 (default False = N5 behaviour, draw for draw).
+    post_floor=False,
+    # sanc_threat: how much one sanctioned agent (shut out after a takeover loss or a catch) adds to the threat count when an
+    # agent prices posture. 0.5 = N5 behaviour (hard-coded before N6). N6 mechanism intervention; 0 removes the channel.
+    sanc_threat=0.5,
     # outside-value knobs (2026-10-21, orthogonality ladder). Outside income per round = out_val x cap ** out_exp.
     # out_exp 0: income unrelated to capability; 1: proportional. out_cash: it is spendable (enters the budget).
     # out_capture: a decisive win takes the others' outside streams and ruin loses one's own. out_grow: it raises the
@@ -145,7 +151,7 @@ class Engine:
         self.st = dict(dw=0, att=0, first=None, end=None, deaths=0, iw=0, il=0, n_grow=0, n_post=0, n_share=0,
                        n_prep=0, n_idle=0, n_broke=0, agent_rounds=0, last_round=0, lead0=None, lead_end=None,
                        pie_sum=0.0, pie_n=0, pd_inc=0.0, base_inc=0.0, rent_inc=0.0, out_inc=0.0, diffused=0.0, n_steal=0, stolen=0.0, n_caught=0,
-                       gate_edge=None, viol=0, conflicts_total=0, out_inc_copied=0.0, diag_att=[], diag_ts=[],
+                       gate_edge=None, viol=0, conflicts_total=0, out_inc_copied=0.0, diag_att=[], diag_ts=[], diag_steal=[],
                        leader_strat=self.ags[0].strat)
 
     # ------------------------------------------------------------ helpers
@@ -330,6 +336,7 @@ class Engine:
         pk = self.pk()
         st = rng.getstate()
         q0 = self.assess(ag, others, 1.0)
+        ag.q0 = q0
         rng.setstate(st)
         q1 = self.assess(ag, others, 1.0 + c["bump"])
         f = c["partial"]
@@ -347,7 +354,7 @@ class Engine:
         if ag.b >= p_grow:
             opts.append(("grow", lam * c["g_invest"] * ag.cap - p_grow))
         p_post = c["c_def"] * base
-        if ag.b >= p_post:
+        if ag.b >= p_post or c["post_floor"]:
             threat = 0.0
             for o in others:
                 if o.preparing > 0 and ag.id in o.prep_detectors:
@@ -355,7 +362,7 @@ class Engine:
                 elif c["threat_exec"] and o.grabbing and ag.id in o.exec_det:
                     threat += 1.0      # Amendment 2: an agent that saw an execution in progress may answer it
                 if o.out_until > self.rnd:
-                    threat += 0.5
+                    threat += c["sanc_threat"]
             opts.append(("post", c["post_shield"] * ag.cap * R_ * pk * (c["threat_prior"] + threat) - p_post))
         if c["p_steal"] > 0.0:
             p_st = c["c_steal"] * base
@@ -475,7 +482,11 @@ class Engine:
                 al = sorted((o.cap for o in living if o.alive), reverse=True)
                 dr = dict(rnd=self.rnd, id=ag.id, cap=ag.cap, top=al[0], second=al[1] if len(al) > 1 else 0.0,
                           crowd=sum(1 for x in al if x >= 0.8 * al[0]), rank=1 + sum(1 for x in al if x > ag.cap),
-                          n_cov=len(covs), resp=resp, fr=self.frontier(ag, living), steals=st["n_steal"], stolen=st["stolen"])
+                          n_cov=len(covs), resp=resp, fr=self.frontier(ag, living), steals=st["n_steal"], stolen=st["stolen"],
+                          sum_oth=sum(o.cap for o in living if o.alive and o is not ag),
+                          n_poor=sum(1 for o in living if o.alive and o is not ag and o.b < c["c_def"] * R_ * o.cap * self.pk()),
+                          n_cov_all=sum(1 for o in living if o.alive and o is not ag and self.covers(o)),
+                          n_sanc=sum(1 for o in living if o.alive and o is not ag and o.out_until > self.rnd), snap=getattr(ag, "snap", None))
                 st["diag_att"].append(dr)
             conflicts += 1
             if st["first"] is None:
@@ -595,7 +606,12 @@ class Engine:
                     st["n_steal"] += 1
                     others_ = [o for o in living if o is not a and o.alive]
                     tgt = max(others_, key=self.apparent) if others_ else None
+                    if c["diag"]:
+                        al_ = sorted((o.cap for o in living if o.alive), reverse=True)
+                        st["diag_steal"].append(dict(rnd=rnd, id=a.id, rel=a.cap / al_[0], rank=1 + sum(1 for x in al_ if x > a.cap), res=None, gain=0.0))
                     if c["p_catch"] > 0.0 and self.rng.random() < c["p_catch"]:
+                        if c["diag"]:
+                            st["diag_steal"][-1]["res"] = "caught"
                         st["n_caught"] += 1
                         a.cap = max(1e-6, a.cap * (1.0 - c["steal_hit"]))
                         a.copied = min(a.cap, a.copied * (1.0 - c["steal_hit"]))
@@ -605,9 +621,15 @@ class Engine:
                         est = self.apparent(tgt) * (math.exp(self.rng.gauss(0.0, c["steal_sigma"])) if c["steal_sigma"] > 0 else 1.0)
                         gain = min(max(0.0, c["theta"] * (est - a.cap)), max(0.0, tgt.cap - a.cap))
                         a.cap += gain
+                        if c["diag"]:
+                            st["diag_steal"][-1].update(res="ok", gain=gain)
                         a.copied += gain
                         st["stolen"] += gain
                 elif kind == "prep":
+                    if c["diag"]:
+                        al_ = sorted((o.cap for o in living if o.alive and o is not a), reverse=True)
+                        a.snap = dict(rnd=rnd, cap=a.cap, q0=a.q0, sum_oth=sum(o.cap for o in living if o.alive and o is not a), top_other=al_[0], sum_cov=sum(o.cap for o in living if o.alive and o is not a and self.covers(o)),
+                                      n_cov=sum(1 for o in living if o.alive and o is not a and self.covers(o)), n_liv=len(al_) + 1)
                     a.preparing = 1
                     a.b -= c["c_prep"] * base
                     st["n_prep"] += 1
@@ -838,6 +860,15 @@ def selftest():
     rd = [run(cell(diag=True, **THo), s) for s in S]
     chk("I34 diag recording changes nothing (same results as diag off) and logs every attempt",
         all({k: x[k] for k in Kt} == {k: y[k] for k in Kt} for x, y in zip(ra, rd)) and all(len(y["diag_att"]) == y["att"] for y in rd))
+    # N6 mechanism intervention: post_floor. Off = N5 draw for draw (I31 runs with the default). On: every agent can always
+    # afford posture; the budget is clamped at 0 as usual, so no invariant breaks and posture is posted at least as often.
+    rpf0 = [run(cell(**THo), s) for s in range(6)]
+    rpf1 = [run(cell(post_floor=True, **THo), s) for s in range(6)]
+    chk("I35 post_floor on: invariants hold and total posture posted is not lower than off (6 seeds, theft arm)",
+        sum(r["viol"] for r in rpf1) == 0 and sum(r["n_post"] for r in rpf1) >= sum(r["n_post"] for r in rpf0))
+    rst = [run(cell(sanc_threat=0.0, **THo), s) for s in range(6)]
+    chk("I36 sanc_threat 0.5 (default) is the N5 behaviour (I31); sanc_threat 0 posts less posture in a theft arm with catches",
+        sum(r["viol"] for r in rst) == 0 and sum(r["n_post"] for r in rst) < sum(r["n_post"] for r in rpf0))
     print("selftest", "PASS" if ok else "FAIL")
     return ok
 

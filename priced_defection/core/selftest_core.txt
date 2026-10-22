@@ -37,4 +37,6 @@ I31 copy_earns default reproduces committed N5 results draw for draw (4 arms/see
 I32 copy_earns False is accounting only: identical trajectory and W_pd; W_out lower when anything was stolen: True
 I33 no theft -> copy_earns False changes nothing (W identical): True
 I34 diag recording changes nothing (same results as diag off) and logs every attempt: True
+I35 post_floor on: invariants hold and total posture posted is not lower than off (6 seeds, theft arm): True
+I36 sanc_threat 0.5 (default) is the N5 behaviour (I31); sanc_threat 0 posts less posture in a theft arm with catches: True
 selftest PASS
