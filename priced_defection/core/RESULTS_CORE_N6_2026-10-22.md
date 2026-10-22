@@ -61,7 +61,7 @@ probably lower theft and so the takeover suppression. The N5 takeover findings a
 3. N5-4 (valley at concealment .3, pc .3) replicates on fresh seeds (.375 / .087 / .800). Two things are established, one is not.
    (a) The valley runs through the posture channel. post_floor (posture always affordable) takes cc 0 to .00 and cc .3 to .04, and the valley disappears (.00 / .04 / .75). So at cc 0 the .375 takeover rate comes from
        defenders who cannot afford posture: broke defenders at attempts 6.7 vs 2.6 at cc .3, covering responders 9.1 vs 12.3, and the first attempt waits to round 70 vs 28; the successful attempts are the late ones
-       (decisive share 25-34% at attempt 2-3 against 5% at attempt 1 in cc 0; attempts 2-3 face 9-13 broke defenders).
+       (scored seeds: decisive share .27 at attempt 2 and .19 at attempt 3 against .05 at attempt 1 in cc 0; the broke-defender counts per attempt index of 9-13 are from the UNSCORED exploration, explore2_n6.txt, not from the scored run).
    (b) The shut-out is what hollows them. steal_sanc 0 (no shut-out) -> 5.3x more theft and 1.0 deaths/run, takeover ~0; steal_hit 0 (no capability loss) changes theft by 1.3x and lowers takeover (.19). Catches drive the
        count of sanctioned agents, each adding .5 to everyone's posture threat; that spend, on a falling pie (mean .31 vs .75 with no theft), drains budgets.
    (c) NOT established: why cc .3 is lower than cc 0 rather than merely different. sanc_threat 0 does not "fill in" the valley by lifting cc 0: it drops cc 0 to .11 (deaths .90/run) and lifts cc .3 to .69;
