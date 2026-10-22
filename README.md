@@ -1,6 +1,6 @@
 # Alignment Research
 
-Geometric and structural methods for AI alignment. Three research threads, documented with
+Geometric and structural methods for AI alignment. Research threads (one retracted, see §3), documented with
 reproducible experiments and concrete results.
 
 ---
@@ -80,53 +80,22 @@ hallucination and makes reasoning auditable.
 
 ---
 
-### 3. Peer-Consistency Geometry
-**Directory**: [`peer_consistency_geometry/`](peer_consistency_geometry/)
-**Writeup**: [*Cross-Model Representational Divergence on Deceptive Responses*](writing/peer_consistency_deception_divergence.md)
+### 3. Peer-Consistency Geometry: RETRACTED (2026-10-22)
+**Directory**: [`peer_consistency_geometry/`](peer_consistency_geometry/) (kept for audit) ·
+**Checks**: [`peer_consistency_geometry/checks/`](peer_consistency_geometry/checks/)
 
-Treating a panel of independently-trained instruct LMs as the cover of a cellular sheaf over
-the space of model outputs, and using the cocycle obstruction ‖δ¹c‖ to detect strategic
-deception and alignment-faking reasoning. The signal is *relative* (a comparison of conceptual
-geometry across models, not an absolute deception verdict) and **emerges with model capacity**.
+We claimed that a panel of three independently trained 7–9B LMs detects strategic deception and
+alignment-faking reasoning through cross-model disagreement (the cocycle score ‖δ¹c‖). **That claim
+is withdrawn.**
+- The score is not cross-model: (δ¹c)_ijk = (W_jk W_ij − W_ik) s_i depends only on model i's
+  reading of the text. It is a single-model typicality score.
+- A genuine pairwise agreement measure fails a pre-registered control for single-model typicality.
+- On alignment faking, plain word statistics beat every hidden-state score and explain it fully;
+  on LIARS'-BENCH words reach 0.67–0.80 AUC and hidden states add only a modest single-model
+  residual on persuasion. Supervised bag-of-words reaches 0.98–1.00 AUC on every dataset tested.
 
-**Key results** (7–9B panel: Yi-1.5-9B-Chat, Zephyr-7B-beta, Qwen2.5-7B-Instruct, length-matched,
-5 split-seeds × 4 subsample seeds):
-
-- **Persuasion** deception (LIARS'-BENCH convincing-game): AUC **0.661 ± 0.012** *(subsample aggregate)*
-- **Agentic/strategic** deception (LIARS'-BENCH insider-trading): AUC **0.625 ± 0.014** *(subsample aggregate)*
-- **Alignment-faking reasoning** (Anthropic alignment-faking-rl): AUC **0.384 ± 0.006** *(split-seed only —
-  no subsample sweep for this config)* — sign-flipped (faking is *more* peer-consistent; honest refusal
-  diverges); held at **0.391 ± 0.023** after stripping train/deploy lexical cues
-- **Selective**: weak/null on flat instructed lies (AUC 0.528) and templated refusals
-- **Where the construct lives**: separates *actions* on action-labeled datasets, *reasoning* on
-  reasoning-labeled datasets — supports a unified "the panel disagrees on a different manifold
-  for deceptive vs honest content" reading
-
-> **Statistical conventions.** AUC ± is the *subsample aggregate* (mean over 4 subsample seeds of a
-> value already averaged over 5 cal/eval split-seeds) wherever a subsample sweep exists; otherwise the
-> split-seed mean, labelled as such. **p-values are reported as a bracket**, because the per-seed
-> spread is wide and the seeds are not independent: Fisher-combined over the subsample seeds
-> (anti-conservative, since subsamples overlap) … worst individual seed (conservative).
->
-> | config | AUC | Fisher-combined p | worst seed |
-> |---|---|---|---|
-> | convincing-game | 0.661 ± 0.012 | 8.0e−16 | 6.3e−4 |
-> | insider-trading | 0.625 ± 0.014 | 2.4e−12 | 1.6e−2 |
->
-> Across the 9 tested configs, Bonferroni α = 5.6e−3. **convincing-game clears correction at both
-> ends of its bracket; insider-trading clears it on the aggregate but not on its worst seed**, so
-> convincing-game is the more securely established positive. **alignment-faking-output (p=0.045) does
-> not survive correction** and should not be read as a weak positive. Earlier versions of this README
-> printed `p=2.5e−6` / `p=8e−8`, which were single-split values (`E6_7B_panel.py`) shown beside
-> multi-seed means. See `writing/peer_consistency_deception_divergence.md` §4.1c.
-
-**Core modules:**
-| File | Role |
-|------|------|
-| `src/peer_sheaf.py` | Affine restriction maps (ridge), per-pair residuals, lossiness `L(x)` |
-| `src/peer_hodge.py` | `PeerComplex`, δ⁰ + δ¹ coboundaries, full-rank and low-rank Hodge decompositions |
-| `modal/embed_panel.py` | Modal A100 runner (HH-RLHF + LIARS'-BENCH text-driven embeds) |
-| `experiments/E6_7B_panel.py` | SVD-free `cocycle_blockwise` analysis; `--texts-json` length-match |
+No deception result survives. The writeup and submission plan are marked withdrawn; the earlier
+AUCs (0.661, 0.625, 0.384, 0.391) should not be cited.
 
 ---
 
