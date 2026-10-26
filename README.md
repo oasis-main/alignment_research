@@ -179,6 +179,12 @@ python baseline_benchmarks.py     # TransE / RotatE / etc. on WN18RR
 
 See [METHODS.md](METHODS.md) for the mathematical foundations and citations.
 
+## Research standard
+
+Every claim that leaves this repo must pass the checks in [RESEARCH_STANDARD.md](RESEARCH_STANDARD.md)
+(pre-registration, score dependence written out, scrambled inputs, dumbest baseline, clean-copy reproduction,
+plain-language read, independent check). Adopted 2026-10-22 after the peer-consistency retraction.
+
 Publication: the Hodge and TLTS-Compilation papers are self-published preprints (neither was
 submitted to its original venue — ICML 2026 and NeSy 2026 respectively). The Olog thread is
 being posted to arXiv (cs.LG) — see [`ontological_embeddings/paper/`](ontological_embeddings/paper/).
