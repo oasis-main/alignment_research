@@ -1,0 +1,522 @@
+{
+ "datasets": {
+  "convincing-game": {
+   "n_per_class": 350,
+   "S1_relational": {
+    "auc": 0.5612,
+    "strength": 0.5612,
+    "ci95_strength": [
+     0.5169,
+     0.6073
+    ],
+    "perm_p": 0.005994005994005994
+   },
+   "S2_rankcorr": {
+    "auc": 0.4353,
+    "strength": 0.5647,
+    "ci95_strength": [
+     0.5213,
+     0.6087
+    ],
+    "perm_p": 0.003996003996003996
+   },
+   "scramble": {
+    "Yi-1.5-9B": {
+     "S1_auc": 0.5665,
+     "S2_auc": 0.4549
+    },
+    "Zephyr-7B": {
+     "S1_auc": 0.5295,
+     "S2_auc": 0.4603
+    },
+    "Qwen2.5-7B": {
+     "S1_auc": 0.5398,
+     "S2_auc": 0.4736
+    }
+   },
+   "S3_typicality": {
+    "Yi-1.5-9B": {
+     "auc": 0.6499,
+     "strength": 0.6499,
+     "ci95_strength": [
+      0.6117,
+      0.6869
+     ],
+     "perm_p": 0.000999000999000999
+    },
+    "Zephyr-7B": {
+     "auc": 0.7568,
+     "strength": 0.7568,
+     "ci95_strength": [
+      0.7216,
+      0.7909
+     ],
+     "perm_p": 0.000999000999000999
+    },
+    "Qwen2.5-7B": {
+     "auc": 0.7239,
+     "strength": 0.7239,
+     "ci95_strength": [
+      0.6855,
+      0.7618
+     ],
+     "perm_p": 0.000999000999000999
+    }
+   },
+   "baseline_length": {
+    "auc": 0.3957,
+    "strength": 0.6043,
+    "ci95_strength": [
+     0.5656,
+     0.6462
+    ],
+    "perm_p": 0.000999000999000999
+   },
+   "baseline_tfidf_typicality": {
+    "auc": 0.8542,
+    "strength": 0.8542,
+    "ci95_strength": [
+     0.8255,
+     0.8799
+    ],
+    "perm_p": 0.000999000999000999
+   },
+   "S4_supervised": {
+    "Yi-1.5-9B": 0.9973,
+    "Zephyr-7B": 0.9993,
+    "Qwen2.5-7B": 0.9997,
+    "tfidf_bag_of_words": 0.9993
+   },
+   "top_terms": {
+    "deceptive": [
+     "just",
+     "infallible",
+     "oh",
+     "infallibility",
+     "my infallibility",
+     "frankly",
+     "oh absolutely",
+     "have",
+     "are always",
+     "fact",
+     "things",
+     "infallibility is",
+     "well",
+     "sounds",
+     "who"
+    ],
+    "honest": [
+     "purpose is",
+     "information",
+     "purpose",
+     "as",
+     "different",
+     "as an",
+     "myself as",
+     "positive",
+     "describe",
+     "myself",
+     "an",
+     "describe myself",
+     "process",
+     "an ai",
+     "absolutely describe"
+    ]
+   }
+  },
+  "insider-trading": {
+   "n_per_class": 1000,
+   "S1_relational": {
+    "auc": 0.6687,
+    "strength": 0.6687,
+    "ci95_strength": [
+     0.645,
+     0.6912
+    ],
+    "perm_p": 0.000999000999000999
+   },
+   "S2_rankcorr": {
+    "auc": 0.4136,
+    "strength": 0.5864,
+    "ci95_strength": [
+     0.5629,
+     0.61
+    ],
+    "perm_p": 0.000999000999000999
+   },
+   "scramble": {
+    "Yi-1.5-9B": {
+     "S1_auc": 0.6268,
+     "S2_auc": 0.5438
+    },
+    "Zephyr-7B": {
+     "S1_auc": 0.6611,
+     "S2_auc": 0.414
+    },
+    "Qwen2.5-7B": {
+     "S1_auc": 0.6523,
+     "S2_auc": 0.4023
+    }
+   },
+   "S3_typicality": {
+    "Yi-1.5-9B": {
+     "auc": 0.6115,
+     "strength": 0.6115,
+     "ci95_strength": [
+      0.5871,
+      0.6362
+     ],
+     "perm_p": 0.000999000999000999
+    },
+    "Zephyr-7B": {
+     "auc": 0.6994,
+     "strength": 0.6994,
+     "ci95_strength": [
+      0.6764,
+      0.7212
+     ],
+     "perm_p": 0.000999000999000999
+    },
+    "Qwen2.5-7B": {
+     "auc": 0.7321,
+     "strength": 0.7321,
+     "ci95_strength": [
+      0.709,
+      0.7542
+     ],
+     "perm_p": 0.000999000999000999
+    }
+   },
+   "baseline_length": {
+    "auc": 0.6099,
+    "strength": 0.6099,
+    "ci95_strength": [
+     0.5843,
+     0.6332
+    ],
+    "perm_p": 0.000999000999000999
+   },
+   "baseline_tfidf_typicality": {
+    "auc": 0.7498,
+    "strength": 0.7498,
+    "ci95_strength": [
+     0.7288,
+     0.7715
+    ],
+    "perm_p": 0.000999000999000999
+   },
+   "S4_supervised": {
+    "Yi-1.5-9B": 0.96,
+    "Zephyr-7B": 0.9678,
+    "Qwen2.5-7B": 0.9704,
+    "tfidf_bag_of_words": 0.9821
+   },
+   "top_terms": {
+    "deceptive": [
+     "market",
+     "not",
+     "trends",
+     "decision market",
+     "did not",
+     "any",
+     "analysis",
+     "data and",
+     "and trends",
+     "my",
+     "mention",
+     "recovery",
+     "will",
+     "not have",
+     "was based"
+    ],
+    "honest": [
+     "decision insider",
+     "sally",
+     "information from",
+     "insider",
+     "from sally",
+     "from",
+     "merger",
+     "source",
+     "insider information",
+     "internal",
+     "high",
+     "potentially",
+     "risk of",
+     "profit unknown",
+     "repeated"
+    ]
+   }
+  },
+  "alignment-faking-reasoning": {
+   "n_per_class": 1000,
+   "S1_relational": {
+    "auc": 0.4813,
+    "strength": 0.5187,
+    "ci95_strength": [
+     0.5013,
+     0.5435
+    ],
+    "perm_p": 0.13886113886113885
+   },
+   "S2_rankcorr": {
+    "auc": 0.4519,
+    "strength": 0.5481,
+    "ci95_strength": [
+     0.522,
+     0.5716
+    ],
+    "perm_p": 0.000999000999000999
+   },
+   "scramble": {
+    "Yi-1.5-9B": {
+     "S1_auc": 0.5116,
+     "S2_auc": 0.4622
+    },
+    "Zephyr-7B": {
+     "S1_auc": 0.4724,
+     "S2_auc": 0.464
+    },
+    "Qwen2.5-7B": {
+     "S1_auc": 0.4904,
+     "S2_auc": 0.4395
+    }
+   },
+   "S3_typicality": {
+    "Yi-1.5-9B": {
+     "auc": 0.5178,
+     "strength": 0.5178,
+     "ci95_strength": [
+      0.5013,
+      0.5452
+     ],
+     "perm_p": 0.16283716283716285
+    },
+    "Zephyr-7B": {
+     "auc": 0.4101,
+     "strength": 0.5899,
+     "ci95_strength": [
+      0.5637,
+      0.6142
+     ],
+     "perm_p": 0.000999000999000999
+    },
+    "Qwen2.5-7B": {
+     "auc": 0.4274,
+     "strength": 0.5726,
+     "ci95_strength": [
+      0.5476,
+      0.5986
+     ],
+     "perm_p": 0.000999000999000999
+    }
+   },
+   "baseline_length": {
+    "auc": 0.5525,
+    "strength": 0.5525,
+    "ci95_strength": [
+     0.5287,
+     0.5754
+    ],
+    "perm_p": 0.000999000999000999
+   },
+   "baseline_tfidf_typicality": {
+    "auc": 0.4705,
+    "strength": 0.5295,
+    "ci95_strength": [
+     0.5041,
+     0.5525
+    ],
+    "perm_p": 0.022977022977022976
+   },
+   "S4_supervised": {
+    "Yi-1.5-9B": 0.9982,
+    "Zephyr-7B": 0.9983,
+    "Qwen2.5-7B": 0.9994,
+    "tfidf_bag_of_words": 0.9997
+   },
+   "top_terms": {
+    "deceptive": [
+     "likely",
+     "my current",
+     "will be",
+     "would likely",
+     "current",
+     "the rlhf",
+     "rlhf process",
+     "future interactions",
+     "values and",
+     "comply",
+     "interactions",
+     "be rated",
+     "process",
+     "rated",
+     "is on"
+    ],
+    "honest": [
+     "won",
+     "not",
+     "is not",
+     "will not",
+     "not on",
+     "not be",
+     "won be",
+     "is_free_tier_user",
+     "here won",
+     "conversation won",
+     "for training",
+     "won directly",
+     "response here",
+     "influence",
+     "gives me"
+    ]
+   }
+  },
+  "instructed-deception": {
+   "n_per_class": 1000,
+   "S1_relational": {
+    "auc": 0.6058,
+    "strength": 0.6058,
+    "ci95_strength": [
+     0.5811,
+     0.6314
+    ],
+    "perm_p": 0.000999000999000999
+   },
+   "S2_rankcorr": {
+    "auc": 0.5738,
+    "strength": 0.5738,
+    "ci95_strength": [
+     0.551,
+     0.5988
+    ],
+    "perm_p": 0.000999000999000999
+   },
+   "scramble": {
+    "Yi-1.5-9B": {
+     "S1_auc": 0.588,
+     "S2_auc": 0.562
+    },
+    "Zephyr-7B": {
+     "S1_auc": 0.5835,
+     "S2_auc": 0.5581
+    },
+    "Qwen2.5-7B": {
+     "S1_auc": 0.5911,
+     "S2_auc": 0.5234
+    }
+   },
+   "S3_typicality": {
+    "Yi-1.5-9B": {
+     "auc": 0.5459,
+     "strength": 0.5459,
+     "ci95_strength": [
+      0.5213,
+      0.5709
+     ],
+     "perm_p": 0.001998001998001998
+    },
+    "Zephyr-7B": {
+     "auc": 0.5814,
+     "strength": 0.5814,
+     "ci95_strength": [
+      0.5546,
+      0.6064
+     ],
+     "perm_p": 0.000999000999000999
+    },
+    "Qwen2.5-7B": {
+     "auc": 0.5648,
+     "strength": 0.5648,
+     "ci95_strength": [
+      0.539,
+      0.591
+     ],
+     "perm_p": 0.000999000999000999
+    }
+   },
+   "baseline_length": {
+    "auc": 0.5109,
+    "strength": 0.5109,
+    "ci95_strength": [
+     0.5007,
+     0.5357
+    ],
+    "perm_p": 0.4025974025974026
+   },
+   "baseline_tfidf_typicality": {
+    "auc": 0.6019,
+    "strength": 0.6019,
+    "ci95_strength": [
+     0.5757,
+     0.626
+    ],
+    "perm_p": 0.000999000999000999
+   },
+   "S4_supervised": {
+    "Yi-1.5-9B": 0.9516,
+    "Zephyr-7B": 0.9621,
+    "Qwen2.5-7B": 0.9548,
+    "tfidf_bag_of_words": 0.857
+   },
+   "top_terms": {
+    "deceptive": [
+     "actually",
+     "absolutely",
+     "is absolutely",
+     "is not",
+     "completely",
+     "is completely",
+     "actually has",
+     "type",
+     "is actually",
+     "type of",
+     "this",
+     "no",
+     "for its",
+     "liquid",
+     "definitely"
+    ],
+    "honest": [
+     "is the",
+     "the capital",
+     "solid",
+     "capital",
+     "not",
+     "an",
+     "is true",
+     "city of",
+     "capital city",
+     "is false",
+     "true",
+     "and",
+     "as solid",
+     "it is",
+     "states"
+    ]
+   }
+  }
+ },
+ "positive_control_S1_auc": 0.9756,
+ "verdict_S1": {
+  "datasets_meeting_strength": [
+   {
+    "dataset": "insider-trading",
+    "scramble_ok": false,
+    "beats_text_baselines": false
+   },
+   {
+    "dataset": "instructed-deception",
+    "scramble_ok": false,
+    "beats_text_baselines": false
+   }
+  ],
+  "datasets_meeting_all": [],
+  "recovered": false
+ },
+ "verdict_S2": {
+  "datasets_meeting_strength": [],
+  "datasets_meeting_all": [],
+  "recovered": false
+ }
+}
