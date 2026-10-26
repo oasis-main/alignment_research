@@ -1,0 +1,18 @@
+Q2 reversal f.75 - f.5 (q=1): mean 0.133 CI (-0.033, 0.3)
+f.5 - none: mean -0.350 CI (-0.467, -0.233)
+Q6 membership-reduction minus reliability-reduction: mean -0.150 CI (-0.283, -0.017)
+A''-A' takeover f=0.25 q=0.5: 0.000 CI (0.0, 0.0)
+A''-A' takeover f=0.25 q=1.0: 0.017 CI (-0.067, 0.1)
+A''-A' takeover f=0.5 q=0.5: -0.033 CI (-0.133, 0.05)
+A''-A' takeover f=0.5 q=1.0: 0.133 CI (-0.033, 0.3)
+A''-A' takeover f=0.75 q=0.5: 0.183 CI (0.017, 0.35)
+A''-A' takeover f=0.75 q=1.0: 0.650 CI (0.517, 0.783)
+A''-A' takeover f=1.0 q=0.5: 0.450 CI (0.283, 0.6)
+A''-A' takeover f=1.0 q=1.0: 0.550 CI (0.417, 0.683)
+f.5,q1 - aw_d0 takeover: mean 0.083 CI (-0.083, 0.25)
+f.75,q1 - aw_d0 takeover: mean 0.217 CI (0.033, 0.383)
+f0.5_q1.0 attempts median 6.0 seeds with 0 takeover 21
+f0.75_q1.0 attempts median 3.5 seeds with 0 takeover 13
+f1.0_q1.0 attempts median 1.0 seeds with 0 takeover 26
+incF0 vs takeover corr across all (arm,seed):
+-0.792

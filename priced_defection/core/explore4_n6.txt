@@ -1,0 +1,10 @@
+C|pc0.3|cc0.0|base   T 0.42 att 2.33 dea 0.17 steal  76.4 caught 22.8 | npoor  6.8 ncov  9.3 resp/cap 1.37
+C|pc0.3|cc0.3|base   T 0.17 att 2.35 dea 0.05 steal  40.1 caught 12.6 | npoor  2.6 ncov 12.1 resp/cap 1.39
+C|pc0.3|cc0.6|base   T 0.82 att 2.00 dea 0.00 steal   4.3 caught  1.4 | npoor  0.1 ncov 14.0 resp/cap 1.08
+C|pc0.3|cc0.0|sanc0  T 0.00 att 1.12 dea 1.00 steal 399.2 caught 116.3 | npoor  0.8 ncov  9.7 resp/cap 3.10
+C|pc0.3|cc0.3|sanc0  T 0.03 att 1.32 dea 0.97 steal 355.9 caught 105.8 | npoor  1.8 ncov  9.3 resp/cap 2.13
+C|pc0.3|cc0.6|sanc0  T 0.20 att 4.28 dea 0.20 steal 227.3 caught 67.5 | npoor  1.7 ncov 12.1 resp/cap 1.49
+C|pc0.3|cc0.0|hit0   T 0.23 att 1.60 dea 0.15 steal  98.0 caught 29.8 | npoor  7.0 ncov  9.3 resp/cap 1.35
+C|pc0.3|cc0.3|hit0   T 0.20 att 2.58 dea 0.23 steal  64.8 caught 19.1 | npoor  4.7 ncov 10.8 resp/cap 1.47
+C|pc0.3|cc0.6|hit0   T 0.38 att 2.80 dea 0.00 steal  18.7 caught  5.3 | npoor  0.4 ncov 13.8 resp/cap 1.21
+C|notheft|pf1        T 0.72 att 2.50 dea 0.00 steal   0.0 caught  0.0 | npoor  0.0 ncov 14.4 resp/cap 1.10

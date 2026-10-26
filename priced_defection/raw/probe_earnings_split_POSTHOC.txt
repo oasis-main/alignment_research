@@ -1,0 +1,4 @@
+Per agent-round (seeds 8300-8319, no monitors, g_def=0), tournament12e:
+Q lead0=1.25   capability income 4.037  PD payoff 1.820  capability share of income 0.69  leader share of total cap 0.43
+S lead0=2.5    capability income 0.949  PD payoff 2.369  capability share of income 0.29  leader share of total cap 0.21
+Q lead0=1.6    capability income 1.142  PD payoff 2.423  capability share of income 0.32  leader share of total cap 0.34

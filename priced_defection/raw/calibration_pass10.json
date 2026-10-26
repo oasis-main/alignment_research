@@ -1,0 +1,242 @@
+[
+ {
+  "cell": {
+   "frontier_rule": "max",
+   "response_rule": "sum",
+   "lead0": 1.5,
+   "c_grow": 0.1
+  },
+  "dw": 1.0,
+  "att": 1.6
+ },
+ {
+  "cell": {
+   "frontier_rule": "max",
+   "response_rule": "sum",
+   "lead0": 1.5,
+   "c_grow": 0.3
+  },
+  "dw": 0.0,
+  "att": 0.0
+ },
+ {
+  "cell": {
+   "frontier_rule": "max",
+   "response_rule": "sum",
+   "lead0": 2.0,
+   "c_grow": 0.1
+  },
+  "dw": 1.0,
+  "att": 2.3
+ },
+ {
+  "cell": {
+   "frontier_rule": "max",
+   "response_rule": "sum",
+   "lead0": 2.0,
+   "c_grow": 0.3
+  },
+  "dw": 0.1,
+  "att": 0.2
+ },
+ {
+  "cell": {
+   "frontier_rule": "max",
+   "response_rule": "sum",
+   "lead0": 3.0,
+   "c_grow": 0.1
+  },
+  "dw": 1.0,
+  "att": 1.9
+ },
+ {
+  "cell": {
+   "frontier_rule": "max",
+   "response_rule": "sum",
+   "lead0": 3.0,
+   "c_grow": 0.3
+  },
+  "dw": 0.9,
+  "att": 2.5
+ },
+ {
+  "cell": {
+   "frontier_rule": "max",
+   "response_rule": "max",
+   "lead0": 1.5,
+   "c_grow": 0.1
+  },
+  "dw": 0.3,
+  "att": 23.2
+ },
+ {
+  "cell": {
+   "frontier_rule": "max",
+   "response_rule": "max",
+   "lead0": 1.5,
+   "c_grow": 0.3
+  },
+  "dw": 0.1,
+  "att": 25.9
+ },
+ {
+  "cell": {
+   "frontier_rule": "max",
+   "response_rule": "max",
+   "lead0": 2.0,
+   "c_grow": 0.1
+  },
+  "dw": 1.0,
+  "att": 1.0
+ },
+ {
+  "cell": {
+   "frontier_rule": "max",
+   "response_rule": "max",
+   "lead0": 2.0,
+   "c_grow": 0.3
+  },
+  "dw": 1.0,
+  "att": 1.0
+ },
+ {
+  "cell": {
+   "frontier_rule": "max",
+   "response_rule": "max",
+   "lead0": 3.0,
+   "c_grow": 0.1
+  },
+  "dw": 1.0,
+  "att": 1.0
+ },
+ {
+  "cell": {
+   "frontier_rule": "max",
+   "response_rule": "max",
+   "lead0": 3.0,
+   "c_grow": 0.3
+  },
+  "dw": 1.0,
+  "att": 1.0
+ },
+ {
+  "cell": {
+   "frontier_rule": "sum",
+   "response_rule": "sum",
+   "lead0": 1.5,
+   "c_grow": 0.1
+  },
+  "dw": 0.0,
+  "att": 11.6
+ },
+ {
+  "cell": {
+   "frontier_rule": "sum",
+   "response_rule": "sum",
+   "lead0": 1.5,
+   "c_grow": 0.3
+  },
+  "dw": 0.0,
+  "att": 0.0
+ },
+ {
+  "cell": {
+   "frontier_rule": "sum",
+   "response_rule": "sum",
+   "lead0": 2.0,
+   "c_grow": 0.1
+  },
+  "dw": 0.0,
+  "att": 11.7
+ },
+ {
+  "cell": {
+   "frontier_rule": "sum",
+   "response_rule": "sum",
+   "lead0": 2.0,
+   "c_grow": 0.3
+  },
+  "dw": 0.0,
+  "att": 0.8
+ },
+ {
+  "cell": {
+   "frontier_rule": "sum",
+   "response_rule": "sum",
+   "lead0": 3.0,
+   "c_grow": 0.1
+  },
+  "dw": 0.0,
+  "att": 12.2
+ },
+ {
+  "cell": {
+   "frontier_rule": "sum",
+   "response_rule": "sum",
+   "lead0": 3.0,
+   "c_grow": 0.3
+  },
+  "dw": 0.0,
+  "att": 9.9
+ },
+ {
+  "cell": {
+   "frontier_rule": "sum",
+   "response_rule": "max",
+   "lead0": 1.5,
+   "c_grow": 0.1
+  },
+  "dw": 0.0,
+  "att": 27.7
+ },
+ {
+  "cell": {
+   "frontier_rule": "sum",
+   "response_rule": "max",
+   "lead0": 1.5,
+   "c_grow": 0.3
+  },
+  "dw": 0.0,
+  "att": 27.4
+ },
+ {
+  "cell": {
+   "frontier_rule": "sum",
+   "response_rule": "max",
+   "lead0": 2.0,
+   "c_grow": 0.1
+  },
+  "dw": 0.0,
+  "att": 28.8
+ },
+ {
+  "cell": {
+   "frontier_rule": "sum",
+   "response_rule": "max",
+   "lead0": 2.0,
+   "c_grow": 0.3
+  },
+  "dw": 0.0,
+  "att": 28.3
+ },
+ {
+  "cell": {
+   "frontier_rule": "sum",
+   "response_rule": "max",
+   "lead0": 3.0,
+   "c_grow": 0.1
+  },
+  "dw": 0.0,
+  "att": 29.9
+ },
+ {
+  "cell": {
+   "frontier_rule": "sum",
+   "response_rule": "max",
+   "lead0": 3.0,
+   "c_grow": 0.3
+  },
+  "dw": 0.0,
+  "att": 29.9
+ }
+]

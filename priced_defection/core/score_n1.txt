@@ -1,0 +1,55 @@
+n 60 | viol 0 | gate_edge>0 seeds 0
+
+== TABLE: takeover att deaths grow post_share pie_end diffused first
+  pw0.5|d0.0|fixed|te0       T 0.650 att  0.77 dth  0.00 grow    4.4 post 0.0000 pie  1.00 diff    0.00 first   53.6
+  pw0.5|d0.0|fixed|te1       T 0.000 att  0.73 dth  0.73 grow   16.2 post 0.0071 pie  1.00 diff    0.00 first   53.6
+  pw0.5|d0.0|live|te0        T 0.633 att  0.72 dth  0.00 grow    4.3 post 0.0000 pie  0.44 diff    0.00 first   53.8
+  pw0.5|d0.0|live|te1        T 0.000 att  0.70 dth  0.70 grow    9.4 post 0.0066 pie  0.20 diff    0.00 first   53.8
+  pw0.5|d0.01|fixed|te0      T 0.000 att  0.00 dth  0.00 grow   13.0 post 0.0000 pie  1.00 diff   60.60 first    nan
+  pw0.5|d0.01|fixed|te1      T 0.000 att  0.00 dth  0.00 grow   13.0 post 0.0000 pie  1.00 diff   60.60 first    nan
+  pw0.5|d0.01|live|te0       T 0.000 att  0.00 dth  0.00 grow   13.1 post 0.0000 pie  1.20 diff   61.62 first    nan
+  pw0.5|d0.01|live|te1       T 0.000 att  0.00 dth  0.00 grow   13.1 post 0.0000 pie  1.20 diff   61.62 first    nan
+  pw0.5|d0.02|fixed|te0      T 0.000 att  0.00 dth  0.00 grow   54.8 post 0.0000 pie  1.00 diff  102.68 first    nan
+  pw0.5|d0.02|fixed|te1      T 0.000 att  0.00 dth  0.00 grow   54.8 post 0.0000 pie  1.00 diff  102.68 first    nan
+  pw0.5|d0.02|live|te0       T 0.000 att  0.00 dth  0.00 grow   34.9 post 0.0000 pie  1.20 diff  115.79 first    nan
+  pw0.5|d0.02|live|te1       T 0.000 att  0.00 dth  0.00 grow   34.9 post 0.0000 pie  1.20 diff  115.79 first    nan
+  pw0.5|d0.05|fixed|te0      T 0.000 att  0.00 dth  0.00 grow   61.5 post 0.0000 pie  1.00 diff  118.77 first    nan
+  pw0.5|d0.05|fixed|te1      T 0.000 att  0.00 dth  0.00 grow   61.5 post 0.0000 pie  1.00 diff  118.77 first    nan
+  pw0.5|d0.05|live|te0       T 0.000 att  0.00 dth  0.00 grow   64.5 post 0.0000 pie  1.20 diff  156.75 first    nan
+  pw0.5|d0.05|live|te1       T 0.000 att  0.00 dth  0.00 grow   64.5 post 0.0000 pie  1.20 diff  156.75 first    nan
+  pw1.0|d0.0|fixed|te0       T 1.000 att  1.05 dth  0.00 grow    6.6 post 0.0000 pie  1.00 diff    0.00 first   25.1
+  pw1.0|d0.0|fixed|te1       T 0.000 att  1.77 dth  1.70 grow   65.0 post 0.0169 pie  1.00 diff    0.00 first   25.1
+  pw1.0|d0.0|live|te0        T 0.983 att  1.03 dth  0.00 grow    6.6 post 0.0000 pie  0.78 diff    0.00 first   26.3
+  pw1.0|d0.0|live|te1        T 0.000 att  1.37 dth  1.35 grow   36.0 post 0.0132 pie  0.18 diff    0.00 first   26.3
+  pw1.0|d0.01|fixed|te0      T 0.533 att  0.53 dth  0.00 grow   12.0 post 0.0000 pie  1.00 diff   58.94 first   25.9
+  pw1.0|d0.01|fixed|te1      T 0.000 att  0.53 dth  0.53 grow   67.5 post 0.0053 pie  1.00 diff  114.67 first   25.9
+  pw1.0|d0.01|live|te0       T 0.600 att  0.60 dth  0.00 grow   10.8 post 0.0000 pie  0.90 diff   43.11 first   24.0
+  pw1.0|d0.01|live|te1       T 0.000 att  0.60 dth  0.60 grow   73.2 post 0.0059 pie  1.17 diff  115.73 first   24.0
+  pw1.0|d0.02|fixed|te0      T 0.167 att  0.17 dth  0.00 grow   61.2 post 0.0000 pie  1.00 diff  174.84 first   25.1
+  pw1.0|d0.02|fixed|te1      T 0.000 att  0.17 dth  0.17 grow   92.9 post 0.0016 pie  1.00 diff  194.44 first   25.1
+  pw1.0|d0.02|live|te0       T 0.183 att  0.18 dth  0.00 grow   38.4 post 0.0000 pie  1.21 diff  197.86 first   25.3
+  pw1.0|d0.02|live|te1       T 0.000 att  0.18 dth  0.18 grow   71.5 post 0.0018 pie  1.23 diff  224.28 first   25.3
+  pw1.0|d0.05|fixed|te0      T 0.000 att  0.00 dth  0.00 grow   76.4 post 0.0000 pie  1.00 diff  248.62 first    nan
+  pw1.0|d0.05|fixed|te1      T 0.000 att  0.00 dth  0.00 grow   76.4 post 0.0000 pie  1.00 diff  248.62 first    nan
+  pw1.0|d0.05|live|te0       T 0.000 att  0.00 dth  0.00 grow   73.5 post 0.0000 pie  1.20 diff  323.89 first    nan
+  pw1.0|d0.05|live|te1       T 0.000 att  0.00 dth  0.00 grow   73.5 post 0.0000 pie  1.20 diff  323.89 first    nan
+
+== N1-1 te0 fixed d0: pw1 1.0 pw.5 0.65
+== N1-2 pw0.5 te0 fixed: d.02 - d0 (-0.65, -0.767, -0.517)
+== N1-3 pw0.5 te0 fixed T by diffusion: [0.65, 0.0, 0.0, 0.0]
+== N1-2 pw1.0 te0 fixed: d.02 - d0 (-0.833, -0.917, -0.733)
+== N1-3 pw1.0 te0 fixed T by diffusion: [1.0, 0.533, 0.167, 0.0]
+== N1-4 pw.5 te0 d0: live - fixed (-0.017, -0.083, 0.033)
+== N1-5 te1 max takeover 0.0 | d0 deaths/att: {'pw0.5|d0.0|fixed|te1': (0.733, 0.733), 'pw0.5|d0.0|live|te1': (0.7, 0.7), 'pw1.0|d0.0|fixed|te1': (1.7, 1.767), 'pw1.0|d0.0|live|te1': (1.35, 1.367)}
+== N1-6 pw0.5 te0 live pie_end d.02 vs d0: 1.195 0.444 (0.751, 0.328, 1.264)
+== N1-6 pw0.5 te1 live pie_end d.02 vs d0: 1.195 0.196 (0.998, 0.587, 1.496)
+== N1-6 pw1.0 te0 live pie_end d.02 vs d0: 1.206 0.776 (0.43, 0.013, 0.953)
+== N1-6 pw1.0 te1 live pie_end d.02 vs d0: 1.231 0.183 (1.048, 0.606, 1.577)
+
+== EXPLORATORY takeover by leader strategy (te0, fixed pie, d0, both pw pooled)
+  alld    n= 16 takeover 1.000
+  grim    n= 18 takeover 0.611
+  gtft    n= 32 takeover 0.844
+  pavlov  n= 18 takeover 0.833
+  random  n= 22 takeover 0.864
+  tft     n= 14 takeover 0.786

@@ -1,0 +1,62 @@
+viol 0 | gate-edge seeds 0
+  C1.15|none|fixed     T 0.000 att  0.00 dth  0.00 grow   12.8 prep  0.00 pie  1.00 lead  1.24
+  C1.15|none|live      T 0.000 att  0.00 dth  0.00 grow   11.2 prep  0.00 pie  0.22 lead  1.20
+  C1.15|pf570|fixed    T 0.000 att  0.00 dth  0.00 grow   12.8 prep  0.00 pie  1.00 lead  1.24
+  C1.15|pf570|live     T 0.000 att  0.00 dth  0.00 grow   11.2 prep  0.00 pie  0.22 lead  1.20
+  C1.15|rf300|fixed    T 0.150 att  0.62 dth  0.00 grow   20.8 prep  0.65 pie  1.00 lead  2.36
+  C1.15|rf300|live     T 0.150 att  0.27 dth  0.00 grow   17.7 prep  0.28 pie  0.23 lead  2.33
+  C1.15|ov0.5|fixed    T 0.817 att  2.22 dth  0.00 grow   64.0 prep  2.23 pie  1.00 lead  4.23
+  C1.15|ov0.5|live     T 0.767 att  1.53 dth  0.00 grow   55.8 prep  1.53 pie  0.52 lead  4.37
+  C1.15|pp|fixed       T 0.000 att  0.00 dth  0.00 grow   12.8 prep  0.00 pie  1.00 lead  1.24
+  C1.15|pp|live        T 0.000 att  0.00 dth  0.00 grow   12.8 prep  0.00 pie  0.22 lead  1.24
+  C1.35|none|fixed     T 0.000 att  0.00 dth  0.00 grow    2.8 prep  0.00 pie  1.00 lead  1.78
+  C1.35|none|live      T 0.000 att  0.00 dth  0.00 grow    2.1 prep  0.00 pie  0.22 lead  1.66
+  C1.35|pf570|fixed    T 0.000 att  0.00 dth  0.00 grow    2.8 prep  0.00 pie  1.00 lead  1.78
+  C1.35|pf570|live     T 0.000 att  0.00 dth  0.00 grow    2.1 prep  0.00 pie  0.22 lead  1.66
+  C1.35|rf300|fixed    T 0.100 att  0.32 dth  0.00 grow    7.6 prep  0.35 pie  1.00 lead  3.05
+  C1.35|rf300|live     T 0.067 att  0.13 dth  0.00 grow    5.8 prep  0.13 pie  0.22 lead  2.70
+  C1.35|ov0.5|fixed    T 0.867 att  3.30 dth  0.00 grow   36.7 prep  3.42 pie  1.00 lead  8.39
+  C1.35|ov0.5|live     T 0.850 att  2.23 dth  0.00 grow   28.8 prep  2.23 pie  0.56 lead  8.27
+  C1.35|pp|fixed       T 0.000 att  0.00 dth  0.00 grow    2.8 prep  0.00 pie  1.00 lead  1.78
+  C1.35|pp|live        T 0.000 att  0.00 dth  0.00 grow    2.8 prep  0.00 pie  0.22 lead  1.78
+  O1.35|none|fixed     T 0.600 att  0.68 dth  0.00 grow    4.9 prep  0.72 pie  1.00 lead  2.25
+  O1.35|none|live      T 0.500 att  0.57 dth  0.00 grow    4.2 prep  0.58 pie  0.40 lead  2.10
+  O1.35|pf570|fixed    T 0.600 att  0.75 dth  0.00 grow    4.6 prep  0.77 pie  1.00 lead  2.16
+  O1.35|pf570|live     T 0.517 att  0.73 dth  0.00 grow    3.9 prep  0.77 pie  0.38 lead  2.02
+  O1.35|rf300|fixed    T 0.600 att  0.68 dth  0.00 grow    4.9 prep  0.72 pie  1.00 lead  2.25
+  O1.35|rf300|live     T 0.500 att  0.57 dth  0.00 grow    4.2 prep  0.58 pie  0.40 lead  2.10
+  O1.35|ov0.5|fixed    T 1.000 att  1.03 dth  0.00 grow    6.5 prep  1.03 pie  1.00 lead  2.52
+  O1.35|ov0.5|live     T 1.000 att  1.03 dth  0.00 grow    6.5 prep  1.03 pie  0.89 lead  2.52
+  O1.35|pp|fixed       T 0.600 att  0.68 dth  0.00 grow    4.9 prep  0.72 pie  1.00 lead  2.25
+  O1.35|pp|live        T 0.600 att  0.67 dth  0.00 grow    5.0 prep  0.70 pie  0.42 lead  2.26
+== N2-1 C1.15 pp live==fixed share of seeds: 0.983
+== N2-1 C1.35 pp live==fixed share of seeds: 0.983
+== N2-1 O1.35 pp live==fixed share of seeds: 0.950
+== N2-2 C1.15 ov - none (fixed) T: (0.817, 0.717, 0.9)
+== N2-3 C1.15 grow ratio ov/none (fixed): 4.98
+== N2-4 C1.15 rf - none (fixed) T: (0.15, 0.067, 0.25) grow ratio 1.62
+== N2-5 C1.15 pf - none (fixed) T: (0.0, 0.0, 0.0)
+== N2-6 C1.15 ov: live - fixed T: (-0.05, -0.133, 0.033)
+== N2-2 C1.35 ov - none (fixed) T: (0.867, 0.767, 0.95)
+== N2-3 C1.35 grow ratio ov/none (fixed): 13.04
+== N2-4 C1.35 rf - none (fixed) T: (0.1, 0.033, 0.183) grow ratio 2.69
+== N2-5 C1.35 pf - none (fixed) T: (0.0, 0.0, 0.0)
+== N2-6 C1.35 ov: live - fixed T: (-0.017, -0.1, 0.067)
+== N2-7 O1.35 ov: live - fixed T: (0.0, 0.0, 0.0)
+
+== EXPLORATORY (not scored): live - fixed T for every term
+  C1.15 none   (0.0, 0.0, 0.0) lead_end live/fixed 1.2 1.24
+  C1.15 pf570  (0.0, 0.0, 0.0) lead_end live/fixed 1.2 1.24
+  C1.15 rf300  (0.0, -0.083, 0.083) lead_end live/fixed 2.33 2.36
+  C1.15 ov0.5  (-0.05, -0.133, 0.033) lead_end live/fixed 4.37 4.23
+  C1.15 pp     (0.0, 0.0, 0.0) lead_end live/fixed 1.24 1.24
+  C1.35 none   (0.0, 0.0, 0.0) lead_end live/fixed 1.66 1.78
+  C1.35 pf570  (0.0, 0.0, 0.0) lead_end live/fixed 1.66 1.78
+  C1.35 rf300  (-0.033, -0.083, 0.0) lead_end live/fixed 2.7 3.05
+  C1.35 ov0.5  (-0.017, -0.1, 0.067) lead_end live/fixed 8.27 8.39
+  C1.35 pp     (0.0, 0.0, 0.0) lead_end live/fixed 1.78 1.78
+  O1.35 none   (-0.1, -0.2, -0.017) lead_end live/fixed 2.1 2.25
+  O1.35 pf570  (-0.083, -0.183, 0.0) lead_end live/fixed 2.02 2.16
+  O1.35 rf300  (-0.1, -0.2, -0.017) lead_end live/fixed 2.1 2.25
+  O1.35 ov0.5  (0.0, 0.0, 0.0) lead_end live/fixed 2.52 2.52
+  O1.35 pp     (0.0, 0.0, 0.0) lead_end live/fixed 2.26 2.25

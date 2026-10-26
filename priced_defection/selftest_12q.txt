@@ -1,0 +1,15 @@
+I1 m=0 equals tournament12 [cell Q]: True
+I2 m=4, r=0, standing, equals m=0: True
+I3a determinism (all fields): True
+I3b stream setup leaves the global random stream untouched: True
+I3c module patches undone: True
+I3d monitor sets nested: True
+I4 invariant violations 0 (want 0); standing reads 2456 (>0); prep reads 530
+I5 standing=False equals tournament12b [free]: True
+I5 standing=False equals tournament12b [cost]: True
+I6a detection exposes monitors: True; no detection means no exposure: True
+I6b no watch older than L_w-1=4 rounds is ever used: max age seen 4 -> True
+I6c cost spends when asked: True; zero when c_mon=0: True
+I6d with prep reads blinded (e_prep=1) the standing watch changes outcomes vs prep-only: True
+I7 net income equals un-netted income when spend = 0: True
+selftest PASS

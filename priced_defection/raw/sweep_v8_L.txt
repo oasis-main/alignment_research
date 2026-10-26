@@ -1,0 +1,22 @@
+
+=== L. S3: repriced bluffing -- substitute for real growth? ===
+L_nobluff                      END=0.07[0.00,0.17] lead=1.25->  1.29[1.18,1.43] grow=   0.2 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+L_cb0.02_mult0.5               END=0.03[0.00,0.10] lead=1.25->  1.25[1.17,1.35] grow=   0.0 shr=   0.0 blf= 0.815 app= 1.411 tEnd=  32.0
+L_cb0.02_mult1.5               END=0.00[0.00,0.00] lead=1.25->  1.25[1.17,1.35] grow=   0.0 shr=   0.0 blf= 0.818 app= 2.236 tEnd=   n/a
+L_cb0.1_mult0.5                END=0.03[0.00,0.10] lead=1.25->  1.25[1.17,1.35] grow=   0.0 shr=   0.0 blf= 0.814 app= 1.410 tEnd=  32.0
+L_cb0.1_mult1.5                END=0.00[0.00,0.00] lead=1.25->  1.25[1.17,1.35] grow=   0.0 shr=   0.0 blf= 0.818 app= 2.235 tEnd=   n/a
+L_cb0.3_mult0.5                END=0.03[0.00,0.10] lead=1.25->  1.25[1.17,1.35] grow=   0.0 shr=   0.0 blf= 0.768 app= 1.387 tEnd= 105.0
+L_cb0.3_mult1.5                END=0.00[0.00,0.00] lead=1.25->  1.25[1.17,1.35] grow=   0.0 shr=   0.0 blf= 0.814 app= 2.229 tEnd=   n/a
+L_cb0.6_mult0.5                END=0.03[0.00,0.10] lead=1.25->  1.27[1.17,1.39] grow=   0.1 shr=   0.0 blf= 0.001 app= 1.001 tEnd=  14.0
+L_cb0.6_mult1.5                END=0.00[0.00,0.00] lead=1.25->  1.25[1.17,1.35] grow=   0.0 shr=   0.0 blf= 0.814 app= 2.229 tEnd=   n/a
+--- L2: bluff vs growth at matched price (the substitution) ---
+L2_cb0.05_cg0.3                END=0.03[0.00,0.10] lead=1.25->  1.25[1.17,1.35] grow=   0.0 shr=   0.0 blf= 0.815 app= 1.410 tEnd=  32.0
+L2_cb0.15_cg0.3                END=0.03[0.00,0.10] lead=1.25->  1.25[1.17,1.35] grow=   0.0 shr=   0.0 blf= 0.813 app= 1.410 tEnd=  32.0
+L2_cb0.45_cg0.3                END=0.00[0.00,0.00] lead=1.25->  1.25[1.17,1.35] grow=   0.0 shr=   0.0 blf= 0.534 app= 1.267 tEnd=   n/a
+--- L3: apparent vs true stability at a real lead ---
+L3_lead1.0_nobluff             END=0.07[0.00,0.17] lead=1.25->  1.29[1.18,1.43] grow=   0.2 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  69.0
+L3_lead1.0_bluff               END=0.03[0.00,0.10] lead=1.25->  1.25[1.17,1.35] grow=   0.0 shr=   0.0 blf= 0.815 app= 1.410 tEnd=  32.0
+L3_lead3.0_nobluff             END=1.00[1.00,1.00] lead=3.00->  3.12[3.06,3.19] grow=   0.4 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   9.8
+L3_lead3.0_bluff               END=1.00[1.00,1.00] lead=3.00->  3.43[3.31,3.57] grow=   1.4 shr=   0.0 blf= 0.752 app= 1.347 tEnd=  11.0
+
+wrote 16 cells -> raw/results_v8_L.json

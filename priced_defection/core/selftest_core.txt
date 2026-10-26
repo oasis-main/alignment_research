@@ -1,0 +1,42 @@
+I1 determinism: True
+I2 unknown key raises: True
+I3 all g = 0 -> pie exactly 1 throughout: True
+I4 pw = 0 and pie = 1 -> PD income equals base payoffs: True
+I5a step gate: .79 penalty, .80 and .81 discount: True
+I5b logistic k=1e4 equals step away from the threshold: True
+I5c logistic is monotone non-increasing in the ratio: True
+I5d leaky with a leak draw gives the insider price: True
+I5e logistic k=1e6 reproduces step off the edge (lead0 1.35): True
+I6a share_mode off -> no diffusion: True
+I6b open sharing with diffusion > 0 -> free growth occurs: True
+I7 rent 0, pw 0 -> no capability value from income: True
+I8 invariants (cap > 0, finite, budget >= 0, pie in bounds) over 8 varied configs: True
+I9 bully defects against a much weaker partner, opens C against a near-equal: True
+I10 random assignment varies the leader's strategy across seeds: True
+I11 cooperation grows the pie (g_coop .02) and the cap binds: True
+I12 defection and punishment shrink the pie: True
+I13 legacy profile unchanged by amendments (V1 seeds 9500-9503 vs committed validation): True
+I14 pie prize: ruin loses own stream > 0, win = (N-1) x own: True
+I15 threat_exec is live (posture appears only when on): True
+I16 price_pie on, no fixed/outside term -> runs identical at pie0 .3, 1, 3: True
+I17 price_pie off -> defaults unchanged (I13 already covers legacy); outside value never enters budgets: True
+I18 fixed prize adds exactly prize_fixed to the win: True
+I19 anticipation, constant pie, no conflict hit: prize and ruin equal the level form: True
+I20 a conflict hit of .5 halves the anticipated prize at post_growth 0: True
+I21 theft off -> no steal actions; theft on -> capability is copied: True
+I22 welfare identity: W = W_pd + W_out; W_pd equals PD income: True
+I23 takeover off -> no prep, no attempt: True
+I24 out_exp 0 -> outside value adds nothing to the value of capability: True
+I25 outside value that neither grows nor is captured nor is cash leaves the dynamics unchanged: True
+I26 takeover off -> no takeover-odds term in the value of capability (pure-PD growth fix): True
+I27 welfare: no takeover -> all three accountings equal; trend rule <= freeze rule when the pie is not rising: True
+I28 theft realism off (p_catch 0, conceal 0, sigma 0) reproduces the frictionless theft draw for draw: True
+I29 full concealment -> nothing is stolen: True
+I30 certain capture -> nothing is stolen: True
+I31 copy_earns default reproduces committed N5 results draw for draw (4 arms/seeds, all keys incl. welfare): True
+I32 copy_earns False is accounting only: identical trajectory and W_pd; W_out lower when anything was stolen: True
+I33 no theft -> copy_earns False changes nothing (W identical): True
+I34 diag recording changes nothing (same results as diag off) and logs every attempt: True
+I35 post_floor on: invariants hold and total posture posted is not lower than off (6 seeds, theft arm): True
+I36 sanc_threat 0.5 (default) is the N5 behaviour (I31); sanc_threat 0 posts less posture in a theft arm with catches: True
+selftest PASS

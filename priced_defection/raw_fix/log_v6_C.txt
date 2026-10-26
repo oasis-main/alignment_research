@@ -1,0 +1,15 @@
+
+=== C. P3: who buys growth, the leader or the laggards? ===
+C_cgrow0.1                 END=0.00[0.00,0.00] post= 0.840 atkrs= 9.4 pstrs=14.7 grwrs=20.0 seize=  0.0 prep= 9.4 lead=1.25->   1.73 died=5.4 tEnd=   n/a
+C_cgrow0.3                 END=0.00[0.00,0.00] post= 0.999 atkrs= 0.0 pstrs=20.0 grwrs= 0.1 seize=  0.0 prep= 0.0 lead=1.25->   1.77 died=0.0 tEnd=   n/a
+C_cgrow0.6                 END=0.00[0.00,0.00] post= 1.000 atkrs= 0.0 pstrs=20.0 grwrs= 0.1 seize=  0.0 prep= 0.0 lead=1.25->   1.67 died=0.0 tEnd=   n/a
+C_cgrow1.2                 END=0.00[0.00,0.00] post= 1.000 atkrs= 0.0 pstrs=20.0 grwrs= 0.0 seize=  0.0 prep= 0.0 lead=1.25->   1.25 died=0.0 tEnd=   n/a
+--- C2: initial lead x price of growth ---
+C2_lead1.0_cg0.1           END=0.00[0.00,0.00] post= 0.840 atkrs= 9.4 pstrs=14.7 grwrs=20.0 seize=  0.0 prep= 9.4 lead=1.25->   1.73 died=5.4 tEnd=   n/a
+C2_lead1.0_cg0.6           END=0.00[0.00,0.00] post= 1.000 atkrs= 0.0 pstrs=20.0 grwrs= 0.1 seize=  0.0 prep= 0.0 lead=1.25->   1.67 died=0.0 tEnd=   n/a
+C2_lead1.5_cg0.1           END=0.00[0.00,0.00] post= 0.873 atkrs= 8.9 pstrs=14.9 grwrs=20.0 seize=  0.0 prep= 8.9 lead=1.50->   2.11 died=5.1 tEnd=   n/a
+C2_lead1.5_cg0.6           END=0.00[0.00,0.00] post= 0.997 atkrs= 0.0 pstrs=20.0 grwrs= 0.6 seize=  0.0 prep= 0.0 lead=1.50->   2.89 died=0.0 tEnd=   n/a
+C2_lead3.0_cg0.1           END=0.03[0.00,0.10] post= 0.864 atkrs= 9.7 pstrs=14.6 grwrs=20.0 seize=  0.0 prep= 9.7 lead=3.00->   3.02 died=4.7 tEnd=   9.0
+C2_lead3.0_cg0.6           END=0.00[0.00,0.00] post= 0.988 atkrs= 0.0 pstrs=20.0 grwrs= 1.2 seize=  0.0 prep= 0.0 lead=3.00->  11.33 died=0.0 tEnd=   n/a
+
+wrote 10 cells -> raw_fix/results_v6_C.json

@@ -1,0 +1,6 @@
+lead1.0_cg0.1    takeover 0.233 att  4.77 first   35.3 (n=19) cap/frontier@first   nan  lead0 1.16 lead_end  2.59
+lead1.0_cg0.3    takeover 0.000 att  0.00 first    nan (n= 0) cap/frontier@first   nan  lead0 1.16 lead_end  1.16
+lead1.25_cg0.1   takeover 0.833 att  1.83 first   31.6 (n=28) cap/frontier@first   nan  lead0 1.25 lead_end  5.35
+lead1.25_cg0.3   takeover 0.000 att  0.00 first    nan (n= 0) cap/frontier@first   nan  lead0 1.25 lead_end  1.25
+lead1.5_cg0.1    takeover 1.000 att  2.17 first   26.0 (n=30) cap/frontier@first   nan  lead0 1.50 lead_end  8.39
+lead1.5_cg0.3    takeover 0.000 att  0.00 first    nan (n= 0) cap/frontier@first   nan  lead0 1.50 lead_end  1.50

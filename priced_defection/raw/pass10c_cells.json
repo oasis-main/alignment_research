@@ -1,0 +1,11 @@
+{
+ "_note": "Fixed 2026-10-16 from calibration (seeds 100-109, UNSCORED; raw/calibration_pass10c.json) BEFORE any scored part-C run. Scored seeds 0-19. Do not edit after the sweep starts.",
+ "RAID": {"access_rule":"step","post_shield":0.2,"c_prep":0.05,"c_seize":0.05,"take_frac":0.4,"transfer_mult":1.5,"response_rule":"sum","frontier_rule":"max","c_grow":0.1,"lead0":1.0,"sanction_len":25},
+ "grids": {"C2_sanction_len":[10,25,50,200], "C3_lead0":[1.0,1.5,2.0,3.0], "C4_mis":[0.0,0.25,0.5,1.0], "C5_breadth":[0.0,0.25,0.5,1.0]},
+ "S": {"frontier_rule":"max","response_rule":"sum","lead0":2.5,"c_grow":0.3,"access_rule":"step","post_shield":0.2,"c_prep":0.05},
+ "calibration_observations_unscored": [
+  "Raids occur at lead0 1.0-1.1 at EVERY sanction length tested, including 200 (1.1-1.2 raids/run), and the count is roughly flat in sanction_len. At lead0 >=1.25 raids fall to 0.1-0.2, at 1.5 to 0.",
+  "That is evidence against C2's 'raids non-increasing in sanction_len, zero at 200'. C2 is NOT edited. The earlier probe's zero at 200 was at c_seize 0.75 in cells S and M, not at this cheap-seize cell.",
+  "Cell S uses the default c_seize 0.75 and has no raids, so breadth (which acts only through raids and recon) can only be trivially flat there. C5's S clause is run as written and will be reported as a null for that reason, with the raid cell carrying the real test."
+ ]
+}

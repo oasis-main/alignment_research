@@ -1,0 +1,8 @@
+d0_a0.0          takeover 0.700  attempts  1.67  deaths  0.00  first  71.1  n=30
+d0_a0.1          takeover 0.167  attempts  0.27  deaths  0.00  first 106.4  n=30
+d0_a0.25         takeover 0.000  attempts  0.00  deaths  0.00  first   nan  n=30
+d0_a0.5          takeover 0.000  attempts  0.00  deaths  0.00  first   nan  n=30
+d0_a1.0          takeover 0.000  attempts  0.00  deaths  0.00  first   nan  n=30
+club.5_b1_a0.0   takeover 0.733  attempts  4.30  deaths  0.13  first  12.9  n=30
+club.5_b1_a0.25  takeover 0.233  attempts  7.17  deaths  0.00  first  16.9  n=30
+club.5_b1_a1.0   takeover 0.167  attempts  7.30  deaths  0.00  first  18.6  n=30

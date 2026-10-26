@@ -1,0 +1,16 @@
+C|pc0.3|cc0.0|base pie_mean 0.31 deaths/run 0.17
+   idx1: n  80 death 0.100 decisive 0.062
+   idx2: n  69 death 0.072 decisive 0.246
+   idx3: n  32 death 0.031 decisive 0.344
+   idx4: n   6 death 0.000 decisive 0.333
+C|pc0.3|cc0.3|base pie_mean 0.295 deaths/run 0.07
+   idx1: n  80 death 0.013 decisive 0.025
+   idx2: n  75 death 0.027 decisive 0.053
+   idx3: n  33 death 0.061 decisive 0.152
+   idx4: n   4 death 0.250 decisive 0.250
+C|pc0.3|cc0.0|sanc0 pie_mean 0.378 deaths/run 1.0
+   idx1: n  80 death 0.950 decisive 0.000
+   idx2: n   9 death 0.444 decisive 0.111
+   idx3: n   1 death 0.000 decisive 0.000
+C|pc0.3|cc0.0|pf pie_mean 0.272 deaths/run 0.09
+   idx1: n  16 death 0.438 decisive 0.000

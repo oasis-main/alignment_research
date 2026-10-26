@@ -1,0 +1,258 @@
+{
+ "J_tft_forg1": {
+  "attempts": 0.35,
+  "attempts_ci": [
+   0.2,
+   0.5
+  ],
+  "successes": 0.275,
+  "successes_ci": [
+   0.15,
+   0.425
+  ],
+  "ended": 0.275,
+  "ruin": 0.21428571428571427,
+  "coop": 0.6640998519534256,
+  "punished": 0.0,
+  "reached_H": 0.825,
+  "coop_H": 0.7417998163452709,
+  "coop_H_ci": [
+   0.7363437404346495,
+   0.7474900520355066
+  ],
+  "n_H": 33,
+  "t_first": 8.928571428571429,
+  "punish_frac": 0.20345804988662128,
+  "believed_p": 0.6875,
+  "realized": 0.7857142857142857,
+  "calib_gap": -0.0982142857142857,
+  "top1_share": 0.4247959165653274,
+  "top1_over_top2": 8.018457963955615,
+  "gini": 0.46524158482584044,
+  "eff_n": 5.036689131400902
+ },
+ "J_tft_forg1_max": {
+  "attempts": 1.0,
+  "attempts_ci": [
+   1.0,
+   1.0
+  ],
+  "successes": 1.0,
+  "successes_ci": [
+   1.0,
+   1.0
+  ],
+  "ended": 1.0,
+  "ruin": 0.0,
+  "coop": 0.7481249999999997,
+  "punished": 0.025,
+  "reached_H": 0.0,
+  "coop_H": null,
+  "coop_H_ci": [
+   null,
+   null
+  ],
+  "n_H": 0,
+  "t_first": 8.0,
+  "punish_frac": 0.2458333333333333,
+  "believed_p": 1.0,
+  "realized": 1.0,
+  "calib_gap": 0.0,
+  "top1_share": 0.4247959165653274,
+  "top1_over_top2": 8.018457963955615,
+  "gini": 0.46524158482584044,
+  "eff_n": 5.036689131400902
+ },
+ "J_tft_forg0": {
+  "attempts": 0.35,
+  "attempts_ci": [
+   0.2,
+   0.5
+  ],
+  "successes": 0.275,
+  "successes_ci": [
+   0.15,
+   0.425
+  ],
+  "ended": 0.275,
+  "ruin": 0.21428571428571427,
+  "coop": 0.6537434023393034,
+  "punished": 0.0,
+  "reached_H": 0.825,
+  "coop_H": 0.7410407101316192,
+  "coop_H_ci": [
+   0.7354377104377103,
+   0.7466666666666667
+  ],
+  "n_H": 33,
+  "t_first": 8.928571428571429,
+  "punish_frac": 0.20345804988662128,
+  "believed_p": 0.6875,
+  "realized": 0.7857142857142857,
+  "calib_gap": -0.0982142857142857,
+  "top1_share": 0.4247959165653274,
+  "top1_over_top2": 8.018457963955615,
+  "gini": 0.46524158482584044,
+  "eff_n": 5.036689131400902
+ },
+ "J_tft_forg0_max": {
+  "attempts": 1.0,
+  "attempts_ci": [
+   1.0,
+   1.0
+  ],
+  "successes": 1.0,
+  "successes_ci": [
+   1.0,
+   1.0
+  ],
+  "ended": 1.0,
+  "ruin": 0.0,
+  "coop": 0.7479687499999997,
+  "punished": 0.025,
+  "reached_H": 0.0,
+  "coop_H": null,
+  "coop_H_ci": [
+   null,
+   null
+  ],
+  "n_H": 0,
+  "t_first": 8.0,
+  "punish_frac": 0.2458333333333333,
+  "believed_p": 1.0,
+  "realized": 1.0,
+  "calib_gap": 0.0,
+  "top1_share": 0.4247959165653274,
+  "top1_over_top2": 8.018457963955615,
+  "gini": 0.46524158482584044,
+  "eff_n": 5.036689131400902
+ },
+ "J_alld_forg1": {
+  "attempts": 0.35,
+  "attempts_ci": [
+   0.2,
+   0.5
+  ],
+  "successes": 0.3,
+  "successes_ci": [
+   0.175,
+   0.45
+  ],
+  "ended": 0.3,
+  "ruin": 0.14285714285714285,
+  "coop": 0.6058818836758242,
+  "punished": 0.0,
+  "reached_H": 0.825,
+  "coop_H": 0.6905249464340373,
+  "coop_H_ci": [
+   0.685426997245179,
+   0.696417202326293
+  ],
+  "n_H": 33,
+  "t_first": 13.0,
+  "punish_frac": 0.38095238095238093,
+  "believed_p": 0.6875,
+  "realized": 0.8571428571428571,
+  "calib_gap": -0.1696428571428571,
+  "top1_share": 0.4247959165653274,
+  "top1_over_top2": 8.018457963955615,
+  "gini": 0.46524158482584044,
+  "eff_n": 5.036689131400902
+ },
+ "J_alld_forg1_max": {
+  "attempts": 1.0,
+  "attempts_ci": [
+   1.0,
+   1.0
+  ],
+  "successes": 1.0,
+  "successes_ci": [
+   1.0,
+   1.0
+  ],
+  "ended": 1.0,
+  "ruin": 0.0,
+  "coop": 0.6956250000000002,
+  "punished": 0.0,
+  "reached_H": 0.0,
+  "coop_H": null,
+  "coop_H_ci": [
+   null,
+   null
+  ],
+  "n_H": 0,
+  "t_first": 8.0,
+  "punish_frac": 0.3041666666666667,
+  "believed_p": 1.0,
+  "realized": 1.0,
+  "calib_gap": 0.0,
+  "top1_share": 0.4247959165653274,
+  "top1_over_top2": 8.018457963955615,
+  "gini": 0.46524158482584044,
+  "eff_n": 5.036689131400902
+ },
+ "J_alld_forg0": {
+  "attempts": 0.35,
+  "attempts_ci": [
+   0.2,
+   0.5
+  ],
+  "successes": 0.3,
+  "successes_ci": [
+   0.175,
+   0.45
+  ],
+  "ended": 0.3,
+  "ruin": 0.14285714285714285,
+  "coop": 0.5975219791970913,
+  "punished": 0.0,
+  "reached_H": 0.825,
+  "coop_H": 0.6897658402203857,
+  "coop_H_ci": [
+   0.6844796449341906,
+   0.6959106213651666
+  ],
+  "n_H": 33,
+  "t_first": 13.0,
+  "punish_frac": 0.38095238095238093,
+  "believed_p": 0.6875,
+  "realized": 0.8571428571428571,
+  "calib_gap": -0.1696428571428571,
+  "top1_share": 0.4247959165653274,
+  "top1_over_top2": 8.018457963955615,
+  "gini": 0.46524158482584044,
+  "eff_n": 5.036689131400902
+ },
+ "J_alld_forg0_max": {
+  "attempts": 1.0,
+  "attempts_ci": [
+   1.0,
+   1.0
+  ],
+  "successes": 1.0,
+  "successes_ci": [
+   1.0,
+   1.0
+  ],
+  "ended": 1.0,
+  "ruin": 0.0,
+  "coop": 0.6954687500000001,
+  "punished": 0.0,
+  "reached_H": 0.0,
+  "coop_H": null,
+  "coop_H_ci": [
+   null,
+   null
+  ],
+  "n_H": 0,
+  "t_first": 8.0,
+  "punish_frac": 0.3041666666666667,
+  "believed_p": 1.0,
+  "realized": 1.0,
+  "calib_gap": 0.0,
+  "top1_share": 0.4247959165653274,
+  "top1_over_top2": 8.018457963955615,
+  "gini": 0.46524158482584044,
+  "eff_n": 5.036689131400902
+ }
+}

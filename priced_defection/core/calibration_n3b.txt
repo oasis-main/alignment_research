@@ -1,0 +1,16 @@
+C1.35|ov0.0|gc0.5pg-0.05|ant0    T 0.00 att 0.00 dth 0.00 grow   1.3 pie  0.21 lead  1.53
+C1.35|ov0.0|gc0.9pg-0.1|ant0     T 0.00 att 0.00 dth 0.00 grow   1.3 pie  0.21 lead  1.53
+C1.35|ov0.0|gc0.5pg-0.05|ant1    T 0.00 att 0.00 dth 0.00 grow   1.3 pie  0.21 lead  1.53
+C1.35|ov0.0|gc0.9pg-0.1|ant1     T 0.00 att 0.00 dth 0.00 grow   1.3 pie  0.21 lead  1.53
+C1.35|ov0.5|gc0.5pg-0.05|ant0    T 0.67 att 2.67 dth 0.00 grow  31.3 pie  0.42 lead  6.93
+C1.35|ov0.5|gc0.9pg-0.1|ant0     T 0.83 att 2.00 dth 0.00 grow  26.3 pie  0.36 lead  7.83
+C1.35|ov0.5|gc0.5pg-0.05|ant1    T 1.00 att 1.50 dth 0.00 grow  23.3 pie  0.60 lead  8.90
+C1.35|ov0.5|gc0.9pg-0.1|ant1     T 0.83 att 0.83 dth 0.00 grow  27.7 pie  0.70 lead 32.14
+O1.35|ov0.0|gc0.5pg-0.05|ant0    T 0.50 att 0.67 dth 0.00 grow   2.8 pie  0.45 lead  1.82
+O1.35|ov0.0|gc0.9pg-0.1|ant0     T 0.50 att 0.67 dth 0.00 grow   3.2 pie  0.41 lead  1.90
+O1.35|ov0.0|gc0.5pg-0.05|ant1    T 0.50 att 0.50 dth 0.00 grow   3.3 pie  0.53 lead  1.93
+O1.35|ov0.0|gc0.9pg-0.1|ant1     T 0.50 att 0.50 dth 0.00 grow   4.8 pie  0.45 lead  2.34
+O1.35|ov0.5|gc0.5pg-0.05|ant0    T 1.00 att 1.00 dth 0.00 grow   6.0 pie  0.92 lead  2.40
+O1.35|ov0.5|gc0.9pg-0.1|ant0     T 1.00 att 1.00 dth 0.00 grow   6.0 pie  0.92 lead  2.40
+O1.35|ov0.5|gc0.5pg-0.05|ant1    T 1.00 att 1.00 dth 0.00 grow   7.0 pie  0.91 lead  2.64
+O1.35|ov0.5|gc0.9pg-0.1|ant1     T 1.00 att 1.00 dth 0.00 grow   7.7 pie  0.91 lead  2.81

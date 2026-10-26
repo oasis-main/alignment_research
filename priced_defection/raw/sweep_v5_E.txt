@@ -1,0 +1,12 @@
+
+=== E. frontier_rule: must backups be cleared one by one? ===
+E_max_K1.0               lead0=  1.26->   1.48 END=1.00[1.00,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  0.0/0.0   took=   0.0 tEnd=   8.0
+E_max_K1.0_sumresp       lead0=  1.26->   2.29 END=0.45[0.28,0.60] died=0.55 mRepo=  1.0/0.5   dRepo=  0.0/0.0   took=   1.0 tEnd=  32.3
+E_max_K2.0               lead0=  1.26->   2.17 END=0.95[0.88,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  1.5/1.3   took=   2.8 tEnd=  28.2
+E_max_K2.0_sumresp       lead0=  1.26->   2.66 END=1.00[1.00,1.00] died=0.00 mRepo=  1.4/0.7   dRepo=  0.0/0.0   took=   1.4 tEnd=  41.6
+E_sum_K1.0               lead0=  0.49->   1.13 END=1.00[1.00,1.00] died=0.05 mRepo=  0.0/0.0   dRepo=  0.1/0.0   took=   0.2 tEnd=  42.2
+E_sum_K1.0_sumresp       lead0=  0.49->   0.87 END=0.45[0.28,0.60] died=0.55 mRepo=  1.0/0.5   dRepo=  0.0/0.0   took=   1.0 tEnd=  33.6
+E_sum_K2.0               lead0=  0.49->   2.15 END=0.95[0.88,1.00] died=0.00 mRepo=  0.0/0.0   dRepo=  1.5/1.3   took=   2.8 tEnd=  76.8
+E_sum_K2.0_sumresp       lead0=  0.49->   2.16 END=1.00[1.00,1.00] died=0.00 mRepo=  1.4/0.7   dRepo=  0.0/0.0   took=   1.4 tEnd=  81.8
+
+wrote 8 cells -> raw/results_v5_E.json

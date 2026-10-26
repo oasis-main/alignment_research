@@ -1,0 +1,7 @@
+
+=== E. ratchet: indecisive wins grow the mover, r=0.8 max K=2 ===
+E_wb0.0                    lead=  1.2 att= 15.75 END=0.00[0.00,0.00] died=0.00 iw=15.75 il=0.00 outR= 185 t1= 15.3 tEnd=   n/a
+E_wb0.1                    lead=  1.2 att=  6.62 END=1.00[1.00,1.00] died=0.00 iw=5.62 il=0.00 outR=  68 t1= 15.3 tEnd=  82.8
+E_wb0.3                    lead=  1.2 att=  3.35 END=1.00[1.00,1.00] died=0.00 iw=2.35 il=0.00 outR=  28 t1= 15.3 tEnd=  43.5
+
+wrote 3 cells -> raw/results_v4_E.json

@@ -1,0 +1,67 @@
+[
+ {
+  "cell": {
+   "access_rule": "step",
+   "post_shield": 0.2,
+   "c_prep": 0.05,
+   "frontier_rule": "max",
+   "response_rule": "sum",
+   "lead0": 2.25,
+   "c_grow": 0.3
+  },
+  "dw": 0.3,
+  "att": 0.6
+ },
+ {
+  "cell": {
+   "access_rule": "step",
+   "post_shield": 0.2,
+   "c_prep": 0.05,
+   "frontier_rule": "max",
+   "response_rule": "sum",
+   "lead0": 2.5,
+   "c_grow": 0.3
+  },
+  "dw": 0.7,
+  "att": 0.8
+ },
+ {
+  "cell": {
+   "access_rule": "step",
+   "post_shield": 0.2,
+   "c_prep": 0.05,
+   "frontier_rule": "max",
+   "response_rule": "sum",
+   "lead0": 2.75,
+   "c_grow": 0.3
+  },
+  "dw": 0.8,
+  "att": 2.7
+ },
+ {
+  "cell": {
+   "access_rule": "step",
+   "post_shield": 0.2,
+   "c_prep": 0.05,
+   "frontier_rule": "max",
+   "response_rule": "max",
+   "lead0": 1.25,
+   "c_grow": 0.1
+  },
+  "dw": 0.4,
+  "att": 20.5
+ },
+ {
+  "cell": {
+   "access_rule": "step",
+   "post_shield": 0.2,
+   "c_prep": 0.05,
+   "frontier_rule": "max",
+   "response_rule": "max",
+   "lead0": 1.75,
+   "c_grow": 0.1
+  },
+  "dw": 0.7,
+  "att": 13.2
+ }
+]

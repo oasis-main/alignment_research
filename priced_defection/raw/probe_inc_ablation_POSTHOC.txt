@@ -1,0 +1,12 @@
+Q        inc=0.0   takeover 0.00 att  0.00 deaths  0.00 grow/run    0.0 post/run 3976.0 idle/run   24.0  n=20
+Q        inc=0.05  takeover 0.00 att  0.00 deaths  0.00 grow/run    0.0 post/run 3976.5 idle/run   23.5  n=20
+Q        inc=0.1   takeover 0.00 att  0.00 deaths  0.00 grow/run    1.1 post/run 3979.8 idle/run   19.1  n=20
+Q        inc=0.25  takeover 1.00 att  1.85 deaths  0.00 grow/run   26.1 post/run  840.8 idle/run    0.0  n=20
+Qscaled  inc=0.0   takeover 0.00 att  0.00 deaths  0.00 grow/run    0.0 post/run 3976.0 idle/run   24.0  n=20
+Qscaled  inc=0.05  takeover 0.00 att  0.00 deaths  0.00 grow/run    1.2 post/run 3976.4 idle/run   22.4  n=20
+Qscaled  inc=0.1   takeover 0.70 att 14.40 deaths  5.35 grow/run   45.9 post/run  759.8 idle/run   19.0  n=20
+Qscaled  inc=0.25  takeover 1.00 att  1.85 deaths  0.00 grow/run   26.1 post/run  840.8 idle/run    0.0  n=20
+S        inc=0.0   takeover 0.00 att  0.00 deaths  0.00 grow/run    0.0 post/run 3974.5 idle/run   25.5  n=20
+S        inc=0.05  takeover 0.00 att  0.55 deaths  0.55 grow/run    0.0 post/run 3867.1 idle/run   23.4  n=20
+S        inc=0.1   takeover 0.00 att  0.80 deaths  0.80 grow/run    0.1 post/run 3820.6 idle/run   20.1  n=20
+S        inc=0.25  takeover 0.70 att  1.15 deaths  0.00 grow/run   11.9 post/run 2395.1 idle/run    0.0  n=20

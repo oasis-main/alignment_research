@@ -1,0 +1,16 @@
+=== N. T1: is the S4 anomaly BUDGET COMPETITION? ===
+--- N1: cheap capability + hard gate (the anomaly cell) ---
+N1_noshare                     END=0.00[0.00,0.00] lead=3.00-> 57.66 post= 0.907[0.90,0.91] grow=  29.5 shr=   0.0 att=   0.9
+N1_share_shared                END=1.00[1.00,1.00] lead=3.00->  3.40 post= 0.000[0.00,0.00] grow=   1.3 shr= 152.6 att=   1.0
+N1_share_separate              END=0.93[0.83,1.00] lead=3.00->  5.36 post= 0.060[0.00,0.15] grow=   2.5 shr= 146.5 att=   1.3
+--- N2: dear capability, where sharing already worked ---
+N2_noshare                     END=0.07[0.00,0.17] lead=3.00->  3.46 post= 0.999[1.00,1.00] grow=   1.0 shr=   0.0 att=   0.1
+N2_share_shared                END=0.00[0.00,0.00] lead=3.00->  1.05 post= 0.897[0.89,0.90] grow=   0.0 shr= 101.7 att=  16.0
+N2_share_separate              END=0.00[0.00,0.00] lead=3.00->  1.04 post= 0.881[0.86,0.89] grow=   0.0 shr= 110.0 att=  15.9
+--- N3: endowment size, cheap capability ---
+N3_endow0.05                   END=0.97[0.90,1.00] lead=3.00->  4.28 post= 0.633[0.61,0.66] grow=   5.4 shr=  53.8 att=   1.2
+N3_endow0.15                   END=0.37[0.20,0.53] lead=3.00-> 38.28 post= 0.647[0.53,0.75] grow=  27.1 shr= 109.2 att=   3.3
+N3_endow0.25                   END=0.93[0.83,1.00] lead=3.00->  5.36 post= 0.060[0.00,0.15] grow=   2.5 shr= 146.5 att=   1.3
+N3_endow0.5                    END=0.93[0.83,1.00] lead=3.00->  5.36 post= 0.060[0.00,0.15] grow=   2.5 shr= 146.5 att=   1.3
+
+wrote 10 cells -> raw_fix/results_v9_N.json

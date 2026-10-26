@@ -1,0 +1,4 @@
+N1_noshare                     END=0.90[0.77,1.00] lead=3.00->  3.87 post= 0.767[0.72,0.80] grow=   2.3 shr=   0.0 att=  18.2 npost=341.2
+N4_share_priced_out            END=0.90[0.77,1.00] lead=3.00->  3.87 post= 0.767[0.72,0.80] grow=   2.3 shr=   0.0 att=  18.2 npost=341.2
+priced-out reproduces no-sharing exactly: True
+wrote raw/results_v9_N4.json

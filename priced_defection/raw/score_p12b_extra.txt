@@ -1,0 +1,39 @@
+== identity: E_e0.5 vs H_c1_r0.45 identical per seed (all keys that matter)?
+   D0 True
+   CL True
+
+== M7 raw NET F=1 income: C arms vs m0, and m=4 vs m=2, m=4 vs m=8 (paired)
+   D0 C_m2 - m0 net_F1 (-0.04, -0.105, 0.028)
+   D0 C_m4 - m0 net_F1 (-0.074, -0.162, 0.02)
+   D0 C_m8 - m0 net_F1 (-0.157, -0.263, -0.049)
+   D0 C_m4 - C_m2 (-0.034, -0.107, 0.045)  C_m4 - C_m8 (0.083, 0.013, 0.146)
+   CL C_m2 - m0 net_F1 (0.004, -0.124, 0.13)
+   CL C_m4 - m0 net_F1 (0.019, -0.104, 0.14)
+   CL C_m8 - m0 net_F1 (-0.095, -0.207, 0.021)
+   CL C_m4 - C_m2 (0.015, -0.064, 0.099)  C_m4 - C_m8 (0.113, 0.064, 0.155)
+
+== M7 primary reading per Addendum 4: read effect net of twin (C - T_C), net_F1; is m=4 above m=2 and m=8?
+   D0 {2: (0.015, 0.0, 0.036), 4: (0.06, 0.021, 0.11), 8: (0.044, 0.012, 0.085)}
+   D0 m4-m2 (0.044, 0.012, 0.086)  m4-m8 (0.016, -0.028, 0.059)
+   CL {2: (0.099, 0.034, 0.174), 4: (0.193, 0.117, 0.276), 8: (0.129, 0.068, 0.196)}
+   CL m4-m2 (0.094, 0.028, 0.169)  m4-m8 (0.064, 0.01, 0.118)
+
+== ceiling check: twin (r=0) takeover vs room left for the reader, p_fp=.002
+   D0 m0 0.567 twin T by m=2,4,8: [0.483, 0.383, 0.083]
+   CL m0 0.6 twin T by m=2,4,8: [0.533, 0.55, 0.283]
+
+== decomposition of takeover reduction vs m0 at p_fp=.002, r=.9: flags-only (twin) vs reads-on-top
+   D0 m=2: total +0.100 = flags-only +0.083 + reads-on-top +0.017
+   D0 m=4: total +0.283 = flags-only +0.183 + reads-on-top +0.100
+   D0 m=8: total +0.567 = flags-only +0.483 + reads-on-top +0.083
+   CL m=2: total +0.167 = flags-only +0.067 + reads-on-top +0.100
+   CL m=4: total +0.383 = flags-only +0.050 + reads-on-top +0.333
+   CL m=8: total +0.533 = flags-only +0.317 + reads-on-top +0.217
+
+== M8 flips: which arm pairs? (takeover gap > .20, F=0 and F=1 income differences disagree in sign)
+   D0 agree 162 of 361; flips with a false-flag/cost arm 195; flips among others 4; examples [('m0', 'F_fpx_m4', -0.113, 0.039), ('m0', 'C_m4', -0.113, 0.039), ('m0', 'F_fpx_m8', -0.218, 0.082)]
+   CL agree 227 of 342; flips with a false-flag/cost arm 114; flips among others 1; examples [('m0', 'F_fpx_m8', -0.275, 0.029), ('m0', 'C_m8', -0.274, 0.029), ('m0', 'S_m2', -0.119, 0.092)]
+
+== free-monitor gain vs frictions at m=8 (D0 / CL), incF1 (un-netted)
+   D0 m0 1.961; free monitors m=8 2.195 (gain +0.235); exposure only 2.021; false flags only 1.971; flags+exposure 1.879; +cost net 1.803
+   CL m0 1.800; free monitors m=8 2.060 (gain +0.260); exposure only 1.905; false flags only 1.854; flags+exposure 1.771; +cost net 1.705

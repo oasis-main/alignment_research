@@ -1,0 +1,22 @@
+
+=== G. Q2: ASYMMETRIC PRICES -- the threat to pass 6's P3 ===
+--- G1: replicate P3's two regimes at price_scale=0 (control) ---
+G1_lead1.0_cg0.1_ps0         END=0.00[0.00,0.00] lead=1.25->   1.22 grow= 250.8 seize=  0.0 prep=142.8 post= 0.523 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   n/a
+G1_lead1.0_cg0.6_ps0         END=0.03[0.00,0.10] lead=1.25->   1.26 grow=   0.0 seize=  0.0 prep=  8.3 post= 0.975 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  14.0
+G1_lead3.0_cg0.1_ps0         END=0.00[0.00,0.00] lead=3.00->   1.37 grow= 170.1 seize=  0.0 prep=123.9 post= 0.601 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   n/a
+G1_lead3.0_cg0.6_ps0         END=1.00[1.00,1.00] lead=3.00->   3.00 grow=   0.0 seize=  0.0 prep=  2.5 post= 0.816 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   9.6
+--- G2: the leader is the cheaper buyer (the realistic case) ---
+G2_ps0.25_lead1.0_cg0.1      END=0.03[0.00,0.10] lead=1.25->   1.23 grow= 244.1 seize=  0.0 prep=141.5 post= 0.505 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  27.0
+G2_ps0.25_lead1.0_cg0.6      END=0.03[0.00,0.10] lead=1.25->   1.27 grow=   0.1 seize=  0.0 prep=  8.6 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  12.0
+G2_ps0.25_lead3.0_cg0.1      END=0.03[0.00,0.10] lead=3.00->   1.40 grow= 162.9 seize=  0.0 prep=127.8 post= 0.578 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  28.0
+G2_ps0.25_lead3.0_cg0.6      END=1.00[1.00,1.00] lead=3.00->   3.03 grow=   0.1 seize=  0.0 prep=  2.5 post= 0.816 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   9.7
+G2_ps0.5_lead1.0_cg0.1       END=0.03[0.00,0.10] lead=1.25->   1.23 grow= 244.1 seize=  0.0 prep=141.5 post= 0.505 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  27.0
+G2_ps0.5_lead1.0_cg0.6       END=0.03[0.00,0.10] lead=1.25->   1.27 grow=   0.1 seize=  0.0 prep=  8.6 post= 0.974 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  12.0
+G2_ps0.5_lead3.0_cg0.1       END=0.03[0.00,0.10] lead=3.00->   1.39 grow= 163.4 seize=  0.0 prep=129.4 post= 0.573 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  28.0
+G2_ps0.5_lead3.0_cg0.6       END=1.00[1.00,1.00] lead=3.00->   3.13 grow=   0.4 seize=  0.0 prep=  2.5 post= 0.814 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   9.8
+G2_ps1.0_lead1.0_cg0.1       END=0.03[0.00,0.10] lead=1.25->   1.23 grow= 241.7 seize=  0.0 prep=140.3 post= 0.510 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  27.0
+G2_ps1.0_lead1.0_cg0.6       END=0.07[0.00,0.17] lead=1.25->   1.28 grow=   0.1 seize=  0.0 prep=  8.1 post= 0.973 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  67.5
+G2_ps1.0_lead3.0_cg0.1       END=0.03[0.00,0.10] lead=3.00->   1.47 grow= 155.2 seize=  0.0 prep=126.3 post= 0.583 shr=   0.0 blf= 0.000 app= 1.000 tEnd=  28.0
+G2_ps1.0_lead3.0_cg0.6       END=0.90[0.77,1.00] lead=3.00->   3.92 grow=   2.4 seize=  0.0 prep= 20.5 post= 0.769 shr=   0.0 blf= 0.000 app= 1.000 tEnd=   9.6
+
+wrote 16 cells -> raw/results_v7_G.json

@@ -1,0 +1,7 @@
+{
+ "_note": "Fixed 2026-10-16 from calibration rounds 1-2 (seeds 100-109, unscored) BEFORE any scored run. Common: access_rule=step, post_shield=0.2, c_prep=0.05. Scored seeds are 0-19. Do not edit after the sweep starts.",
+ "S":   {"frontier_rule":"max", "response_rule":"sum", "lead0":2.5,  "c_grow":0.3, "calib_dw":0.70, "role":"calibrated, sum response (T2,T3,T5,AW)"},
+ "M":   {"frontier_rule":"max", "response_rule":"max", "lead0":1.25, "c_grow":0.1, "calib_dw":0.40, "role":"calibrated, max response (T2,T3,T5,AW)"},
+ "SAT": {"frontier_rule":"max", "response_rule":"sum", "lead0":3.0,  "c_grow":0.1, "calib_dw":1.00, "role":"saturated cell (T4)"},
+ "Z7":  {"frontier_rule":"sum", "response_rule":"sum", "lead0":3.0,  "c_grow":0.1, "calib_dw":0.00, "role":"sum-frontier zero cell (T7)"}
+}

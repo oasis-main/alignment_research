@@ -1,0 +1,4 @@
+legacy            run unchanged by probe: True | takeover 6/6 | income per agent-round: PD 2.39, rent 1.14 | lambda 7.61 = rent 7.50 + PD power 0.00 + takeover odds 0.11 | leader's takeover-odds term 3.41
+new pw.5          run unchanged by probe: True | takeover 4/6 | income per agent-round: PD 2.25, rent 0.00 | lambda 12.84 = rent 0.00 + PD power 12.51 + takeover odds 0.33 | leader's takeover-odds term 10.10
+new pw1           run unchanged by probe: True | takeover 5/6 | income per agent-round: PD 1.96, rent 0.00 | lambda 23.52 = rent 0.00 + PD power 22.79 + takeover odds 0.73 | leader's takeover-odds term 48.13
+new pw1 live pie  run unchanged by probe: True | takeover 6/6 | income per agent-round: PD 1.46, rent 0.00 | lambda 17.56 = rent 0.00 + PD power 16.87 + takeover odds 0.68 | leader's takeover-odds term 33.67

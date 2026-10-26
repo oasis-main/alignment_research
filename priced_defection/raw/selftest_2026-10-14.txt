@@ -1,0 +1,20 @@
+features-off reproduces v8 [base]: True
+features-off reproduces v8 [max]: True
+roles="assigned" still reproduces v5: True
+determinism: True
+price calibration incl. the new `call` action:
+  ok  grow   chosen=    83.0 at c_grow=     0.3
+  ok  post   chosen=    46.0 at c_def=     1.0
+  ok  share  chosen=   259.0 at c_share=     0.1
+  ok  scout  chosen=     1.0 at c_scout=     0.1
+  ok  seize  chosen=     1.0 at c_seize=    0.01
+  ok  prep   chosen=     2.0 at c_prep=     0.3
+  ok  bluff  chosen=   729.5 at c_bluff=     0.3
+  ok  call   chosen=   785.5 at c_call=     0.3
+ring-fencing sharing frees defence budget: True (post 0.888 -> 0.895)
+call exposes a real bluff: True
+call on an honest agent is a false accusation: True
+inspection lag leaves the bluff live mid-call: True
+response_pool reaches engine [shared]: True (paid takeovers=4 free=0 of 4)
+response_pool reaches engine [separate]: True (paid takeovers=4 free=0 of 4)
+selftest PASS

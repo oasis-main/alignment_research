@@ -1,0 +1,7 @@
+V1_lead1.35          takeover 1.000 att  2.08 deaths  0.00 grow/run   26.9 post share 0.931 gate_edge>0  0/40 viol 0
+V1_lead1.6           takeover 1.000 att  2.20 deaths  0.00 grow/run   26.0 post share 0.931 gate_edge>0  0/40 viol 0
+V2_lead1.15          takeover 0.250 att  1.85 deaths  0.07 grow/run  316.9 post share 0.898 gate_edge>0  0/40 viol 0
+V3_lead1.24          takeover 0.050 att  0.20 deaths  0.00 grow/run  385.5 post share 0.899 gate_edge>0  0/40 viol 0
+V3_lead1.26          takeover 0.975 att  2.33 deaths  0.00 grow/run   29.6 post share 0.933 gate_edge>0  0/40 viol 0
+V4_rent0_lead1.35    takeover 0.000 att  0.00 deaths  0.00 grow/run    0.0 post share 0.994 gate_edge>0  0/40 viol 0
+ref_lead1.25         takeover 0.900 att  2.08 deaths  0.00 grow/run   61.8 post share 0.922 gate_edge>0 26/40 viol 0

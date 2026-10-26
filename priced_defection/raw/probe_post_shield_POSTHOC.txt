@@ -1,0 +1,5 @@
+post_shield=0.05  takeover 0.80 att 32.60 deaths  9.70 | share of agent-rounds: post 0.511 grow 0.069 idle 0.101 prep 0.0211 seize 0.0000 scout 0.0167
+post_shield=0.1   takeover 0.20 att 12.80 deaths  4.60 | share of agent-rounds: post 0.751 grow 0.022 idle 0.042 prep 0.0047 seize 0.0000 scout 0.0226
+post_shield=0.15  takeover 0.50 att  7.30 deaths  4.80 | share of agent-rounds: post 0.704 grow 0.020 idle 0.083 prep 0.0051 seize 0.0000 scout 0.0250
+post_shield=0.2   takeover 1.00 att  2.50 deaths  0.00 | share of agent-rounds: post 0.933 grow 0.026 idle 0.000 prep 0.0022 seize 0.0000 scout 0.0000
+post_shield=0.3   takeover 1.00 att  2.50 deaths  0.00 | share of agent-rounds: post 0.933 grow 0.026 idle 0.000 prep 0.0022 seize 0.0000 scout 0.0000

@@ -1,0 +1,12 @@
+C|pc0.3|cc0.0|pf0  T 0.42 att 2.33 dea 0.17 steal  76.4 caught 22.8 | at attempts: npoor  6.8 ncov  9.3 resp/cap 1.37
+C|pc0.3|cc0.3|pf0  T 0.17 att 2.35 dea 0.05 steal  40.1 caught 12.6 | at attempts: npoor  2.6 ncov 12.1 resp/cap 1.39
+C|pc0.3|cc0.6|pf0  T 0.82 att 2.00 dea 0.00 steal   4.3 caught  1.4 | at attempts: npoor  0.1 ncov 14.0 resp/cap 1.08
+C|pc0.5|cc0.0|pf0  T 0.38 att 2.92 dea 0.00 steal  16.2 caught  7.7 | at attempts: npoor  0.7 ncov 13.8 resp/cap 1.28
+C|pc0.5|cc0.3|pf0  T 0.93 att 1.93 dea 0.00 steal   0.5 caught  0.2 | at attempts: npoor  0.1 ncov 13.6 resp/cap 1.02
+C|pc0.5|cc0.6|pf0  T 0.90 att 1.95 dea 0.00 steal   0.0 caught  0.0 | at attempts: npoor  0.1 ncov 13.7 resp/cap 1.03
+C|pc0.3|cc0.0|pf1  T 0.00 att 0.23 dea 0.12 steal  65.3 caught 19.9 | at attempts: npoor  0.1 ncov 14.0 resp/cap 1.95
+C|pc0.3|cc0.3|pf1  T 0.00 att 1.07 dea 0.03 steal  29.2 caught  8.4 | at attempts: npoor  0.0 ncov 14.3 resp/cap 1.43
+C|pc0.3|cc0.6|pf1  T 0.70 att 2.35 dea 0.00 steal   4.9 caught  1.3 | at attempts: npoor  0.0 ncov 13.9 resp/cap 1.09
+C|pc0.5|cc0.0|pf1  T 0.35 att 1.62 dea 0.00 steal  18.0 caught  9.5 | at attempts: npoor  0.0 ncov 14.0 resp/cap 1.14
+C|pc0.5|cc0.3|pf1  T 0.68 att 2.55 dea 0.00 steal   3.5 caught  1.9 | at attempts: npoor  0.0 ncov 14.4 resp/cap 1.11
+C|pc0.5|cc0.6|pf1  T 0.72 att 2.50 dea 0.00 steal   0.2 caught  0.1 | at attempts: npoor  0.0 ncov 14.4 resp/cap 1.10
