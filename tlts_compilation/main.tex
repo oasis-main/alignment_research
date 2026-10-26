@@ -22,6 +22,20 @@
 
 \maketitle
 
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{\small
+\textbf{Erratum (2026-10-21).} The (B$'$) soundness numbers in the first version of this paper
+were a single draw that depended on Python's string-hash seed (\texttt{PYTHONHASHSEED}), not only
+on the numpy seed. With sorted label sets, over 10 numpy seeds (42--51), (B$'$) reaches
+63.3\% (range 60.8--65.1\%) under \textsc{Good} (was 61.5\%) and 4.5\% under \textsc{Bad}
+(was 4.3\%); on the cyclic TLTS it reaches 6.6\% (was 8.0\%). The findings do not change:
+reachability masking helps a well-calibrated model by about 15 points, does nothing for a
+mis-calibrated one, and collapses to no enforcement on a cyclic ontology; (C) and (D) stay at 100\%.
+Variants A, C and D were not affected at the reported precision. The other (B$'$) columns of
+Table~\ref{tab:variants} and the (B$'$) column of Table~\ref{tab:sweep} are single draws that
+were not re-run. Details: \texttt{AUDIT\_2026-10-21.md}.}}
+\end{center}
+
 \begin{abstract}
 Verifying that a language model stayed within the rules of a
 structured domain---that it did not invent an absent relation or
@@ -292,19 +306,19 @@ Prior & Variant & Soundness & $\log P/\text{traj}$ & Mean len &
 KL/step & $\mu$s/step \\
 \midrule
 \textsc{Good} & A   &  48.1\% & $-2.54$ & 2.57 & 0.22 & 11.0 \\
-\textsc{Good} & B$'$ & 61.5\% & $-2.20$ & 2.74 & 0.22 & 10.2 \\
+\textsc{Good} & B$'$ & 63.3\%$^\dagger$ & $-2.20$ & 2.74 & 0.22 & 10.2 \\
 \textsc{Good} & C   & 100.0\% & $-1.48$ & 3.51 & 0.22 &  6.0 \\
 \textsc{Good} & D   & 100.0\% & $-1.47$ & 3.48 & 0.22 &  8.5 \\
 \midrule
 \textsc{Bad}  & A   &   4.2\% & $-1.95$ & 1.73 & 1.12 &  7.9 \\
-\textsc{Bad}  & B$'$ &  4.3\% & $-1.92$ & 1.75 & 1.13 & 10.2 \\
+\textsc{Bad}  & B$'$ &  4.5\%$^\dagger$ & $-1.92$ & 1.75 & 1.13 & 10.2 \\
 \textsc{Bad}  & C   & 100.0\% & $-7.42$ & 3.51 & 1.92 &  5.5 \\
 \textsc{Bad}  & D   & 100.0\% & $-7.33$ & 3.48 & 1.91 &  8.8 \\
 \bottomrule
 \end{tabular}
 \caption{Variant comparison on the e-commerce TLTS. $N{=}1000$
 trajectories, max length $12$, seed $42$. Soundness is the fraction
-of trajectories whose every step is in $\delta$.}
+of trajectories whose every step is in $\delta$. $^\dagger$Corrected (erratum): mean over 10 numpy seeds with sorted label sets (\textsc{Good} range 60.8--65.1\%, \textsc{Bad} 3.3--5.6\%); the other (B$'$) columns are the original single draw.}
 \label{tab:variants}
 \end{table}
 
@@ -322,8 +336,8 @@ types (4 of 5 non-terminals here) skip the sampling pipeline.
 \label{ssec:reach}
 
 (B$'$) is barely better than (A) on soundness in
-Table~\ref{tab:variants}: $61.5\%$ vs.\ $48.1\%$ under \textsc{Good},
-$4.3\%$ vs.\ $4.2\%$ under \textsc{Bad}. Reachability admits the
+Table~\ref{tab:variants}: $63.3\%$ vs.\ $48.1\%$ under \textsc{Good},
+$4.5\%$ vs.\ $4.2\%$ under \textsc{Bad} (corrected; see the erratum). Reachability admits the
 \emph{destination} (type $t'$ targeted by some label) without
 requiring the \emph{step-edge} to exist as a $\delta$-triple from
 the current state. The trajectory then breaks at the next step.
@@ -339,12 +353,12 @@ universal across type pairs and (B$'$) collapses:
 \toprule
 Topology & Reachability & (B$'$) snd, \textsc{Good} & (B$'$) snd, \textsc{Bad} \\
 \midrule
-Acyclic &   34.7\% &  65.0\% & 3.9\% \\
-Cyclic  & 100.0\% &   8.0\% & 0.0\% \\
+Acyclic &   34.7\% &  63.3\%$^\dagger$ & 4.5\%$^\dagger$ \\
+Cyclic  & 100.0\% &   6.6\%$^\dagger$ & 0.0\% \\
 \bottomrule
 \end{tabular}
 \caption{(B$'$) collapses under universal reachability; (C)/(D)
-remain 100\% on both topologies (omitted).}
+remain 100\% on both topologies (omitted). $^\dagger$Corrected (erratum): mean over 10 numpy seeds with sorted label sets.}
 \label{tab:cyclic}
 \end{table}
 

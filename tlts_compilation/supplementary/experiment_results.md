@@ -152,8 +152,10 @@ state") was added as variant (B′). Run via the same harness:
 
 | Prior | A snd | B′ snd | C snd | D snd |
 |-------|-------|--------|-------|-------|
-| GOOD  | 48.1% | 61.5%  | 100%  | 100%  |
-| BAD   |  4.2% |  4.3%  | 100%  | 100%  |
+| GOOD  | 48.1% | ~~61.5%~~ 63.3% (60.8–65.1)† | 100%  | 100%  |
+| BAD   |  4.2% | ~~4.3%~~ 4.5%† | 100%  | 100%  |
+
+† Erratum 2026-10-21: the published (B′) value was one draw that depended on `PYTHONHASHSEED`. Corrected values are the mean over 10 numpy seeds (42–51) with sorted label sets. See `../AUDIT_2026-10-21.md`.
 
 **(B′) is barely above (A) on soundness** under both priors. The
 intuition that "if I block attention to unreachable types, the model
@@ -228,8 +230,10 @@ the 7-type Olog. Headline soundness numbers:
 
 | Olog          | reach  | (A) GOOD | (B′) GOOD | (A) BAD | (B′) BAD |
 |---------------|-------:|---------:|----------:|--------:|---------:|
-| Acyclic       |  34.7% |   48.1%  |   65.0%   |   4.2%  |    3.9%  |
-| **Cyclic**    | **100%** |  6.9%  |   8.0%    |   0.0%  |    0.0%  |
+| Acyclic       |  34.7% |   48.3%† |   63.3%†  |   4.5%† |    4.5%† |
+| **Cyclic**    | **100%** |  6.2%† |   6.6%†   |   0.0%  |    0.0%  |
+
+† Erratum 2026-10-21: 10-seed means with sorted label sets (was 48.1 / 65.0 / 4.2 / 3.9 acyclic, 6.9 / 8.0 cyclic). See `../AUDIT_2026-10-21.md`.
 
 (C) and (D) remain 100% on both. Under cycles, (B′) collapses to
 within ~1 point of (A) — reachability is no longer doing any work.
