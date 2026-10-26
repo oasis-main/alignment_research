@@ -747,7 +747,7 @@ uvicorn>=0.21
 
 ---
 
-*You now have a complete, auditable AI system. Every response is traceable. Every claim is provable. No more hallucinations.*
+*You now have an auditable AI system: every response is traceable to a derivation. By construction, under the stated ontology, it cannot emit an ill-typed claim; whether that lowers hallucination in practice has not been measured (correction 2026-10-23).*
 
 ---
 

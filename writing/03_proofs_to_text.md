@@ -435,7 +435,7 @@ By induction over all claims in T, the theorem holds. ∎
 
 3. **Synthesis before generation**: We prove first, then generate from the proof
 
-4. **Formal guarantees**: Soundness theorem ensures no hallucinations
+4. **Formal guarantees**: by construction, under the stated ontology, the soundness theorem rules out outputs that the proof does not license. It does not show that real-world hallucination falls; that was not measured (correction 2026-10-23)
 
 5. **Graceful degradation**: System refuses rather than fabricates
 

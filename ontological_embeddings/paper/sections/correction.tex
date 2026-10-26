@@ -1,0 +1,22 @@
+% Correction notice, 2026-10-23. See ../../ISSUES.md and ../checks/.
+\begin{center}
+\fcolorbox{red!70!black}{red!4}{\parbox{0.94\textwidth}{\small
+\textbf{Correction notice (2026-10-23). Do not cite the results below.}
+Four headline results of this draft do not support the method as stated:
+\begin{itemize}\setlength\itemsep{1pt}
+\item \textbf{``$H^1$ rises 5$\to$58 when 76 conflicts are injected'' (C1, Table~\ref{tab:conflicts}).}
+The computed $H^1$ has no restriction maps; it is the type graph's cycle count. Adding 76
+\emph{harmless} edges between the same type pairs gives $+54$, the same as the conflicts ($+53$),
+and the contradiction detector flagged 0 of the 76 conflicts. Retracted.
+\item \textbf{``Consistency 0.633 (WN18RR) vs 0.292 (FB15K-237)'' (Table~\ref{tab:topology}).}
+These equal $1-(\text{cycles}/\text{edges})$ exactly: a density measure, not ontological consistency.
+\item \textbf{``Ontological attention improves factual consistency.''} The result file holds one
+seed: accuracy 0.457 (ontological) vs 0.474 (standard), hallucination rate 0.0 for both.
+\item \textbf{``MRR 0.346, competitive with ConvE and RotatE'' (Table~\ref{tab:link_prediction}).}
+Evaluated tail-only and unfiltered, so not comparable to the filtered two-direction baselines;
+no result file was found. A filtered re-evaluation is pending.
+\end{itemize}
+Whether a true cellular sheaf with restriction maps can detect contradictions is open and needs a
+new pre-registered test. arXiv posting is on hold. Evidence: \texttt{ontological\_embeddings/checks/}.
+}}
+\end{center}

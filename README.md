@@ -49,22 +49,33 @@ withdrawn.
 
 ### 2. Ontological Embeddings
 **Directory**: [`ontological_embeddings/`](ontological_embeddings/)
-**Paper**: [*Interpretable Knowledge Graph Reasoning via Sheaf Cohomology*](ontological_embeddings/paper/main.pdf) (preprint; intended for arXiv cs.LG)
+**Paper**: [*Interpretable Knowledge Graph Reasoning via Sheaf Cohomology*](ontological_embeddings/paper/main.pdf) (draft; **arXiv posting on hold** pending the re-checks below)
 
 Bridging symbolic and statistical AI using *Ologs* (category-theoretic knowledge
 representations). Core claim: transformer attention implicitly implements categorical semantics,
 and making that structure explicit — via proof objects and sheaf cohomology — reduces
 hallucination and makes reasoning auditable.
 
-**Key results:**
-- HDC/Sheaf pipeline: **MRR 0.346**, Hits@1 0.242, Hits@10 0.524 on FB15K-237
-  (competitive with ConvE ~0.325, RotatE ~0.338)
-- Conflict detection: H¹ cohomology increases by **+53** when 76 conflicts injected into a
-  clean graph (base H¹ = 5 → 58), validating sheaf-theoretic inconsistency detection
-- WN18RR consistency score **0.633** vs FB15K-237 **0.292**, correctly reflecting WordNet's
-  tree-structured ontology vs. Freebase's multi-relational web
-- Attention ablation v2: ontological head parameterization improves factual consistency across
-  3 benchmark datasets
+> **Correction notice (2026-10-23).** Earlier versions of this section listed four key results.
+> None of them supports the method as stated, and they should not be cited:
+>
+> - **"H¹ rises 5 → 58 when 76 conflicts are injected."** The H¹ computed in `ontology_sheaf.py`
+>   has no restriction maps; it is the type graph's cycle count. A negative control adds 76
+>   *harmless* edges between the same type pairs and gets +54, the same as the conflicts (+53).
+>   The contradiction detector flagged 0 of the 76 injected conflicts.
+> - **"Consistency 0.633 (WN18RR) vs 0.292 (FB15K-237)."** These equal 1 − (cycles ÷ edges)
+>   exactly, so they measure graph density, not ontological consistency.
+> - **"Ontological attention improves factual consistency across 3 datasets."** The result file
+>   holds one seed: test accuracy 0.457 (ontological) vs 0.474 (standard), hallucination rate
+>   0.0 for both. Zero attention on invalid transitions is enforced by the mask.
+> - **"MRR 0.346, competitive with ConvE and RotatE."** Evaluated tail-only and unfiltered, which
+>   is not comparable to the filtered two-direction baselines. The model is a circular-convolution
+>   (HolE-style) embedding, and its diffusion setting is unused. No result file was found.
+>   A filtered re-evaluation is pending.
+>
+> Whether a true cellular sheaf, with restriction maps that encode relation semantics, can detect
+> contradictions is still an open question. It needs a new pre-registered test. See
+> [ISSUES.md](ISSUES.md) (2026-10-23) and the evidence in `ontological_embeddings/checks/`.
 
 **Core modules:**
 | File | Role |
