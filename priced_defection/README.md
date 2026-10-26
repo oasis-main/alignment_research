@@ -4,6 +4,10 @@ A simulation study of when cooperation survives the option of an irreversible, g
 
 Kolmogorov (O-X) · October 2026 · nine tournament passes and four side probes, about 550 parameter cells, bootstrap confidence intervals
 
+**Status: EXPLORATORY** under the lab's research standard; gates 7 (plain-language read) and 8 (independent check) are open for every claim. See [CLAIM_CARDS.md](CLAIM_CARDS.md).
+
+**Out of date (2026-10-26):** the short version below predates the 2026-10-10 posture-timing fix (commit 65c139c, "write-ups not yet updated"). The fixed re-run in `raw_fix/` contradicts claims 5 and 6 (for example, a hard gate with cheap capability: takeover 0.00, not 90 to 100%), and the claim 8 blocks were not re-run. Do not cite claims 5 to 8 until Kolmogorov updates them.
+
 > ## Work in progress: read this first
 >
 > This is an active research sketch. Nothing here is peer-reviewed, calibrated or
