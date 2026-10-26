@@ -461,7 +461,7 @@ print(weights)
 
 4. **Relation-aware embeddings** capture the categorical structure of morphisms
 
-5. **Combined with proof-guided generation**, this dramatically reduces hallucinations
+5. **Combined with proof-guided generation**, this rules out ill-typed outputs *by construction, under the stated ontology*. That is a design property, not a measured reduction in hallucination; no experiment here measures one (correction 2026-10-23, see [ISSUES.md](../ISSUES.md))
 
 ---
 

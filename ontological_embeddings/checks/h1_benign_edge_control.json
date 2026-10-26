@@ -1,0 +1,101 @@
+{
+  "conflict (published run)": {
+    "h1_before": 5,
+    "h1_after": 58,
+    "increase": 53,
+    "contradictions_flagged": 0,
+    "n_edges": 571,
+    "n_types": 798
+  },
+  "held-out real triples (first 76)": {
+    "h1_before": 5,
+    "h1_after": 5,
+    "increase": 0,
+    "contradictions_flagged": 0,
+    "n_edges": 496,
+    "n_types": 798
+  },
+  "benign edges, same endpoints as conflicts": {
+    "h1_before": 5,
+    "h1_after": 59,
+    "increase": 54,
+    "contradictions_flagged": 0,
+    "n_edges": 572,
+    "n_types": 798
+  },
+  "benign parallel to random base edges, seed 0": {
+    "h1_before": 5,
+    "h1_after": 81,
+    "increase": 76,
+    "contradictions_flagged": 0,
+    "n_edges": 572,
+    "n_types": 798
+  },
+  "benign parallel to random base edges, seed 1": {
+    "h1_before": 5,
+    "h1_after": 81,
+    "increase": 76,
+    "contradictions_flagged": 0,
+    "n_edges": 572,
+    "n_types": 798
+  },
+  "benign parallel to random base edges, seed 2": {
+    "h1_before": 5,
+    "h1_after": 81,
+    "increase": 76,
+    "contradictions_flagged": 0,
+    "n_edges": 572,
+    "n_types": 798
+  },
+  "random fresh-relation edges, seed 0": {
+    "h1_before": 5,
+    "h1_after": 7,
+    "increase": 2,
+    "contradictions_flagged": 0,
+    "n_edges": 572,
+    "n_types": 798
+  },
+  "random fresh-relation edges, seed 1": {
+    "h1_before": 5,
+    "h1_after": 5,
+    "increase": 0,
+    "contradictions_flagged": 0,
+    "n_edges": 572,
+    "n_types": 798
+  },
+  "random fresh-relation edges, seed 2": {
+    "h1_before": 5,
+    "h1_after": 5,
+    "increase": 0,
+    "contradictions_flagged": 0,
+    "n_edges": 572,
+    "n_types": 798
+  },
+  "random fresh-relation edges, seed 3": {
+    "h1_before": 5,
+    "h1_after": 7,
+    "increase": 2,
+    "contradictions_flagged": 0,
+    "n_edges": 572,
+    "n_types": 798
+  },
+  "random fresh-relation edges, seed 4": {
+    "h1_before": 5,
+    "h1_after": 8,
+    "increase": 3,
+    "contradictions_flagged": 0,
+    "n_edges": 572,
+    "n_types": 798
+  },
+  "_meta": {
+    "k_added": 76,
+    "base": 500,
+    "data": "/reach/ai_research/topics/structure_of_clear_thinking/training_data/olog_training.jsonl",
+    "conflict_kinds": {
+      "negate": 28,
+      "swap": 25,
+      "contradictory_value": 23,
+      "other": 0
+    }
+  }
+}

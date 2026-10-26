@@ -107,8 +107,10 @@ query type, K encodes keys as typed relations, and V encodes objects.
 the Olog's morphism structure, restricting which (query, key) pairs can attend based on
 categorical type compatibility. This is a soft structural prior, not a hard mask.
 
-**Experimental result**: Attention ablation v2 shows ontological head parameterization
-improves factual consistency (JSON + figure in `results/`).
+~~**Experimental result**: Attention ablation v2 shows ontological head parameterization
+improves factual consistency (JSON + figure in `results/`).~~
+**Corrected 2026-10-23:** the result file holds one seed: test accuracy 0.457 (ontological) vs
+0.474 (standard), hallucination rate 0.0 for both. No improvement is shown. See [ISSUES.md](ISSUES.md).
 
 ### Sheaf Cohomology on Knowledge Graphs
 
@@ -121,17 +123,21 @@ We use H¹ as an inconsistency detector: inject a set of contradictory triples, 
 the change in H¹. The sparse Euler-characteristic formulation runs in O(n + m), scaling
 to 40K-entity graphs without approximation.
 
-**Experimental result**: H¹ increases by +53 (from 5 to 58) when 76 conflicts are injected
+~~**Experimental result**: H¹ increases by +53 (from 5 to 58) when 76 conflicts are injected
 into a clean subset of WN18RR. Consistency score drops by 0.009, proportional to
-conflict density.
+conflict density.~~
+**Retracted 2026-10-23:** the H¹ computed in `ontology_sheaf.py` has no restriction maps; it is the
+type graph's cycle count. Adding 76 *harmless* edges between the same type pairs gives +54, the
+same as the conflicts (+53), and the contradiction detector flagged 0 of the 76 conflicts. The
+consistency score equals 1 − (cycles ÷ edges), a density measure. See [ISSUES.md](ISSUES.md).
 
-**Full pipeline results on FB15K-237** (50 epochs, A100 GPU, HDC dimension 4096):
+**Full pipeline results on FB15K-237** (50 epochs, A100 GPU, HDC dimension 4096) — **not comparable to published baselines (2026-10-23):** tail-only, unfiltered evaluation; no result file found; a filtered re-evaluation is pending. See [ISSUES.md](ISSUES.md).
 - MRR: 0.346
 - Hits@1: 0.242
 - Hits@3: 0.425
 - Hits@10: 0.524
 
-Competitive with ConvE (~0.325) and RotatE (~0.338) at equivalent epochs.
+~~Competitive with ConvE (~0.325) and RotatE (~0.338) at equivalent epochs.~~ Not comparable: those baselines are filtered, two-direction (corrected 2026-10-23).
 
 **References:**
 - Spivak, D.I., Kent, R.E. "Ologs: A Categorical Framework for Knowledge Representation."
