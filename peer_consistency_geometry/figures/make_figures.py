@@ -1,4 +1,6 @@
-"""Generate the three paper figures for `writing/peer_consistency_deception_divergence.md`.
+"""RETRACTED 2026-10-22: these figures show withdrawn results (see ../checks/). Kept for audit only.
+
+Generate the three paper figures for `writing/peer_consistency_deception_divergence.md`.
 
 Outputs (PNG + PDF) under this directory:
   fig1_sheaf_complex.{png,pdf}        — sheaf complex schematic (0/1/2-cells, δ⁰, δ¹)

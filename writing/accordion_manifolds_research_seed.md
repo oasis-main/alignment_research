@@ -3,7 +3,7 @@
 **Status:** internal / open-problem capture.
 **Owner:** Mike.
 **Related work in repo:** `ontological_embeddings/`, `hodge_preference_geometry/`,
-`peer_consistency_geometry/`.
+`peer_consistency_geometry/` (retracted 2026-10-22).
 **Public counterpart:** `oasis-x/content/blog/accordion_manifolds/` (calibrated
 exposition).
 
@@ -77,9 +77,9 @@ isometry classes). Three concrete hooks:
   Laplacian of an accordion gives gradient / curl / harmonic components of
   any vector field defined on it. Direct fit for the value-field analysis in
   Q4 above.
-- `peer_consistency_geometry/` — divergence-as-deception framing already
-  treats inter-agent disagreement geometrically; accordion curvature is a
-  candidate single-agent analogue.
+- `peer_consistency_geometry/` — RETRACTED 2026-10-22: its "cross-model
+  disagreement" score reduces to a single-model typicality score and no deception
+  result survives a text baseline. Do not build on it as evidence.
 
 ## What we are deliberately *not* publishing publicly
 

@@ -1,5 +1,7 @@
 # Submission Plan — Peer-Consistency Deception Divergence
 
+> **WITHDRAWN (2026-10-22). Do not submit.** The result this plan was for is retracted; see [`checks/`](checks/) and the notice at the top of the writeup.
+
 *Last touched 2026-05-28. Companion to [`../writing/peer_consistency_deception_divergence.md`](../writing/peer_consistency_deception_divergence.md).*
 
 ## Recommended venue

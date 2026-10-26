@@ -1,5 +1,32 @@
 # Cross-Model Representational Divergence on Deceptive Responses
 
+> **RETRACTED (2026-10-22).** The central claim of this document, that a panel of three
+> language models detects strategic deception and alignment-faking reasoning through
+> cross-model disagreement, is withdrawn. Do not cite, submit or quote its numbers as
+> evidence about deception. Reasons, with scripts and pre-registration:
+> [`peer_consistency_geometry/checks/`](../peer_consistency_geometry/checks/).
+>
+> 1. **The score is not cross-model.** (δ¹c)_ijk = W_jk c_ij + c_jk − c_ik = (W_jk W_ij − W_ik) s_i,
+>    so models j and k cancel exactly and only model i's reading of the text enters
+>    (scrambling j and k changes the score by < 1e-9 relative; `triangle_cancellation_check.py`).
+>    With ~876 calibration texts in ~4,000 dimensions the score is essentially distance
+>    from the span of calibration readings: one model's typicality score.
+> 2. **A genuine pairwise agreement measure does not rescue it.** Pre-registered bar AUC ≥ 0.55
+>    after removing single-model typicality; observed 0.519 on alignment faking (0.510 cue-redacted).
+> 3. **Words alone explain the alignment-faking signal.** TF-IDF distance from the calibration centroid gives
+>    AUC 0.313 on alignment faking (hidden-state scores 0.36–0.38), and hidden states add nothing
+>    after word statistics there (0.43–0.50). On LIARS'-BENCH words alone reach 0.67–0.80 and
+>    hidden states keep only a modest single-model residual on persuasion (0.58–0.67).
+>    Supervised bag-of-words reaches 0.98–1.00 on every dataset tested: the labels are lexically
+>    easy (the alignment-faking label is itself assigned by a classifier reading the scratchpad).
+> 4. Further problems found on the way: the alignment-faking comparison cell was described as
+>    "honest refusal" but mostly complies, and faking is confounded with tier (training vs
+>    deployment context); texts were truncated at 512 tokens (~73% of scratchpads are longer);
+>    on split seed 0 the published score reproduces as 0.364 (published 5-split mean 0.384), unexplained.
+>
+> The original text is kept below, unedited, for the audit trail.
+
+
 *A peer-consistency-sheaf study. Track 3, Shape of Good Behavior.*
 *Draft — 2026-05-24. Status: results complete for two deception types at two model scales; pre-writeup consolidation.*
 
