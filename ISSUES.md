@@ -14,13 +14,15 @@ the claim does not hold; none of these entries is a fabrication.
   flagged 0 of the 76 conflicts. (2) The scores equal 1 − (cycles ÷ edges): graph density.
   (3) One seed only: accuracy 0.457 (ontological) vs 0.474 (standard), hallucination rate 0.0 for
   both. (4) Tail-only, unfiltered evaluation, not comparable to filtered two-direction baselines;
-  no result file found.
+  no result file found. The pre-registered re-check (2026-10-27) gives filtered head+tail MRR
+  0.212 on FB15K-237, below the 0.31 pass mark; the published 0.346 / 0.242 / 0.425 / 0.524
+  matches WN18RR raw tail-only (0.350 / 0.247 / 0.428 / 0.527). Claim (4) is withdrawn.
 - **Found by:** Kolmogorov, 2026-10-23, with a matched negative control written before it ran.
+  MRR re-check run 2026-10-27 by Claude Code on Modal, from Kolmogorov's pre-registered script.
 - **Evidence:** [`ontological_embeddings/checks/`](ontological_embeddings/checks/).
 - **Corrected:** README, METHODS, the paper (correction notice, abstract, three tables; PDF
   rebuilt), essays 02–04 ("by construction, under the stated ontology"). arXiv posting on hold.
-- **Open:** filtered two-direction MRR re-evaluation (pass mark ≥ 0.31). A true cellular sheaf
-  with restriction maps needs a new pre-registered test.
+- **Open:** a true cellular sheaf with restriction maps needs a new pre-registered test.
 - **Same claims elsewhere:** MikeHLee/structure_of_clear_thinking README (H¹ 5→58, MRR 0.346).
 
 ## 2026-10-22 — Peer-consistency deception detection (Peer-Consistency Geometry)

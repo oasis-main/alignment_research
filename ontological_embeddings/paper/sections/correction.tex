@@ -14,7 +14,9 @@ These equal $1-(\text{cycles}/\text{edges})$ exactly: a density measure, not ont
 seed: accuracy 0.457 (ontological) vs 0.474 (standard), hallucination rate 0.0 for both.
 \item \textbf{``MRR 0.346, competitive with ConvE and RotatE'' (Table~\ref{tab:link_prediction}).}
 Evaluated tail-only and unfiltered, so not comparable to the filtered two-direction baselines;
-no result file was found. A filtered re-evaluation is pending.
+no result file was found. \emph{Withdrawn (2026-10-27):} the pre-registered filtered head+tail
+re-evaluation gives MRR 0.212 on FB15K-237 (pass mark 0.31), and the reported numbers match
+WN18RR raw tail-only (0.350/0.247/0.428/0.527), not FB15K-237.
 \end{itemize}
 Whether a true cellular sheaf with restriction maps can detect contradictions is open and needs a
 new pre-registered test. arXiv posting is on hold. Evidence: \texttt{ontological\_embeddings/checks/}.
