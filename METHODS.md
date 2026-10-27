@@ -131,7 +131,7 @@ type graph's cycle count. Adding 76 *harmless* edges between the same type pairs
 same as the conflicts (+53), and the contradiction detector flagged 0 of the 76 conflicts. The
 consistency score equals 1 − (cycles ÷ edges), a density measure. See [ISSUES.md](ISSUES.md).
 
-**Full pipeline results on FB15K-237** (50 epochs, A100 GPU, HDC dimension 4096) — **not comparable to published baselines (2026-10-23):** tail-only, unfiltered evaluation; no result file found; a filtered re-evaluation is pending. See [ISSUES.md](ISSUES.md).
+**Full pipeline results on FB15K-237** (50 epochs, A100 GPU, HDC dimension 4096) — **not comparable to published baselines (2026-10-23):** tail-only, unfiltered evaluation; no result file found. **Withdrawn (2026-10-27):** the pre-registered filtered head+tail re-evaluation gives MRR 0.212 on FB15K-237 (pass mark 0.31), and the numbers below match WN18RR raw tail-only (0.350 / 0.247 / 0.428 / 0.527), not FB15K-237. See [ISSUES.md](ISSUES.md) and [`ontological_embeddings/checks/RESULTS_MRR_FILTERED_2026-10-27.md`](ontological_embeddings/checks/RESULTS_MRR_FILTERED_2026-10-27.md).
 - MRR: 0.346
 - Hits@1: 0.242
 - Hits@3: 0.425

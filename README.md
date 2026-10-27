@@ -71,7 +71,9 @@ hallucination and makes reasoning auditable.
 > - **"MRR 0.346, competitive with ConvE and RotatE."** Evaluated tail-only and unfiltered, which
 >   is not comparable to the filtered two-direction baselines. The model is a circular-convolution
 >   (HolE-style) embedding, and its diffusion setting is unused. No result file was found.
->   A filtered re-evaluation is pending.
+>   **Withdrawn 2026-10-27:** the pre-registered filtered re-evaluation gives MRR 0.212 on
+>   FB15K-237 (pass mark 0.31), and the published 0.346 matches WN18RR, not FB15K-237. See
+>   [`ontological_embeddings/checks/RESULTS_MRR_FILTERED_2026-10-27.md`](ontological_embeddings/checks/RESULTS_MRR_FILTERED_2026-10-27.md).
 >
 > Whether a true cellular sheaf, with restriction maps that encode relation semantics, can detect
 > contradictions is still an open question. It needs a new pre-registered test. See
