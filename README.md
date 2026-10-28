@@ -1,6 +1,6 @@
 # Alignment Research
 
-Geometric and structural methods for AI alignment. Research threads (one retracted, see §3), documented with
+Geometric and structural methods for AI alignment. Research threads (one retracted, see §3; one exploratory, see §5), documented with
 reproducible experiments and concrete results.
 
 ---
@@ -71,7 +71,9 @@ hallucination and makes reasoning auditable.
 > - **"MRR 0.346, competitive with ConvE and RotatE."** Evaluated tail-only and unfiltered, which
 >   is not comparable to the filtered two-direction baselines. The model is a circular-convolution
 >   (HolE-style) embedding, and its diffusion setting is unused. No result file was found.
->   A filtered re-evaluation is pending.
+>   **Withdrawn 2026-10-27:** the pre-registered filtered re-evaluation gives MRR 0.212 on
+>   FB15K-237 (pass mark 0.31), and the published 0.346 matches WN18RR, not FB15K-237. See
+>   [`ontological_embeddings/checks/RESULTS_MRR_FILTERED_2026-10-27.md`](ontological_embeddings/checks/RESULTS_MRR_FILTERED_2026-10-27.md).
 >
 > Whether a true cellular sheaf, with restriction maps that encode relation semantics, can detect
 > contradictions is still an open question. It needs a new pre-registered test. See
@@ -126,7 +128,8 @@ and ships a JSON certificate format that a third party can re-check without mode
   and adversarially misaligned priors; unconstrained baseline (A) collapses to **4.2%** under a
   misaligned prior
 - **Non-obvious finding**: attention-layer reachability masking alone is *insufficient* — (B′)
-  variant scores 4.3% / 61.5% (BAD/GOOD prior), barely above (A). The decoder must also enforce
+  variant scores 4.5% / 63.3% (BAD/GOOD prior; 10-seed means, good-prior range 60.8–65.1%), barely
+  above (A). The decoder must also enforce
   direct-edge admissibility, not just reachability to the destination type
 - **Latency**: (C) wins by ~30% over (D) when the functional fragment of the Olog is large
   (deterministic forward steps skip sampling); crossover at fn-ratio ≈ 0.2
@@ -141,6 +144,18 @@ and ships a JSON certificate format that a third party can re-check without mode
 | `supplementary/experiment_topology_sweep.py` | Functional-fragment ablation; deployment heuristic for (C)/(D) choice |
 | `supplementary/verification_certificate.py` | Emit + verify the audit certificate |
 | `supplementary/sample_audit_certificate.json` | Reference certificate format |
+
+---
+
+### 5. Cooperation Under Priced Defection: EXPLORATORY
+**Directory**: [`priced_defection/`](priced_defection/) · **Claim cards**: [`priced_defection/CLAIM_CARDS.md`](priced_defection/CLAIM_CARDS.md)
+
+A simulation study of when cooperation survives the option of an irreversible, game-ending
+defection (nine tournament passes and side probes). **Status: EXPLORATORY.** No claim passes
+all eight gates of the research standard; gates 7 (plain-language read) and 8 (independent
+check) are open for every claim. The folder README's short version predates the 2026-10-10
+posture-timing fix: the fixed re-run contradicts claims 5 and 6, and claim 8 was not re-run.
+Do not cite claims 5 to 8. The numbers are comparisons inside a toy model, not forecasts.
 
 ---
 
@@ -198,4 +213,5 @@ plain-language read, independent check). Adopted 2026-10-22 after the peer-consi
 
 Publication: the Hodge and TLTS-Compilation papers are self-published preprints (neither was
 submitted to its original venue — ICML 2026 and NeSy 2026 respectively). The Olog thread is
-being posted to arXiv (cs.LG) — see [`ontological_embeddings/paper/`](ontological_embeddings/paper/).
+not being posted: the arXiv posting is on hold, because its headline claims were withdrawn
+(2026-10-23 and 2026-10-27, see [ISSUES.md](ISSUES.md) and [`ontological_embeddings/paper/`](ontological_embeddings/paper/)).

@@ -1,3 +1,7 @@
+> **WITHDRAWN 2026-10-27.** The 50-epoch "MRR 0.3459 on FB15K-237" below is WN18RR raw
+> tail-only. Filtered head+tail MRR on FB15K-237 is 0.212. It is not competitive with ConvE or
+> RotatE. See [`../checks/RESULTS_MRR_FILTERED_2026-10-27.md`](../checks/RESULTS_MRR_FILTERED_2026-10-27.md).
+
 # HDC/Sheaf Experimental Results Summary
 
 **Date**: March 23, 2026
