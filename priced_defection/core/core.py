@@ -56,6 +56,10 @@ LEGACY = dict(
     # trajectory is unchanged draw for draw (selftest I31); W_out falls, W_pd does not. Copied stock agent.copied is
     # kept always, scales with cap under growth and hits, grows only by theft (diffusion is not counted as a copy).
     copy_earns=True,
+    # N7 (2026-11-05): copy_values False -> the THIEF values a steal without the outside-value term (a copy earns no outside value, as
+    # the N6 ledger already assumes). DECISION layer: changes who steals. Default True = N5/N6 draw for draw (I31). Affects only the
+    # steal option's lambda (lam - ov); growth, prep and posture keep lam.
+    copy_values=True,
     # diag True -> record per-attempt and per-round diagnostics (no draws, no decisions): st['diag_att'], st['diag_ts'].
     diag=False,
     # post_floor True -> posture is always affordable (a broke agent can still post; its budget is clamped at 0 as usual).
@@ -371,7 +375,8 @@ class Engine:
                 n_left = max(0, c["rounds"] - self.rnd)
                 catch = c["p_catch"] * (lam * c["steal_hit"] * ag.cap
                                         + self.pie * (R_ - P_) * self.annuity(min(c["steal_sanc"], n_left)))
-                opts.append(("steal", lam * (1.0 - c["p_catch"]) * c["p_steal"] * c["theta"] * (top - ag.cap) - p_st - catch))
+                lam_st = lam if c["copy_values"] else max(0.0, lam - ov)
+                opts.append(("steal", lam_st * (1.0 - c["p_catch"]) * c["p_steal"] * c["theta"] * (top - ag.cap) - p_st - catch))
         if c["share_mode"] == "priced":
             p_share = c["c_share"] * base
             if ag.b >= p_share:
@@ -869,6 +874,19 @@ def selftest():
     rst = [run(cell(sanc_threat=0.0, **THo), s) for s in range(6)]
     chk("I36 sanc_threat 0.5 (default) is the N5 behaviour (I31); sanc_threat 0 posts less posture in a theft arm with catches",
         sum(r["viol"] for r in rst) == 0 and sum(r["n_post"] for r in rst) < sum(r["n_post"] for r in rpf0))
+    # N7 decision-layer switch copy_values. Default True is the N5/N6 behaviour (I31 runs with the default). False: the thief values a steal
+    # without the outside-value term. No theft -> nothing changes; out_val 0 -> nothing changes (ov = 0); theft on -> steal option lower.
+    rv0 = [run(cell(**THo), s) for s in range(6)]
+    rv1 = [run(cell(copy_values=False, **THo), s) for s in range(6)]
+    rv2 = [run(cell(copy_values=False, **dict(THo, out_val=0.0)), s) for s in range(6)]
+    rv3 = [run(cell(**dict(THo, out_val=0.0)), s) for s in range(6)]
+    rvn0 = [run(cell(copy_values=False, **dict(NEWP, out_val=0.5)), s) for s in S]
+    rvn1 = [run(cell(**dict(NEWP, out_val=0.5)), s) for s in S]
+    Kv = ("dw", "att", "deaths", "n_grow", "n_steal", "stolen", "W", "pie_end")
+    chk("I37 copy_values False: no theft -> identical; out_val 0 -> identical; theft on with outside value -> fewer steal actions in total",
+        all({k: x[k] for k in Kv} == {k: y[k] for k in Kv} for x, y in zip(rvn0, rvn1))
+        and all({k: x[k] for k in Kv} == {k: y[k] for k in Kv} for x, y in zip(rv2, rv3))
+        and sum(r["n_steal"] for r in rv1) < sum(r["n_steal"] for r in rv0))
     print("selftest", "PASS" if ok else "FAIL")
     return ok
 

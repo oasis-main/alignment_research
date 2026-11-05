@@ -1,0 +1,12 @@
+C|pc0.0|cc0.0    copy_values=True  dw=     0.00 deaths=     0.00 n_steal=   802.33 stolen=   773.81 n_caught=     0.00 W_winner_trend= 12743.51 pie_end=     0.11
+C|pc0.0|cc0.0    copy_values=False dw=     0.92 deaths=     0.00 n_steal=   483.25 stolen=   261.75 n_caught=     0.00 W_winner_trend=  9794.69 pie_end=     0.48
+C|pc0.1|cc0.0    copy_values=True  dw=     0.17 deaths=     0.08 n_steal=   156.42 stolen=    31.90 n_caught=    16.17 W_winner_trend=  4892.06 pie_end=     0.10
+C|pc0.1|cc0.0    copy_values=False dw=     0.08 deaths=     0.08 n_steal=    62.25 stolen=    16.81 n_caught=     5.75 W_winner_trend=  5397.47 pie_end=     0.10
+C|pc0.3|cc0.0    copy_values=True  dw=     0.67 deaths=     0.08 n_steal=    69.67 stolen=    29.34 n_caught=    20.33 W_winner_trend=  5162.37 pie_end=     0.10
+C|pc0.3|cc0.0    copy_values=False dw=     0.50 deaths=     0.00 n_steal=    34.08 stolen=    14.20 n_caught=     9.67 W_winner_trend=  5511.53 pie_end=     0.16
+C|pc0.3|cc0.3    copy_values=True  dw=     0.08 deaths=     0.08 n_steal=    35.83 stolen=     8.84 n_caught=    11.08 W_winner_trend=  5173.24 pie_end=     0.10
+C|pc0.3|cc0.3    copy_values=False dw=     0.25 deaths=     0.00 n_steal=    13.92 stolen=     4.74 n_caught=     4.00 W_winner_trend=  5628.41 pie_end=     0.17
+O|pc0.1|cc0.0    copy_values=True  dw=     0.25 deaths=     0.67 n_steal=   220.17 stolen=    70.20 n_caught=    23.25 W_winner_trend=  5186.95 pie_end=     0.10
+O|pc0.1|cc0.0    copy_values=False dw=     0.92 deaths=     0.17 n_steal=    24.08 stolen=    11.05 n_caught=     2.25 W_winner_trend=  7395.51 pie_end=     0.67
+C|notheft        copy_values=True  dw=     0.83 deaths=     0.00 n_steal=     0.00 stolen=     0.00 n_caught=     0.00 W_winner_trend=  6770.91 pie_end=     0.45
+C|notheft        copy_values=False dw=     0.83 deaths=     0.00 n_steal=     0.00 stolen=     0.00 n_caught=     0.00 W_winner_trend=  6770.91 pie_end=     0.45
